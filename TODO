@@ -1,0 +1,22 @@
+This is my personal TODO-list.
+The order is the order in wich I'm going to implement them, variations may occur.
+
+Stuff:
+	NumericUpDown
+	Global-Menu
+	Calendar
+	Hide cursor on MacOS
+	Layouts
+		Grid-Layout
+		Flow-Layout
+	Dialogs
+	Hotkeys (=> global IInputReceiver)
+	Scrolling
+		Textbox
+			multiline
+			side-scrolling
+			fake-cursor
+		Listbox
+			different types of controls in one list
+	Grid
+	TreeView

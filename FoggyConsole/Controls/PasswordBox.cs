@@ -1,0 +1,167 @@
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
+using System . Security ;
+
+using WenceyWang . FoggyConsole . Controls . Renderers ;
+
+namespace WenceyWang . FoggyConsole . Controls
+{
+
+	public class PasswordBox : Control
+	{
+
+		private int _cursorPosition ;
+
+		private string _hintText ;
+
+		private ConsoleColor _hintTextColor = ConsoleColor . Gray ;
+
+		private char _passwordChar = '*' ;
+
+		public ConsoleColor HintTextColor
+		{
+			get => _hintTextColor ;
+			set
+			{
+				if ( _hintTextColor != value )
+				{
+					_hintTextColor = value ;
+					Draw ( ) ;
+				}
+			}
+		}
+
+		public string HintText
+		{
+			get => _hintText ;
+			set
+			{
+				if ( _hintText != value )
+				{
+					_hintText = value ;
+					Draw ( ) ;
+				}
+			}
+		}
+
+		public SecureString Text { get ; set ; }
+
+
+		/// <summary>
+		///     The position of the cursor within the textbox
+		/// </summary>
+		public int CursorPosition
+		{
+			get => _cursorPosition ;
+			private set
+			{
+				_cursorPosition = value ;
+				Draw ( ) ;
+			}
+		}
+
+		/// <summary>
+		///     The char as which all characters should be rendered if
+		///     <code>PasswordMode</code>
+		///     is true
+		/// </summary>
+		public char PasswordChar
+		{
+			get => _passwordChar ;
+			set
+			{
+				if ( _passwordChar != value )
+				{
+					_passwordChar = value ;
+					Draw ( ) ;
+				}
+			}
+		}
+
+		public override bool CanFocus => Enabled ;
+
+
+		public PasswordBox ( ControlRenderer <PasswordBox> renderer = null ) :
+			base ( renderer ?? new PasswordBoxRenderer ( ) )
+		{
+		}
+
+		/// <summary>
+		/// </summary>
+		public event EventHandler EnterPressed ;
+
+		public override void KeyPressed ( KeyPressedEventArgs args )
+		{
+			if ( ! Enabled )
+			{
+				return ;
+			}
+
+			switch ( args . KeyInfo . Key )
+			{
+				case ConsoleKey . Tab :
+				case ConsoleKey . Escape :
+				{
+					break ;
+				}
+				case ConsoleKey . Enter :
+				{
+					args . Handled = true ;
+					EnterPressed ? . Invoke ( this , EventArgs . Empty ) ;
+					break ;
+				}
+				case ConsoleKey . RightArrow :
+				{
+					args . Handled = true ;
+					if ( CursorPosition < Text . Length )
+					{
+						CursorPosition++ ;
+					}
+					break ;
+				}
+				case ConsoleKey . LeftArrow :
+				{
+					args . Handled = true ;
+					if ( CursorPosition > 0 )
+					{
+						CursorPosition-- ;
+					}
+					break ;
+				}
+				case ConsoleKey . Backspace :
+				{
+					args . Handled = true ;
+					if ( Text . Length != 0
+						&& CursorPosition > 0 )
+					{
+						Text . RemoveAt ( CursorPosition - 1 ) ;
+						CursorPosition-- ;
+					}
+					break ;
+				}
+				case ConsoleKey . Delete :
+				{
+					args . Handled = true ;
+					if ( Text . Length != 0
+						&& CursorPosition < Text . Length )
+					{
+						Text . RemoveAt ( CursorPosition + 1 ) ;
+					}
+					break ;
+				}
+				default :
+				{
+					args . Handled = true ;
+					char newChar = args . KeyInfo . KeyChar ;
+					Text . InsertAt ( CursorPosition , newChar ) ;
+					CursorPosition++ ;
+					break ;
+				}
+			}
+		}
+
+	}
+
+}

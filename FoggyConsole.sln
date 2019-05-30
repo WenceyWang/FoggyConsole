@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28917.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoggyConsole", "FoggyConsole\FoggyConsole.csproj", "{232E460F-DAE6-4578-B3E4-7CC3444DB376}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoggyConsole.Test", "FoggyConsole.Test\FoggyConsole.Test.csproj", "{CF5E1148-7DDE-47EC-8763-493AE63444EE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{232E460F-DAE6-4578-B3E4-7CC3444DB376}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{232E460F-DAE6-4578-B3E4-7CC3444DB376}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{232E460F-DAE6-4578-B3E4-7CC3444DB376}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{232E460F-DAE6-4578-B3E4-7CC3444DB376}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF5E1148-7DDE-47EC-8763-493AE63444EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF5E1148-7DDE-47EC-8763-493AE63444EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF5E1148-7DDE-47EC-8763-493AE63444EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF5E1148-7DDE-47EC-8763-493AE63444EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F8162B4-CB44-4921-8B72-13DF8237B221}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://vsts.dreamry.org/defaultcollection
+		SccProjectUniqueName0 = FoggyConsole\\FoggyConsole.csproj
+		SccProjectName0 = FoggyConsole
+		SccAuxPath0 = https://vsts.dreamry.org/defaultcollection
+		SccLocalPath0 = FoggyConsole
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal
