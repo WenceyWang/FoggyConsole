@@ -8,7 +8,7 @@ namespace WenceyWang . FoggyConsole . Controls
 
 	/// <summary>
 	///     All possible states for
-	///     <code>Checkbox</code>
+	///     <code>CheckBox</code>
 	/// </summary>
 	public enum CheckState
 	{

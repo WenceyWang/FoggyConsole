@@ -7,7 +7,7 @@ namespace WenceyWang . FoggyConsole
 {
 
 	/// <summary>
-	///     Discribes the horizontal align of content
+	///     Describers the horizontal align of content
 	/// </summary>
 	public enum ContentAlign
 	{

@@ -13,26 +13,10 @@ namespace WenceyWang . FoggyConsole . Controls
 	///     <code>Container</code>
 	///     which has a border.
 	/// </summary>
-	public class GroupBox : ItemsControl
+	public class GroupBox : ItemsContainer
 	{
 
-		private LineStyle _boarderStyle = LineStyle . SingleLinesSet ;
-
-
 		private string _header = string . Empty ;
-
-		public LineStyle BoarderStyle
-		{
-			get => _boarderStyle ;
-			set
-			{
-				if ( _boarderStyle != value )
-				{
-					_boarderStyle = value ;
-					Draw ( ) ;
-				}
-			}
-		}
 
 
 		/// <summary>
@@ -45,7 +29,8 @@ namespace WenceyWang . FoggyConsole . Controls
 			{
 				if ( value . Contains ( Environment . NewLine ) )
 				{
-					throw new ArgumentException ( $"{nameof(Header)} can't contain line feeds or carriage returns." ) ;
+					throw new ArgumentException (
+												$"{nameof ( Header )} can't contain line feeds or carriage returns." ) ;
 				}
 
 				if ( _header != value )
@@ -58,7 +43,6 @@ namespace WenceyWang . FoggyConsole . Controls
 
 		public override bool CanFocus => false ;
 
-		public override IList <Control> Items { get ; }
 
 		/// <summary>
 		///     Creates a new
@@ -83,6 +67,7 @@ namespace WenceyWang . FoggyConsole . Controls
 			{
 				Renderer = new GroupBoxRenderer ( this ) ;
 			}
+
 			Header = string . Empty ;
 		}
 

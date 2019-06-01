@@ -8,13 +8,13 @@ namespace WenceyWang . FoggyConsole . Controls . Events
 
 	/// <summary>
 	///     Contains information about an occuring status-change of a
-	///     <code>Checkbox</code>
+	///     <code>CheckBox</code>
 	/// </summary>
 	public class CheckedChangingEventArgs : EventArgs
 	{
 
 		/// <summary>
-		///     The state the Checkbox is going to have
+		///     The state the CheckBox is going to have
 		/// </summary>
 		public CheckState State { get ; }
 
@@ -27,10 +27,10 @@ namespace WenceyWang . FoggyConsole . Controls . Events
 		///     Creates a new
 		///     <code>CheckboxCheckedChangingEventArg</code>
 		/// </summary>
-		/// <param name="state">The state the Checkbox is going to have</param>
+		/// <param name="state">The state the CheckBox is going to have</param>
 		public CheckedChangingEventArgs ( CheckState state )
 		{
-			State = state ;
+			State  = state ;
 			Cancel = false ;
 		}
 

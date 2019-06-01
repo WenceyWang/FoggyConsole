@@ -26,10 +26,12 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 			get => _control ;
 			set
 			{
-				if ( value . Renderer != null
+				if ( value . Renderer   != null
 					&& value . Renderer != this )
 				{
-					throw new ArgumentException ( $"{nameof(Control)} already has a Drawer assigned" , nameof(value) ) ;
+					throw new ArgumentException (
+												$"{nameof ( Control )} already has a Renderer assigned" ,
+												nameof ( value ) ) ;
 				}
 
 				_control = value ;
@@ -42,14 +44,10 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 		{
 			get => Control ;
 			set
-			{
-				if ( ! ( value is T ) )
-				{
-					throw new ArgumentException ( $"{nameof(Control)} has to be of {typeof ( T ) . Name}" ) ;
-				}
-
-				Control = ( T ) value ;
-			}
+				=> Control = value as T
+							?? throw new ArgumentException (
+															$"{nameof ( Control )} has to be of {typeof ( T ) . Name}" )
+			;
 		}
 
 		/// <summary>

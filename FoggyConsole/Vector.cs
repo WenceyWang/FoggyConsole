@@ -84,18 +84,12 @@ namespace WenceyWang . FoggyConsole
 		/// <summary>
 		///     Operator -Vector (unary negation)
 		/// </summary>
-		public static Vector operator - ( Vector vector )
-		{
-			return new Vector ( - vector . X , - vector . Y ) ;
-		}
+		public static Vector operator - ( Vector vector ) { return new Vector ( - vector . X , - vector . Y ) ; }
 
 		/// <summary>
 		///     Negates the values of X and Y on this Vector
 		/// </summary>
-		public Vector Negate ( )
-		{
-			return new Vector ( - X , - Y ) ;
-		}
+		public Vector Negate ( ) { return new Vector ( - X , - Y ) ; }
 
 		/// <summary>
 		///     Operator Vector + Vector
@@ -180,18 +174,12 @@ namespace WenceyWang . FoggyConsole
 		/// <summary>
 		///     Operator Vector / double
 		/// </summary>
-		public static Vector operator / ( Vector vector , double scalar )
-		{
-			return vector * ( 1.0 / scalar ) ;
-		}
+		public static Vector operator / ( Vector vector , double scalar ) { return vector * ( 1.0 / scalar ) ; }
 
 		/// <summary>
 		///     Multiply: Vector / double
 		/// </summary>
-		public static Vector Divide ( Vector vector , double scalar )
-		{
-			return vector * ( 1.0 / scalar ) ;
-		}
+		public static Vector Divide ( Vector vector , double scalar ) { return vector * ( 1.0 / scalar ) ; }
 
 		/// <summary>
 		///     Operator Vector * Vector, interpreted as their dot product
@@ -247,10 +235,7 @@ namespace WenceyWang . FoggyConsole
 		///     Point - A Point equal to this Vector
 		/// </returns>
 		/// <param name="vector"> Vector - the Vector to convert to a Point </param>
-		public static explicit operator Point ( Vector vector )
-		{
-			return new Point ( vector . X , vector . Y ) ;
-		}
+		public static explicit operator Point ( Vector vector ) { return new Point ( vector . X , vector . Y ) ; }
 
 	}
 

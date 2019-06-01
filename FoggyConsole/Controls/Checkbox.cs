@@ -11,17 +11,18 @@ namespace WenceyWang . FoggyConsole . Controls
 	/// <summary>
 	///     A control which displays a Text and has a State-State
 	/// </summary>
-	public class Checkbox : CheckableBase
+	public class CheckBox : CheckableBase
 	{
 
 		/// <summary>
-		///     Handles the key-userinput which is given in
+		///     Handles the key-user input which is given in
 		///     <paramref name="keyInfo" />
 		///     .
-		///     The State-State will flip if the user presses the spacebar.
+		///     The State-State will flip if the user presses the space bar.
 		/// </summary>
 		/// <returns>true if the keypress was handled, otherwise false</returns>
 		/// <param name="keyInfo">The keypress to handle</param>
+
 		//public override bool HandleKeyInput ( ConsoleKeyInfo keyInfo )
 		//{
 		//	if ( keyInfo . Key == ConsoleKey . Spacebar )
@@ -55,7 +56,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		public override bool CanFocus => Enabled ;
 
 		/// <summary>
-		///     Creates a new Checkbox
+		///     Creates a new CheckBox
 		/// </summary>
 		/// <param name="text">The text to display</param>
 		/// <param name="renderer">
@@ -71,7 +72,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public Checkbox ( CheckboxRenderer renderer = null ) : base ( renderer ?? new CheckboxRenderer ( ) )
+		public CheckBox ( CheckboxRenderer renderer = null ) : base ( renderer ?? new CheckboxRenderer ( ) )
 		{
 			State = CheckState . Indeterminate ;
 		}

@@ -14,7 +14,7 @@ namespace WenceyWang . FoggyConsole . Controls
 	///     ,
 	///     <code>Button</code>
 	///     and
-	///     <code>Checkbox</code>
+	///     <code>CheckBox</code>
 	///     .
 	///     A control which is able to display a single line of text.
 	/// </summary>
@@ -33,7 +33,7 @@ namespace WenceyWang . FoggyConsole . Controls
 			{
 				if ( value == null )
 				{
-					throw new ArgumentNullException ( nameof(value) ) ;
+					throw new ArgumentNullException ( nameof ( value ) ) ;
 				}
 
 				if ( _text != value )
@@ -42,6 +42,17 @@ namespace WenceyWang . FoggyConsole . Controls
 					TextChanged ? . Invoke ( this , EventArgs . Empty ) ;
 					RequestMeasure ( ) ;
 				}
+			}
+		}
+
+		public override Size AutoDesiredSize
+		{
+			get
+			{
+				string [ ] lines = Text . Split (
+												Environment . NewLine . ToCharArray ( ) ,
+												StringSplitOptions . None ) ;
+				return new Size ( lines . Max ( str => str . Length ) , lines . Length ) ;
 			}
 		}
 

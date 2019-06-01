@@ -11,7 +11,7 @@ namespace WenceyWang . FoggyConsole . Controls
 
 	/// <summary>
 	///     Base class for
-	///     <code>Checkbox</code>
+	///     <code>CheckBox</code>
 	///     and
 	///     <code>RadioButton</code>
 	/// </summary>
@@ -82,7 +82,8 @@ namespace WenceyWang . FoggyConsole . Controls
 				{
 					newState = CheckState . Checked ;
 				}
-				State = newState ;
+
+				State          = newState ;
 				args . Handled = true ;
 			}
 		}

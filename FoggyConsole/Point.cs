@@ -25,10 +25,7 @@ namespace WenceyWang . FoggyConsole
 		/// </summary>
 		/// <param name="offsetX"> The offset in the x dimension </param>
 		/// <param name="offsetY"> The offset in the y dimension </param>
-		public Point Offset ( int offsetX , int offsetY )
-		{
-			return new Point ( X + offsetX , Y + offsetY ) ;
-		}
+		public Point Offset ( int offsetX , int offsetY ) { return new Point ( X + offsetX , Y + offsetY ) ; }
 
 		public Point Offset ( Vector vector ) { return new Point ( X + vector . X , Y + vector . Y ) ; }
 
@@ -39,7 +36,7 @@ namespace WenceyWang . FoggyConsole
 		///     Point - The result of the addition
 		/// </returns>
 		/// <param name="point"> The Point to be added to the Vector </param>
-		/// <param name="vector"> The Vectr to be added to the Point </param>
+		/// <param name="vector"> The Vector to be added to the Point </param>
 		public static Point operator + ( Point point , Vector vector )
 		{
 			return new Point ( point . X + vector . X , point . Y + vector . Y ) ;
@@ -92,10 +89,7 @@ namespace WenceyWang . FoggyConsole
 		///     Vector - A Vector equal to this Point
 		/// </returns>
 		/// <param name="point"> Point - the Point to convert to a Vector </param>
-		public static explicit operator Vector ( Point point )
-		{
-			return new Vector ( point . X , point . Y ) ;
-		}
+		public static explicit operator Vector ( Point point ) { return new Vector ( point . X , point . Y ) ; }
 
 		/// <summary>
 		///     Constructor which accepts the X and Y values

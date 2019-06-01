@@ -7,7 +7,7 @@ namespace WenceyWang . FoggyConsole
 {
 
 	/// <summary>
-	///     A very basic represenation of a rectangle
+	///     A very basic representation of a rectangle
 	/// </summary>
 	public struct Rectangle : IEquatable <Rectangle>
 	{
@@ -41,7 +41,6 @@ namespace WenceyWang . FoggyConsole
 		/// </summary>
 		public int Height { get ; }
 
-
 		public bool IsEmpty => Width <= 0 || Height <= 0 ;
 
 		public bool IntersectsWith ( Rectangle rect )
@@ -61,9 +60,9 @@ namespace WenceyWang . FoggyConsole
 				return Empty ;
 			}
 
-			int left = Math . Max ( Left , rect . Left ) ;
-			int top = Math . Max ( Top , rect . Top ) ;
-			int width = Math . Min ( Right , rect . Right ) - left ;
+			int left   = Math . Max ( Left , rect . Left ) ;
+			int top    = Math . Max ( Top ,  rect . Top ) ;
+			int width  = Math . Min ( Right ,  rect . Right )  - left ;
 			int height = Math . Min ( Bottom , rect . Bottom ) - top ;
 
 			return new Rectangle ( left , top , width , height ) ;
@@ -77,10 +76,10 @@ namespace WenceyWang . FoggyConsole
 				return rect ;
 			}
 
-			int left = Math . Min ( Left , rect . Left ) ;
-			int top = Math . Min ( Top , rect . Top ) ;
-			int width = Math . Max ( Math . Max ( Right , rect . Right ) - left , 0 ) ;
-			int height = Math . Max ( Math . Max ( Bottom , rect . Bottom ) - top , 0 ) ;
+			int left   = Math . Min ( Left , rect . Left ) ;
+			int top    = Math . Min ( Top ,  rect . Top ) ;
+			int width  = Math . Max ( Math . Max ( Right ,  rect . Right )  - left , 0 ) ;
+			int height = Math . Max ( Math . Max ( Bottom , rect . Bottom ) - top ,  0 ) ;
 
 			return new Rectangle ( left , top , width , height ) ;
 		}
@@ -119,7 +118,7 @@ namespace WenceyWang . FoggyConsole
 
 		public override bool Equals ( object obj )
 		{
-			if ( ReferenceEquals ( null , obj ) )
+			if ( obj is null )
 			{
 				return false ;
 			}
@@ -156,27 +155,30 @@ namespace WenceyWang . FoggyConsole
 
 			if ( left < 0 )
 			{
-				throw new ArgumentOutOfRangeException ( nameof(left) ) ;
+				throw new ArgumentOutOfRangeException ( nameof ( left ) ) ;
 			}
+
 			if ( top < 0 )
 			{
-				throw new ArgumentOutOfRangeException ( nameof(top) ) ;
+				throw new ArgumentOutOfRangeException ( nameof ( top ) ) ;
 			}
+
 			if ( width < 0 )
 			{
-				throw new ArgumentOutOfRangeException ( nameof(width) ) ;
+				throw new ArgumentOutOfRangeException ( nameof ( width ) ) ;
 			}
+
 			if ( height < 0 )
 			{
-				throw new ArgumentOutOfRangeException ( nameof(height) ) ;
+				throw new ArgumentOutOfRangeException ( nameof ( height ) ) ;
 			}
 
 			#endregion
 
-			X = left ;
-			Y = top ;
+			X      = left ;
+			Y      = top ;
 			Height = height ;
-			Width = width ;
+			Width  = width ;
 		}
 
 		/// <summary>
@@ -184,9 +186,9 @@ namespace WenceyWang . FoggyConsole
 		/// </summary>
 		public Rectangle ( Point location , Size size )
 		{
-			X = location . X ;
-			Y = location . Y ;
-			Width = size . Width ;
+			X      = location . X ;
+			Y      = location . Y ;
+			Width  = size . Width ;
 			Height = size . Height ;
 		}
 
@@ -200,7 +202,7 @@ namespace WenceyWang . FoggyConsole
 			Y = Math . Min ( point1 . Y , point2 . Y ) ;
 
 			//  Max with 0 to prevent double weirdness from causing us to be (-epsilon..0)
-			Width = Math . Max ( Math . Max ( point1 . X , point2 . X ) - X , 0 ) ;
+			Width  = Math . Max ( Math . Max ( point1 . X , point2 . X ) - X , 0 ) ;
 			Height = Math . Max ( Math . Max ( point1 . Y , point2 . Y ) - Y , 0 ) ;
 		}
 
@@ -208,9 +210,7 @@ namespace WenceyWang . FoggyConsole
 		///     Constructor which sets the initial values to bound the point provided and the point
 		///     which results from point + vector.
 		/// </summary>
-		public Rectangle ( Point point , Vector vector ) : this ( point , point + vector )
-		{
-		}
+		public Rectangle ( Point point , Vector vector ) : this ( point , point + vector ) { }
 
 		/// <summary>
 		///     Constructor which sets the initial values to bound the (0,0) point and the point
@@ -218,8 +218,8 @@ namespace WenceyWang . FoggyConsole
 		/// </summary>
 		public Rectangle ( Size size )
 		{
-			X = Y = 0 ;
-			Width = size . Width ;
+			X      = Y = 0 ;
+			Width  = size . Width ;
 			Height = size . Height ;
 		}
 

@@ -12,48 +12,52 @@ namespace WenceyWang . FoggyConsole
 		public Size Size { get ; }
 
 		public ConsoleChar this [ int x , int y ]
-        {
-            get
+		{
+			get
 			{
-				if ( x < 0
+				if ( x   < 0
 					|| x >= Content . GetLength ( 0 ) )
 				{
-					throw new ArgumentOutOfRangeException ( nameof(x) ) ;
+					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
 				}
 
-				if ( y < 0
+				if ( y   < 0
 					|| y >= Content . GetLength ( 1 ) )
 				{
-					throw new ArgumentOutOfRangeException ( nameof(y) ) ;
+					throw new ArgumentOutOfRangeException ( nameof ( y ) ) ;
 				}
 
 				return Content [ x , y ] ;
 			}
-            set {
-                if (x    < 0
-                    || x >= Content.GetLength(0))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(x));
-                }
+			set
+			{
+				if ( x   < 0
+					|| x >= Content . GetLength ( 0 ) )
+				{
+					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
+				}
 
-                if (y    < 0
-                    || y >= Content.GetLength(1))
-                {
-                    throw new ArgumentOutOfRangeException(nameof(y));
-                }
-                Content[x, y] = value; }
-        }
+				if ( y   < 0
+					|| y >= Content . GetLength ( 1 ) )
+				{
+					throw new ArgumentOutOfRangeException ( nameof ( y ) ) ;
+				}
 
-        public ConsoleChar [ , ] Content { get ; }
+				Content [ x , y ] = value ;
+			}
+		}
 
-		public ConsoleArea ( Size size , ConsoleColor color ) : this ( size ,
-																		new ConsoleChar ( ' ' , backgroundColor : color ) )
+		public ConsoleChar [ , ] Content { get ; }
+
+		public ConsoleArea ( Size size , ConsoleColor color ) : this (
+																	size ,
+																	new ConsoleChar ( ' ' , backgroundColor : color ) )
 		{
 		}
 
 		public ConsoleArea ( Size size , ConsoleChar backGround )
 		{
-			Size = size ;
+			Size    = size ;
 			Content = new ConsoleChar[ Size . Width , Size . Height ] ;
 			for ( int y = 0 ; y < size . Height ; y++ )
 			{

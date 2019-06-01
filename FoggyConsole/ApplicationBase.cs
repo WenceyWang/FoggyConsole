@@ -3,25 +3,15 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 using System . Text ;
-using DreamRecorder.ToolBox.CommandLine;
+
+using DreamRecorder . ToolBox . CommandLine ;
+
 using Microsoft . Extensions . Logging ;
 
 using WenceyWang . FoggyConsole . Controls ;
 
 namespace WenceyWang . FoggyConsole
 {
-
-    public static class Window
-    {
-        public static Size Size
-        {
-            get => new Size(Console.WindowWidth, Console.WindowHeight);
-            set
-            {
-                Console.SetWindowSize(value.Width, value.Height);
-            }
-        }
-    }
 
 	/// <summary>
 	///     The actual Application.
@@ -33,18 +23,18 @@ namespace WenceyWang . FoggyConsole
 	///     tree-format.
 	///     It also manages user input and drawing.
 	/// </summary>
-	public abstract class ApplicationBase<T, TExitCode, TSetting, TSettingCategory>:ProgramBase<T, TExitCode, TSetting, TSettingCategory> 
-        where T : ApplicationBase<T, TExitCode, TSetting, TSettingCategory>
-        where TExitCode : ProgramExitCode<TExitCode>, new()
-        where TSetting : SettingBase<TSetting, TSettingCategory>, new()
-        where TSettingCategory : Enum, IConvertible
-    {
+	public abstract class ApplicationBase
+		<T , TExitCode , TSetting , TSettingCategory> : ProgramBase <T , TExitCode , TSetting , TSettingCategory>
+		where T : ApplicationBase <T , TExitCode , TSetting , TSettingCategory>
+		where TExitCode : ProgramExitCode <TExitCode> , new ( )
+		where TSetting : SettingBase <TSetting , TSettingCategory> , new ( )
+		where TSettingCategory : Enum , IConvertible
+	{
 
-
-        /// <summary>
-        ///     The root of the Control-Tree
-        /// </summary>
-        public Frame ViewRoot { get; set; }
+		/// <summary>
+		///     The root of the Control-Tree
+		/// </summary>
+		public Frame ViewRoot { get ; set ; }
 
 		/// <summary>
 		///     Used as the boundary for the ViewRoot if the terminal-size can't determined
@@ -52,101 +42,95 @@ namespace WenceyWang . FoggyConsole
 		public static Size StandardRootBoundary { get ; } = new Size ( 80 , 24 ) ;
 
 
-        /// <summary>
-        ///     Responsible for focus-changes, for example when the user presses the TAB-key
-        /// </summary>
-        public FocusManager FocusManager { get; set; }
+		/// <summary>
+		///     Responsible for focus-changes, for example when the user presses the TAB-key
+		/// </summary>
+		public FocusManager FocusManager { get ; set ; }
 
-        /// <summary>
-        ///     The name of this application
-        /// </summary>
-        public virtual string Name { get ; set ; }
+		/// <summary>
+		///     The name of this application
+		/// </summary>
+		public virtual string Name { get ; set ; }
 
-        public override void Start(string[] args)
-        {
-            Start();
-        }
+		public override bool WaitForExit => true ;
 
-        public override bool WaitForExit => true;
-        public override bool CanExit => false;
-        public override bool HandleInput => true;
+		public override bool CanExit => false ;
 
-        public override void OnExit(TExitCode code) => Stop();
+		public override bool HandleInput => true ;
 
-        public abstract Frame PrepareViewRoot();
+		public override void Start ( string [ ] args ) { Start ( ) ; }
 
-        public override void BeforePrepare()
-        {
-            ViewRoot = PrepareViewRoot();
-            FocusManager = new FocusManager(ViewRoot);
+		public override void OnExit ( TExitCode code ) { Stop ( ) ; }
 
-            base.BeforePrepare();
-        }
+		public abstract Frame PrepareViewRoot ( ) ;
 
-        //      /// <summary>
-        //      ///     Creates a new Application
-        //      /// </summary>
-        //      /// <param name="viewRoot">
-        //      ///     A
-        //      ///     <code>Container</code>
-        //      ///     which is at the root of the
-        //      /// </param>
-        //      /// <exception cref="ArgumentNullException">
-        //      ///     Thrown when
-        //      ///     <paramref name="viewRoot" />
-        //      ///     is null.
-        //      /// </exception>
-        //      /// <exception cref="ArgumentException">
-        //      ///     Thrown when the Container-Property of
-        //      ///     <paramref name="viewRoot" />
-        //      ///     is set.
-        //      /// </exception>
-        //      public ApplicationBase ( Frame viewRoot = null )
-        //{
-        //	if ( Current != null )
-        //	{
-        //		throw new Exception ( ) ;
-        //	}
-
-        //	viewRoot = viewRoot ?? new Frame ( ) ;
-        //	if ( viewRoot . Container != null )
-        //	{
-        //		throw new ArgumentException ( "The root-container can't have the Container-Property set." , nameof(viewRoot) ) ;
-        //	}
-
-        //	ViewRoot = viewRoot ;
-        //}
-
-        /// <summary>
-        ///     Starts this
-        ///     <code>ApplicationBase</code>
-        ///     .
-        /// </summary>
-        public void Start ( )
+		public override void BeforePrepare ( )
 		{
-            if (!IsDebug)
-            {
-			    Console . CursorVisible = false ;
-            }
+			ViewRoot     = PrepareViewRoot ( ) ;
+			FocusManager = new FocusManager ( ViewRoot ) ;
 
-            Console.OutputEncoding = Encoding.UTF8;
-			Console.InputEncoding = Encoding.UTF8;
+			base . BeforePrepare ( ) ;
+		}
 
 
-            if ( Name != null )
+		//      /// <summary>
+		//      ///     Creates a new Application
+		//      /// </summary>
+		//      /// <param name="viewRoot">
+		//      ///     A
+		//      ///     <code>Container</code>
+		//      ///     which is at the root of the
+		//      /// </param>
+		//      /// <exception cref="ArgumentNullException">
+		//      ///     Thrown when
+		//      ///     <paramref name="viewRoot" />
+		//      ///     is null.
+		//      /// </exception>
+		//      /// <exception cref="ArgumentException">
+		//      ///     Thrown when the Container-Property of
+		//      ///     <paramref name="viewRoot" />
+		//      ///     is set.
+		//      /// </exception>
+		//      public ApplicationBase ( Frame viewRoot = null )
+		//{
+		//	if ( Current != null )
+		//	{
+		//		throw new Exception ( ) ;
+		//	}
+
+		//	viewRoot = viewRoot ?? new Frame ( ) ;
+		//	if ( viewRoot . Container != null )
+		//	{
+		//		throw new ArgumentException ( "The root-container can't have the Container-Property set." , nameof(viewRoot) ) ;
+		//	}
+
+		//	ViewRoot = viewRoot ;
+		//}
+
+		/// <summary>
+		///     Starts this
+		///     <code>ApplicationBase</code>
+		///     .
+		/// </summary>
+		public void Start ( )
+		{
+			if ( ! IsDebug )
+			{
+				Console . CursorVisible = false ;
+			}
+
+			Console . OutputEncoding = Encoding . UTF8 ;
+			Console . InputEncoding  = Encoding . UTF8 ;
+
+			if ( Name != null )
 			{
 				Console . Title = Name ;
 			}
 
-			Console . Clear ( ) ;
+			ViewRoot . Enabled = true ;
+			ViewRoot . RequestUpdateDisplay ( ) ;
 
-			Console . SetWindowSize ( ViewRoot . Width , ViewRoot . Height ) ;
-
-			ViewRoot . Measure ( Window.Size ) ;
-			ViewRoot . Arrange ( new Rectangle ( Window.Size ) ) ;
-			ViewRoot . Draw ( ) ;
-
-            KeyWatcher. KeyPressed += KeyWatcherOnKeyPressed ;
+			KeyWatcher . KeyPressed += KeyWatcherOnKeyPressed ;
 			KeyWatcher . Start ( ) ;
 
 			IsRunning = true ;
@@ -161,12 +145,12 @@ namespace WenceyWang . FoggyConsole
 		{
 			KeyWatcher . KeyPressed -= KeyWatcherOnKeyPressed ;
 			KeyWatcher . Stop ( ) ;
-            Console.Clear();
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
 
-            Exit(ProgramExitCode<TExitCode>.Success);
-        }
+			Console . ResetColor ( ) ;
+			Console . SetCursorPosition ( 0 , 0 ) ;
+			Console . Clear ( ) ;
+			Console . CursorVisible = true ;
+		}
 
 
 		private void KeyWatcherOnKeyPressed ( object sender , KeyPressedEventArgs eventArgs )
@@ -177,7 +161,7 @@ namespace WenceyWang . FoggyConsole
 			}
 
 			Control currentControl = FocusManager ? . FocusedControl ;
-			while ( currentControl != null )
+			while ( ! ( currentControl is null ) )
 			{
 				currentControl ? . KeyPressed ( eventArgs ) ;
 				if ( ! eventArgs . Handled )
@@ -193,9 +177,9 @@ namespace WenceyWang . FoggyConsole
 			if ( FocusManager != null )
 			{
 				FocusManager . HandleKeyInput ( eventArgs ) ;
-				if (IsDebug)
+				if ( IsDebug )
 				{
-					Logger . LogDebug ( $"Focused: {FocusManager . FocusedControl ?. Name}" ) ;
+					Logger . LogDebug ( $"Focused: {FocusManager . FocusedControl ? . Name}" ) ;
 				}
 			}
 		}

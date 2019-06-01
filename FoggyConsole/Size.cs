@@ -14,16 +14,15 @@ namespace WenceyWang . FoggyConsole
 
 		public Size ( Point point )
 		{
-			Width = point . X ;
+			Width  = point . X ;
 			Height = point . Y ;
 		}
 
 		public Size ( int width , int height )
 		{
-			Width = width ;
+			Width  = width ;
 			Height = height ;
 		}
-
 
 		public static Size operator + ( Size size1 , Size size2 ) { return Add ( size1 , size2 ) ; }
 
@@ -53,7 +52,6 @@ namespace WenceyWang . FoggyConsole
 		{
 			return new Size ( size1 . Width - size2 . Width , size1 . Height - size2 . Height ) ;
 		}
-
 
 		public override bool Equals ( object obj )
 		{

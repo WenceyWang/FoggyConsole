@@ -22,6 +22,32 @@ namespace WenceyWang . FoggyConsole . Controls
 	public class Button : TextualBase
 	{
 
+		public bool AllowSingleLine { get ; set ; } = true ;
+
+		public override Size AutoDesiredSize
+		{
+			get
+			{
+				Size baseSize = base . AutoDesiredSize ;
+
+				if ( BoarderStyle is null )
+				{
+					return baseSize ;
+				}
+				else
+				{
+					if ( baseSize . Height == 1 && AllowSingleLine )
+					{
+						return new Size ( baseSize . Width + 2 , baseSize . Height ) ;
+					}
+					else
+					{
+						return baseSize + new Size ( 2 , 2 ) ;
+					}
+				}
+			}
+		}
+
 		public override bool CanFocus => Enabled ;
 
 		/// <summary>
@@ -42,16 +68,14 @@ namespace WenceyWang . FoggyConsole . Controls
 		///     Control assigned
 		/// </exception>
 		public Button ( ControlRenderer <Button> renderer = null ) : base ( renderer ?? new ButtonRenderer ( ) )
-        {
-            Height = 3;
-            Width  = 5;
+		{
+			BoarderStyle = LineStyle . CornerOnlySingleLineSet ;
+		}
 
-        }
-
-        /// <summary>
-        ///     Fired if the button is focused and the user presses the space bar
-        /// </summary>
-        public event EventHandler Pressed ;
+		/// <summary>
+		///     Fired if the button is focused and the user presses the space bar
+		/// </summary>
+		public event EventHandler Pressed ;
 
 		public override void KeyPressed ( KeyPressedEventArgs args )
 		{

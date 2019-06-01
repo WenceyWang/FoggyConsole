@@ -14,7 +14,7 @@ namespace WenceyWang . FoggyConsole . Controls
 	// TODO: make Height and Width changeable
 
 	/// <summary>
-	///     A class which draws the contents of an two-dimentional char-array.
+	///     A class which draws the contents of an two-dimensional char-array.
 	///     This can be used to draw a small game or display graphs.
 	/// </summary>
 	public class PlayGround : Control
@@ -88,7 +88,7 @@ namespace WenceyWang . FoggyConsole . Controls
 			}
 
 			Height = height ;
-			Width = width ;
+			Width  = width ;
 
 			_field = new ConsoleArea ( new Size ( width , height ) ) ;
 

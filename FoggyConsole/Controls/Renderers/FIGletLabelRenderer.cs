@@ -16,9 +16,10 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 
 			for ( int y = 0 ; y < result . Size . Height && y < Control . AsciiArt . Height ; y++ )
 			{
-				for ( int x = 0 ; x < result . Size . Width && x < Control . AsciiArt . Width ; x++ )
+				for ( int x = 0 ; x < result . Size . Width && x < Control . ActualText [ y ] . Length ; x++ )
 				{
-					result [ x , y ] = new ConsoleChar ( Control . ActualText [ y ] [ x ] ,
+					result [ x , y ] = new ConsoleChar (
+														Control . ActualText [ y ] [ x ] ,
 														Control . ActualForegroundColor ,
 														Control . ActualBackgroundColor ) ;
 				}

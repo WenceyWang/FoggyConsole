@@ -11,7 +11,7 @@ namespace WenceyWang . FoggyConsole . Controls
 	/// <summary>
 	///     A Control which is able to display the progress of an ongoing task
 	/// </summary>
-	public class Progressbar : Control
+	public class ProgressBar : Control
 	{
 
 		private int _maxValue = 100 ;
@@ -32,7 +32,7 @@ namespace WenceyWang . FoggyConsole . Controls
 			{
 				if ( value > MaxValue )
 				{
-					throw new ArgumentOutOfRangeException ( nameof(value) ) ;
+					throw new ArgumentOutOfRangeException ( nameof ( value ) ) ;
 				}
 
 				if ( value != _minValue )
@@ -50,7 +50,7 @@ namespace WenceyWang . FoggyConsole . Controls
 			{
 				if ( value > MaxValue )
 				{
-					throw new ArgumentOutOfRangeException ( nameof(value) ) ;
+					throw new ArgumentOutOfRangeException ( nameof ( value ) ) ;
 				}
 
 				if ( value != _minValue )
@@ -69,10 +69,10 @@ namespace WenceyWang . FoggyConsole . Controls
 			get => _value ;
 			set
 			{
-				if ( value < MinValue
+				if ( value   < MinValue
 					|| value > MaxValue )
 				{
-					throw new ArgumentOutOfRangeException ( nameof(value) ) ;
+					throw new ArgumentOutOfRangeException ( nameof ( value ) ) ;
 				}
 
 				if ( _value != value )
@@ -87,7 +87,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		public override bool CanFocus => false ;
 
 		/// <summary>
-		///     Creates a new Progressbar
+		///     Creates a new ProgressBar
 		/// </summary>
 		/// <param name="renderer">
 		///     The
@@ -102,12 +102,13 @@ namespace WenceyWang . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public Progressbar ( ControlRenderer <Progressbar> renderer = null ) : base ( renderer )
+		public ProgressBar ( ControlRenderer <ProgressBar> renderer = null ) : base ( renderer )
 		{
 			if ( renderer == null )
 			{
 				Renderer = new ProgressBarRenderer ( this ) ;
 			}
+
 			Height = 1 ;
 		}
 
@@ -120,9 +121,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		/// <summary>
 		///     Fires the ValueChanged-event and requests an redraw
 		/// </summary>
-		private void OnValueChanged ( )
-		{
-		}
+		private void OnValueChanged ( ) { }
 
 	}
 

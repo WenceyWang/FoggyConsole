@@ -2,7 +2,7 @@
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
-using JetBrains.Annotations;
+
 using WenceyWang . FoggyConsole . Controls . Renderers ;
 
 namespace WenceyWang . FoggyConsole . Controls
@@ -16,7 +16,7 @@ namespace WenceyWang . FoggyConsole . Controls
 	public abstract class Container : Control
 	{
 
-		public abstract IList <Control> Children { get ; }
+		public abstract IReadOnlyCollection <Control> Children { get ; }
 
 		public Container ( IControlRenderer renderer = null ) : base ( renderer ) { }
 
@@ -37,8 +37,6 @@ namespace WenceyWang . FoggyConsole . Controls
 
 			return controlList ;
 		}
-
-		
 
 	}
 

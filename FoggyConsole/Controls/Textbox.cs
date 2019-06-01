@@ -64,10 +64,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="eventArgs"></param>
-		protected void OnFocusChanged ( object sender , EventArgs eventArgs )
-		{
-			Draw ( ) ;
-		}
+		protected void OnFocusChanged ( object sender , EventArgs eventArgs ) { Draw ( ) ; }
 
 		public override void KeyPressed ( KeyPressedEventArgs args )
 		{
@@ -83,12 +80,14 @@ namespace WenceyWang . FoggyConsole . Controls
 				{
 					break ;
 				}
+
 				case ConsoleKey . Enter :
 				{
 					args . Handled = true ;
 					EnterPressed ? . Invoke ( this , EventArgs . Empty ) ;
 					break ;
 				}
+
 				case ConsoleKey . RightArrow :
 				{
 					args . Handled = true ;
@@ -96,8 +95,10 @@ namespace WenceyWang . FoggyConsole . Controls
 					{
 						CursorPosition++ ;
 					}
+
 					break ;
 				}
+
 				case ConsoleKey . LeftArrow :
 				{
 					args . Handled = true ;
@@ -105,8 +106,10 @@ namespace WenceyWang . FoggyConsole . Controls
 					{
 						CursorPosition-- ;
 					}
+
 					break ;
 				}
+
 				case ConsoleKey . Backspace :
 				{
 					args . Handled = true ;
@@ -118,8 +121,10 @@ namespace WenceyWang . FoggyConsole . Controls
 							CursorPosition-- ;
 						}
 					}
+
 					break ;
 				}
+
 				default :
 				{
 					args . Handled = true ;

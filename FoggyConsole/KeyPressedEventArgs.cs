@@ -26,10 +26,7 @@ namespace WenceyWang . FoggyConsole
 		///     instance
 		/// </summary>
 		/// <param name="keyInfo">The key which was pressed</param>
-		public KeyPressedEventArgs ( ConsoleKeyInfo keyInfo )
-		{
-			KeyInfo = keyInfo ;
-		}
+		public KeyPressedEventArgs ( ConsoleKeyInfo keyInfo ) { KeyInfo = keyInfo ; }
 
 	}
 

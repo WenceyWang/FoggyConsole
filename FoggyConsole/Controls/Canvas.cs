@@ -14,16 +14,28 @@ namespace WenceyWang . FoggyConsole . Controls
 	///     <code>Container</code>
 	///     It has no appearance, controls within it are aligned using thier top and left values.
 	/// </summary>
-	public class Canvas : ItemsControl
+	public class Canvas : ItemsContainer
 	{
 
 		public override bool CanFocus => false ;
 
-		public override IList <Control> Items { get ; } = new List <Control> ( ) ;
-
 		public Dictionary <Control , Point> Position { get ; } = new Dictionary <Control , Point> ( ) ;
 
-		public Point this [ Control control ] { get => Position [ control ] ; set => Position [ control ] = value ; }
+		public Point this [ Control control ]
+		{
+			get
+			{
+				if ( Position . ContainsKey ( control ) )
+				{
+					return Position [ control ] ;
+				}
+				else
+				{
+					return default ;
+				}
+			}
+			set => Position [ control ] = value ;
+		}
 
 		/// <summary>
 		///     Creates a new
@@ -44,19 +56,32 @@ namespace WenceyWang . FoggyConsole . Controls
 		/// </exception>
 		public Canvas ( IControlRenderer renderer = null ) : base ( renderer ?? new CanvasRenderer ( ) )
 		{
+			ItemsAdded   += Canvas_ItemsAdded ;
+			ItemsRemoved += Canvas_ItemsRemoved ;
 		}
 
-		public override void AddChild ( Control control )
+		private void Canvas_ItemsRemoved ( object sender , ContainerControlEventArgs e )
 		{
-			this [ control ] = new Point ( ) ;
-			base . AddChild ( control ) ;
+			Position . Remove ( e . Control ) ;
 		}
+
+		private void Canvas_ItemsAdded ( object sender , ContainerControlEventArgs e )
+		{
+			this [ e . Control ] = new Point ( ) ;
+		}
+
 
 		public override void Arrange ( Rectangle finalRect )
 		{
 			foreach ( Control control in Items )
 			{
-				control . Arrange ( new Rectangle ( finalRect . LeftTopPoint . Offset ( new Vector ( Position [ control ] ) ) ,
+				control . Arrange (
+									new Rectangle (
+													finalRect . LeftTopPoint . Offset (
+																						new Vector (
+																									Position
+																										[
+																										control ] ) ) ,
 													control . DesiredSize ) ) ;
 			}
 
@@ -78,30 +103,6 @@ namespace WenceyWang . FoggyConsole . Controls
 			}
 
 			DesiredSize = rectangle . Size ;
-		}
-
-		/// <summary>
-		///     Fired if a control gets added to this container
-		/// </summary>
-		/// <seealso cref="ControlRemoved" />
-		public event EventHandler <ContainerControlEventArgs> ControlAdded ;
-
-		private void OnControlAdded ( Control control )
-		{
-			control . Container = this ;
-			ControlAdded ? . Invoke ( this , new ContainerControlEventArgs ( control ) ) ;
-		}
-
-		/// <summary>
-		///     Fired if a control gets removed from this container
-		/// </summary>
-		/// <seealso cref="ControlAdded" />
-		public event EventHandler <ContainerControlEventArgs> ControlRemoved ;
-
-		private void OnControlRemoved ( Control control )
-		{
-			control . Container = null ;
-			ControlRemoved ? . Invoke ( this , new ContainerControlEventArgs ( control ) ) ;
 		}
 
 	}

@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
+using System . Threading ;
 
-namespace WenceyWang.FoggyConsole
+namespace WenceyWang . FoggyConsole
 {
 
 	/// <summary>
-	///     Watches out of userinput using
+	///     Watches out of user input using
 	///     <code>Console.KeyAvailable</code>
 	///     and
 	///     <code>Code.ReadKey</code>
@@ -17,57 +16,50 @@ namespace WenceyWang.FoggyConsole
 	internal static class KeyWatcher
 	{
 
-		public static bool IsRunning { get; private set; }
+		public static bool IsRunning { get ; private set ; }
 
-		public static Thread WatcherThread { get; private set; }
+		public static Thread WatcherThread { get ; private set ; }
 
 		/// <summary>
 		///     Is fired when a user presses an key
 		/// </summary>
-		public static event EventHandler<KeyPressedEventArgs> KeyPressed;
+		public static event EventHandler <KeyPressedEventArgs> KeyPressed ;
 
-		public static void Start()
+		public static void Start ( )
 		{
-			if (!IsRunning)
+			if ( ! IsRunning )
 			{
-				WatcherThread = new Thread(Watch) { Name = "KeyWatcher" };
-				IsRunning = true;
-				Console.CancelKeyPress += Console_CancelKeyPress;
-				WatcherThread.Start();
+				WatcherThread            =  new Thread ( Watch ) { Name = "KeyWatcher" } ;
+				IsRunning                =  true ;
+				Console . CancelKeyPress += Console_CancelKeyPress ;
+				WatcherThread . Start ( ) ;
 			}
 		}
 
-		private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
-		{
-			e.Cancel = true;
-        }
-	
+		private static void Console_CancelKeyPress ( object sender , ConsoleCancelEventArgs e ) { e . Cancel = true ; }
 
-		private static void Watch()
+
+		private static void Watch ( )
 		{
-			while (IsRunning)
+			while ( IsRunning )
 			{
-				if (!Console.KeyAvailable)
-                {
-                    Thread.Yield();
-					Thread.Sleep(1);
+				if ( ! Console . KeyAvailable )
+				{
+					Thread . Yield ( ) ;
+					Thread . Sleep ( 1 ) ;
 				}
 				else
 				{
-					ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-					KeyPressed?.Invoke(null, new KeyPressedEventArgs(keyInfo));
+					ConsoleKeyInfo keyInfo = Console . ReadKey ( true ) ;
+					KeyPressed ? . Invoke ( null , new KeyPressedEventArgs ( keyInfo ) ) ;
 				}
 			}
-
 		}
 
 		/// <summary>
 		///     Stops the internal watcher-thread
 		/// </summary>
-		public static void Stop()
-		{
-			IsRunning = false;
-		}
+		public static void Stop ( ) { IsRunning = false ; }
 
 	}
 

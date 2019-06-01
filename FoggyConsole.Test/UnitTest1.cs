@@ -14,9 +14,7 @@ namespace WenceyWang . FoggyConsole . UnitTest
 	{
 
 		[TestMethod]
-		public void TestMethod ( )
-		{
-		}
+		public void TestMethod ( ) { }
 
 	}
 

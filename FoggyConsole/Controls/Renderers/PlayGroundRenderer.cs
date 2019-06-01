@@ -16,9 +16,7 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 		/// <summary>
 		/// </summary>
 		/// <param name="control"></param>
-		public PlayGroundRenderer ( PlayGround control )
-		{
-		}
+		public PlayGroundRenderer ( PlayGround control ) { }
 
 		/// <summary>
 		///     Draws all characters within the given playground

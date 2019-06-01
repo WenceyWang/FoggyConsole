@@ -15,17 +15,13 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 		/// <summary>
 		/// </summary>
 		/// <param name="control"></param>
-		public GroupBoxRenderer ( GroupBox control )
-		{
-		}
+		public GroupBoxRenderer ( GroupBox control ) { }
 
 
 		/// <summary>
 		///     Draws the GroupBox given in the Control-Property
 		/// </summary>
-		public override void Draw ( )
-		{
-		}
+		public override void Draw ( ) { }
 
 	}
 

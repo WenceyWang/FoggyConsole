@@ -68,6 +68,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		/// </exception>
 		public Label ( IControlRenderer renderer = null ) : base ( renderer ?? new LabelRenderer ( ) )
 		{
+			BoarderStyle = LineStyle . Empty ;
 		}
 
 	}

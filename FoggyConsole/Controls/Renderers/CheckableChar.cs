@@ -19,8 +19,8 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 
 		public CheckableChar ( char @checked , char @unchecked , char indeterminate )
 		{
-			Checked = @checked ;
-			Unchecked = @unchecked ;
+			Checked       = @checked ;
+			Unchecked     = @unchecked ;
 			Indeterminate = indeterminate ;
 		}
 
@@ -32,26 +32,34 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 				{
 					return Checked ;
 				}
+
 				case CheckState . Unchecked :
 				{
 					return Unchecked ;
 				}
+
 				case CheckState . Indeterminate :
 				{
 					return Indeterminate ;
 				}
+
 				default :
 				{
-					throw new ArgumentOutOfRangeException ( nameof(state) , state , null ) ;
+					throw new ArgumentOutOfRangeException ( nameof ( state ) , state , null ) ;
 				}
 			}
 		}
 
-		public bool Equals ( CheckableChar other ) => Checked == other . Checked && Unchecked == other . Unchecked && Indeterminate == other . Indeterminate ;
+		public bool Equals ( CheckableChar other )
+		{
+			return Checked           == other . Checked
+					&& Unchecked     == other . Unchecked
+					&& Indeterminate == other . Indeterminate ;
+		}
 
 		public override bool Equals ( object obj )
 		{
-			if ( ReferenceEquals ( null , obj ) )
+			if ( obj is null )
 			{
 				return false ;
 			}
@@ -72,7 +80,10 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 
 		public static bool operator == ( CheckableChar left , CheckableChar right ) { return left . Equals ( right ) ; }
 
-		public static bool operator != ( CheckableChar left , CheckableChar right ) { return ! left . Equals ( right ) ; }
+		public static bool operator != ( CheckableChar left , CheckableChar right )
+		{
+			return ! left . Equals ( right ) ;
+		}
 
 	}
 

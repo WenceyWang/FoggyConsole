@@ -29,6 +29,7 @@ namespace WenceyWang . FoggyConsole . Controls
 				{
 					UpdateText ( ) ;
 				}
+
 				return _asciiArt ;
 			}
 			private set => _asciiArt = value ;
@@ -84,23 +85,13 @@ namespace WenceyWang . FoggyConsole . Controls
 				{
 					UpdateText ( ) ;
 				}
+
 				return AsciiArt . Result ;
 			}
 		}
 
-		public override Size Size
-		{
-			get
-			{
-				if ( base . Size == new Size ( 0 , 0 ) )
-				{
-					return new Size ( AsciiArt . Width , AsciiArt . Height ) ;
-				}
-
-				return base . Size ;
-			}
-			set => base . Size = value ;
-		}
+		public override Size AutoDesiredSize
+			=> new Size ( ActualText . Max ( str => str . Length ) , ActualText . Length ) ;
 
 		public override bool CanFocus => false ;
 

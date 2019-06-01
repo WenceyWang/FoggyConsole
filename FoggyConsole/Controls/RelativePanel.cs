@@ -8,12 +8,11 @@ using WenceyWang . FoggyConsole . Controls . Renderers ;
 namespace WenceyWang . FoggyConsole . Controls
 {
 
-	public class RelativePanel : ItemsControl
+	//Todo
+	public class RelativePanel : ItemsContainer
 	{
 
 		public override bool CanFocus => false ;
-
-		public override IList <Control> Items { get ; } = new List <Control> ( ) ;
 
 		public RelativePanel ( IControlRenderer renderer ) : base ( renderer ?? new RelativePanelRenderer ( ) ) { }
 

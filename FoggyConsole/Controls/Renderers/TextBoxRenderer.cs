@@ -7,13 +7,13 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 {
 
 	/// <summary>
-	///     Draws a textbox
+	///     Draws a TextBox
 	/// </summary>
 	public class TextBoxRenderer : ControlRenderer <TextBox>
 	{
 
 		/// <summary>
-		///     Draws the textbox given in the Control-Property
+		///     Draws the TextBox given in the Control-Property
 		/// </summary>
 		public override void Draw ( )
 		{
@@ -23,13 +23,16 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 			{
 				result = new ConsoleArea ( Control . ActualSize , Control . ActualForegroundColor ) ;
 
-				for ( int y = 0 ; y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ; y++ )
+				for ( int y = 0 ;
+					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
+					y++ )
 				{
 					for ( int x = 0 ; x < Control . ActualWidth ; x++ )
 					{
 						if ( x + y * Control . ActualWidth < Control . Text . Length )
 						{
-							result [ x , y ] = new ConsoleChar ( Control . Text [ x * y ] ,
+							result [ x , y ] = new ConsoleChar (
+																Control . Text [ x * y ] ,
 																Control . ActualForegroundColor ,
 																Control . ActualBackgroundColor ) ;
 						}
@@ -44,13 +47,16 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 			{
 				result = new ConsoleArea ( Control . ActualSize , Control . ActualBackgroundColor ) ;
 
-				for ( int y = 0 ; y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ; y++ )
+				for ( int y = 0 ;
+					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
+					y++ )
 				{
 					for ( int x = 0 ; x < Control . ActualWidth ; x++ )
 					{
 						if ( x + y * Control . ActualWidth < Control . Text . Length )
 						{
-							result [ x , y ] = new ConsoleChar ( Control . Text [ x * y ] ,
+							result [ x , y ] = new ConsoleChar (
+																Control . Text [ x * y ] ,
 																Control . ActualForegroundColor ,
 																Control . ActualBackgroundColor ) ;
 						}

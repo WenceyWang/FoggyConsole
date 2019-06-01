@@ -5,31 +5,13 @@ using System . Linq ;
 using System . Reflection ;
 using System . Xml . Linq ;
 
-using JetBrains . Annotations ;
-
 namespace WenceyWang . FoggyConsole . Controls
 {
 
 	public class Page : ContentControl
 	{
 
-		[CanBeNull] private Control _content ;
-
 		public override bool CanFocus => false ;
-
-		[CanBeNull]
-		public override Control Content
-		{
-			get => _content ;
-			set
-			{
-				_content = value ;
-				if ( _content != null )
-				{
-					_content . Container = this ;
-				}
-			}
-		}
 
 		public Frame Frame => Container as Frame ;
 
@@ -39,7 +21,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		{
 			if ( page == null )
 			{
-				throw new ArgumentNullException ( nameof(page) ) ;
+				throw new ArgumentNullException ( nameof ( page ) ) ;
 			}
 
 			Content = CrateControl ( page . Elements ( ) . Single ( ) ) ;
@@ -74,16 +56,28 @@ namespace WenceyWang . FoggyConsole . Controls
 			foreach ( XAttribute attribute in control . Attributes ( ) )
 			{
 				PropertyInfo property = controlType . GetTypeInfo ( ) . GetProperty ( attribute . Name . LocalName ) ;
-				property . SetValue ( currentControl , Convert . ChangeType ( attribute . Value , property . PropertyType ) ) ;
+				property . SetValue (
+									currentControl ,
+									Convert . ChangeType ( attribute . Value , property . PropertyType ) ) ;
 			}
 
-			if ( currentControl is Container container )
+			if ( currentControl is ItemsContainer itemsContainer )
 			{
 				foreach ( XElement child in control . Elements ( ) )
 				{
 					Control childControl = CrateControl ( child ) ;
 
-					container . Children . Add ( childControl ) ;
+					itemsContainer . Items . Add ( childControl ) ;
+				}
+			}
+			else if ( currentControl is ContentControl contentControl )
+			{
+				XElement child = control . Elements ( ) . FirstOrDefault ( ) ;
+				if ( ! ( child is null ) )
+				{
+					Control childControl = CrateControl ( child ) ;
+
+					contentControl . Content = childControl ;
 				}
 			}
 

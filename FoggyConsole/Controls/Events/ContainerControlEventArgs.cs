@@ -24,10 +24,7 @@ namespace WenceyWang . FoggyConsole . Controls . Events
 		///     <code>ContainerControlEventArgs</code>
 		/// </summary>
 		/// <param name="control">The control which has been added or removed</param>
-		public ContainerControlEventArgs ( Control control )
-		{
-			Control = control ;
-		}
+		public ContainerControlEventArgs ( Control control ) { Control = control ; }
 
 	}
 

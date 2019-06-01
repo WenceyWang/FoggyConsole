@@ -15,10 +15,12 @@ namespace WenceyWang . FoggyConsole
 	///     <code>Console.CursorLeft</code>
 	///     or
 	///     <code>Console.ForegroundColor</code>
-	///     are only executed if neccessary.
+	///     are only executed if necessary.
 	/// </summary>
 	internal static class FogConsole
 	{
+
+		public static int WriteCount { get ; set ; }
 
 		private static ConsoleColor CurrentForegroundColor { get ; set ; }
 
@@ -31,27 +33,66 @@ namespace WenceyWang . FoggyConsole
 
 		public static void Draw ( Rectangle position , ConsoleChar [ , ] content )
 		{
-			StringBuilder stringBuilder = new StringBuilder ( ) ;
-			for ( int y = Math . Max ( - position . Y , 0 ) ; y < position . Height ; y++ )
+			CurrentBackgroundColor = Console . BackgroundColor ;
+			CurrentForegroundColor = Console . ForegroundColor ;
+
+			Rectangle consoleArea = new Rectangle ( new Point ( ) , Window . Size ) ;
+
+			position = Rectangle . Intersect ( position , consoleArea ) ;
+
+			bool changeLine = position . Right != consoleArea . Right || position . Left != consoleArea . Left ;
+
+			StringBuilder stringBuilder = new StringBuilder ( content . Length ) ;
+
+			if ( ! changeLine )
 			{
-				Console . SetCursorPosition ( Math . Max ( position . Left , 0 ) , Math . Max ( position . Top + y , 0 ) ) ;
+				Console . SetCursorPosition ( position . Left , position . Top + position . Y ) ;
+			}
+
+			for ( int y = 0 ; y < position . Height ; y++ )
+			{
+				if ( changeLine )
+				{
+					Console . SetCursorPosition ( position . Left , position . Top + y ) ;
+				}
+
 				for ( int x = Math . Max ( - position . X , 0 ) ; x < position . Width ; x++ )
 				{
 					ConsoleColor targetBackgroundColor = content [ x , y ] . BackgroundColor ;
 					ConsoleColor targetForegroundColor = content [ x , y ] . ForegroundColor ;
-					if ( CurrentBackgroundColor != targetBackgroundColor
+
+					if ( CurrentBackgroundColor   != targetBackgroundColor
 						|| CurrentForegroundColor != targetForegroundColor )
 					{
-						Console . Write ( stringBuilder . ToString ( ) ) ;
-						stringBuilder . Clear ( ) ;
+						Write ( stringBuilder ) ;
+
 						Console . BackgroundColor = CurrentBackgroundColor = targetBackgroundColor ;
 						Console . ForegroundColor = CurrentForegroundColor = targetForegroundColor ;
 					}
+
 					stringBuilder . Append ( content [ x , y ] . Character ) ;
 				}
 
+				if ( changeLine )
+				{
+					Write ( stringBuilder ) ;
+				}
+			}
+
+			if ( ! changeLine )
+			{
+				Write ( stringBuilder ) ;
+			}
+		}
+
+		private static void Write ( StringBuilder stringBuilder )
+		{
+			if ( stringBuilder . Length > 0 )
+			{
 				Console . Write ( stringBuilder . ToString ( ) ) ;
 				stringBuilder . Clear ( ) ;
+
+				WriteCount++ ;
 			}
 		}
 

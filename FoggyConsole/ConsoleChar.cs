@@ -17,7 +17,7 @@ namespace WenceyWang . FoggyConsole
 
 		public bool Equals ( ConsoleChar other )
 		{
-			return Character == other . Character
+			return Character           == other . Character
 					&& ForegroundColor == other . ForegroundColor
 					&& BackgroundColor == other . BackgroundColor ;
 		}
@@ -54,11 +54,12 @@ namespace WenceyWang . FoggyConsole
 
 		public override string ToString ( ) { return new string ( Character , 1 ) ; }
 
-		public ConsoleChar ( char character ,
-							ConsoleColor foregroundColor = ConsoleColor . White ,
-							ConsoleColor backgroundColor = ConsoleColor . Black )
+		public ConsoleChar (
+			char         character ,
+			ConsoleColor foregroundColor = ConsoleColor . White ,
+			ConsoleColor backgroundColor = ConsoleColor . Black )
 		{
-			Character = character ;
+			Character       = character ;
 			ForegroundColor = foregroundColor ;
 			BackgroundColor = backgroundColor ;
 		}

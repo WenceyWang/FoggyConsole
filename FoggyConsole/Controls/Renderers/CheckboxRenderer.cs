@@ -8,10 +8,10 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 
 	/// <summary>
 	///     Draws a
-	///     <code>Checkbox</code>
+	///     <code>CheckBox</code>
 	///     -Control
 	/// </summary>
-	public class CheckboxRenderer : ControlRenderer <Checkbox>
+	public class CheckboxRenderer : ControlRenderer <CheckBox>
 	{
 
 		private CheckableChar _checkableChar ;
@@ -33,17 +33,25 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 		{
 			ConsoleArea result = new ConsoleArea ( Control . ActualSize , Control . ActualBackgroundColor ) ;
 
-			result [ 0 , 0 ] = new ConsoleChar ( '[' , Control . ActualForegroundColor , Control . ActualBackgroundColor ) ;
-			result [ 1 , 0 ] = new ConsoleChar ( CheckableChar . GetStateChar ( Control . State ) ,
+			result [ 0 , 0 ] = new ConsoleChar (
+												'[' ,
 												Control . ActualForegroundColor ,
 												Control . ActualBackgroundColor ) ;
-			result [ 2 , 0 ] = new ConsoleChar ( ']' , Control . ActualForegroundColor , Control . ActualBackgroundColor ) ;
+			result [ 1 , 0 ] = new ConsoleChar (
+												CheckableChar . GetStateChar ( Control . State ) ,
+												Control . ActualForegroundColor ,
+												Control . ActualBackgroundColor ) ;
+			result [ 2 , 0 ] = new ConsoleChar (
+												']' ,
+												Control . ActualForegroundColor ,
+												Control . ActualBackgroundColor ) ;
 
 			if ( Control . ActualHeight == 1 )
 			{
 				for ( int x = 0 ; x < Control . ActualWidth - 4 ; x++ )
 				{
-					result [ x + 3 , 0 ] = new ConsoleChar ( Control . Text [ x ] ,
+					result [ x + 3 , 0 ] = new ConsoleChar (
+															Control . Text [ x ] ,
 															Control . ActualForegroundColor ,
 															Control . ActualBackgroundColor ) ;
 				}
@@ -52,15 +60,18 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 			{
 				for ( int x = 0 ; x < Control . ActualWidth - 4 ; x++ )
 				{
-					result [ x + 3 , 0 ] = new ConsoleChar ( Control . Text [ x ] ,
+					result [ x + 3 , 0 ] = new ConsoleChar (
+															Control . Text [ x ] ,
 															Control . ActualForegroundColor ,
 															Control . ActualBackgroundColor ) ;
 				}
+
 				for ( int y = 1 ; y < Control . ActualWidth ; y++ )
 				{
 					for ( int x = 0 ; x < Control . ActualWidth ; x++ )
 					{
-						result [ x , 0 ] = new ConsoleChar ( Control . Text [ x ] ,
+						result [ x , 0 ] = new ConsoleChar (
+															Control . Text [ x ] ,
 															Control . ActualForegroundColor ,
 															Control . ActualBackgroundColor ) ;
 					}

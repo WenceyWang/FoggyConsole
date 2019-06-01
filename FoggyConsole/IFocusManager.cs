@@ -20,11 +20,6 @@ namespace WenceyWang . FoggyConsole
 		/// </summary>
 		Control FocusedControl { get ; }
 
-		/// <summary>
-		///     Called if the control-tree has been changed
-		/// </summary>
-		void ControlTreeChanged ( ) ;
-
 	}
 
 }

@@ -50,7 +50,7 @@ namespace WenceyWang . FoggyConsole . Controls
 
 
 		/// <summary>
-		///     The position of the cursor within the textbox
+		///     The position of the cursor within the TextBox
 		/// </summary>
 		public int CursorPosition
 		{
@@ -83,8 +83,9 @@ namespace WenceyWang . FoggyConsole . Controls
 		public override bool CanFocus => Enabled ;
 
 
-		public PasswordBox ( ControlRenderer <PasswordBox> renderer = null ) :
-			base ( renderer ?? new PasswordBoxRenderer ( ) )
+		public PasswordBox ( ControlRenderer <PasswordBox> renderer = null ) : base (
+																					renderer
+																					?? new PasswordBoxRenderer ( ) )
 		{
 		}
 
@@ -106,12 +107,14 @@ namespace WenceyWang . FoggyConsole . Controls
 				{
 					break ;
 				}
+
 				case ConsoleKey . Enter :
 				{
 					args . Handled = true ;
 					EnterPressed ? . Invoke ( this , EventArgs . Empty ) ;
 					break ;
 				}
+
 				case ConsoleKey . RightArrow :
 				{
 					args . Handled = true ;
@@ -119,8 +122,10 @@ namespace WenceyWang . FoggyConsole . Controls
 					{
 						CursorPosition++ ;
 					}
+
 					break ;
 				}
+
 				case ConsoleKey . LeftArrow :
 				{
 					args . Handled = true ;
@@ -128,29 +133,35 @@ namespace WenceyWang . FoggyConsole . Controls
 					{
 						CursorPosition-- ;
 					}
+
 					break ;
 				}
+
 				case ConsoleKey . Backspace :
 				{
 					args . Handled = true ;
-					if ( Text . Length != 0
+					if ( Text . Length    != 0
 						&& CursorPosition > 0 )
 					{
 						Text . RemoveAt ( CursorPosition - 1 ) ;
 						CursorPosition-- ;
 					}
+
 					break ;
 				}
+
 				case ConsoleKey . Delete :
 				{
 					args . Handled = true ;
-					if ( Text . Length != 0
+					if ( Text . Length    != 0
 						&& CursorPosition < Text . Length )
 					{
 						Text . RemoveAt ( CursorPosition + 1 ) ;
 					}
+
 					break ;
 				}
+
 				default :
 				{
 					args . Handled = true ;

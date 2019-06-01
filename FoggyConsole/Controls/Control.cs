@@ -15,10 +15,12 @@ namespace WenceyWang . FoggyConsole . Controls
 	/// <summary>
 	///     The base class for all controls
 	/// </summary>
-	public abstract class Control: INotifyPropertyChanged
+	public abstract class Control : INotifyPropertyChanged
 	{
 
 		private ConsoleColor ? _backgroundColor ;
+
+		private LineStyle ? _boarderStyle ;
 
 		private bool _enabled = true ;
 
@@ -36,6 +38,25 @@ namespace WenceyWang . FoggyConsole . Controls
 		public string Name { get ; set ; }
 
 		public abstract bool CanFocus { get ; }
+
+		public virtual bool AutoWidth { get ; set ; } = true ;
+
+		public virtual bool AutoHeight { get ; set ; } = true ;
+
+		public virtual Size AutoDesiredSize
+		{
+			get
+			{
+				if ( BoarderStyle == null )
+				{
+					return new Size ( 1 , 1 ) ;
+				}
+				else
+				{
+					return new Size ( 2 , 2 ) ;
+				}
+			}
+		}
 
 		public virtual Size Size
 		{
@@ -60,35 +81,38 @@ namespace WenceyWang . FoggyConsole . Controls
 			{
 				if ( value < 0 )
 				{
-					throw new ArgumentException ( $"{nameof(Width)} has to be bigger than zero." ) ;
+					throw new ArgumentException ( $"{nameof ( Width )} has to be bigger than zero." ) ;
 				}
 
 				if ( Width != value )
 				{
-					Size = new Size ( value , Size . Height ) ;
+					Size      = new Size ( value , Size . Height ) ;
+					AutoWidth = false ;
 				}
 			}
 		}
 
-        /// <summary>
-        ///     The height of this Control in characters
-        /// </summary>
-        public int Height
-        {
-            get => Size.Height;
-            set
-            {
-                if (value < 0)
-                {
-                    throw new ArgumentException($"{nameof(Height)} has to be bigger than zero.");
-                }
+		/// <summary>
+		///     The height of this Control in characters
+		/// </summary>
+		public int Height
+		{
+			get => Size . Height ;
+			set
+			{
+				if ( value < 0 )
+				{
+					throw new ArgumentException ( $"{nameof ( Height )} has to be bigger than zero." ) ;
+				}
 
-                if (Height != value)
-                {
-                    Size = new Size(Size.Width, value);
-                }
-            }
-        }
+				if ( Height != value )
+				{
+					Size       = new Size ( Size . Width , value ) ;
+					AutoHeight = false ;
+				}
+			}
+		}
+
 
 		public Size DesiredSize { get ; protected set ; }
 
@@ -121,7 +145,8 @@ namespace WenceyWang . FoggyConsole . Controls
 			}
 		}
 
-		public ConsoleColor ActualForegroundColor => _foregroundColor ?? Container . ForegroundColor ?? ConsoleColor . Gray ;
+		public ConsoleColor ActualForegroundColor
+			=> _foregroundColor ?? Container . ForegroundColor ?? ConsoleColor . Gray ;
 
 		/// <summary>
 		///     The foreground-color
@@ -135,6 +160,29 @@ namespace WenceyWang . FoggyConsole . Controls
 				{
 					_foregroundColor = value ;
 					RequestRedraw ( ) ;
+				}
+			}
+		}
+
+		public LineStyle ? BoarderStyle
+		{
+			get => _boarderStyle ;
+			set
+			{
+				if ( _boarderStyle != value )
+				{
+					bool needRearrange =
+						_boarderStyle == null && value != null || _boarderStyle != null && value == null ;
+
+					_boarderStyle = value ;
+					if ( needRearrange )
+					{
+						RequestMeasure ( ) ;
+					}
+					else
+					{
+						RequestRedraw ( ) ;
+					}
 				}
 			}
 		}
@@ -185,8 +233,9 @@ namespace WenceyWang . FoggyConsole . Controls
 				if ( value ? . Control != null
 					&& value . Control != this )
 				{
-					throw new ArgumentException ( $"{nameof(Renderer)} already has an other {nameof(Control)} assigned." ,
-												nameof(value) ) ;
+					throw new ArgumentException (
+												$"{nameof ( Renderer )} already has an other {nameof ( Control )} assigned." ,
+												nameof ( value ) ) ;
 				}
 
 				_renderer = value ;
@@ -209,6 +258,8 @@ namespace WenceyWang . FoggyConsole . Controls
 			}
 		}
 
+		public virtual char ? KeyBind { get ; set ; } = null ;
+
 		/// <summary>
 		///     Creates a new
 		///     <code>Control</code>
@@ -225,9 +276,11 @@ namespace WenceyWang . FoggyConsole . Controls
 		public Control ( IControlRenderer renderer )
 		{
 			Renderer = renderer ;
-           
-            Renderer . Control = this ;
-        }
+
+			Renderer . Control = this ;
+		}
+
+		public event PropertyChangedEventHandler PropertyChanged ;
 
 
 		/// <summary>
@@ -239,10 +292,32 @@ namespace WenceyWang . FoggyConsole . Controls
 
 		private void OnIsFocusedChanged ( ) { IsFocusedChanged ? . Invoke ( this , EventArgs . Empty ) ; }
 
-
 		public virtual void KeyPressed ( KeyPressedEventArgs args ) { }
 
-		public virtual void Measure ( Size availableSize ) { DesiredSize = Size ; }
+		public virtual void Measure ( Size availableSize )
+		{
+			int width ;
+			if ( AutoHeight )
+			{
+				width = AutoDesiredSize . Width ;
+			}
+			else
+			{
+				width = Size . Width ;
+			}
+
+			int height ;
+			if ( AutoHeight )
+			{
+				height = AutoDesiredSize . Height ;
+			}
+			else
+			{
+				height = Size . Height ;
+			}
+
+			DesiredSize = new Size ( width , height ) ;
+		}
 
 		public virtual void Arrange ( Rectangle finalRect ) { RenderArea = finalRect ; }
 
@@ -251,8 +326,6 @@ namespace WenceyWang . FoggyConsole . Controls
 		protected virtual void RequestMeasure ( ) { Container ? . RequestMeasure ( ) ; }
 
 		protected virtual void RequestRedraw ( ) { Container ? . RequestRedraw ( ) ; }
-
-		public event PropertyChangedEventHandler PropertyChanged ;
 
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged ( [CallerMemberName] string propertyName = null )

@@ -15,42 +15,132 @@ namespace WenceyWang . FoggyConsole
 		/// <summary>
 		///     A character representing the top left corner of an rectangle
 		/// </summary>
-		public char TopLeftCorner { get ; set ; }
+		public char TopLeftCorner { get ; }
 
 		/// <summary>
 		///     A character representing the top right corner of an rectangle
 		/// </summary>
-		public char TopRightCorner { get ; set ; }
+		public char TopRightCorner { get ; }
 
 		/// <summary>
 		///     A character representing the bottom left corner of an rectangle
 		/// </summary>
-		public char BottomLeftCorner { get ; set ; }
+		public char BottomLeftCorner { get ; }
 
-		public bool Equals ( LineStyle other )
+		/// <summary>
+		///     A character representing the bottom right corner of an rectangle
+		/// </summary>
+		public char BottomRightCorner { get ; }
+
+		/// <summary>
+		///     A character representing the a left or right edge of an rectangle
+		/// </summary>
+		public char VerticalEdge { get ; }
+
+		/// <summary>
+		///     A character representing the a top or bottom edge of an rectangle
+		/// </summary>
+		public char HorizontalEdge { get ; }
+
+		/// <summary>
+		///     A character representing a connection between a
+		///     <code>HorizontalEdge</code>
+		///     and a
+		///     <code>VerticalEdge</code>
+		///     ,
+		///     in which the
+		///     <code>VerticalEdge</code>
+		///     is above the
+		///     <code>HorizontalEdge</code>
+		/// </summary>
+		public char ConnectionHorizontalUp { get ; }
+
+		/// <summary>
+		///     A character representing a connection between a
+		///     <code>HorizontalEdge</code>
+		///     and a
+		///     <code>VerticalEdge</code>
+		///     ,
+		///     in which the
+		///     <code>VerticalEdge</code>
+		///     is below the
+		///     <code>HorizontalEdge</code>
+		/// </summary>
+		public char ConnectionHorizontalDown { get ; }
+
+		/// <summary>
+		///     A character representing a connection between a
+		///     <code>VerticalEdge</code>
+		///     and a
+		///     <code>HorizontalEdge</code>
+		///     ,
+		///     in which the
+		///     <code>HorizontalEdge</code>
+		///     is on the left side of the
+		///     <code>VerticalEdge</code>
+		/// </summary>
+		public char ConnectionVerticalRight { get ; }
+
+		/// <summary>
+		///     A character representing a connection between a
+		///     <code>VerticalEdge</code>
+		///     and a
+		///     <code>HorizontalEdge</code>
+		///     ,
+		///     in which the
+		///     <code>HorizontalEdge</code>
+		///     is on the right side of the
+		///     <code>VerticalEdge</code>
+		/// </summary>
+		public char ConnectionVerticalLeft { get ; }
+
+		/// <summary>
+		///     A character representing a connection between two
+		///     <code>VerticalEdge</code>
+		///     and two
+		///     <code>HorizontalEdge</code>
+		/// </summary>
+		public char ConnectionCross { get ; }
+
+		public char SingleLineLeftEdge { get ; }
+
+		public char SingleLineRightEdge { get ; }
+
+		/// <summary>
+		///     A empty character which can be used to fill boxes
+		/// </summary>
+		public char EmptyChar { get ; }
+
+		public LineStyle (
+			char topLeftCorner ,
+			char topRightCorner ,
+			char bottomLeftCorner ,
+			char bottomRightCorner ,
+			char verticalEdge ,
+			char horizontalEdge ,
+			char singleLineLeftEdge ,
+			char singleLineRightEdge ,
+			char connectionHorizontalUp ,
+			char connectionHorizontalDown ,
+			char connectionVerticalRight ,
+			char connectionVerticalLeft ,
+			char connectionCross ,
+			char emptyChar )
 		{
-			return TopLeftCorner == other . TopLeftCorner
-					&& TopRightCorner == other . TopRightCorner
-					&& BottomLeftCorner == other . BottomLeftCorner
-					&& BottomRightCorner == other . BottomRightCorner
-					&& VerticalEdge == other . VerticalEdge
-					&& HorizontalEdge == other . HorizontalEdge
-					&& ConnectionHorizontalUp == other . ConnectionHorizontalUp
-					&& ConnectionHorizontalDown == other . ConnectionHorizontalDown
-					&& ConnectionVerticalRight == other . ConnectionVerticalRight
-					&& ConnectionVerticalLeft == other . ConnectionVerticalLeft
-					&& ConnectionCross == other . ConnectionCross
-					&& EmptyChar == other . EmptyChar ;
-		}
-
-		public override bool Equals ( object obj )
-		{
-			if ( ReferenceEquals ( null , obj ) )
-			{
-				return false ;
-			}
-
-			return obj is LineStyle && Equals ( ( LineStyle ) obj ) ;
+			TopLeftCorner            = topLeftCorner ;
+			TopRightCorner           = topRightCorner ;
+			BottomLeftCorner         = bottomLeftCorner ;
+			BottomRightCorner        = bottomRightCorner ;
+			VerticalEdge             = verticalEdge ;
+			HorizontalEdge           = horizontalEdge ;
+			ConnectionHorizontalUp   = connectionHorizontalUp ;
+			ConnectionHorizontalDown = connectionHorizontalDown ;
+			ConnectionVerticalRight  = connectionVerticalRight ;
+			ConnectionVerticalLeft   = connectionVerticalLeft ;
+			ConnectionCross          = connectionCross ;
+			EmptyChar                = emptyChar ;
+			SingleLineLeftEdge       = singleLineLeftEdge ;
+			SingleLineRightEdge      = singleLineRightEdge ;
 		}
 
 		public override int GetHashCode ( )
@@ -68,94 +158,36 @@ namespace WenceyWang . FoggyConsole
 				hashCode = ( hashCode * 397 ) ^ ConnectionVerticalRight . GetHashCode ( ) ;
 				hashCode = ( hashCode * 397 ) ^ ConnectionVerticalLeft . GetHashCode ( ) ;
 				hashCode = ( hashCode * 397 ) ^ ConnectionCross . GetHashCode ( ) ;
+				hashCode = ( hashCode * 397 ) ^ SingleLineLeftEdge . GetHashCode ( ) ;
+				hashCode = ( hashCode * 397 ) ^ SingleLineRightEdge . GetHashCode ( ) ;
 				hashCode = ( hashCode * 397 ) ^ EmptyChar . GetHashCode ( ) ;
 				return hashCode ;
 			}
 		}
 
+		public bool Equals ( LineStyle other )
+		{
+			return TopLeftCorner                == other . TopLeftCorner
+					&& TopRightCorner           == other . TopRightCorner
+					&& BottomLeftCorner         == other . BottomLeftCorner
+					&& BottomRightCorner        == other . BottomRightCorner
+					&& VerticalEdge             == other . VerticalEdge
+					&& HorizontalEdge           == other . HorizontalEdge
+					&& ConnectionHorizontalUp   == other . ConnectionHorizontalUp
+					&& ConnectionHorizontalDown == other . ConnectionHorizontalDown
+					&& ConnectionVerticalRight  == other . ConnectionVerticalRight
+					&& ConnectionVerticalLeft   == other . ConnectionVerticalLeft
+					&& ConnectionCross          == other . ConnectionCross
+					&& SingleLineLeftEdge       == other . SingleLineLeftEdge
+					&& SingleLineRightEdge      == other . SingleLineRightEdge
+					&& EmptyChar                == other . EmptyChar ;
+		}
+
+		public override bool Equals ( object obj ) { return obj is LineStyle other && Equals ( other ) ; }
+
 		public static bool operator == ( LineStyle left , LineStyle right ) { return left . Equals ( right ) ; }
 
 		public static bool operator != ( LineStyle left , LineStyle right ) { return ! left . Equals ( right ) ; }
-
-		/// <summary>
-		///     A character representing the bottom right corner of an rectangle
-		/// </summary>
-		public char BottomRightCorner { get ; set ; }
-
-		/// <summary>
-		///     A character representing the a left or right edge of an rectangle
-		/// </summary>
-		public char VerticalEdge { get ; set ; }
-
-		/// <summary>
-		///     A character representing the a top or bottom edge of an rectangle
-		/// </summary>
-		public char HorizontalEdge { get ; set ; }
-
-		/// <summary>
-		///     A character representing a connection between a
-		///     <code>HorizontalEdge</code>
-		///     and a
-		///     <code>VerticalEdge</code>
-		///     ,
-		///     in which the
-		///     <code>VerticalEdge</code>
-		///     is above the
-		///     <code>HorizontalEdge</code>
-		/// </summary>
-		public char ConnectionHorizontalUp { get ; set ; }
-
-		/// <summary>
-		///     A character representing a connection between a
-		///     <code>HorizontalEdge</code>
-		///     and a
-		///     <code>VerticalEdge</code>
-		///     ,
-		///     in which the
-		///     <code>VerticalEdge</code>
-		///     is below the
-		///     <code>HorizontalEdge</code>
-		/// </summary>
-		public char ConnectionHorizontalDown { get ; set ; }
-
-		/// <summary>
-		///     A character representing a connection between a
-		///     <code>VerticalEdge</code>
-		///     and a
-		///     <code>HorizontalEdge</code>
-		///     ,
-		///     in which the
-		///     <code>HorizontalEdge</code>
-		///     is on the left side of the
-		///     <code>VerticalEdge</code>
-		/// </summary>
-		public char ConnectionVerticalRight { get ; set ; }
-
-		/// <summary>
-		///     A character representing a connection between a
-		///     <code>VerticalEdge</code>
-		///     and a
-		///     <code>HorizontalEdge</code>
-		///     ,
-		///     in which the
-		///     <code>HorizontalEdge</code>
-		///     is on the right side of the
-		///     <code>VerticalEdge</code>
-		/// </summary>
-		public char ConnectionVerticalLeft { get ; set ; }
-
-		/// <summary>
-		///     A characer representing a connection between two
-		///     <code>VerticalEdge</code>
-		///     and two
-		///     <code>HorizontalEdge</code>
-		/// </summary>
-		public char ConnectionCross { get ; set ; }
-
-		/// <summary>
-		///     A empty character which can be used to fill boxes
-		/// </summary>
-		public char EmptyChar { get ; set ; }
 
 		/// <summary>
 		///     A
@@ -163,21 +195,8 @@ namespace WenceyWang . FoggyConsole
 		///     which uses single-lined box-drawing-characters
 		/// </summary>
 		/// <returns></returns>
-		public static LineStyle Empty => new LineStyle
-										{
-											TopLeftCorner = ' ' ,
-											TopRightCorner = ' ' ,
-											BottomLeftCorner = ' ' ,
-											BottomRightCorner = ' ' ,
-											VerticalEdge = ' ' ,
-											HorizontalEdge = ' ' ,
-											ConnectionHorizontalUp = ' ' ,
-											ConnectionHorizontalDown = ' ' ,
-											ConnectionVerticalRight = ' ' ,
-											ConnectionVerticalLeft = ' ' ,
-											ConnectionCross = ' ' ,
-											EmptyChar = ' '
-										} ;
+		public static LineStyle Empty
+			=> new LineStyle ( ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ) ;
 
 
 		/// <summary>
@@ -185,21 +204,31 @@ namespace WenceyWang . FoggyConsole
 		///     <code>LineStyle</code>
 		///     .
 		/// </summary>
-		public static LineStyle GetSimpleSet { get ; } = new LineStyle
-														{
-															TopLeftCorner = '.' ,
-															TopRightCorner = '.' ,
-															BottomLeftCorner = '`' ,
-															BottomRightCorner = '´' ,
-															VerticalEdge = '|' ,
-															HorizontalEdge = '-' ,
-															ConnectionHorizontalUp = '+' ,
-															ConnectionHorizontalDown = '+' ,
-															ConnectionVerticalRight = '+' ,
-															ConnectionVerticalLeft = '+' ,
-															ConnectionCross = '+' ,
-															EmptyChar = ' '
-														} ;
+		public static LineStyle SimpleSet
+			=> new LineStyle ( '.' , '.' , '`' , '´' , '|' , '-' , '[' , ']' , '+' , '+' , '+' , '+' , '+' , ' ' ) ;
+
+
+		/// <summary>
+		///     A very simple
+		///     <code>LineStyle</code>
+		///     .
+		/// </summary>
+		public static LineStyle CornerOnlySingleLineSet
+			=> new LineStyle (
+							'\u250C' , // ┌
+							'\u2510' , // ┐
+							'\u2514' , // └
+							'\u2518' , // ┘
+							' ' ,
+							' ' ,
+							'[' ,
+							']' ,
+							'\u2534' , // ┴
+							'\u252C' , // ┬
+							'\u251C' , // ├
+							'\u2524' , // ┤
+							'\u253C' , // ┼
+							' ' ) ;
 
 		/// <summary>
 		///     A
@@ -207,42 +236,44 @@ namespace WenceyWang . FoggyConsole
 		///     which uses single-lined box-drawing-characters
 		/// </summary>
 		/// <returns></returns>
-		public static LineStyle SingleLinesSet => new LineStyle
-												{
-													TopLeftCorner = '\u250C' , // ┌
-													TopRightCorner = '\u2510' , // ┐
-													BottomLeftCorner = '\u2514' , // └
-													BottomRightCorner = '\u2518' , // ┘
-													VerticalEdge = '\u2502' , // │
-													HorizontalEdge = '\u2500' , // ─
-													ConnectionHorizontalUp = '\u2534' , // ┴
-													ConnectionHorizontalDown = '\u252C' , // ┬
-													ConnectionVerticalRight = '\u251C' , // ├
-													ConnectionVerticalLeft = '\u2524' , // ┤
-													ConnectionCross = '\u253C' , // ┼
-													EmptyChar = ' '
-												} ;
+		public static LineStyle SingleLinesSet
+			=> new LineStyle (
+							'\u250C' , // ┌
+							'\u2510' , // ┐
+							'\u2514' , // └
+							'\u2518' , // ┘
+							'\u2502' , // │
+							'\u2500' , // ─
+							'[' ,
+							']' ,
+							'\u2534' , // ┴
+							'\u252C' , // ┬
+							'\u251C' , // ├
+							'\u2524' , // ┤
+							'\u253C' , // ┼
+							' ' ) ;
 
 		/// <summary>
 		///     A
 		///     <code>LineStyle</code>
 		///     which uses double-lined box-drawing-characters
 		/// </summary>
-		public static LineStyle DoubleLinesSet => new LineStyle
-												{
-													TopLeftCorner = '\u2554' , // ╔
-													TopRightCorner = '\u2557' , // ╗
-													BottomLeftCorner = '\u255A' , // ╚
-													BottomRightCorner = '\u255D' , // ╝
-													VerticalEdge = '\u2551' , // ║
-													HorizontalEdge = '\u2550' , // ═
-													ConnectionHorizontalUp = '\u2569' , // ╩
-													ConnectionHorizontalDown = '\u2566' , // ╦
-													ConnectionVerticalRight = '\u2560' , // ╠
-													ConnectionVerticalLeft = '\u2563' , // ╣
-													ConnectionCross = '\u256C' , // ╬
-													EmptyChar = ' '
-												} ;
+		public static LineStyle DoubleLinesSet
+			=> new LineStyle (
+							'\u2554' , // ╔
+							'\u2557' , // ╗
+							'\u255A' , // ╚
+							'\u255D' , // ╝
+							'\u2551' , // ║
+							'\u2550' , // ═
+							'[' ,
+							']' ,
+							'\u2569' , // ╩
+							'\u2566' , // ╦
+							'\u2560' , // ╠
+							'\u2563' , // ╣
+							'\u256C' , // ╬
+							' ' ) ;
 
 	}
 
