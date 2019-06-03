@@ -137,7 +137,18 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				control . Measure ( new Size ( availableSize . Width , int . MaxValue ) ) ;
 				heightSum += control . DesiredSize . Height ;
-				maxWidth  =  Math . Max ( control . DesiredSize . Width , maxWidth ) ;
+
+				switch ( ControlAlign [ control ] )
+				{
+					case ContentAlign . Left :
+						maxWidth = Math . Max ( control . DesiredSize . Width , maxWidth ) ;
+						break ;
+					default :
+						maxWidth = Math . Max (
+												availableSize . Width ,
+												Math . Max ( control . DesiredSize . Width , maxWidth ) ) ;
+						break ;
+				}
 			}
 
 			DesiredSize = new Size ( maxWidth , heightSum ) ;
