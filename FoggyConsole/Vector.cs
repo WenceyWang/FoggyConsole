@@ -3,7 +3,7 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	public struct Vector
@@ -61,9 +61,7 @@ namespace WenceyWang . FoggyConsole
 		/// <param name="vector1"> The first Vector </param>
 		/// <param name="vector2"> The second Vector </param>
 		public static int CrossProduct ( Vector vector1 , Vector vector2 )
-		{
-			return vector1 . X * vector2 . Y - vector1 . Y * vector2 . X ;
-		}
+			=> vector1 . X * vector2 . Y - vector1 . Y * vector2 . X ;
 
 		/// <summary>
 		///     AngleBetween - the angle between 2 vectors
@@ -84,110 +82,88 @@ namespace WenceyWang . FoggyConsole
 		/// <summary>
 		///     Operator -Vector (unary negation)
 		/// </summary>
-		public static Vector operator - ( Vector vector ) { return new Vector ( - vector . X , - vector . Y ) ; }
+		public static Vector operator - ( Vector vector ) => new Vector ( - vector . X , - vector . Y ) ;
 
 		/// <summary>
 		///     Negates the values of X and Y on this Vector
 		/// </summary>
-		public Vector Negate ( ) { return new Vector ( - X , - Y ) ; }
+		public Vector Negate ( ) => new Vector ( - X , - Y ) ;
 
 		/// <summary>
 		///     Operator Vector + Vector
 		/// </summary>
 		public static Vector operator + ( Vector vector1 , Vector vector2 )
-		{
-			return new Vector ( vector1 . X + vector2 . X , vector1 . Y + vector2 . Y ) ;
-		}
+			=> new Vector ( vector1 . X + vector2 . X , vector1 . Y + vector2 . Y ) ;
 
 		/// <summary>
 		///     Add: Vector + Vector
 		/// </summary>
 		public static Vector Add ( Vector vector1 , Vector vector2 )
-		{
-			return new Vector ( vector1 . X + vector2 . X , vector1 . Y + vector2 . Y ) ;
-		}
+			=> new Vector ( vector1 . X + vector2 . X , vector1 . Y + vector2 . Y ) ;
 
 		/// <summary>
 		///     Operator Vector - Vector
 		/// </summary>
 		public static Vector operator - ( Vector vector1 , Vector vector2 )
-		{
-			return new Vector ( vector1 . X - vector2 . X , vector1 . Y - vector2 . Y ) ;
-		}
+			=> new Vector ( vector1 . X - vector2 . X , vector1 . Y - vector2 . Y ) ;
 
 		/// <summary>
 		///     Subtract: Vector - Vector
 		/// </summary>
 		public static Vector Subtract ( Vector vector1 , Vector vector2 )
-		{
-			return new Vector ( vector1 . X - vector2 . X , vector1 . Y - vector2 . Y ) ;
-		}
+			=> new Vector ( vector1 . X - vector2 . X , vector1 . Y - vector2 . Y ) ;
 
 		/// <summary>
 		///     Operator Vector + Point
 		/// </summary>
 		public static Point operator + ( Vector vector , Point point )
-		{
-			return new Point ( point . X + vector . X , point . Y + vector . Y ) ;
-		}
+			=> new Point ( point . X + vector . X , point . Y + vector . Y ) ;
 
 		/// <summary>
 		///     Add: Vector + Point
 		/// </summary>
 		public static Point Add ( Vector vector , Point point )
-		{
-			return new Point ( point . X + vector . X , point . Y + vector . Y ) ;
-		}
+			=> new Point ( point . X + vector . X , point . Y + vector . Y ) ;
 
 		/// <summary>
 		///     Operator Vector * double
 		/// </summary>
 		public static Vector operator * ( Vector vector , double scalar )
-		{
-			return new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
-		}
+			=> new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
 
 		/// <summary>
 		///     Multiply: Vector * double
 		/// </summary>
 		public static Vector Multiply ( Vector vector , double scalar )
-		{
-			return new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
-		}
+			=> new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
 
 		/// <summary>
 		///     Operator double * Vector
 		/// </summary>
 		public static Vector operator * ( double scalar , Vector vector )
-		{
-			return new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
-		}
+			=> new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
 
 		/// <summary>
 		///     Multiply: double * Vector
 		/// </summary>
 		public static Vector Multiply ( double scalar , Vector vector )
-		{
-			return new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
-		}
+			=> new Vector ( ( int ) ( vector . X * scalar ) , ( int ) ( vector . Y * scalar ) ) ;
 
 		/// <summary>
 		///     Operator Vector / double
 		/// </summary>
-		public static Vector operator / ( Vector vector , double scalar ) { return vector * ( 1.0 / scalar ) ; }
+		public static Vector operator / ( Vector vector , double scalar ) => vector * ( 1.0 / scalar ) ;
 
 		/// <summary>
 		///     Multiply: Vector / double
 		/// </summary>
-		public static Vector Divide ( Vector vector , double scalar ) { return vector * ( 1.0 / scalar ) ; }
+		public static Vector Divide ( Vector vector , double scalar ) => vector * ( 1.0 / scalar ) ;
 
 		/// <summary>
 		///     Operator Vector * Vector, interpreted as their dot product
 		/// </summary>
 		public static int operator * ( Vector vector1 , Vector vector2 )
-		{
-			return vector1 . X * vector2 . X + vector1 . Y * vector2 . Y ;
-		}
+			=> vector1 . X * vector2 . X + vector1 . Y * vector2 . Y ;
 
 		/// <summary>
 		///     Multiply - Returns the dot product: vector1.X*vector2.X + vector1.Y*vector2.Y
@@ -198,9 +174,7 @@ namespace WenceyWang . FoggyConsole
 		/// <param name="vector1"> The first Vector </param>
 		/// <param name="vector2"> The second Vector </param>
 		public static int Multiply ( Vector vector1 , Vector vector2 )
-		{
-			return vector1 . X * vector2 . X + vector1 . Y * vector2 . Y ;
-		}
+			=> vector1 . X * vector2 . X + vector1 . Y * vector2 . Y ;
 
 		/// <summary>
 		///     Determinant - Returns the determinant det(vector1, vector2)
@@ -211,9 +185,7 @@ namespace WenceyWang . FoggyConsole
 		/// <param name="vector1"> The first Vector </param>
 		/// <param name="vector2"> The second Vector </param>
 		public static int Determinant ( Vector vector1 , Vector vector2 )
-		{
-			return vector1 . X * vector2 . Y - vector1 . Y * vector2 . X ;
-		}
+			=> vector1 . X * vector2 . Y - vector1 . Y * vector2 . X ;
 
 		/// <summary>
 		///     Explicit conversion to Size.  Note that since Size cannot contain negative values,
@@ -224,9 +196,7 @@ namespace WenceyWang . FoggyConsole
 		/// </returns>
 		/// <param name="vector"> Vector - the Vector to convert to a Size </param>
 		public static explicit operator Size ( Vector vector )
-		{
-			return new Size ( Math . Abs ( vector . X ) , Math . Abs ( vector . Y ) ) ;
-		}
+			=> new Size ( Math . Abs ( vector . X ) , Math . Abs ( vector . Y ) ) ;
 
 		/// <summary>
 		///     Explicit conversion to Point
@@ -235,7 +205,7 @@ namespace WenceyWang . FoggyConsole
 		///     Point - A Point equal to this Vector
 		/// </returns>
 		/// <param name="vector"> Vector - the Vector to convert to a Point </param>
-		public static explicit operator Point ( Vector vector ) { return new Point ( vector . X , vector . Y ) ; }
+		public static explicit operator Point ( Vector vector ) => new Point ( vector . X , vector . Y ) ;
 
 	}
 

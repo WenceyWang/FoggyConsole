@@ -3,7 +3,7 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-namespace WenceyWang . FoggyConsole . Controls . Renderers
+namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
 	public struct CheckableChar : IEquatable <CheckableChar>
@@ -51,11 +51,7 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 		}
 
 		public bool Equals ( CheckableChar other )
-		{
-			return Checked           == other . Checked
-					&& Unchecked     == other . Unchecked
-					&& Indeterminate == other . Indeterminate ;
-		}
+			=> Checked == other . Checked && Unchecked == other . Unchecked && Indeterminate == other . Indeterminate ;
 
 		public override bool Equals ( object obj )
 		{
@@ -78,12 +74,9 @@ namespace WenceyWang . FoggyConsole . Controls . Renderers
 			}
 		}
 
-		public static bool operator == ( CheckableChar left , CheckableChar right ) { return left . Equals ( right ) ; }
+		public static bool operator == ( CheckableChar left , CheckableChar right ) => left . Equals ( right ) ;
 
-		public static bool operator != ( CheckableChar left , CheckableChar right )
-		{
-			return ! left . Equals ( right ) ;
-		}
+		public static bool operator != ( CheckableChar left , CheckableChar right ) => ! left . Equals ( right ) ;
 
 	}
 

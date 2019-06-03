@@ -4,9 +4,9 @@ using System . Collections . Generic ;
 using System . Linq ;
 using System . Security ;
 
-using WenceyWang . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	public class PasswordBox : Control

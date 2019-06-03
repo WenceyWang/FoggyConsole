@@ -3,9 +3,9 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using WenceyWang . FoggyConsole . Controls ;
+using DreamRecorder . FoggyConsole . Controls ;
 
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	/// <summary>

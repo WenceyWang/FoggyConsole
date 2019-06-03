@@ -4,13 +4,13 @@ using System . Collections . Generic ;
 using System . Linq ;
 using System . Net ;
 
+using DreamRecorder . FoggyConsole ;
+using DreamRecorder . FoggyConsole . Controls ;
 using DreamRecorder . ToolBox . CommandLine ;
 
 using Microsoft . Extensions . Logging ;
 
 using WenceyWang . FIGlet ;
-using WenceyWang . FoggyConsole ;
-using WenceyWang . FoggyConsole . Controls ;
 
 namespace Example
 {
@@ -24,7 +24,7 @@ namespace Example
 
 		public override bool AutoSaveSetting => true ;
 
-		public Program ( ) { Name = "GuguguCalendar" ; }
+		public Program ( ) => Name = "GuguguCalendar" ;
 
 
 		public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }

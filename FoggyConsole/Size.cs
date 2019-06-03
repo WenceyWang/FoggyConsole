@@ -4,7 +4,7 @@ using System . Collections . Generic ;
 using System . Globalization ;
 using System . Linq ;
 
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	public struct Size
@@ -24,18 +24,16 @@ namespace WenceyWang . FoggyConsole
 			Height = height ;
 		}
 
-		public static Size operator + ( Size size1 , Size size2 ) { return Add ( size1 , size2 ) ; }
+		public static Size operator + ( Size size1 , Size size2 ) => Add ( size1 , size2 ) ;
 
-		public static Size operator - ( Size size1 , Size size2 ) { return Subtract ( size1 , size2 ) ; }
+		public static Size operator - ( Size size1 , Size size2 ) => Subtract ( size1 , size2 ) ;
 
 		public static bool operator == ( Size size1 , Size size2 )
-		{
-			return size1 . Width == size2 . Width && size1 . Height == size2 . Height ;
-		}
+			=> size1 . Width == size2 . Width && size1 . Height == size2 . Height ;
 
-		public static bool operator != ( Size size1 , Size size2 ) { return ! ( size1 == size2 ) ; }
+		public static bool operator != ( Size size1 , Size size2 ) => ! ( size1 == size2 ) ;
 
-		public static explicit operator Point ( Size size ) { return new Point ( size . Width , size . Height ) ; }
+		public static explicit operator Point ( Size size ) => new Point ( size . Width , size . Height ) ;
 
 		public bool IsEmpty => Width == 0 || Height == 0 ;
 
@@ -44,14 +42,10 @@ namespace WenceyWang . FoggyConsole
 		public int Height { get ; }
 
 		public static Size Add ( Size size1 , Size size2 )
-		{
-			return new Size ( size1 . Width + size2 . Width , size1 . Height + size2 . Height ) ;
-		}
+			=> new Size ( size1 . Width + size2 . Width , size1 . Height + size2 . Height ) ;
 
 		public static Size Subtract ( Size size1 , Size size2 )
-		{
-			return new Size ( size1 . Width - size2 . Width , size1 . Height - size2 . Height ) ;
-		}
+			=> new Size ( size1 . Width - size2 . Width , size1 . Height - size2 . Height ) ;
 
 		public override bool Equals ( object obj )
 		{
@@ -67,16 +61,14 @@ namespace WenceyWang . FoggyConsole
 			return comp . Width == Width && comp . Height == Height ;
 		}
 
-		public override int GetHashCode ( ) { return Width ^ Height ; }
+		public override int GetHashCode ( ) => Width ^ Height ;
 
 		public override string ToString ( )
-		{
-			return "{Width="
-					+ Width . ToString ( CultureInfo . CurrentCulture )
-					+ ", Height="
-					+ Height . ToString ( CultureInfo . CurrentCulture )
-					+ "}" ;
-		}
+			=> "{Width="
+				+ Width . ToString ( CultureInfo . CurrentCulture )
+				+ ", Height="
+				+ Height . ToString ( CultureInfo . CurrentCulture )
+				+ "}" ;
 
 	}
 

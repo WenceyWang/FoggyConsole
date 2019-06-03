@@ -4,11 +4,11 @@ using System . Collections . Generic ;
 using System . Collections . ObjectModel ;
 using System . Linq ;
 
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
+
 using JetBrains . Annotations ;
 
-using WenceyWang . FoggyConsole . Controls . Renderers ;
-
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	public abstract class ContentControl : Container

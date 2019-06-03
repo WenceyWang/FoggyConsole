@@ -4,13 +4,12 @@ using System . Collections . Generic ;
 using System . Linq ;
 using System . Text ;
 
+using DreamRecorder . FoggyConsole . Controls ;
 using DreamRecorder . ToolBox . CommandLine ;
 
 using Microsoft . Extensions . Logging ;
 
-using WenceyWang . FoggyConsole . Controls ;
-
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	/// <summary>

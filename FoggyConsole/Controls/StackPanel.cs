@@ -3,10 +3,10 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using WenceyWang . FoggyConsole . Controls . Events ;
-using WenceyWang . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . FoggyConsole . Controls . Events ;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	public class StackPanel : ItemsContainer

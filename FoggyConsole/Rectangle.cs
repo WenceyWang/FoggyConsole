@@ -3,7 +3,7 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	/// <summary>
@@ -112,9 +112,7 @@ namespace WenceyWang . FoggyConsole
 
 
 		public bool Equals ( Rectangle other )
-		{
-			return X == other . X && Y == other . Y && Height == other . Height && Width == other . Width ;
-		}
+			=> X == other . X && Y == other . Y && Height == other . Height && Width == other . Width ;
 
 		public override bool Equals ( object obj )
 		{
@@ -138,9 +136,9 @@ namespace WenceyWang . FoggyConsole
 			}
 		}
 
-		public static bool operator == ( Rectangle left , Rectangle right ) { return left . Equals ( right ) ; }
+		public static bool operator == ( Rectangle left , Rectangle right ) => left . Equals ( right ) ;
 
-		public static bool operator != ( Rectangle left , Rectangle right ) { return ! left . Equals ( right ) ; }
+		public static bool operator != ( Rectangle left , Rectangle right ) => ! left . Equals ( right ) ;
 
 		/// <summary>
 		///     Creates a new rectangle
@@ -234,17 +232,15 @@ namespace WenceyWang . FoggyConsole
 		public static Rectangle Empty => new Rectangle ( 0 , 0 , 0 , 0 ) ;
 
 
-		public static Rectangle Intersect ( Rectangle rect1 , Rectangle rect2 ) { return rect1 . Intersect ( rect2 ) ; }
+		public static Rectangle Intersect ( Rectangle rect1 , Rectangle rect2 ) => rect1 . Intersect ( rect2 ) ;
 
-		public static Rectangle Union ( Rectangle rect1 , Rectangle rect2 ) { return rect1 . Union ( rect2 ) ; }
+		public static Rectangle Union ( Rectangle rect1 , Rectangle rect2 ) => rect1 . Union ( rect2 ) ;
 
 		/// <summary>
 		///     Offset - return the result of offsetting rect by the offset provided
 		/// </summary>
 		public static Rectangle Offset ( Rectangle rect , Vector offsetVector )
-		{
-			return rect . Offset ( offsetVector . X , offsetVector . Y ) ;
-		}
+			=> rect . Offset ( offsetVector . X , offsetVector . Y ) ;
 
 		public Size Size => new Size ( Width , Height ) ;
 
@@ -252,9 +248,7 @@ namespace WenceyWang . FoggyConsole
 		///     Offset - return the result of offsetting rect by the offset provided
 		/// </summary>
 		public static Rectangle Offset ( Rectangle rect , int offsetX , int offsetY )
-		{
-			return rect . Offset ( offsetX , offsetY ) ;
-		}
+			=> rect . Offset ( offsetX , offsetY ) ;
 
 	}
 

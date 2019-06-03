@@ -5,10 +5,10 @@ using System . Collections . ObjectModel ;
 using System . Collections . Specialized ;
 using System . Linq ;
 
-using WenceyWang . FoggyConsole . Controls . Events ;
-using WenceyWang . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . FoggyConsole . Controls . Events ;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	public abstract class ItemsContainer : Container

@@ -5,7 +5,7 @@ using System . Linq ;
 
 using Microsoft . Extensions . Logging ;
 
-namespace WenceyWang . FoggyConsole . Controls . Renderers
+namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
 	public class FrameRenderer : ControlRenderer <Frame>

@@ -3,7 +3,7 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	/// <summary>
@@ -166,28 +166,26 @@ namespace WenceyWang . FoggyConsole
 		}
 
 		public bool Equals ( LineStyle other )
-		{
-			return TopLeftCorner                == other . TopLeftCorner
-					&& TopRightCorner           == other . TopRightCorner
-					&& BottomLeftCorner         == other . BottomLeftCorner
-					&& BottomRightCorner        == other . BottomRightCorner
-					&& VerticalEdge             == other . VerticalEdge
-					&& HorizontalEdge           == other . HorizontalEdge
-					&& ConnectionHorizontalUp   == other . ConnectionHorizontalUp
-					&& ConnectionHorizontalDown == other . ConnectionHorizontalDown
-					&& ConnectionVerticalRight  == other . ConnectionVerticalRight
-					&& ConnectionVerticalLeft   == other . ConnectionVerticalLeft
-					&& ConnectionCross          == other . ConnectionCross
-					&& SingleLineLeftEdge       == other . SingleLineLeftEdge
-					&& SingleLineRightEdge      == other . SingleLineRightEdge
-					&& EmptyChar                == other . EmptyChar ;
-		}
+			=> TopLeftCorner                == other . TopLeftCorner
+				&& TopRightCorner           == other . TopRightCorner
+				&& BottomLeftCorner         == other . BottomLeftCorner
+				&& BottomRightCorner        == other . BottomRightCorner
+				&& VerticalEdge             == other . VerticalEdge
+				&& HorizontalEdge           == other . HorizontalEdge
+				&& ConnectionHorizontalUp   == other . ConnectionHorizontalUp
+				&& ConnectionHorizontalDown == other . ConnectionHorizontalDown
+				&& ConnectionVerticalRight  == other . ConnectionVerticalRight
+				&& ConnectionVerticalLeft   == other . ConnectionVerticalLeft
+				&& ConnectionCross          == other . ConnectionCross
+				&& SingleLineLeftEdge       == other . SingleLineLeftEdge
+				&& SingleLineRightEdge      == other . SingleLineRightEdge
+				&& EmptyChar                == other . EmptyChar ;
 
-		public override bool Equals ( object obj ) { return obj is LineStyle other && Equals ( other ) ; }
+		public override bool Equals ( object obj ) => obj is LineStyle other && Equals ( other ) ;
 
-		public static bool operator == ( LineStyle left , LineStyle right ) { return left . Equals ( right ) ; }
+		public static bool operator == ( LineStyle left , LineStyle right ) => left . Equals ( right ) ;
 
-		public static bool operator != ( LineStyle left , LineStyle right ) { return ! left . Equals ( right ) ; }
+		public static bool operator != ( LineStyle left , LineStyle right ) => ! left . Equals ( right ) ;
 
 		/// <summary>
 		///     A

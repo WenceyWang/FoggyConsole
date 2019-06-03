@@ -5,7 +5,7 @@ using System . Linq ;
 
 using Microsoft . VisualStudio . TestTools . UnitTesting ;
 
-namespace WenceyWang . FoggyConsole . UnitTest
+namespace DreamRecorder . FoggyConsole . UnitTest
 {
 
 	//老实说我真的不知道这些测试该怎么搞啊

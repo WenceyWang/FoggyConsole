@@ -5,7 +5,7 @@ using System . Linq ;
 using System . Reflection ;
 using System . Xml . Linq ;
 
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	public class Page : ContentControl

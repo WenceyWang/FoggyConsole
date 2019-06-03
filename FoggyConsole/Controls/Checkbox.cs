@@ -3,9 +3,9 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using WenceyWang . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	/// <summary>
@@ -73,9 +73,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		///     Control assigned
 		/// </exception>
 		public CheckBox ( CheckboxRenderer renderer = null ) : base ( renderer ?? new CheckboxRenderer ( ) )
-		{
-			State = CheckState . Indeterminate ;
-		}
+			=> State = CheckState . Indeterminate ;
 
 	}
 

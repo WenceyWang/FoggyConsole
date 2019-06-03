@@ -3,7 +3,7 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-namespace WenceyWang . FoggyConsole . Controls . Events
+namespace DreamRecorder . FoggyConsole . Controls . Events
 {
 
 	/// <summary>

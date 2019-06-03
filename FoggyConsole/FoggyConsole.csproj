@@ -1,46 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup Label="Globals">
-    <SccProjectName>%24/FoggyConsole/FoggyConsole</SccProjectName>
-    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
-    <SccAuxPath>https://vsts.dreamry.org/defaultcollection</SccAuxPath>
-    <SccLocalPath>.</SccLocalPath>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>WenceyWang.FoggyConsole</RootNamespace>
-    <AssemblyName>WenceyWang.FoggyConsole</AssemblyName>
-    <Company>Dream Recorder</Company>
-    <Product>FoggyConsole</Product>
+    <AssemblyName>DreamRecorder.FoggyConsole</AssemblyName>
+    <RootNamespace>DreamRecorder.FoggyConsole</RootNamespace>
+    <PackageId>FoggyConsole</PackageId>      
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Wencey Wang</Authors>
-    <Copyright>© Wencey Wang 2017</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Company>Dream Recorder</Company>
     <Description>A textmode GUI-lib.</Description>
-    <PackageProjectUrl>https://github.com/WenceyWang/FoggyConsole</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/WenceyWang/FoggyConsole.git</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-    <PackageId>FoggyConsole</PackageId>
-    <Version>0.0.1.0-alpha</Version>
-    <AssemblyVersion>0.0.1.0</AssemblyVersion>
-    <FileVersion>0.0.1.0</FileVersion>
+    <RepositoryType>TFS</RepositoryType>
+    <RepositoryUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</RepositoryUrl>
+    <PackageProjectUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</PackageProjectUrl>
+    <Copyright>Dream Recorder (c) 2019</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.1.1.0</Version>
+    <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove=".gitignore" />
-    <None Remove="FoggyConsole.csproj.vspscc" />
-    <None Remove="FoggyConsole.nuget.targets" />
-    <None Remove="project.lock.json" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AutoLazy.Fody" Version="2.2.1">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.50" />
+    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.51" />
     <PackageReference Include="FIGlet.Net" Version="1.1.1" />
     <PackageReference Include="Fody" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>
@@ -51,6 +38,5 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
   </ItemGroup>
-
 
 </Project>

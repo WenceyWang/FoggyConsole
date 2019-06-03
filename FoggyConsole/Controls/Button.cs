@@ -3,9 +3,9 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using WenceyWang . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	/// <summary>
@@ -68,9 +68,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		///     Control assigned
 		/// </exception>
 		public Button ( ControlRenderer <Button> renderer = null ) : base ( renderer ?? new ButtonRenderer ( ) )
-		{
-			BoarderStyle = LineStyle . CornerOnlySingleLineSet ;
-		}
+			=> BoarderStyle = LineStyle . CornerOnlySingleLineSet ;
 
 		/// <summary>
 		///     Fired if the button is focused and the user presses the space bar

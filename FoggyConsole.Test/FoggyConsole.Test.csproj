@@ -1,45 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
-
-    <IsPackable>false</IsPackable>
-
-    <RootNamespace>WenceyWang.FoggyConsole.UnitTest</RootNamespace>
-
-    <AssemblyName>WenceyWang.FoggyConsole.UnitTest</AssemblyName>
-
-    <PackageId>WenceyWang.FoggyConsole.UnitTest</PackageId>
-
-    <Authors>Wencey Wang</Authors>
-
-    <Company>Dream Recorder</Company>
-
-    <Product>FoggyConsole</Product>
-
-    <Description>Tests of FoggyConsole.</Description>
-
-    <Copyright>© Wencey Wang 2017</Copyright>
-
-    <PackageLicenseUrl>https://www.gnu.org/licenses/agpl.html</PackageLicenseUrl>
-
-    <PackageProjectUrl>https://github.com/WenceyWang/FoggyConsole</PackageProjectUrl>
-
-    <RepositoryUrl>https://github.com/WenceyWang/FoggyConsole.git</RepositoryUrl>
-
-    <RepositoryType>Git</RepositoryType>
-
-    <AssemblyVersion>0.0.1.1311</AssemblyVersion>
-
-    <FileVersion>0.0.1.1311</FileVersion>
-
-    <Version>0.0.1.1311-alpha</Version>
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove=".gitignore" />
-    <None Remove="FoggyConsoleTest.csproj.vspscc" />
-  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>DreamRecorder.FoggyConsole.UnitTest</RootNamespace>
+    <AssemblyName>DreamRecorder.FoggyConsole.UnitTest</AssemblyName>
+    <Authors>Wencey Wang</Authors>
+    <Company>Dream Recorder</Company>
+    <Product>FoggyConsole</Product>
+    <Description>Tests of FoggyConsole.</Description>
+    <Copyright>Dream Recorder (c) 2019</Copyright>
+    <PackageProjectUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</PackageProjectUrl>
+    <RepositoryUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</RepositoryUrl>
+    <RepositoryType>TFS</RepositoryType>    
+    <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.1.1" />

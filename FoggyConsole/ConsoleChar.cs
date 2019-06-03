@@ -3,7 +3,7 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	public struct ConsoleChar
@@ -16,16 +16,12 @@ namespace WenceyWang . FoggyConsole
 		public readonly ConsoleColor BackgroundColor ;
 
 		public bool Equals ( ConsoleChar other )
-		{
-			return Character           == other . Character
-					&& ForegroundColor == other . ForegroundColor
-					&& BackgroundColor == other . BackgroundColor ;
-		}
+			=> Character           == other . Character
+				&& ForegroundColor == other . ForegroundColor
+				&& BackgroundColor == other . BackgroundColor ;
 
 		public static implicit operator ConsoleChar ( char character )
-		{
-			return new ConsoleChar ( character , ConsoleColor . Gray ) ;
-		}
+			=> new ConsoleChar ( character , ConsoleColor . Gray ) ;
 
 		public override bool Equals ( object obj )
 		{
@@ -48,11 +44,11 @@ namespace WenceyWang . FoggyConsole
 			}
 		}
 
-		public static bool operator == ( ConsoleChar left , ConsoleChar right ) { return left . Equals ( right ) ; }
+		public static bool operator == ( ConsoleChar left , ConsoleChar right ) => left . Equals ( right ) ;
 
-		public static bool operator != ( ConsoleChar left , ConsoleChar right ) { return ! left . Equals ( right ) ; }
+		public static bool operator != ( ConsoleChar left , ConsoleChar right ) => ! left . Equals ( right ) ;
 
-		public override string ToString ( ) { return new string ( Character , 1 ) ; }
+		public override string ToString ( ) => new string ( Character , 1 ) ;
 
 		public ConsoleChar (
 			char         character ,

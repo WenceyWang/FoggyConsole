@@ -3,9 +3,9 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using WenceyWang . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace WenceyWang . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	/// <summary>
@@ -51,9 +51,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		///     Control assigned
 		/// </exception>
 		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) )
-		{
-			IsFocusedChanged += OnFocusChanged ;
-		}
+			=> IsFocusedChanged += OnFocusChanged ;
 
 
 		/// <summary>

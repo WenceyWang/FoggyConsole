@@ -3,10 +3,11 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using WenceyWang . FIGlet ;
-using WenceyWang . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace WenceyWang . FoggyConsole . Controls
+using WenceyWang . FIGlet ;
+
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
 	// ReSharper disable once InconsistentNaming
@@ -114,9 +115,7 @@ namespace WenceyWang . FoggyConsole . Controls
 		///     Control assigned
 		/// </exception>
 		public FIGletLabel ( IControlRenderer renderer = null ) : base ( renderer ?? new FIGletLabelRenderer ( ) )
-		{
-			TextChanged += FIGletLabel_TextChanged ;
-		}
+			=> TextChanged += FIGletLabel_TextChanged ;
 
 		public override void Measure ( Size availableSize )
 		{

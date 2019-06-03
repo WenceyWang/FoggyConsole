@@ -3,14 +3,13 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
+using DreamRecorder . FoggyConsole . Controls ;
 using DreamRecorder . ToolBox . General ;
 
 using Microsoft . Extensions . DependencyInjection ;
 using Microsoft . Extensions . Logging ;
 
-using WenceyWang . FoggyConsole . Controls ;
-
-namespace WenceyWang . FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
 
 	/// <summary>
