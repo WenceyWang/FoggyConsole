@@ -60,6 +60,9 @@ namespace Example
 			panel . Items . Add ( buttonA ) ;
 			Button buttonB = new Button { Name = "buttonB" , Text = "B" , KeyBind = 'B' } ;
 			panel . Items . Add ( buttonB ) ;
+
+			panel [ buttonB ] = ContentAlign . Right ;
+
 			Button buttonExit = new Button
 								{
 									Name            = "buttonExit" ,
@@ -77,7 +80,9 @@ namespace Example
 
 			panel . Items . Add ( label ) ;
 
-			buttonExit . Pressed += ButtonExit_Pressed ;
+			panel[label] = ContentAlign.Center;
+
+            buttonExit. Pressed += ButtonExit_Pressed ;
 
 			return ViewRoot ;
 		}

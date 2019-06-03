@@ -80,9 +80,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				CurrentPage             = page ;
 				CurrentPage . Container = this ;
 				CurrentPage . OnNavigateTo ( ) ;
-				Measure ( Size ) ;
-				Arrange ( new Rectangle ( Size ) ) ;
-				Draw ( ) ;
+				RequestMeasure ( ) ;
 			}
 		}
 

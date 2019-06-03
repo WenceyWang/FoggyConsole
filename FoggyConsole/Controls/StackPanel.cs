@@ -82,11 +82,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 						control . Arrange (
 											new Rectangle (
 															finalRect . LeftTopPoint . Offset (
-																								(
-																									control .
-																										DesiredSize .
-																										Width
-																									- controlWidth )
+																								( finalRect . Width
+																								- controlWidth )
 																								/ 2 ,
 																								currentHeight ) ,
 															new Size (
@@ -106,8 +103,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 						control . Arrange (
 											new Rectangle (
 															finalRect . LeftTopPoint . Offset (
-																								control . DesiredSize .
-																										Width
+																								finalRect . Width
 																								- controlWidth ,
 																								currentHeight ) ,
 															new Size (
@@ -141,6 +137,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				switch ( ControlAlign [ control ] )
 				{
 					case ContentAlign . Left :
+					case ContentAlign . Center :
 						maxWidth = Math . Max ( control . DesiredSize . Width , maxWidth ) ;
 						break ;
 					default :
