@@ -14,8 +14,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class FIGletLabel : TextualBase
 	{
 
-		private ContentAlign _align ;
-
 		private AsciiArt _asciiArt ;
 
 		private CharacterWidth _characterWidth ;
@@ -34,22 +32,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 				return _asciiArt ;
 			}
 			private set => _asciiArt = value ;
-		}
-
-		/// <summary>
-		///     The align of the text
-		/// </summary>
-		public ContentAlign Align
-		{
-			get => _align ;
-			set
-			{
-				if ( _align != value )
-				{
-					_align = value ;
-					RequestRedraw ( ) ;
-				}
-			}
 		}
 
 		public CharacterWidth CharacterWidth

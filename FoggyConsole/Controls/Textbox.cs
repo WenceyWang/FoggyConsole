@@ -18,7 +18,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 
 		/// <summary>
-		///     The position of the cursor within the textbox
+		///     The position of the cursor within the TextBox
 		/// </summary>
 		public int CursorPosition
 		{
@@ -35,13 +35,13 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override bool CanFocus => Enabled ;
 
 		/// <summary>
-		///     Creates a new textbox
+		///     Creates a new TextBox
 		/// </summary>
 		/// <param name="renderer">
 		///     The
 		///     <code>ControlRenderer</code>
 		///     to use. If null a new instance of
-		///     <code>TextboxRenderer</code>
+		///     <code>TextBoxRenderer</code>
 		///     will be used.
 		/// </param>
 		/// <exception cref="ArgumentException">
@@ -50,19 +50,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) )
-			=> IsFocusedChanged += OnFocusChanged ;
+		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) ) { }
 
 
 		/// <summary>
 		/// </summary>
 		public event EventHandler EnterPressed ;
-
-		/// <summary>
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="eventArgs"></param>
-		protected void OnFocusChanged ( object sender , EventArgs eventArgs ) { Draw ( ) ; }
 
 		public override void KeyPressed ( KeyPressedEventArgs args )
 		{

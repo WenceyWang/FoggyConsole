@@ -33,55 +33,64 @@ namespace DreamRecorder . FoggyConsole
 
 		public static void Draw ( Rectangle position , ConsoleChar [ , ] content )
 		{
-			CurrentBackgroundColor = Console . BackgroundColor ;
-			CurrentForegroundColor = Console . ForegroundColor ;
-
-			Rectangle consoleArea = new Rectangle ( new Point ( ) , Window . Size ) ;
-
-			position = Rectangle . Intersect ( position , consoleArea ) ;
-
-			bool changeLine = position . Right != consoleArea . Right || position . Left != consoleArea . Left ;
-
-			StringBuilder stringBuilder = new StringBuilder ( content . Length ) ;
-
-			if ( ! changeLine )
+			try
 			{
-				Console . SetCursorPosition ( position . Left , position . Top + position . Y ) ;
-			}
+				CurrentBackgroundColor = Console . BackgroundColor ;
+				CurrentForegroundColor = Console . ForegroundColor ;
 
-			for ( int y = 0 ; y < position . Height ; y++ )
-			{
-				if ( changeLine )
+				Rectangle consoleArea = new Rectangle ( new Point ( ) , Window . Size ) ;
+
+				position = Rectangle . Intersect ( position , consoleArea ) ;
+
+				bool changeLine = position . Right != consoleArea . Right || position . Left != consoleArea . Left ;
+
+				StringBuilder stringBuilder = new StringBuilder ( content . Length ) ;
+
+				if ( ! changeLine )
 				{
-					Console . SetCursorPosition ( position . Left , position . Top + y ) ;
+					Console . SetCursorPosition ( position . Left , position . Top ) ;
 				}
 
-				for ( int x = Math . Max ( - position . X , 0 ) ; x < position . Width ; x++ )
+				for ( int y = 0 ; y < position . Height ; y++ )
 				{
-					ConsoleColor targetBackgroundColor = content [ x , y ] . BackgroundColor ;
-					ConsoleColor targetForegroundColor = content [ x , y ] . ForegroundColor ;
-
-					if ( CurrentBackgroundColor   != targetBackgroundColor
-						|| CurrentForegroundColor != targetForegroundColor )
+					if ( changeLine )
 					{
-						Write ( stringBuilder ) ;
-
-						Console . BackgroundColor = CurrentBackgroundColor = targetBackgroundColor ;
-						Console . ForegroundColor = CurrentForegroundColor = targetForegroundColor ;
+						Console . SetCursorPosition ( position . Left , position . Top + y ) ;
 					}
 
-					stringBuilder . Append ( content [ x , y ] . Character ) ;
+					for ( int x = Math . Max ( - position . X , 0 ) ; x < position . Width ; x++ )
+					{
+						ConsoleChar currentPosition = content [ x , y ] ;
+
+						ConsoleColor targetBackgroundColor = currentPosition . BackgroundColor ;
+						ConsoleColor targetForegroundColor = currentPosition . ForegroundColor ;
+
+						if ( CurrentBackgroundColor != targetBackgroundColor
+							|| ( CurrentForegroundColor != targetForegroundColor
+								&& ( currentPosition . Character != ' ' ) ) )
+						{
+							Write ( stringBuilder ) ;
+
+							Console . BackgroundColor = CurrentBackgroundColor = targetBackgroundColor ;
+							Console . ForegroundColor = CurrentForegroundColor = targetForegroundColor ;
+						}
+
+						stringBuilder . Append ( currentPosition . Character ) ;
+					}
+
+					if ( changeLine )
+					{
+						Write ( stringBuilder ) ;
+					}
 				}
 
-				if ( changeLine )
+				if ( ! changeLine )
 				{
 					Write ( stringBuilder ) ;
 				}
 			}
-
-			if ( ! changeLine )
+			catch ( Exception e )
 			{
-				Write ( stringBuilder ) ;
 			}
 		}
 

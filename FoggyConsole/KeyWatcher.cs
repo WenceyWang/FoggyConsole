@@ -4,6 +4,8 @@ using System . Collections . Generic ;
 using System . Linq ;
 using System . Threading ;
 
+using DreamRecorder . FoggyConsole . Controls ;
+
 namespace DreamRecorder . FoggyConsole
 {
 
@@ -41,12 +43,36 @@ namespace DreamRecorder . FoggyConsole
 
 		private static void Watch ( )
 		{
+			bool isPaused = false ;
+
 			while ( IsRunning )
 			{
+				Size newSize = Window . Size ;
+
+				if ( newSize == Window . OldSize )
+				{
+					if ( isPaused )
+					{
+						Frame . Current . ResumeRedraw ( ) ;
+						isPaused = false ;
+					}
+				}
+				else
+				{
+					if ( ! isPaused )
+					{
+						Frame . Current . PauseRedraw ( ) ;
+						isPaused = true ;
+					}
+
+					Window . OldSize = newSize ;
+				}
+
+
 				if ( ! Console . KeyAvailable )
 				{
 					Thread . Yield ( ) ;
-					Thread . Sleep ( 1 ) ;
+					Thread . Sleep ( 1000 / 120 ) ;
 				}
 				else
 				{

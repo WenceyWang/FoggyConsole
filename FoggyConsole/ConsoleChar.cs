@@ -25,12 +25,12 @@ namespace DreamRecorder . FoggyConsole
 
 		public override bool Equals ( object obj )
 		{
-			if ( ReferenceEquals ( null , obj ) )
+			if ( obj is null )
 			{
 				return false ;
 			}
 
-			return obj is ConsoleChar && Equals ( ( ConsoleChar ) obj ) ;
+			return obj is ConsoleChar consoleChar && Equals ( consoleChar ) ;
 		}
 
 		public override int GetHashCode ( )

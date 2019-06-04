@@ -3,9 +3,7 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using DreamRecorder . FoggyConsole . Controls . Renderers ;
-
-namespace DreamRecorder . FoggyConsole . Controls
+namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
 	public class RelativePanelRenderer : ControlRenderer <RelativePanel>

@@ -9,24 +9,28 @@ namespace DreamRecorder . FoggyConsole
 	/// <summary>
 	///     Describers the horizontal align of content
 	/// </summary>
-	public enum ContentAlign
+	public enum ContentHorizontalAlign
 	{
 
 		/// <summary>
 		///     Content on the left side
 		/// </summary>
-		Left ,
-
+		Left = 1 ,
 
 		/// <summary>
 		///     Content in the middle
 		/// </summary>
-		Center ,
+		Center = 2 ,
 
 		/// <summary>
 		///     Content on the right side
 		/// </summary>
-		Right
+		Right = 3 ,
+
+		/// <summary>
+		///     Content stretched to fill the entire space
+		/// </summary>
+		Stretch = 0
 
 	}
 

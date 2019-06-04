@@ -41,6 +41,11 @@ namespace DreamRecorder . FoggyConsole
 
 		public int Height { get ; }
 
+		public Size Max ( Size size1 , Size size2 )
+			=> new Size (
+						Math . Max ( size1 . Width ,  size2 . Width ) ,
+						Math . Max ( size1 . Height , size2 . Height ) ) ;
+
 		public static Size Add ( Size size1 , Size size2 )
 			=> new Size ( size1 . Width + size2 . Width , size1 . Height + size2 . Height ) ;
 

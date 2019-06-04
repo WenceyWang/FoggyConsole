@@ -14,24 +14,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Label : TextualBase
 	{
 
-		private ContentAlign _align ;
-
-		/// <summary>
-		///     The align of the text
-		/// </summary>
-		public ContentAlign Align
-		{
-			get => _align ;
-			set
-			{
-				if ( _align != value )
-				{
-					_align = value ;
-					Draw ( ) ;
-				}
-			}
-		}
-
 		public override Size Size
 		{
 			get

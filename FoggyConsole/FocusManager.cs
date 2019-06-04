@@ -55,12 +55,14 @@ namespace DreamRecorder . FoggyConsole
 				if ( value != _focusedControl )
 				{
 					Frame . Current ? . PauseRedraw ( ) ;
+
 					if ( _focusedControl != null )
 					{
 						_focusedControl . IsFocused = false ;
 					}
 
 					_focusedControl = value ;
+
 					if ( _focusedControl != null )
 					{
 						_focusedControl . IsFocused = true ;
@@ -86,6 +88,42 @@ namespace DreamRecorder . FoggyConsole
 									return control . CanFocus ;
 								} ) .
 						ToList ( ) ;
+		}
+
+		private void SortByRight ( List <Control> controls , Point center )
+		{
+			controls . Sort (
+							( x , y ) =>
+							{
+								Point xCenter = x . RenderArea . Center ;
+								Point yCenter = y . RenderArea . Center ;
+
+								int xVerticalDiff = Math . Abs ( xCenter . Y - center . Y ) ;
+								int yVerticalDiff = Math . Abs ( yCenter . Y - center . Y ) ;
+
+								if ( xVerticalDiff == yVerticalDiff )
+
+								{
+									int xHorizontalDiff = xCenter . X - center . X ;
+									int yHorizontalDiff = yCenter . X - center . X ;
+
+									if ( xHorizontalDiff   < 0
+										&& yHorizontalDiff < 0 )
+									{
+										return yHorizontalDiff - xHorizontalDiff ;
+									}
+									else
+									{
+										return xHorizontalDiff - yHorizontalDiff ;
+									}
+
+									//return <
+								}
+								else
+								{
+									return xVerticalDiff - yVerticalDiff ;
+								}
+							} ) ;
 		}
 
 		/// <summary>
@@ -134,26 +172,57 @@ namespace DreamRecorder . FoggyConsole
 			{
 				switch ( args . KeyInfo . Key )
 				{
-					case ConsoleKey . RightArrow :
-					case ConsoleKey . DownArrow :
 					case ConsoleKey . Tab :
 					{
-						args . Handled = true ;
-						FocusedControl =
-							controlList [ ( Math . Max ( controlList . IndexOf ( FocusedControl ) , 0 ) + 1 )
-										% controlList . Count ] ;
+						if ( args . KeyInfo . Modifiers == ConsoleModifiers . Shift )
+						{
+							args . Handled = true ;
+							FocusedControl =
+								controlList [ ( Math . Max ( controlList . IndexOf ( FocusedControl ) , 0 )
+												+ controlList . Count
+												- 1 )
+											% controlList . Count ] ;
+						}
+						else
+						{
+							args . Handled = true ;
+							FocusedControl =
+								controlList [ ( Math . Max ( controlList . IndexOf ( FocusedControl ) , 0 ) + 1 )
+											% controlList . Count ] ;
+						}
+
+						break ;
+					}
+
+					case ConsoleKey . RightArrow :
+					{
+						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
+						controlList . Remove ( FocusedControl ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ;
+						break ;
+					}
+
+					case ConsoleKey . DownArrow :
+					{
+						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
+						controlList . Remove ( FocusedControl ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ;
 						break ;
 					}
 
 					case ConsoleKey . UpArrow :
+					{
+						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
+						controlList . Remove ( FocusedControl ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ;
+						break ;
+					}
+
 					case ConsoleKey . LeftArrow :
 					{
-						args . Handled = true ;
-						FocusedControl =
-							controlList [ ( Math . Max ( controlList . IndexOf ( FocusedControl ) , 0 )
-											+ controlList . Count
-											- 1 )
-										% controlList . Count ] ;
+						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
+						controlList . Remove ( FocusedControl ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ;
 						break ;
 					}
 

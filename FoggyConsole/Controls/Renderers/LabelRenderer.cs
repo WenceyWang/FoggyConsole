@@ -25,9 +25,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		{
 			ConsoleArea result = new ConsoleArea ( Control . ActualSize , Control . ActualBackgroundColor ) ;
 
-			switch ( Control . Align )
+			switch ( Control . HorizontalAlign )
 			{
-				case ContentAlign . Left :
+				case ContentHorizontalAlign . Left :
 				{
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
@@ -40,7 +40,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					break ;
 				}
 
-				case ContentAlign . Center :
+				case ContentHorizontalAlign . Center :
 				{
 					int startPosition = ( Control . RenderArea . Width - Control . Text . Length ) / 2 ;
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
@@ -54,7 +54,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					break ;
 				}
 
-				case ContentAlign . Right :
+				case ContentHorizontalAlign . Right :
 				{
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{

@@ -58,10 +58,9 @@ namespace Example
 
 			Button buttonA = new Button { Name = "buttonA" , Text = "A" , KeyBind = 'A' } ;
 			panel . Items . Add ( buttonA ) ;
-			Button buttonB = new Button { Name = "buttonB" , Text = "B" , KeyBind = 'B' } ;
+			Button buttonB = new Button { Name = "buttonB" , Text = "B" , KeyBind = 'B', HorizontalAlign = ContentHorizontalAlign.Right } ;
 			panel . Items . Add ( buttonB ) ;
 
-			panel [ buttonB ] = ContentAlign . Right ;
 
 			Button buttonExit = new Button
 								{
@@ -73,14 +72,23 @@ namespace Example
 								} ;
 			panel . Items . Add ( buttonExit ) ;
 
-			WebClient client = new WebClient ( ) ;
-
-
-			FIGletLabel label = new FIGletLabel { Text = 24 . ToString ( ) , CharacterWidth = CharacterWidth . Smush } ;
+			FIGletLabel label = new FIGletLabel { Text = 24 . ToString ( ) , CharacterWidth = CharacterWidth . Smush,HorizontalAlign=ContentHorizontalAlign.Center } ;
 
 			panel . Items . Add ( label ) ;
 
-			panel[label] = ContentAlign.Center;
+			Canvas canvas = new Canvas ( ) {};
+
+			for ( int y = 0 ; y < 5 ; y++ )
+			{
+				for ( int x = 0 ; x < 5 ; x++ )
+				{
+					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
+                    canvas.Items.Add(button);
+					canvas [ button ] = new Point ( 5 * x , y ) ;
+				}
+			}
+
+			panel . Items . Add ( canvas ) ;
 
             buttonExit. Pressed += ButtonExit_Pressed ;
 

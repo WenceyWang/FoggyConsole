@@ -26,11 +26,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		private ConsoleColor ? _foregroundColor ;
 
+		private ContentHorizontalAlign _horizontalAlign ;
+
 		private bool _isFocused ;
 
 		private IControlRenderer _renderer ;
 
 		private Size _size ;
+
+		private ContentVerticalAlign _verticalAlign ;
 
 		/// <summary>
 		///     The name of this Control, must be unique within its Container
@@ -38,6 +42,32 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public string Name { get ; set ; }
 
 		public abstract bool CanFocus { get ; }
+
+		public ContentHorizontalAlign HorizontalAlign
+		{
+			get => _horizontalAlign ;
+			set
+			{
+				if ( value != _horizontalAlign )
+				{
+					_horizontalAlign = value ;
+					RequestMeasure ( ) ;
+				}
+			}
+		}
+
+		public ContentVerticalAlign VerticalAlign
+		{
+			get => _verticalAlign ;
+			set
+			{
+				if ( value != _verticalAlign )
+				{
+					_verticalAlign = value ;
+					RequestMeasure ( ) ;
+				}
+			}
+		}
 
 		public virtual bool AutoWidth { get ; set ; } = true ;
 
@@ -297,7 +327,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public virtual void Measure ( Size availableSize )
 		{
 			int width ;
-			if ( AutoHeight )
+			if ( AutoWidth )
 			{
 				width = AutoDesiredSize . Width ;
 			}

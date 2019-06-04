@@ -9,6 +9,8 @@ namespace DreamRecorder . FoggyConsole
 	public static class Window
 	{
 
+		public static Size OldSize { get ; set ; }
+
 		public static Size Size
 		{
 			get => new Size ( Console . WindowWidth , Console . WindowHeight ) ;

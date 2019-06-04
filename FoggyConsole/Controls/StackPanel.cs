@@ -3,7 +3,6 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-using DreamRecorder . FoggyConsole . Controls . Events ;
 using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
 namespace DreamRecorder . FoggyConsole . Controls
@@ -14,41 +13,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocus => false ;
 
-		public Dictionary <Control , ContentAlign> ControlAlign { get ; } =
-			new Dictionary <Control , ContentAlign> ( ) ;
+		public StackPanel ( IControlRenderer renderer = null ) : base ( renderer ?? new StackPanelRenderer ( ) ) { }
 
-
-		public ContentAlign this [ Control control ]
-		{
-			get
-			{
-				if ( ControlAlign . ContainsKey ( control ) )
-				{
-					return ControlAlign [ control ] ;
-				}
-				else
-				{
-					return default ;
-				}
-			}
-			set => ControlAlign [ control ] = value ;
-		}
-
-		public StackPanel ( IControlRenderer renderer = null ) : base ( renderer ?? new StackPanelRenderer ( ) )
-		{
-			ItemsAdded   += StackPanel_ItemsAdded ;
-			ItemsRemoved += StackPanel_ItemsRemoved ;
-		}
-
-		private void StackPanel_ItemsRemoved ( object sender , ContainerControlEventArgs e )
-		{
-			ControlAlign . Remove ( e . Control ) ;
-		}
-
-		private void StackPanel_ItemsAdded ( object sender , ContainerControlEventArgs e )
-		{
-			ControlAlign [ e . Control ] = default ;
-		}
 
 		public override void Arrange ( Rectangle finalRect )
 		{
@@ -56,9 +22,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 			for ( int i = 0 ; i < Items . Count && currentHeight < finalRect . Height ; i++ )
 			{
 				Control control = Items [ i ] ;
-				switch ( this [ control ] )
+				switch ( control . HorizontalAlign )
 				{
-					case ContentAlign . Left :
+					case ContentHorizontalAlign . Left :
 					{
 						control . Arrange (
 											new Rectangle (
@@ -76,7 +42,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 						break ;
 					}
 
-					case ContentAlign . Center :
+					case ContentHorizontalAlign . Center :
 					{
 						int controlWidth = Math . Min ( finalRect . Width , control . DesiredSize . Width ) ;
 						control . Arrange (
@@ -97,7 +63,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 						break ;
 					}
 
-					case ContentAlign . Right :
+					case ContentHorizontalAlign . Right :
 					{
 						int controlWidth = Math . Min ( finalRect . Width , control . DesiredSize . Width ) ;
 						control . Arrange (
@@ -114,6 +80,23 @@ namespace DreamRecorder . FoggyConsole . Controls
 																							- currentHeight ,
 																							0 ) ,
 																				control . DesiredSize . Height ) ) ) ) ;
+						break ;
+					}
+
+					case ContentHorizontalAlign . Stretch :
+					{
+						control . Arrange (
+											new Rectangle (
+															finalRect . LeftTopPoint . Offset ( 0 , currentHeight ) ,
+															new Size (
+																	finalRect . Width ,
+																	Math . Min (
+																				Math . Max (
+																							finalRect . Height
+																							- currentHeight ,
+																							0 ) ,
+																				control . DesiredSize . Height ) ) ) ) ;
+
 						break ;
 					}
 				}
@@ -133,22 +116,24 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				control . Measure ( new Size ( availableSize . Width , int . MaxValue ) ) ;
 				heightSum += control . DesiredSize . Height ;
-
-				switch ( ControlAlign [ control ] )
-				{
-					case ContentAlign . Left :
-					case ContentAlign . Center :
-						maxWidth = Math . Max ( control . DesiredSize . Width , maxWidth ) ;
-						break ;
-					default :
-						maxWidth = Math . Max (
-												availableSize . Width ,
-												Math . Max ( control . DesiredSize . Width , maxWidth ) ) ;
-						break ;
-				}
+				maxWidth  =  Math . Max ( control . DesiredSize . Width , maxWidth ) ;
 			}
 
-			DesiredSize = new Size ( maxWidth , heightSum ) ;
+			int resultWidth = maxWidth ;
+
+			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
+			{
+				resultWidth = Math . Max ( resultWidth , availableSize . Width ) ;
+			}
+
+			int resultHeight = heightSum ;
+
+			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
+			{
+				resultHeight = Math . Max ( resultHeight , availableSize . Height ) ;
+			}
+
+			DesiredSize = new Size ( resultWidth , resultHeight ) ;
 		}
 
 	}

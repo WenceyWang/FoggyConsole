@@ -20,6 +20,8 @@ namespace DreamRecorder . FoggyConsole
 
 		public Point RightDownPoint => new Point ( X + Width , Y + Height ) ;
 
+		public Point Center => new Point ( X + ( Width / 2 ) , Y + ( Height / 2 ) ) ;
+
 		/// <summary>
 		///     This rectangles distance from the left edge in characters
 		/// </summary>
@@ -121,7 +123,7 @@ namespace DreamRecorder . FoggyConsole
 				return false ;
 			}
 
-			return obj is Rectangle && Equals ( ( Rectangle ) obj ) ;
+			return obj is Rectangle rectangle && Equals ( rectangle ) ;
 		}
 
 		public override int GetHashCode ( )
