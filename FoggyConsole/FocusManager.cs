@@ -90,6 +90,76 @@ namespace DreamRecorder . FoggyConsole
 						ToList ( ) ;
 		}
 
+		private void SortByUp ( List <Control> controls , Point center )
+		{
+			controls . Sort (
+							( x , y ) =>
+							{
+								Point xCenter = x . RenderArea . Center ;
+								Point yCenter = y . RenderArea . Center ;
+
+								int xHorizontalDiff = Math . Abs ( xCenter . X - center . X ) ;
+								int yHorizontalDiff = Math . Abs ( yCenter . X - center . X ) ;
+
+								if ( xHorizontalDiff == yHorizontalDiff )
+
+								{
+									int xVerticalDiff = xCenter . Y - center . Y ;
+									int yVerticalDiff = yCenter . Y - center . Y ;
+
+									if ( ( xVerticalDiff   < 0 && yVerticalDiff < 0 )
+										|| ( xVerticalDiff > 0 && yVerticalDiff > 0 ) )
+									{
+										return yVerticalDiff - xVerticalDiff ;
+									}
+									else
+									{
+										return xVerticalDiff - yVerticalDiff ;
+									}
+								}
+								else
+								{
+									return xHorizontalDiff - yHorizontalDiff ;
+								}
+							} ) ;
+		}
+
+
+		private void SortByDown ( List <Control> controls , Point center )
+		{
+			controls . Sort (
+							( x , y ) =>
+							{
+								Point xCenter = x . RenderArea . Center ;
+								Point yCenter = y . RenderArea . Center ;
+
+								int xHorizontalDiff = Math . Abs ( xCenter . X - center . X ) ;
+								int yHorizontalDiff = Math . Abs ( yCenter . X - center . X ) ;
+
+								if ( xHorizontalDiff == yHorizontalDiff )
+
+								{
+									int xVerticalDiff = xCenter . Y - center . Y ;
+									int yVerticalDiff = yCenter . Y - center . Y ;
+
+									if ( ( xVerticalDiff   < 0 && yVerticalDiff < 0 )
+										|| ( xVerticalDiff > 0 && yVerticalDiff > 0 ) )
+									{
+										return xVerticalDiff - yVerticalDiff ;
+									}
+									else
+									{
+										return yVerticalDiff - xVerticalDiff ;
+									}
+								}
+								else
+								{
+									return xHorizontalDiff - yHorizontalDiff ;
+								}
+							} ) ;
+		}
+
+
 		private void SortByRight ( List <Control> controls , Point center )
 		{
 			controls . Sort (
@@ -107,8 +177,42 @@ namespace DreamRecorder . FoggyConsole
 									int xHorizontalDiff = xCenter . X - center . X ;
 									int yHorizontalDiff = yCenter . X - center . X ;
 
-									if ( xHorizontalDiff   < 0
-										&& yHorizontalDiff < 0 )
+									if ( ( xHorizontalDiff   < 0 && yHorizontalDiff < 0 )
+										|| ( xHorizontalDiff > 0 && yHorizontalDiff > 0 ) )
+									{
+										return xHorizontalDiff - yHorizontalDiff ;
+									}
+									else
+									{
+										return yHorizontalDiff - xHorizontalDiff ;
+									}
+								}
+								else
+								{
+									return xVerticalDiff - yVerticalDiff ;
+								}
+							} ) ;
+		}
+
+		private void SortByLeft ( List <Control> controls , Point center )
+		{
+			controls . Sort (
+							( x , y ) =>
+							{
+								Point xCenter = x . RenderArea . Center ;
+								Point yCenter = y . RenderArea . Center ;
+
+								int xVerticalDiff = Math . Abs ( xCenter . Y - center . Y ) ;
+								int yVerticalDiff = Math . Abs ( yCenter . Y - center . Y ) ;
+
+								if ( xVerticalDiff == yVerticalDiff )
+
+								{
+									int xHorizontalDiff = xCenter . X - center . X ;
+									int yHorizontalDiff = yCenter . X - center . X ;
+
+									if ( ( xHorizontalDiff   < 0 && yHorizontalDiff < 0 )
+										|| ( xHorizontalDiff > 0 && yHorizontalDiff > 0 ) )
 									{
 										return yHorizontalDiff - xHorizontalDiff ;
 									}
@@ -116,8 +220,6 @@ namespace DreamRecorder . FoggyConsole
 									{
 										return xHorizontalDiff - yHorizontalDiff ;
 									}
-
-									//return <
 								}
 								else
 								{
@@ -204,7 +306,7 @@ namespace DreamRecorder . FoggyConsole
 
 					case ConsoleKey . DownArrow :
 					{
-						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
+						SortByDown ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
 						FocusedControl = controlList . FirstOrDefault ( ) ;
 						break ;
@@ -212,7 +314,7 @@ namespace DreamRecorder . FoggyConsole
 
 					case ConsoleKey . UpArrow :
 					{
-						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
+						SortByUp ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
 						FocusedControl = controlList . FirstOrDefault ( ) ;
 						break ;
@@ -220,7 +322,7 @@ namespace DreamRecorder . FoggyConsole
 
 					case ConsoleKey . LeftArrow :
 					{
-						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
+						SortByLeft ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
 						FocusedControl = controlList . FirstOrDefault ( ) ;
 						break ;
