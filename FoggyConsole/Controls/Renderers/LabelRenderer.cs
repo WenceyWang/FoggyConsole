@@ -27,6 +27,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 			switch ( Control . HorizontalAlign )
 			{
+				default :
+				case ContentHorizontalAlign . Stretch :
 				case ContentHorizontalAlign . Left :
 				{
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )

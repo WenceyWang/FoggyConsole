@@ -24,7 +24,6 @@ namespace DreamRecorder . FoggyConsole
 
 		private Frame Root { get ; }
 
-
 		private ILogger Logger { get ; } =
 			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <FocusManager> ( ) ;
 
@@ -300,7 +299,7 @@ namespace DreamRecorder . FoggyConsole
 					{
 						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
-						FocusedControl = controlList . FirstOrDefault ( ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 						break ;
 					}
 
@@ -308,7 +307,7 @@ namespace DreamRecorder . FoggyConsole
 					{
 						SortByDown ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
-						FocusedControl = controlList . FirstOrDefault ( ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 						break ;
 					}
 
@@ -316,7 +315,7 @@ namespace DreamRecorder . FoggyConsole
 					{
 						SortByUp ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
-						FocusedControl = controlList . FirstOrDefault ( ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 						break ;
 					}
 
@@ -324,7 +323,7 @@ namespace DreamRecorder . FoggyConsole
 					{
 						SortByLeft ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
-						FocusedControl = controlList . FirstOrDefault ( ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 						break ;
 					}
 

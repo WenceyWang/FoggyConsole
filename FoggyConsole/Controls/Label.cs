@@ -14,27 +14,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Label : TextualBase
 	{
 
-		public override Size Size
-		{
-			get
-			{
-				if ( base . Size == new Size ( 0 , 0 ) )
-				{
-					return new Size ( Text . Length , 1 ) ;
-				}
-
-				return base . Size ;
-			}
-			set => base . Size = value ;
-		}
-
 		public override bool CanFocus => false ;
 
 		/// <summary>
 		///     Creates a new
 		///     <code>Label</code>
 		/// </summary>
-		/// <param name="text">The text on the Label</param>
 		/// <param name="renderer">
 		///     The
 		///     <code>ControlRenderer</code>
@@ -49,7 +34,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     Control assigned
 		/// </exception>
 		public Label ( IControlRenderer renderer = null ) : base ( renderer ?? new LabelRenderer ( ) )
-			=> BoarderStyle = LineStyle . Empty ;
+		{
+			BoarderStyle = null ;
+		}
 
 	}
 
