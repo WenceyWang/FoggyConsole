@@ -38,8 +38,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			}
 		}
 
-		public ConsoleChar [ , ] CurrentView { get ; protected set ; }
-
 		Control IControlRenderer . Control
 		{
 			get => Control ;
@@ -53,7 +51,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws the Control stored in the Control-Property
 		/// </summary>
-		public abstract void Draw ( ) ;
+		public abstract void Draw ( ConsoleArea area ) ;
 
 	}
 

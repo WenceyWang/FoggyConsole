@@ -3,7 +3,9 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 
-namespace DreamRecorder . FoggyConsole . Controls . Renderers
+using DreamRecorder . FoggyConsole . Controls ;
+
+namespace DreamRecorder . FoggyConsole
 {
 
 	public struct CheckableChar : IEquatable <CheckableChar>

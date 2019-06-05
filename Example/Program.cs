@@ -23,7 +23,7 @@ namespace Example
 
 		public override bool AutoSaveSetting => true ;
 
-		public Program ( ) { Name = "GuguguCalendar" ; }
+		public Program ( ) => Name = "GuguguCalendar" ;
 
 
 		public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
@@ -49,97 +49,63 @@ namespace Example
 
 		public override Frame PrepareViewRoot ( )
 		{
-			ViewRoot = new Frame();
-			Canvas canvas = new Canvas();
-			Page page = new Page
-						{
-							Content = canvas
-						};
-			ViewRoot.NavigateTo(page);
+			ViewRoot = new Frame ( ) ;
+			StackPanel panel = new StackPanel ( ) ;
+			Page       page  = new Page ( ) ;
+			page . Content = panel ;
+			ViewRoot . NavigateTo ( page ) ;
 
-			StackPanel panel = new StackPanel();
-
-			canvas.Items.Add(panel);
-
-
-			Label yearMonthLabel = new Label { Text = DateTime.Now.ToString("MMMM yyyy"), HorizontalAlign = ContentHorizontalAlign.Stretch };
-
-			panel.Items.Add(yearMonthLabel);
-
-
-			FIGletLabel dateLabel = new FIGletLabel { Text = DateTime.Now.Day.ToString(), CharacterWidth = CharacterWidth.Smush };
-
-			panel.Items.Add(dateLabel);
+			Button buttonA = new Button { Name = "buttonA" , Text = "A" , KeyBind = 'A' } ;
+			panel . Items . Add ( buttonA ) ;
+			Button buttonB = new Button
+							{
+								Name            = "buttonB" ,
+								Text            = "B" ,
+								KeyBind         = 'B' ,
+								HorizontalAlign = ContentHorizontalAlign . Right
+							} ;
+			panel . Items . Add ( buttonB ) ;
 
 
-			Label dayNameLabel = new Label { Text = DateTime.Now.ToString("dddd"), HorizontalAlign = ContentHorizontalAlign.Stretch };
-			panel.Items.Add(dayNameLabel);
+			Button buttonExit = new Button
+								{
+									Name            = "buttonExit" ,
+									Text            = "Exit" ,
+									KeyBind         = 'E' ,
+									BoarderStyle    = LineStyle . SingleLinesSet ,
+									AllowSingleLine = false
+								} ;
+			panel . Items . Add ( buttonExit ) ;
 
-			Button exitButton = new Button { Name = nameof(exitButton), Text = "Exit", HorizontalAlign = ContentHorizontalAlign.Left };
+			FIGletLabel label = new FIGletLabel
+								{
+									Text            = 24 . ToString ( ) ,
+									CharacterWidth  = CharacterWidth . Smush ,
+									HorizontalAlign = ContentHorizontalAlign . Center
+								} ;
 
-			exitButton.Pressed += ExitButton_Pressed;
+			panel . Items . Add ( label ) ;
 
-			panel.Items.Add(exitButton);
+			Canvas canvas = new Canvas ( ) ;
 
-			return ViewRoot;
+			for ( int y = 0 ; y < 20 ; y++ )
+			{
+				for ( int x = 0 ; x < 20 ; x++ )
+				{
+					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" , Width = 6 } ;
+					canvas . Items . Add ( button ) ;
+					canvas [ button ] = new Point ( 7 * x , y ) ;
+				}
+			}
 
-            //ViewRoot = new Frame ( ) ;
-            //StackPanel panel = new StackPanel ( ) ;
-            //Page       page  = new Page ( ) ;
-            //page . Content = panel ;
-            //ViewRoot . NavigateTo ( page ) ;
+			panel . Items . Add ( canvas ) ;
 
-            //Button buttonA = new Button { Name = "buttonA" , Text = "A" , KeyBind = 'A' } ;
-            //panel . Items . Add ( buttonA ) ;
-            //Button buttonB = new Button
-            //				{
-            //					Name            = "buttonB" ,
-            //					Text            = "B" ,
-            //					KeyBind         = 'B' ,
-            //					HorizontalAlign = ContentHorizontalAlign . Right
-            //				} ;
-            //panel . Items . Add ( buttonB ) ;
+			buttonExit . Pressed += ExitButton_Pressed ;
 
+			return ViewRoot ;
+		}
 
-            //Button buttonExit = new Button
-            //					{
-            //						Name            = "buttonExit" ,
-            //						Text            = "Exit" ,
-            //						KeyBind         = 'E' ,
-            //						BoarderStyle    = LineStyle . SingleLinesSet ,
-            //						AllowSingleLine = false
-            //					} ;
-            //panel . Items . Add ( buttonExit ) ;
-
-            //FIGletLabel label = new FIGletLabel
-            //					{
-            //						Text            = 24 . ToString ( ) ,
-            //						CharacterWidth  = CharacterWidth . Smush ,
-            //						HorizontalAlign = ContentHorizontalAlign . Center
-            //					} ;
-
-            //panel . Items . Add ( label ) ;
-
-            //Canvas canvas = new Canvas ( ) ;
-
-            //for ( int y = 0 ; y < 20 ; y++ )
-            //{
-            //	for ( int x = 0 ; x < 20 ; x++ )
-            //	{
-            //		Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
-            //		canvas . Items . Add ( button ) ;
-            //		canvas [ button ] = new Point ( 6 * x , y ) ;
-            //	}
-            //}
-
-            //panel . Items . Add ( canvas ) ;
-
-            //buttonExit . Pressed += ButtonExit_Pressed ;
-
-            //return ViewRoot ;
-        }
-
-		private void ExitButton_Pressed( object sender , EventArgs e ) { Exit ( ProgramExitCode . Success ) ; }
+		private void ExitButton_Pressed ( object sender , EventArgs e ) { Exit ( ProgramExitCode . Success ) ; }
 
 	}
 

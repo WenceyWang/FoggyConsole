@@ -67,7 +67,7 @@ namespace DreamRecorder . FoggyConsole
 
 						if ( CurrentBackgroundColor != targetBackgroundColor
 							|| ( CurrentForegroundColor != targetForegroundColor
-								&& ( currentPosition . Character != ' ' ) ) )
+								&& ( ! char . IsWhiteSpace ( currentPosition . Character ) ) ) )
 						{
 							Write ( stringBuilder ) ;
 

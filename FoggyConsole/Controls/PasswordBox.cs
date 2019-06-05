@@ -28,7 +28,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( _hintTextColor != value )
 				{
 					_hintTextColor = value ;
-					Draw ( ) ;
+					RequestRedraw ( ) ;
 				}
 			}
 		}
@@ -41,7 +41,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( _hintText != value )
 				{
 					_hintText = value ;
-					Draw ( ) ;
+					RequestRedraw ( ) ;
 				}
 			}
 		}
@@ -58,7 +58,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			private set
 			{
 				_cursorPosition = value ;
-				Draw ( ) ;
+				RequestRedraw ( ) ;
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( _passwordChar != value )
 				{
 					_passwordChar = value ;
-					Draw ( ) ;
+					RequestRedraw ( ) ;
 				}
 			}
 		}

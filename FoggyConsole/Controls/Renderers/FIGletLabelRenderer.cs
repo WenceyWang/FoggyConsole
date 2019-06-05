@@ -7,25 +7,24 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
 	// ReSharper disable once InconsistentNaming
+	// ReSharper disable once IdentifierTypo
 	public class FIGletLabelRenderer : ControlRenderer <FIGletLabel>
 	{
 
-		public override void Draw ( )
+		public override void Draw ( ConsoleArea area )
 		{
-			ConsoleArea result = new ConsoleArea ( Control . ActualSize , Control . ActualBackgroundColor ) ;
+			area . Fill ( Control . ActualBackgroundColor ) ;
 
-			for ( int y = 0 ; y < result . Size . Height && y < Control . AsciiArt . Height ; y++ )
+			for ( int y = 0 ; y < area . Size . Height && y < Control . AsciiArt . Height ; y++ )
 			{
-				for ( int x = 0 ; x < result . Size . Width && x < Control . ActualText [ y ] . Length ; x++ )
+				for ( int x = 0 ; x < area . Size . Width && x < Control . ActualText [ y ] . Length ; x++ )
 				{
-					result [ x , y ] = new ConsoleChar (
-														Control . ActualText [ y ] [ x ] ,
-														Control . ActualForegroundColor ,
-														Control . ActualBackgroundColor ) ;
+					area [ x , y ] = new ConsoleChar (
+													Control . ActualText [ y ] [ x ] ,
+													Control . ActualForegroundColor ,
+													Control . ActualBackgroundColor ) ;
 				}
 			}
-
-			FogConsole . Draw ( Control . RenderPoint , result ) ;
 		}
 
 	}

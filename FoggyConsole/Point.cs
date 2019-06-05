@@ -127,6 +127,8 @@ namespace DreamRecorder . FoggyConsole
 		public static Vector Subtract ( Point point1 , Point point2 )
 			=> new Vector ( point1 . X - point2 . X , point1 . Y - point2 . Y ) ;
 
+		public override string ToString ( ) => $"({X},{Y})" ;
+
 	}
 
 }

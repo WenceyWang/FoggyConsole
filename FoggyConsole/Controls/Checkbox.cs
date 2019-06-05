@@ -14,45 +14,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class CheckBox : CheckableBase
 	{
 
-		/// <summary>
-		///     Handles the key-user input which is given in
-		///     <paramref name="keyInfo" />
-		///     .
-		///     The State-State will flip if the user presses the space bar.
-		/// </summary>
-		/// <returns>true if the keypress was handled, otherwise false</returns>
-		/// <param name="keyInfo">The keypress to handle</param>
-
-		//public override bool HandleKeyInput ( ConsoleKeyInfo keyInfo )
-		//{
-		//	if ( keyInfo . Key == ConsoleKey . Spacebar )
-		//	{
-		//		CheckState newState ;
-		//		switch ( State )
-		//		{
-		//			case CheckState . Checked :
-		//			{
-		//				newState = CheckState . Unchecked ;
-		//				break ;
-		//			}
-		//			case CheckState . Unchecked :
-		//			case CheckState . Indeterminate :
-		//			{
-		//				newState = CheckState . Checked ;
-		//				break ;
-		//			}
-		//			default :
-
-		//				// stupid C#-compiler is stupid, will never happen.
-		//				throw new ArgumentOutOfRangeException ( ) ;
-		//		}
-
-		//		State = newState ;
-		//		return true ;
-		//	}
-
-		//	return false ;
-		//}
 		public override bool CanFocus => Enabled ;
 
 		/// <summary>

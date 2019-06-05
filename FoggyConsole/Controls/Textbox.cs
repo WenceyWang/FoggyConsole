@@ -26,7 +26,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			private set
 			{
 				_cursorPosition = value ;
-				Draw ( ) ;
+				RequestRedraw ( ) ;
 			}
 		}
 

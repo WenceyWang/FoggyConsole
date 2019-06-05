@@ -6,16 +6,8 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
-	public class StackPanelRenderer : ControlRenderer <StackPanel>
+	public class StackPanelRenderer : ItemsContainerRenderer <StackPanel>
 	{
-
-		public override void Draw ( )
-		{
-			foreach ( Control control in Control . Items )
-			{
-				control . Draw ( ) ;
-			}
-		}
 
 	}
 

@@ -6,22 +6,30 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
+	public class ItemsContainerRenderer <T> : ControlRenderer <T> where T : ItemsContainer
+	{
+
+		public override void Draw ( ConsoleArea area )
+		{
+			foreach ( Control control in Control . Items )
+			{
+				if ( ! control . RenderArea . IsEmpty )
+				{
+					control . Draw ( area . CreateSub ( control . RenderArea ) ) ;
+				}
+			}
+		}
+
+	}
+
 	/// <summary>
 	///     Draws a
 	///     <code>Canvas</code>
 	///     , which has no own appearance.
 	///     All controls within the panel are drawn.
 	/// </summary>
-	public class CanvasRenderer : ControlRenderer <Canvas>
+	public class CanvasRenderer : ItemsContainerRenderer <Canvas>
 	{
-
-		public override void Draw ( )
-		{
-			foreach ( Control control in Control . Items )
-			{
-				control . Draw ( ) ;
-			}
-		}
 
 	}
 

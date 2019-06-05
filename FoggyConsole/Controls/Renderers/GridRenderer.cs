@@ -6,10 +6,8 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
-	public class GridRenderer : ControlRenderer <Grid>
+	public class GridRenderer : ItemsContainerRenderer <Grid>
 	{
-
-		public override void Draw ( ) { throw new NotImplementedException ( ) ; }
 
 	}
 

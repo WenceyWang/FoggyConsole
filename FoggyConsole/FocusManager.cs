@@ -2,6 +2,7 @@
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
+using System . Numerics ;
 
 using DreamRecorder . FoggyConsole . Controls ;
 using DreamRecorder . ToolBox . General ;
@@ -39,8 +40,8 @@ namespace DreamRecorder . FoggyConsole
 		/// </exception>
 		public FocusManager ( Frame root )
 		{
-			Root           = root ?? throw new ArgumentNullException ( nameof ( root ) ) ;
-			FocusedControl = GetControlList ( ) . FirstOrDefault ( ) ;
+			Root            = root ?? throw new ArgumentNullException ( nameof ( root ) ) ;
+			_focusedControl = GetControlList ( ) . FirstOrDefault ( ) ;
 		}
 
 		/// <summary>
@@ -89,144 +90,6 @@ namespace DreamRecorder . FoggyConsole
 						ToList ( ) ;
 		}
 
-		private void SortByUp ( List <Control> controls , Point center )
-		{
-			controls . Sort (
-							( x , y ) =>
-							{
-								Point xCenter = x . RenderArea . Center ;
-								Point yCenter = y . RenderArea . Center ;
-
-								int xHorizontalDiff = Math . Abs ( xCenter . X - center . X ) ;
-								int yHorizontalDiff = Math . Abs ( yCenter . X - center . X ) ;
-
-								if ( xHorizontalDiff == yHorizontalDiff )
-
-								{
-									int xVerticalDiff = xCenter . Y - center . Y ;
-									int yVerticalDiff = yCenter . Y - center . Y ;
-
-									if ( ( xVerticalDiff   < 0 && yVerticalDiff < 0 )
-										|| ( xVerticalDiff > 0 && yVerticalDiff > 0 ) )
-									{
-										return yVerticalDiff - xVerticalDiff ;
-									}
-									else
-									{
-										return xVerticalDiff - yVerticalDiff ;
-									}
-								}
-								else
-								{
-									return xHorizontalDiff - yHorizontalDiff ;
-								}
-							} ) ;
-		}
-
-
-		private void SortByDown ( List <Control> controls , Point center )
-		{
-			controls . Sort (
-							( x , y ) =>
-							{
-								Point xCenter = x . RenderArea . Center ;
-								Point yCenter = y . RenderArea . Center ;
-
-								int xHorizontalDiff = Math . Abs ( xCenter . X - center . X ) ;
-								int yHorizontalDiff = Math . Abs ( yCenter . X - center . X ) ;
-
-								if ( xHorizontalDiff == yHorizontalDiff )
-
-								{
-									int xVerticalDiff = xCenter . Y - center . Y ;
-									int yVerticalDiff = yCenter . Y - center . Y ;
-
-									if ( ( xVerticalDiff   < 0 && yVerticalDiff < 0 )
-										|| ( xVerticalDiff > 0 && yVerticalDiff > 0 ) )
-									{
-										return xVerticalDiff - yVerticalDiff ;
-									}
-									else
-									{
-										return yVerticalDiff - xVerticalDiff ;
-									}
-								}
-								else
-								{
-									return xHorizontalDiff - yHorizontalDiff ;
-								}
-							} ) ;
-		}
-
-
-		private void SortByRight ( List <Control> controls , Point center )
-		{
-			controls . Sort (
-							( x , y ) =>
-							{
-								Point xCenter = x . RenderArea . Center ;
-								Point yCenter = y . RenderArea . Center ;
-
-								int xVerticalDiff = Math . Abs ( xCenter . Y - center . Y ) ;
-								int yVerticalDiff = Math . Abs ( yCenter . Y - center . Y ) ;
-
-								if ( xVerticalDiff == yVerticalDiff )
-
-								{
-									int xHorizontalDiff = xCenter . X - center . X ;
-									int yHorizontalDiff = yCenter . X - center . X ;
-
-									if ( ( xHorizontalDiff   < 0 && yHorizontalDiff < 0 )
-										|| ( xHorizontalDiff > 0 && yHorizontalDiff > 0 ) )
-									{
-										return xHorizontalDiff - yHorizontalDiff ;
-									}
-									else
-									{
-										return yHorizontalDiff - xHorizontalDiff ;
-									}
-								}
-								else
-								{
-									return xVerticalDiff - yVerticalDiff ;
-								}
-							} ) ;
-		}
-
-		private void SortByLeft ( List <Control> controls , Point center )
-		{
-			controls . Sort (
-							( x , y ) =>
-							{
-								Point xCenter = x . RenderArea . Center ;
-								Point yCenter = y . RenderArea . Center ;
-
-								int xVerticalDiff = Math . Abs ( xCenter . Y - center . Y ) ;
-								int yVerticalDiff = Math . Abs ( yCenter . Y - center . Y ) ;
-
-								if ( xVerticalDiff == yVerticalDiff )
-
-								{
-									int xHorizontalDiff = xCenter . X - center . X ;
-									int yHorizontalDiff = yCenter . X - center . X ;
-
-									if ( ( xHorizontalDiff   < 0 && yHorizontalDiff < 0 )
-										|| ( xHorizontalDiff > 0 && yHorizontalDiff > 0 ) )
-									{
-										return yHorizontalDiff - xHorizontalDiff ;
-									}
-									else
-									{
-										return xHorizontalDiff - yHorizontalDiff ;
-									}
-								}
-								else
-								{
-									return xVerticalDiff - yVerticalDiff ;
-								}
-							} ) ;
-		}
-
 		/// <summary>
 		///     Handles the key user input which is given in
 		///     <paramref name="args" />
@@ -271,6 +134,9 @@ namespace DreamRecorder . FoggyConsole
 			}
 			else
 			{
+				float tangentControl  = 0.2f ;
+				float yAxisCorrection = 2.3f ;
+
 				switch ( args . KeyInfo . Key )
 				{
 					case ConsoleKey . Tab :
@@ -295,34 +161,185 @@ namespace DreamRecorder . FoggyConsole
 						break ;
 					}
 
+					case ConsoleKey . UpArrow :
+					{
+						controlList . Remove ( FocusedControl ) ;
+						controlList . RemoveAll (
+												control
+													=> control . RenderArea . FloatCenter . Y
+														>= FocusedControl . RenderArea . FloatCenter . Y ) ;
+
+						controlList . Sort (
+											( x , y ) =>
+											{
+												Vector2 xDiffPosition =
+													x . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+												float xTangent = Math . Abs (
+																			( xDiffPosition . X )
+																			/ ( xDiffPosition . Y ) ) ;
+
+												Vector2 yDiffPosition =
+													y . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+												float yTangent =
+													Math . Abs ( ( yDiffPosition . X ) / ( yDiffPosition . Y ) ) ;
+
+												float maxTangent = Math . Max ( xTangent , yTangent ) ;
+												if ( maxTangent < tangentControl )
+												{
+													return xDiffPosition . LengthSquared ( ) .
+																			CompareTo (
+																						yDiffPosition .
+																							LengthSquared ( ) ) ;
+												}
+												else
+												{
+													return xTangent . CompareTo ( yTangent ) ;
+												}
+											} ) ;
+						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
+						break ;
+					}
+
 					case ConsoleKey . RightArrow :
 					{
-						SortByRight ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
+						controlList . RemoveAll (
+												control
+													=> control . RenderArea . FloatCenter . X
+														<= FocusedControl . RenderArea . FloatCenter . X ) ;
+						controlList . Sort (
+											( x , y ) =>
+											{
+												Vector2 xDiffPosition =
+													x . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+												float xTangent = Math . Abs (
+																			( xDiffPosition . Y )
+																			/ ( xDiffPosition . X ) ) ;
+
+												Vector2 yDiffPosition =
+													y . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+												float yTangent =
+													Math . Abs ( ( yDiffPosition . Y ) / ( yDiffPosition . X ) ) ;
+
+												float maxTangent = Math . Max ( xTangent , yTangent ) ;
+												if ( maxTangent < tangentControl )
+												{
+													return xDiffPosition . LengthSquared ( ) .
+																			CompareTo (
+																						yDiffPosition .
+																							LengthSquared ( ) ) ;
+												}
+												else
+												{
+													return xTangent . CompareTo ( yTangent ) ;
+												}
+											} ) ;
+
 						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 						break ;
 					}
 
 					case ConsoleKey . DownArrow :
 					{
-						SortByDown ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
-						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
-						break ;
-					}
+						controlList . RemoveAll (
+												control
+													=> control . RenderArea . FloatCenter . Y
+														<= FocusedControl . RenderArea . FloatCenter . Y ) ;
 
-					case ConsoleKey . UpArrow :
-					{
-						SortByUp ( controlList , FocusedControl . RenderArea . Center ) ;
-						controlList . Remove ( FocusedControl ) ;
+						controlList . Sort (
+											( x , y ) =>
+											{
+												Vector2 xDiffPosition =
+													x . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+												float xTangent = Math . Abs (
+																			( xDiffPosition . X )
+																			/ ( xDiffPosition . Y ) ) ;
+
+												Vector2 yDiffPosition =
+													y . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+
+												float yTangent =
+													Math . Abs ( ( yDiffPosition . X ) / ( yDiffPosition . Y ) ) ;
+
+												float maxTangent = Math . Max ( xTangent , yTangent ) ;
+												if ( maxTangent < tangentControl )
+												{
+													return xDiffPosition . LengthSquared ( ) .
+																			CompareTo (
+																						yDiffPosition .
+																							LengthSquared ( ) ) ;
+												}
+												else
+												{
+													return xTangent . CompareTo ( yTangent ) ;
+												}
+											} ) ;
+
 						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 						break ;
 					}
 
 					case ConsoleKey . LeftArrow :
 					{
-						SortByLeft ( controlList , FocusedControl . RenderArea . Center ) ;
 						controlList . Remove ( FocusedControl ) ;
+						controlList . RemoveAll (
+												control
+													=> control . RenderArea . FloatCenter . X
+														>= FocusedControl . RenderArea . FloatCenter . X ) ;
+
+						controlList . Sort (
+											( x , y ) =>
+											{
+												Vector2 xDiffPosition =
+													x . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+												float xTangent = Math . Abs (
+																			( xDiffPosition . Y )
+																			/ ( xDiffPosition . X ) ) ;
+
+												Vector2 yDiffPosition =
+													y . RenderArea . FloatCenter
+													- FocusedControl . RenderArea . FloatCenter ;
+												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+
+												float yTangent =
+													Math . Abs ( ( yDiffPosition . Y ) / ( yDiffPosition . X ) ) ;
+
+												float maxTangent = Math . Max ( xTangent , yTangent ) ;
+												if ( maxTangent < tangentControl )
+												{
+													return xDiffPosition . LengthSquared ( ) .
+																			CompareTo (
+																						yDiffPosition .
+																							LengthSquared ( ) ) ;
+												}
+												else
+												{
+													return xTangent . CompareTo ( yTangent ) ;
+												}
+											} ) ;
+
 						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 						break ;
 					}

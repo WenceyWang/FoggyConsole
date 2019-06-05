@@ -127,7 +127,7 @@ namespace DreamRecorder . FoggyConsole
 			}
 
 			ViewRoot . Enabled = true ;
-			ViewRoot . RequestUpdateDisplay ( ) ;
+			ViewRoot . ResumeRedraw ( ) ;
 
 			KeyWatcher . KeyPressed += KeyWatcherOnKeyPressed ;
 			KeyWatcher . Start ( ) ;

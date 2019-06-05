@@ -21,9 +21,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// </summary>
 		/// <exception cref="InvalidOperationException">Is thrown if the Control-Property isn't set.</exception>
 		/// <exception cref="InvalidOperationException">Is thrown if the CalculateBoundary-Method hasn't been called.</exception>
-		public override void Draw ( )
+		public override void Draw ( ConsoleArea area )
 		{
-			ConsoleArea result = new ConsoleArea ( Control . ActualSize , Control . ActualBackgroundColor ) ;
+			area . Fill ( Control . ActualBackgroundColor ) ;
 
 			switch ( Control . HorizontalAlign )
 			{
@@ -33,10 +33,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				{
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
-						result [ x , 0 ] = new ConsoleChar (
-															Control . Text [ x ] ,
-															Control . ActualForegroundColor ,
-															Control . ActualBackgroundColor ) ;
+						area [ x , 0 ] = new ConsoleChar (
+														Control . Text [ x ] ,
+														Control . ActualForegroundColor ,
+														Control . ActualBackgroundColor ) ;
 					}
 
 					break ;
@@ -47,10 +47,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					int startPosition = ( Control . RenderArea . Width - Control . Text . Length ) / 2 ;
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
-						result [ x + startPosition , 0 ] = new ConsoleChar (
-																			Control . Text [ x ] ,
-																			Control . ActualForegroundColor ,
-																			Control . ActualBackgroundColor ) ;
+						area [ x + startPosition , 0 ] = new ConsoleChar (
+																		Control . Text [ x ] ,
+																		Control . ActualForegroundColor ,
+																		Control . ActualBackgroundColor ) ;
 					}
 
 					break ;
@@ -60,7 +60,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				{
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
-						result [ Control . ActualWidth - Control . Text . Length + x , 0 ] =
+						area [ Control . ActualWidth - Control . Text . Length + x , 0 ] =
 							new ConsoleChar (
 											Control . Text [ x ] ,
 											Control . ActualForegroundColor ,
@@ -70,8 +70,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					break ;
 				}
 			}
-
-			FogConsole . Draw ( Control . RenderPoint , result ) ;
 		}
 
 	}

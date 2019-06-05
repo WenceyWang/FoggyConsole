@@ -18,6 +18,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public abstract class CheckableBase : TextualBase
 	{
 
+		private CheckableChar _checkableChar ;
+
 		private CheckState _state ;
 
 		/// <summary>
@@ -35,16 +37,26 @@ namespace DreamRecorder . FoggyConsole . Controls
 					{
 						_state = value ;
 						CheckedChanged ? . Invoke ( this , EventArgs . Empty ) ;
-						Draw ( ) ;
+						RequestRedraw ( ) ;
 					}
 				}
 			}
 		}
 
-		protected CheckableBase ( IControlRenderer renderer ) : base ( renderer )
+		public CheckableChar CheckableChar
 		{
-			IsFocusedChanged += ( sender , args ) => Draw ( ) ;
+			get => _checkableChar ;
+			set
+			{
+				if ( _checkableChar != value )
+				{
+					_checkableChar = value ;
+					RequestRedraw ( ) ;
+				}
+			}
 		}
+
+		protected CheckableBase ( IControlRenderer renderer ) : base ( renderer ) { }
 
 		/// <summary>
 		///     Fired if the State-Property is going to change

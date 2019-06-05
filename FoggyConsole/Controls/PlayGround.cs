@@ -47,7 +47,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 					if ( AutoRedraw )
 					{
-						Draw ( ) ;
+						RequestRedraw ( ) ;
 					}
 				}
 			}

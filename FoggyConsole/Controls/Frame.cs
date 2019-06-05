@@ -17,7 +17,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public static Frame Current { get ; set ; }
 
-		public bool IsRedrawPaused { get ; private set ; }
+		public bool IsRedrawPaused { get ; private set ; } = true ;
 
 		internal ILogger Logger { get ; } =
 			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <Frame> ( ) ;
@@ -54,9 +54,13 @@ namespace DreamRecorder . FoggyConsole . Controls
 		{
 			if ( ( ! IsRedrawPaused ) && Enabled )
 			{
+				IsRedrawPaused = true ;
+
 				Measure ( Size ) ;
 				Arrange ( new Rectangle ( Size ) ) ;
 				Draw ( ) ;
+
+				IsRedrawPaused = false ;
 			}
 		}
 
@@ -64,9 +68,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 		{
 			if ( ( ! IsRedrawPaused ) && Enabled )
 			{
+				IsRedrawPaused = true ;
+
 				Draw ( ) ;
+
+				IsRedrawPaused = false ;
 			}
 		}
+
+		private void Draw ( ) { Draw ( new ConsoleArea ( Size ) ) ; }
 
 		public void NavigateTo ( Page page )
 		{

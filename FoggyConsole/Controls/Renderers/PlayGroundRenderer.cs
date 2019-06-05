@@ -21,12 +21,14 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws all characters within the given playground
 		/// </summary>
-		public override void Draw ( )
+		public override void Draw ( ConsoleArea area )
 		{
 			for ( int y = 0 ; y < Control . Height ; y++ )
 			{
 				for ( int x = 0 ; x < Control . Width ; x++ )
 				{
+					area [ x , y ] = Control [ x , y ] ;
+
 					//FogConsole . Write ( Boundary . Left ,
 					//				Boundary . Top + y ,
 					//				Control [ y , x ] ,

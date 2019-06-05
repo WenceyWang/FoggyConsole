@@ -16,18 +16,18 @@
     <Authors>Wencey Wang</Authors>
     <Company>Dream Recorder</Company>
     <Description>A textmode GUI-lib.</Description>
-    <RepositoryType>TFS</RepositoryType>
+    <RepositoryType>TFVC</RepositoryType>
     <RepositoryUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</RepositoryUrl>
     <PackageProjectUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</PackageProjectUrl>
     <Copyright>Dream Recorder (c) 2019</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.1.2</Version>
+    <Version>0.1.2.1</Version>
     <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.53" />
+    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.54" />
     <PackageReference Include="FIGlet.Net" Version="1.1.1" />
     <PackageReference Include="Fody" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>
@@ -37,6 +37,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
   </ItemGroup>
 
 </Project>

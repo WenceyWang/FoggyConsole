@@ -36,7 +36,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( _header != value )
 				{
 					_header = value ;
-					Draw ( ) ;
+					RequestRedraw ( ) ;
 				}
 			}
 		}
@@ -61,15 +61,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public GroupBox ( GroupBoxRenderer renderer = null ) : base ( renderer )
-		{
-			if ( renderer == null )
-			{
-				Renderer = new GroupBoxRenderer ( this ) ;
-			}
-
-			Header = string . Empty ;
-		}
+		public GroupBox ( GroupBoxRenderer renderer = null ) : base ( renderer ?? new GroupBoxRenderer ( ) ) { }
 
 	}
 

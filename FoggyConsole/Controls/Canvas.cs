@@ -75,14 +75,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 		{
 			foreach ( Control control in Items )
 			{
-				control . Arrange (
-									new Rectangle (
-													finalRect . LeftTopPoint . Offset (
-																						new Vector (
-																									Position
-																										[
-																										control ] ) ) ,
-													control . DesiredSize ) ) ;
+				Rectangle result = new Rectangle (
+												finalRect . LeftTopPoint . Offset (
+																					new Vector (
+																								Position
+																									[ control ] ) ) ,
+												control . DesiredSize ) ;
+
+
+				control . Arrange ( result . Intersect ( finalRect ) ) ;
 			}
 
 			base . Arrange ( finalRect ) ;

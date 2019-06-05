@@ -9,13 +9,11 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class PasswordBoxRenderer : ControlRenderer <PasswordBox>
 	{
 
-		public override void Draw ( )
+		public override void Draw ( ConsoleArea area )
 		{
-			ConsoleArea result ;
-
 			if ( Control . IsFocused )
 			{
-				result = new ConsoleArea ( Control . ActualSize , Control . ActualForegroundColor ) ;
+				area . Fill ( Control . ActualForegroundColor ) ;
 
 				for ( int y = 0 ;
 					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
@@ -25,10 +23,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					{
 						if ( x + y * Control . ActualHeight < Control . Text . Length )
 						{
-							result [ x , y ] = new ConsoleChar (
-																Control . PasswordChar ,
-																Control . ActualForegroundColor ,
-																Control . ActualBackgroundColor ) ;
+							area [ x , y ] = new ConsoleChar (
+															Control . PasswordChar ,
+															Control . ActualForegroundColor ,
+															Control . ActualBackgroundColor ) ;
 						}
 						else
 						{
@@ -39,7 +37,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			}
 			else
 			{
-				result = new ConsoleArea ( Control . ActualSize , Control . ActualBackgroundColor ) ;
+				area . Fill ( Control . ActualBackgroundColor ) ;
 
 				for ( int y = 0 ;
 					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
@@ -49,10 +47,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					{
 						if ( x + y * Control . ActualHeight < Control . Text . Length )
 						{
-							result [ x , y ] = new ConsoleChar (
-																Control . PasswordChar ,
-																Control . ActualForegroundColor ,
-																Control . ActualBackgroundColor ) ;
+							area [ x , y ] = new ConsoleChar (
+															Control . PasswordChar ,
+															Control . ActualForegroundColor ,
+															Control . ActualBackgroundColor ) ;
 						}
 						else
 						{
@@ -61,8 +59,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					}
 				}
 			}
-
-			FogConsole . Draw ( Control . RenderPoint , result ) ;
 		}
 
 	}

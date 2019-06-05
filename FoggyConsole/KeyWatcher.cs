@@ -45,6 +45,8 @@ namespace DreamRecorder . FoggyConsole
 		{
 			bool isPaused = false ;
 
+			string titleBase = Console . Title ;
+
 			while ( IsRunning )
 			{
 				Size newSize = Window . Size ;
@@ -67,7 +69,6 @@ namespace DreamRecorder . FoggyConsole
 
 					Window . OldSize = newSize ;
 				}
-
 
 				if ( ! Console . KeyAvailable )
 				{

@@ -2,6 +2,7 @@ using System ;
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
+using System . Numerics ;
 
 namespace DreamRecorder . FoggyConsole
 {
@@ -21,6 +22,8 @@ namespace DreamRecorder . FoggyConsole
 		public Point RightDownPoint => new Point ( X + Width , Y + Height ) ;
 
 		public Point Center => new Point ( X + ( Width / 2 ) , Y + ( Height / 2 ) ) ;
+
+		public Vector2 FloatCenter => new Vector2 ( X + ( Width / 2f ) , Y + ( Height / 2f ) ) ;
 
 		/// <summary>
 		///     This rectangles distance from the left edge in characters
@@ -238,6 +241,15 @@ namespace DreamRecorder . FoggyConsole
 
 		public static Rectangle Union ( Rectangle rect1 , Rectangle rect2 ) => rect1 . Union ( rect2 ) ;
 
+		public bool Contain ( Rectangle subRectangle )
+			=> subRectangle . Top        >= Top
+				&& subRectangle . Bottom <= Bottom
+				&& subRectangle . Left   >= Left
+				&& subRectangle . Right  <= Right ;
+
+		public static bool Contain ( Rectangle rectangle , Rectangle subRectangle )
+			=> rectangle . Contain ( subRectangle ) ;
+
 		/// <summary>
 		///     Offset - return the result of offsetting rect by the offset provided
 		/// </summary>
@@ -251,6 +263,9 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public static Rectangle Offset ( Rectangle rect , int offsetX , int offsetY )
 			=> rect . Offset ( offsetX , offsetY ) ;
+
+		public override string ToString ( )
+			=> $"{nameof ( X )}: {X}, {nameof ( Y )}: {Y}, {nameof ( Height )}: {Height}, {nameof ( Width )}: {Width}" ;
 
 	}
 

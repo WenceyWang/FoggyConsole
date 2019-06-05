@@ -20,7 +20,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws the Control stored in the Control-Property
 		/// </summary>
-		void Draw ( ) ;
+		void Draw ( ConsoleArea area ) ;
 
 	}
 

@@ -37,7 +37,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				if ( value != _minValue )
 				{
-					Draw ( ) ;
+					RequestRedraw ( ) ;
 					_minValue = value ;
 				}
 			}
@@ -55,7 +55,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				if ( value != _minValue )
 				{
-					Draw ( ) ;
+					RequestRedraw ( ) ;
 					_maxValue = value ;
 				}
 			}
@@ -78,7 +78,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( _value != value )
 				{
 					ValueChanged ? . Invoke ( this , EventArgs . Empty ) ;
-					Draw ( ) ;
+					RequestRedraw ( ) ;
 					_value = value ;
 				}
 			}

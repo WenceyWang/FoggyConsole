@@ -34,9 +34,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     Control assigned
 		/// </exception>
 		public Label ( IControlRenderer renderer = null ) : base ( renderer ?? new LabelRenderer ( ) )
-		{
-			BoarderStyle = null ;
-		}
+			=> BoarderStyle = null ;
 
 	}
 
