@@ -40,9 +40,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public void ResumeRedraw ( )
 		{
-			IsRedrawPaused = false ;
-			RequestUpdateDisplay ( ) ;
-		}
+			if ( IsRedrawPaused )
+			{
+				IsRedrawPaused = false;
+				RequestUpdateDisplay();
+            }
+        }
 
 		public override void Measure ( Size availableSize ) { CurrentPage ? . Measure ( availableSize ) ; }
 
