@@ -21,7 +21,7 @@
     <PackageProjectUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</PackageProjectUrl>
     <Copyright>Dream Recorder (c) 2019</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.2.4</Version>
+    <Version>0.1.2.5</Version>
     <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>

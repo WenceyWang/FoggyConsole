@@ -59,15 +59,15 @@ namespace Example
 			panel . Items . Add ( buttonA ) ;
 			Button buttonB = new Button
 							{
-								Name            = "buttonB" ,
-								Text            = "B" ,
-								KeyBind         = 'B' ,
-								HorizontalAlign = ContentHorizontalAlign . Right
-							} ;
-			panel . Items . Add ( buttonB ) ;
+								Name            = "buttonB",
+								Text            = "B",
+								KeyBind         = 'B',
+								HorizontalAlign = ContentHorizontalAlign.Right
+							};
+			panel.Items.Add(buttonB);
 
 
-			Button buttonExit = new Button
+            Button buttonExit = new Button
 								{
 									Name            = "buttonExit" ,
 									Text            = "Exit" ,
@@ -86,21 +86,41 @@ namespace Example
 
 			panel . Items . Add ( label ) ;
 
-			Canvas canvas = new Canvas ( ) ;
+			HorizontalStackPanel horizontalStack = new HorizontalStackPanel ( ) ;
 
-			for ( int y = 0 ; y < 30 ; y++ )
-			{
-				for ( int x = 0 ; x < 30 ; x++ )
-				{
-					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" , Width = 6 } ;
-					canvas . Items . Add ( button ) ;
-					canvas [ button ] = new Point ( 7 * x , y ) ;
-				}
-			}
+			panel . Items . Add ( horizontalStack ) ;
 
-			panel . Items . Add ( canvas ) ;
+			Button buttonC = new Button
+							{
+								Name            = "buttonC",
+								Text            = "C",
+								KeyBind         = 'C',
+							};
+			horizontalStack .Items.Add(buttonC);
 
-			buttonExit . Pressed += ExitButton_Pressed ;
+			Button buttonD = new Button
+							{
+								Name    = "buttonD",
+								Text    = "D",
+								KeyBind = 'D',
+							};
+			horizontalStack.Items.Add(buttonD);
+
+            //Canvas canvas = new Canvas ( ) ;
+
+            //for ( int y = 0 ; y < 30 ; y++ )
+            //{
+            //	for ( int x = 0 ; x < 30 ; x++ )
+            //	{
+            //		Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" , Width = 6 } ;
+            //		canvas . Items . Add ( button ) ;
+            //		canvas [ button ] = new Point ( 7 * x , y ) ;
+            //	}
+            //}
+
+            //panel . Items . Add ( canvas ) ;
+
+            buttonExit . Pressed += ExitButton_Pressed ;
 
 			return ViewRoot ;
 		}
