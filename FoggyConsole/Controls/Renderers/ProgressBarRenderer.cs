@@ -14,11 +14,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class ProgressBarRenderer : ControlRenderer <ProgressBar>
 	{
 
-		/// <summary>
-		///     The character which is used to draw the bar
-		/// </summary>
-		public char ProgressChar { get ; set ; } = '|' ;
-
 		public ProgressBarRenderer ( ProgressBar control ) { }
 
 		/// <summary>
@@ -26,61 +21,61 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// </summary>
 		public override void Draw ( ConsoleArea area )
 		{
-			area . Fill ( Control . ActualBackgroundColor ) ;
-
-			if ( Control . ActualHeight == 1 )
+			if ( Control is null )
 			{
-				area [ 0 , 0 ] = new ConsoleChar (
-												'[' ,
-												Control . ActualForegroundColor ,
-												Control . ActualBackgroundColor ) ;
-				area [ Control . ActualWidth - 1 , 0 ] = new ConsoleChar (
-																		']' ,
-																		Control . ActualForegroundColor ,
-																		Control . ActualBackgroundColor ) ;
-				int barWidth = Control . ActualWidth
-								- 2
-								* ( Control . Value
-									- Control . MinValue / ( Control . MaxValue - Control . MinValue ) ) ;
-				for ( int x = 0 ; x < barWidth ; x++ )
-				{
-					area [ x + 1 , 0 ] = new ConsoleChar (
-														ProgressChar ,
-														Control . ActualForegroundColor ,
-														Control . ActualBackgroundColor ) ;
-				}
+				return ;
+			}
+
+			if ( Control . ActualSize . IsEmpty )
+			{
+				return ;
+			}
+
+			ConsoleColor foregroundColor ;
+			ConsoleColor backgroundColor ;
+
+			if ( Control . IsFocused )
+			{
+				foregroundColor = Control . ActualBackgroundColor ;
+				backgroundColor = Control . ActualForegroundColor ;
 			}
 			else
 			{
-				area [ 0 , 0 ] = new ConsoleChar (
-												'┌' ,
-												Control . ActualForegroundColor ,
-												Control . ActualBackgroundColor ) ;
-				area [ Control . ActualWidth - 1 , 0 ] = new ConsoleChar (
-																		'┐' ,
-																		Control . ActualForegroundColor ,
-																		Control . ActualBackgroundColor ) ;
-				area [ 0 , Control . ActualHeight - 1 ] = new ConsoleChar (
-																			'└' ,
-																			Control . ActualForegroundColor ,
-																			Control . ActualBackgroundColor ) ;
-				area [ Control . ActualWidth - 1 , Control . ActualHeight - 1 ] =
-					new ConsoleChar ( '┘' , Control . ActualForegroundColor , Control . ActualBackgroundColor ) ;
+				foregroundColor = Control . ActualForegroundColor ;
+				backgroundColor = Control . ActualBackgroundColor ;
+			}
 
-				int barWidth = Control . ActualWidth
-								- 2
-								* ( Control . Value
-									- Control . MinValue / ( Control . MaxValue - Control . MinValue ) ) ;
+			area . Fill ( backgroundColor ) ;
 
-				for ( int y = 0 ; y < Control . ActualHeight ; y++ )
+			int barStart ;
+			int barMaxWidth ;
+
+			if ( Control . BoarderStyle != null )
+			{
+				barMaxWidth = Control . ActualWidth - 2 ;
+				barStart    = 1 ;
+
+				area . DrawBoarder ( Control . BoarderStyle . Value , foregroundColor , backgroundColor ) ;
+			}
+			else
+			{
+				barMaxWidth = Control . ActualWidth ;
+				barStart    = 0 ;
+			}
+
+			int barWidth = barMaxWidth
+							* ( ( Control . Value      - Control . MinValue )
+								/ ( Control . MaxValue - Control . MinValue ) ) ;
+
+
+			for ( int y = 0 ; y < Control . ActualHeight ; y++ )
+			{
+				for ( int x = barStart ; x < barWidth ; x++ )
 				{
-					for ( int x = 0 ; x < barWidth ; x++ )
-					{
-						area [ x + 1 , 0 ] = new ConsoleChar (
-															ProgressChar ,
-															Control . ActualForegroundColor ,
-															Control . ActualBackgroundColor ) ;
-					}
+					area [ x + 1 , 0 ] = new ConsoleChar (
+														Control . ProgressChar ,
+														foregroundColor ,
+														backgroundColor ) ;
 				}
 			}
 		}

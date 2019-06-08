@@ -5,9 +5,17 @@ using System . Linq ;
 using System . Reflection ;
 using System . Xml . Linq ;
 
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
+
+using JetBrains . Annotations ;
+
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
+	/// <summary>
+	///     Page should be inherited but currently no and we think we should be able to create raw Page
+	/// </summary>
+	[PublicAPI]
 	public class Page : ContentControl
 	{
 

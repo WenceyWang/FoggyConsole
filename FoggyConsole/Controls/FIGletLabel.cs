@@ -80,9 +80,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		/// <summary>
 		///     Creates a new
-		///     <code>Label</code>
+		///     <code>FIGletLabel</code>
 		/// </summary>
-		/// <param name="text">The text on the Label</param>
 		/// <param name="renderer">
 		///     The
 		///     <code>ControlRenderer</code>

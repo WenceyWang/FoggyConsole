@@ -68,7 +68,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				int startLine = ( Control . ActualHeight - lines . Length ) / 2 ;
 				startLine = Math . Max ( startLine , 0 ) ;
 
-
 				for ( int y = 0 ; y < lines . Length && y + startLine < Control . ActualHeight ; y++ )
 				{
 					string currentLine = lines [ y ] ;

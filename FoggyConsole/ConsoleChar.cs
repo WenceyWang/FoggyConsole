@@ -9,7 +9,10 @@ namespace DreamRecorder . FoggyConsole
 	public struct ConsoleChar
 	{
 
-		public readonly char Character ;
+		public static ConsoleColor DefaultBackgroundColor { get ; set ; } = ConsoleColor . Black ;
+		public static ConsoleColor DefaultForegroundColor { get ; set ; } = ConsoleColor.Gray;
+
+        public readonly char Character ;
 
 		public readonly ConsoleColor ForegroundColor ;
 
@@ -20,8 +23,7 @@ namespace DreamRecorder . FoggyConsole
 				&& ForegroundColor == other . ForegroundColor
 				&& BackgroundColor == other . BackgroundColor ;
 
-		public static implicit operator ConsoleChar ( char character )
-			=> new ConsoleChar ( character , ConsoleColor . Gray ) ;
+		public static implicit operator ConsoleChar ( char character ) => new ConsoleChar ( character ) ;
 
 		public override bool Equals ( object obj )
 		{
@@ -52,12 +54,12 @@ namespace DreamRecorder . FoggyConsole
 
 		public ConsoleChar (
 			char         character ,
-			ConsoleColor foregroundColor = ConsoleColor . Gray ,
-			ConsoleColor backgroundColor = ConsoleColor . Black )
+			ConsoleColor? foregroundColor = null ,
+			ConsoleColor? backgroundColor =null  )
 		{
 			Character       = character ;
-			ForegroundColor = foregroundColor ;
-			BackgroundColor = backgroundColor ;
+			ForegroundColor = foregroundColor??DefaultForegroundColor ;
+			BackgroundColor = backgroundColor??DefaultBackgroundColor ;
 		}
 
 	}

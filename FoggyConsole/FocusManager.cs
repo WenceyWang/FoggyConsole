@@ -40,14 +40,13 @@ namespace DreamRecorder . FoggyConsole
 		/// </exception>
 		public FocusManager ( Frame root )
 		{
-			Root            = root ?? throw new ArgumentNullException ( nameof ( root ) ) ;
+			Root = root ?? throw new ArgumentNullException ( nameof ( root ) ) ;
 
 			_focusedControl = GetControlList ( ) . FirstOrDefault ( ) ;
-			if (_focusedControl != null)
+			if ( _focusedControl != null )
 			{
-				_focusedControl.IsFocused = true;
+				_focusedControl . IsFocused = true ;
 			}
-
 		}
 
 		/// <summary>

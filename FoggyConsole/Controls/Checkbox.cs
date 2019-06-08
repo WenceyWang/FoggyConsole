@@ -19,7 +19,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// <summary>
 		///     Creates a new CheckBox
 		/// </summary>
-		/// <param name="text">The text to display</param>
 		/// <param name="renderer">
 		///     The
 		///     <code>ControlRenderer</code>

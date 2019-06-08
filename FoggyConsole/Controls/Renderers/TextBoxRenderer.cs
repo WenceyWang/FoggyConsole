@@ -17,9 +17,34 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// </summary>
 		public override void Draw ( ConsoleArea area )
 		{
+			if ( Control is null )
+			{
+				return ;
+			}
+
+			if ( Control . ActualSize . IsEmpty )
+			{
+				return ;
+			}
+
+			ConsoleColor foregroundColor ;
+			ConsoleColor backgroundColor ;
+
 			if ( Control . IsFocused )
 			{
-				area . Fill ( Control . ActualForegroundColor ) ;
+				foregroundColor = Control . ActualBackgroundColor ;
+				backgroundColor = Control . ActualForegroundColor ;
+			}
+			else
+			{
+				foregroundColor = Control . ActualForegroundColor ;
+				backgroundColor = Control . ActualBackgroundColor ;
+			}
+
+			area . Fill ( backgroundColor ) ;
+
+			{
+				area . Fill ( backgroundColor ) ;
 
 				for ( int y = 0 ;
 					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
@@ -31,8 +56,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 						{
 							area [ x , y ] = new ConsoleChar (
 															Control . Text [ x * y ] ,
-															Control . ActualForegroundColor ,
-															Control . ActualBackgroundColor ) ;
+															foregroundColor ,
+															backgroundColor ) ;
 						}
 						else
 						{
@@ -41,29 +66,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					}
 				}
 			}
-			else
-			{
-				area . Fill ( Control . ActualBackgroundColor ) ;
 
-				for ( int y = 0 ;
-					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
-					y++ )
-				{
-					for ( int x = 0 ; x < Control . ActualWidth ; x++ )
-					{
-						if ( x + y * Control . ActualWidth < Control . Text . Length )
-						{
-							area [ x , y ] = new ConsoleChar (
-															Control . Text [ x * y ] ,
-															Control . ActualForegroundColor ,
-															Control . ActualBackgroundColor ) ;
-						}
-						else
-						{
-							break ;
-						}
-					}
-				}
+			if ( Control . BoarderStyle != null )
+			{
+				area . DrawBoarder ( Control . BoarderStyle . Value , foregroundColor , backgroundColor ) ;
 			}
 		}
 

@@ -157,7 +157,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public int ActualHeight => ActualSize . Height ;
 
 		public ConsoleColor ActualBackgroundColor
-			=> _backgroundColor ?? Container ? .ActualBackgroundColor ?? ConsoleColor . Black ;
+			=> _backgroundColor ?? Container ? . ActualBackgroundColor ?? ConsoleChar.DefaultBackgroundColor ;
 
 		/// <summary>
 		///     The background-color
@@ -176,7 +176,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 		public ConsoleColor ActualForegroundColor
-			=> _foregroundColor ?? Container?. ActualForegroundColor ?? ConsoleColor . Gray ;
+			=> _foregroundColor ?? Container ? . ActualForegroundColor ?? ConsoleChar.DefaultForegroundColor;
 
 		/// <summary>
 		///     The foreground-color
@@ -234,10 +234,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		/// <summary>
-		///     Used to determine the order of controls when the user uses the TAB-key navigate between them
-		/// </summary>
-		public int TabIndex { get ; set ; }
+        /// <summary>
+        ///     Used to determine the order of controls when the user uses the TAB-key navigate between them
+        /// </summary>
+        public int? TabIndex { get; set; } = null;
 
 		/// <summary>
 		///     The

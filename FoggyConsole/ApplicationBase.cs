@@ -71,41 +71,6 @@ namespace DreamRecorder . FoggyConsole
 			base . BeforePrepare ( ) ;
 		}
 
-
-		//      /// <summary>
-		//      ///     Creates a new Application
-		//      /// </summary>
-		//      /// <param name="viewRoot">
-		//      ///     A
-		//      ///     <code>Container</code>
-		//      ///     which is at the root of the
-		//      /// </param>
-		//      /// <exception cref="ArgumentNullException">
-		//      ///     Thrown when
-		//      ///     <paramref name="viewRoot" />
-		//      ///     is null.
-		//      /// </exception>
-		//      /// <exception cref="ArgumentException">
-		//      ///     Thrown when the Container-Property of
-		//      ///     <paramref name="viewRoot" />
-		//      ///     is set.
-		//      /// </exception>
-		//      public ApplicationBase ( Frame viewRoot = null )
-		//{
-		//	if ( Current != null )
-		//	{
-		//		throw new Exception ( ) ;
-		//	}
-
-		//	viewRoot = viewRoot ?? new Frame ( ) ;
-		//	if ( viewRoot . Container != null )
-		//	{
-		//		throw new ArgumentException ( "The root-container can't have the Container-Property set." , nameof(viewRoot) ) ;
-		//	}
-
-		//	ViewRoot = viewRoot ;
-		//}
-
 		/// <summary>
 		///     Starts this
 		///     <code>ApplicationBase</code>

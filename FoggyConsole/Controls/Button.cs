@@ -22,7 +22,20 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Button : TextualBase
 	{
 
-		public bool AllowSingleLine { get ; set ; } = true ;
+		private bool _allowSingleLine = true ;
+
+		public bool AllowSingleLine
+		{
+			get => _allowSingleLine ;
+			set
+			{
+				if ( _allowSingleLine != value )
+				{
+					_allowSingleLine = value ;
+					RequestMeasure ( ) ;
+				}
+			}
+		}
 
 		public override Size AutoDesiredSize
 		{

@@ -80,7 +80,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 			return args . Cancel ;
 		}
 
-
 		public override void KeyPressed ( KeyPressedEventArgs args )
 		{
 			if ( Enabled && args . KeyInfo . Key == ConsoleKey . Spacebar )

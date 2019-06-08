@@ -18,12 +18,30 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		private int _minValue ;
 
+		private char _progressChar = '|' ;
+
 		private int _value ;
 
 		public int SmallChange { get ; set ; }
 
 		public int LargeChange { get ; set ; }
 
+
+		/// <summary>
+		///     The character which is used to draw the bar
+		/// </summary>
+		public char ProgressChar
+		{
+			get => _progressChar ;
+			set
+			{
+				if ( value != _minValue )
+				{
+					_progressChar = value ;
+					RequestRedraw ( ) ;
+				}
+			}
+		}
 
 		public int MinValue
 		{
@@ -37,8 +55,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				if ( value != _minValue )
 				{
-					RequestRedraw ( ) ;
 					_minValue = value ;
+					RequestRedraw ( ) ;
 				}
 			}
 		}
@@ -55,8 +73,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				if ( value != _minValue )
 				{
-					RequestRedraw ( ) ;
 					_maxValue = value ;
+					RequestRedraw ( ) ;
 				}
 			}
 		}
@@ -77,9 +95,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				if ( _value != value )
 				{
+					_value = value ;
 					ValueChanged ? . Invoke ( this , EventArgs . Empty ) ;
 					RequestRedraw ( ) ;
-					_value = value ;
 				}
 			}
 		}
@@ -117,11 +135,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     Fired if the Value-Property has changed
 		/// </summary>
 		public event EventHandler ValueChanged ;
-
-		/// <summary>
-		///     Fires the ValueChanged-event and requests an redraw
-		/// </summary>
-		private void OnValueChanged ( ) { }
 
 	}
 
