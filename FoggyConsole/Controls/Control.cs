@@ -157,7 +157,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public int ActualHeight => ActualSize . Height ;
 
 		public ConsoleColor ActualBackgroundColor
-			=> _backgroundColor ?? Container ? . BackgroundColor ?? ConsoleColor . Black ;
+			=> _backgroundColor ?? Container ? .ActualBackgroundColor ?? ConsoleColor . Black ;
 
 		/// <summary>
 		///     The background-color
@@ -176,7 +176,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 		public ConsoleColor ActualForegroundColor
-			=> _foregroundColor ?? Container . ForegroundColor ?? ConsoleColor . Gray ;
+			=> _foregroundColor ?? Container?. ActualForegroundColor ?? ConsoleColor . Gray ;
 
 		/// <summary>
 		///     The foreground-color

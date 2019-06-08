@@ -88,9 +88,9 @@ namespace Example
 
 			Canvas canvas = new Canvas ( ) ;
 
-			for ( int y = 0 ; y < 20 ; y++ )
+			for ( int y = 0 ; y < 30 ; y++ )
 			{
-				for ( int x = 0 ; x < 20 ; x++ )
+				for ( int x = 0 ; x < 30 ; x++ )
 				{
 					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" , Width = 6 } ;
 					canvas . Items . Add ( button ) ;

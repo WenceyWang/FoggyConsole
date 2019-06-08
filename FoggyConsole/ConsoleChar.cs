@@ -52,7 +52,7 @@ namespace DreamRecorder . FoggyConsole
 
 		public ConsoleChar (
 			char         character ,
-			ConsoleColor foregroundColor = ConsoleColor . White ,
+			ConsoleColor foregroundColor = ConsoleColor . Gray ,
 			ConsoleColor backgroundColor = ConsoleColor . Black )
 		{
 			Character       = character ;
