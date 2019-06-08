@@ -1,4 +1,4 @@
 FoggyConsole
 ============
 
-![](demo.png)
+Textmode GUI lib, managed code only.
