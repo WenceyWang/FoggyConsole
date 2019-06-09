@@ -27,7 +27,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// <summary>
 		///     The checkbox is unchecked
 		/// </summary>
-		Unchecked ,
+		Unchecked
 
 	}
 

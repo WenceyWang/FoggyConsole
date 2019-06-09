@@ -10,9 +10,10 @@ namespace DreamRecorder . FoggyConsole
 	{
 
 		public static ConsoleColor DefaultBackgroundColor { get ; set ; } = ConsoleColor . Black ;
-		public static ConsoleColor DefaultForegroundColor { get ; set ; } = ConsoleColor.Gray;
 
-        public readonly char Character ;
+		public static ConsoleColor DefaultForegroundColor { get ; set ; } = ConsoleColor . Gray ;
+
+		public readonly char Character ;
 
 		public readonly ConsoleColor ForegroundColor ;
 
@@ -53,13 +54,13 @@ namespace DreamRecorder . FoggyConsole
 		public override string ToString ( ) => new string ( Character , 1 ) ;
 
 		public ConsoleChar (
-			char         character ,
-			ConsoleColor? foregroundColor = null ,
-			ConsoleColor? backgroundColor =null  )
+			char           character ,
+			ConsoleColor ? foregroundColor = null ,
+			ConsoleColor ? backgroundColor = null )
 		{
 			Character       = character ;
-			ForegroundColor = foregroundColor??DefaultForegroundColor ;
-			BackgroundColor = backgroundColor??DefaultBackgroundColor ;
+			ForegroundColor = foregroundColor ?? DefaultForegroundColor ;
+			BackgroundColor = backgroundColor ?? DefaultBackgroundColor ;
 		}
 
 	}

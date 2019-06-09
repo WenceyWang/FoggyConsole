@@ -39,7 +39,7 @@ namespace DreamRecorder . FoggyConsole
 					|| x >= Size . Width )
 				{
 #if DEBUG
-                    throw new ArgumentOutOfRangeException(nameof(x));
+					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
 #endif
 
 					return ;
@@ -49,7 +49,7 @@ namespace DreamRecorder . FoggyConsole
 					|| y >= Size . Height )
 				{
 #if DEBUG
-                    throw new ArgumentOutOfRangeException(nameof(x));
+					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
 #endif
 					return ;
 				}
@@ -70,7 +70,8 @@ namespace DreamRecorder . FoggyConsole
 			if ( ! area . Position . Contain ( subRectangle ) )
 			{
 #if DEBUG
-                throw new ArgumentException($"{nameof(subRectangle)} should be contain in {nameof(area)}.{nameof(area.Position)}");
+				throw new ArgumentException (
+											$"{nameof ( subRectangle )} should be contain in {nameof ( area )}.{nameof ( area . Position )}" ) ;
 #endif
 				subRectangle = area . Position . Intersect ( subRectangle ) ;
 			}

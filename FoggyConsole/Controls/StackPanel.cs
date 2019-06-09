@@ -15,7 +15,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public StackPanel ( IControlRenderer renderer = null ) : base ( renderer ?? new StackPanelRenderer ( ) ) { }
 
-
 		public override void Arrange ( Rectangle finalRect )
 		{
 			int currentHeight = 0 ;
@@ -84,7 +83,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				control . Arrange ( new Rectangle ( arrangeLocation , arrangeSize ) ) ;
 
-				currentHeight += control . ActualSize . Height ;
+				currentHeight += arrangeSize . Height ;
 			}
 
 			base . Arrange ( finalRect ) ;
@@ -102,21 +101,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				maxWidth  =  Math . Max ( control . DesiredSize . Width , maxWidth ) ;
 			}
 
-			int resultWidth = maxWidth ;
-
-			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
-			{
-				resultWidth = Math . Max ( resultWidth , availableSize . Width ) ;
-			}
-
-			int resultHeight = heightSum ;
-
-			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
-			{
-				resultHeight = Math . Max ( resultHeight , availableSize . Height ) ;
-			}
-
-			DesiredSize = new Size ( resultWidth , resultHeight ) ;
+			DesiredSize = new Size ( maxWidth , heightSum ) ;
 		}
 
 	}

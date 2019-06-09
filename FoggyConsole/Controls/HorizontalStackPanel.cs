@@ -24,7 +24,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override void Arrange ( Rectangle finalRect )
 		{
 			int currentWidth = 0 ;
-			for ( int i = 0 ; i < Items . Count && currentWidth < finalRect . Height ; i++ )
+			for ( int i = 0 ; i < Items . Count && currentWidth < finalRect . Width ; i++ )
 			{
 				Control control = Items [ i ] ;
 
@@ -91,7 +91,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				control . Arrange ( new Rectangle ( arrangeLocation , arrangeSize ) ) ;
 
-				currentWidth += control . ActualSize . Width ;
+				currentWidth += arrangeSize . Width ;
 			}
 
 			base . Arrange ( finalRect ) ;
@@ -109,21 +109,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				maxHeight =  Math . Max ( control . DesiredSize . Height , maxHeight ) ;
 			}
 
-			int resultWidth = maxHeight ;
-
-			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
-			{
-				resultWidth = Math . Max ( resultWidth , availableSize . Width ) ;
-			}
-
-			int resultHeight = widthSum ;
-
-			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
-			{
-				resultHeight = Math . Max ( resultHeight , availableSize . Height ) ;
-			}
-
-			DesiredSize = new Size ( resultWidth , resultHeight ) ;
+			DesiredSize = new Size ( widthSum , maxHeight ) ;
 		}
 
 	}
