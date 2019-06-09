@@ -36,6 +36,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			Current = this ;
 		}
 
+		public Frame ( ) : this ( null ) { }
+
 		public void PauseRedraw ( ) { IsRedrawPaused = true ; }
 
 		public void ResumeRedraw ( )

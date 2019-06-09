@@ -20,6 +20,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		{
 		}
 
+		public HorizontalStackPanel ( ) : this ( null ) { }
+
 
 		public override void Arrange ( Rectangle finalRect )
 		{

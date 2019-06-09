@@ -5,6 +5,8 @@ using System . Linq ;
 
 using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
+using JetBrains . Annotations ;
+
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
@@ -18,7 +20,37 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public abstract IReadOnlyCollection <Control> Children { get ; }
 
-		public Container ( IControlRenderer renderer = null ) : base ( renderer ) { }
+		public Container ( IControlRenderer renderer ) : base ( renderer ) { }
+
+		public Control Find ( [NotNull] string name )
+		{
+			if ( name == null )
+			{
+				throw new ArgumentNullException ( nameof ( name ) ) ;
+			}
+
+			foreach ( Control control in Children )
+			{
+				if ( control . Name == name )
+				{
+					return control ;
+				}
+				else
+				{
+					if ( control is Container container )
+					{
+						Control result = container . Find ( name ) ;
+
+						if ( result != null )
+						{
+							return result ;
+						}
+					}
+				}
+			}
+
+			return null ;
+		}
 
 		public List <Control> GetAllItem ( )
 		{

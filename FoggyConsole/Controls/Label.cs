@@ -36,6 +36,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public Label ( IControlRenderer renderer = null ) : base ( renderer ?? new LabelRenderer ( ) )
 			=> BoarderStyle = null ;
 
+		public Label ( ) : this ( null ) { }
+
 	}
 
 }

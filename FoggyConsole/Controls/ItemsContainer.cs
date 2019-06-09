@@ -19,13 +19,16 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public ObservableCollection <Control> Items { get ; }
 
-		protected ItemsContainer ( IControlRenderer renderer ) : base ( renderer )
+		protected ItemsContainer ( IControlRenderer renderer = null ) : base (
+																			renderer ?? new ItemsContainerRenderer ( ) )
 		{
 			Items                     =  new ObservableCollection <Control> ( ) ;
 			Items . CollectionChanged += Items_CollectionChanged ;
 
 			Children = new ReadOnlyCollection <Control> ( Items ) ;
 		}
+
+		protected ItemsContainer ( ) : this ( null ) { }
 
 		private void Items_CollectionChanged ( object sender , NotifyCollectionChangedEventArgs e )
 		{

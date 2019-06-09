@@ -16,6 +16,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public RelativePanel ( IControlRenderer renderer ) : base ( renderer ?? new RelativePanelRenderer ( ) ) { }
 
+		public RelativePanel ( ) : this ( null ) { }
+
 		public override void Arrange ( Rectangle finalRect ) { base . Arrange ( finalRect ) ; }
 
 		public override void Measure ( Size availableSize )

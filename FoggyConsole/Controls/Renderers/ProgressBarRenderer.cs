@@ -14,8 +14,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class ProgressBarRenderer : ControlRenderer <ProgressBar>
 	{
 
-		public ProgressBarRenderer ( ProgressBar control ) { }
-
 		/// <summary>
 		///     Draws the ProgressBar given in the Control-Property
 		/// </summary>

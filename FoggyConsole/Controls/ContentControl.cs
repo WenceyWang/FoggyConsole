@@ -46,7 +46,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		protected ContentControl ( IControlRenderer renderer ) : base ( renderer ) { }
+		protected ContentControl ( IControlRenderer renderer = null ) : base (
+																			renderer ?? new ContentControlRenderer ( ) )
+		{
+		}
+
+		protected ContentControl ( ) : this ( null ) { }
 
 	}
 

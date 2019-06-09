@@ -310,6 +310,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			Renderer . Control = this ;
 		}
 
+
 		public event PropertyChangedEventHandler PropertyChanged ;
 
 

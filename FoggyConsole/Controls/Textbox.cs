@@ -52,6 +52,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </exception>
 		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) ) { }
 
+		public TextBox ( ) : this ( null ) { }
+
 
 		/// <summary>
 		/// </summary>

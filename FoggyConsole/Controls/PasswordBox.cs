@@ -82,12 +82,13 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocus => Enabled ;
 
-
 		public PasswordBox ( ControlRenderer <PasswordBox> renderer = null ) : base (
 																					renderer
 																					?? new PasswordBoxRenderer ( ) )
 		{
 		}
+
+		public PasswordBox ( ) : this ( null ) { }
 
 		/// <summary>
 		/// </summary>

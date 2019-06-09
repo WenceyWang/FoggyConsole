@@ -54,11 +54,14 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public Canvas ( IControlRenderer renderer = null ) : base ( renderer ?? new CanvasRenderer ( ) )
+		public Canvas ( IControlRenderer renderer = null ) : base ( renderer )
 		{
 			ItemsAdded   += Canvas_ItemsAdded ;
 			ItemsRemoved += Canvas_ItemsRemoved ;
 		}
+
+		public Canvas ( ) : this ( null ) { }
+
 
 		private void Canvas_ItemsRemoved ( object sender , ContainerControlEventArgs e )
 		{

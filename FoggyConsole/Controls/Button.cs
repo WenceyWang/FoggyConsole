@@ -83,6 +83,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public Button ( ControlRenderer <Button> renderer = null ) : base ( renderer ?? new ButtonRenderer ( ) )
 			=> BoarderStyle = LineStyle . CornerOnlySingleLineSet ;
 
+		public Button ( ) : this ( null ) { }
+
+
 		/// <summary>
 		///     Fired if the button is focused and the user presses the space bar
 		/// </summary>

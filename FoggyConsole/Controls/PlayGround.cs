@@ -20,7 +20,20 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class PlayGround : Control
 	{
 
-		private readonly ConsoleArea _field ;
+		private ConsoleArea _buffer ;
+
+		public ConsoleArea Buffer
+		{
+			get => _buffer ;
+			set
+			{
+				if ( _buffer != value )
+				{
+					_buffer = value ;
+					RequestMeasure ( ) ;
+				}
+			}
+		}
 
 		/// <summary>
 		///     Gets or sets the char at (
@@ -29,7 +42,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     <paramref name="left" />
 		///     ).
 		///     Setting triggers an redraw if
-		///     <code>Playground.AutoRedaw</code>
+		///     <code>Playground.AutoRedraw</code>
 		///     is true.
 		/// </summary>
 		/// <param name="top"></param>
@@ -38,12 +51,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// <seealso cref="AutoRedraw" />
 		public ConsoleChar this [ int top , int left ]
 		{
-			get => _field [ top , left ] ;
+			get => Buffer [ top , left ] ;
 			set
 			{
-				if ( _field [ top , left ] != value )
+				if ( Buffer [ top , left ] != value )
 				{
-					_field [ top , left ] = value ;
+					Buffer [ top , left ] = value ;
 
 					if ( AutoRedraw )
 					{
@@ -56,7 +69,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// <summary>
 		///     True if a redraw should be triggered on every change
 		/// </summary>
-		/// <seealso cref="Redraw" />
 		public bool AutoRedraw { get ; set ; }
 
 		public override bool CanFocus => false ;
@@ -65,8 +77,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     Creates a new
 		///     <code>Playground</code>
 		/// </summary>
-		/// <param name="height">The height of this Playground</param>
-		/// <param name="width">The width of this Playground</param>
 		/// <param name="renderer">
 		///     The
 		///     <code>ControlRenderer</code>
@@ -80,20 +90,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public PlayGround ( int height , int width , ControlRenderer <PlayGround> renderer = null ) : base ( renderer )
-		{
-			if ( renderer == null )
-			{
-				Renderer = new PlayGroundRenderer ( this ) ;
-			}
+		public PlayGround ( IControlRenderer renderer = null ) : base ( renderer ?? new PlayGroundRenderer ( ) )
+			=> AutoRedraw = true ;
 
-			Height = height ;
-			Width  = width ;
-
-			_field = new ConsoleArea ( new Size ( width , height ) ) ;
-
-			AutoRedraw = true ;
-		}
+		public PlayGround ( ) : this ( null ) { }
 
 	}
 

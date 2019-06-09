@@ -35,6 +35,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public CheckBox ( CheckboxRenderer renderer = null ) : base ( renderer ?? new CheckboxRenderer ( ) )
 			=> State = CheckState . Indeterminate ;
 
+		public CheckBox ( ) : this ( null ) { }
+
 	}
 
 }

@@ -63,6 +63,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </exception>
 		public GroupBox ( GroupBoxRenderer renderer = null ) : base ( renderer ?? new GroupBoxRenderer ( ) ) { }
 
+		public GroupBox ( ) : this ( null ) { }
+
 	}
 
 }

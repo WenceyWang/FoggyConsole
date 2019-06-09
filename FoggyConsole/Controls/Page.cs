@@ -57,16 +57,26 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			if ( controlType == null )
 			{
-				throw new ArgumentException ( ) ;
+				throw new ArgumentException ( $"Cannot find type {control . Name}" , nameof ( control ) ) ;
 			}
 
 			Control currentControl = ( Control ) Activator . CreateInstance ( controlType ) ;
 			foreach ( XAttribute attribute in control . Attributes ( ) )
 			{
-				PropertyInfo property = controlType . GetTypeInfo ( ) . GetProperty ( attribute . Name . LocalName ) ;
-				property . SetValue (
-									currentControl ,
-									Convert . ChangeType ( attribute . Value , property . PropertyType ) ) ;
+				PropertyInfo property = controlType . GetProperty (
+																	attribute . Name . LocalName ,
+																	BindingFlags . Instance
+																	| BindingFlags . IgnoreCase
+																	| BindingFlags . NonPublic
+																	| BindingFlags . Public
+																	| BindingFlags . SetProperty ) ;
+
+				if ( property != null )
+				{
+					object value = Convert . ChangeType ( attribute . Value , property . PropertyType ) ;
+
+					property . SetValue ( currentControl , value ) ;
+				}
 			}
 
 			if ( currentControl is ItemsContainer itemsContainer )

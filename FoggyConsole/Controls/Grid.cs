@@ -55,6 +55,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public Grid ( IControlRenderer renderer ) : base ( renderer ?? new GridRenderer ( ) ) { }
 
+		public Grid ( ) : this ( null ) { }
+
 
 		public override void Measure ( Size availableSize )
 		{

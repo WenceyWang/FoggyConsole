@@ -15,6 +15,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public StackPanel ( IControlRenderer renderer = null ) : base ( renderer ?? new StackPanelRenderer ( ) ) { }
 
+		public StackPanel ( ) : this ( null ) { }
+
 		public override void Arrange ( Rectangle finalRect )
 		{
 			int currentHeight = 0 ;

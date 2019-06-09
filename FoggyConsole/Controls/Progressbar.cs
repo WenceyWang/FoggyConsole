@@ -120,16 +120,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public ProgressBar ( ControlRenderer <ProgressBar> renderer = null ) : base ( renderer )
-		{
-			if ( renderer == null )
-			{
-				Renderer = new ProgressBarRenderer ( this ) ;
-			}
+		public ProgressBar ( IControlRenderer renderer = null ) : base ( renderer ?? new ProgressBarRenderer ( ) ) { }
 
-			Height = 1 ;
-		}
-
+		public ProgressBar ( ) : this ( null ) { }
 
 		/// <summary>
 		///     Fired if the Value-Property has changed

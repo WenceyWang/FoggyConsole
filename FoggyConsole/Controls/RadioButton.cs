@@ -39,13 +39,14 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public RadioButton ( ControlRenderer <RadioButton> renderer = null ) : base (
-																					renderer
-																					?? new RadioButtonRenderer ( ) )
+		public RadioButton ( IControlRenderer renderer = null ) : base ( renderer ?? new RadioButtonRenderer ( ) )
 		{
 			State           =  CheckState . Unchecked ;
 			CheckedChanging += OnCheckedChanging ;
 		}
+
+		public RadioButton ( ) : this ( null ) { }
+
 
 		private void OnCheckedChanging ( object sender , CheckedChangingEventArgs checkedChangingEventArgs )
 		{

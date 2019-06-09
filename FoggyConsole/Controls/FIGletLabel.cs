@@ -98,6 +98,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public FIGletLabel ( IControlRenderer renderer = null ) : base ( renderer ?? new FIGletLabelRenderer ( ) )
 			=> TextChanged += FIGletLabel_TextChanged ;
 
+		public FIGletLabel ( ) : this ( null ) { }
+
 		public override void Measure ( Size availableSize )
 		{
 			UpdateText ( ) ;
