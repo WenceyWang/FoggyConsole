@@ -22,6 +22,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public Container ( IControlRenderer renderer ) : base ( renderer ) { }
 
+		public T Find <T> ( [NotNull] string name ) where T : Control => Find ( name ) as T ;
+
 		public Control Find ( [NotNull] string name )
 		{
 			if ( name == null )
