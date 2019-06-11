@@ -28,7 +28,7 @@ namespace DreamRecorder . FoggyConsole
 		private ILogger Logger { get ; } =
 			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <FocusManager> ( ) ;
 
-		public FocusManager Current { get ; private set ; }
+		public static FocusManager Current { get ; private set ; }
 
 		/// <summary>
 		///     Creates a new FocusManager
