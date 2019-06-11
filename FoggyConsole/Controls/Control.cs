@@ -217,6 +217,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
+		public object Tag { get ; set ; }
+
 		/// <summary>
 		///     True if the control is focuses, otherwise false
 		/// </summary>
