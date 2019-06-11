@@ -6,6 +6,7 @@ using System . Reflection ;
 using System . Xml . Linq ;
 
 using DreamRecorder . FoggyConsole . Controls . Renderers ;
+using DreamRecorder . ToolBox . General ;
 
 using JetBrains . Annotations ;
 
@@ -81,9 +82,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				if ( property != null )
 				{
-					object value = Convert . ChangeType ( attribute . Value , property . PropertyType ) ;
-
-					property . SetValue ( currentControl , value ) ;
+					property . SetValue ( currentControl , attribute . Value . ParseTo ( property . PropertyType ) ) ;
 				}
 			}
 

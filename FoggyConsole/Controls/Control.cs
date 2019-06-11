@@ -285,7 +285,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( _enabled != value )
 				{
 					_enabled = value ;
-					RequestRedraw ( ) ;
+					RequestMeasure ( ) ;
 				}
 			}
 		}
