@@ -103,6 +103,16 @@ namespace DreamRecorder . FoggyConsole . Controls
 				maxWidth  =  Math . Max ( control . DesiredSize . Width , maxWidth ) ;
 			}
 
+			if ( ! AutoWidth )
+			{
+				maxWidth = Math . Max ( Width , maxWidth ) ;
+			}
+
+			if ( ! AutoHeight )
+			{
+				heightSum = Math . Max ( Height , heightSum ) ;
+			}
+
 			DesiredSize = new Size ( maxWidth , heightSum ) ;
 		}
 
