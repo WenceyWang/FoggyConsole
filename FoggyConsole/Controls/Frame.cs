@@ -17,7 +17,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public static Frame Current { get ; set ; }
 
-		public bool IsRedrawPaused { get ; private set ; } = true ;
+		public int RedrawPausedLevel { get ; private set ; } = 1 ;
 
 		internal ILogger Logger { get ; } =
 			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <Frame> ( ) ;
@@ -38,13 +38,14 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public Frame ( ) : this ( null ) { }
 
-		public void PauseRedraw ( ) { IsRedrawPaused = true ; }
+		public void PauseRedraw ( ) { RedrawPausedLevel++ ; }
 
 		public void ResumeRedraw ( )
 		{
-			if ( IsRedrawPaused )
+			RedrawPausedLevel = Math . Max ( RedrawPausedLevel - 1 , 0 ) ;
+
+			if ( RedrawPausedLevel == 0 )
 			{
-				IsRedrawPaused = false ;
 				RequestUpdateDisplay ( ) ;
 			}
 		}
@@ -57,27 +58,27 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		protected override void RequestMeasure ( )
 		{
-			if ( ( ! IsRedrawPaused ) && Enabled )
+			if ( ( RedrawPausedLevel == 0 ) && Enabled )
 			{
-				IsRedrawPaused = true ;
+				RedrawPausedLevel++ ;
 
 				Measure ( Size ) ;
 				Arrange ( new Rectangle ( Size ) ) ;
 				Draw ( ) ;
 
-				IsRedrawPaused = false ;
+				RedrawPausedLevel = Math . Max ( RedrawPausedLevel - 1 , 0 ) ;
 			}
 		}
 
 		protected override void RequestRedraw ( )
 		{
-			if ( ( ! IsRedrawPaused ) && Enabled )
+			if ( ( RedrawPausedLevel == 0 ) && Enabled )
 			{
-				IsRedrawPaused = true ;
+				RedrawPausedLevel++ ;
 
 				Draw ( ) ;
 
-				IsRedrawPaused = false ;
+				RedrawPausedLevel = Math . Max ( RedrawPausedLevel - 1 , 0 ) ;
 			}
 		}
 

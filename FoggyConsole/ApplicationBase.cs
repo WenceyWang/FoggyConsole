@@ -124,6 +124,8 @@ namespace DreamRecorder . FoggyConsole
 				Logger . LogDebug ( $"Key pressed: {eventArgs . KeyInfo . Key}" ) ;
 			}
 
+			ViewRoot . PauseRedraw ( ) ;
+
 			Control currentControl = FocusManager ? . FocusedControl ;
 			while ( ! ( currentControl is null ) )
 			{
@@ -146,6 +148,8 @@ namespace DreamRecorder . FoggyConsole
 					Logger . LogDebug ( $"Focused: {FocusManager . FocusedControl ? . Name}" ) ;
 				}
 			}
+
+			ViewRoot . ResumeRedraw ( ) ;
 		}
 
 	}
