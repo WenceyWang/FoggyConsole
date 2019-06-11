@@ -11,7 +11,7 @@ using JetBrains . Annotations ;
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
-	public abstract class ContentControl : Container
+	public abstract class ContentControl : ContainerBase
 	{
 
 		[CanBeNull] private Control _content ;
@@ -46,12 +46,25 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
+
 		protected ContentControl ( IControlRenderer renderer = null ) : base (
 																			renderer ?? new ContentControlRenderer ( ) )
 		{
 		}
 
 		protected ContentControl ( ) : this ( null ) { }
+
+		public override void Measure ( Size availableSize )
+		{
+			Content ? . Measure ( availableSize ) ;
+			DesiredSize = Content ? . DesiredSize ?? availableSize ;
+		}
+
+		public override void Arrange ( Rectangle finalRect )
+		{
+			Content ? . Arrange ( finalRect ) ;
+			base . Arrange ( finalRect ) ;
+		}
 
 	}
 

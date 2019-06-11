@@ -11,7 +11,7 @@ using DreamRecorder . FoggyConsole . Controls . Renderers ;
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
-	public abstract class ItemsContainer : Container
+	public abstract class ItemsContainer : ContainerBase
 	{
 
 		public override IReadOnlyCollection <Control> Children { get ; }
@@ -71,7 +71,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		//	}
 
 		//	Children.Add(control);
-		//          control.Container = this;
+		//          control.ContainerBase = this;
 		//      }
 
 		/// <summary>

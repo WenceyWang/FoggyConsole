@@ -37,7 +37,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		private ContentVerticalAlign _verticalAlign ;
 
 		/// <summary>
-		///     The name of this Control, must be unique within its Container
+		///     The name of this Control, must be unique within its ContainerBase
 		/// </summary>
 		public string Name { get ; set ; }
 
@@ -241,10 +241,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		/// <summary>
 		///     The
-		///     <code>Container</code>
+		///     <code>ContainerBase</code>
 		///     in which this Control is placed in
 		/// </summary>
-		public Container Container { get ; set ; }
+		public ContainerBase Container { get ; set ; }
 
 		/// <summary>
 		///     An instance of a subclass of

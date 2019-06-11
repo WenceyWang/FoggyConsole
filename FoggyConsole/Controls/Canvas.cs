@@ -11,7 +11,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 	/// <summary>
 	///     A very basic
-	///     <code>Container</code>
+	///     <code>ContainerBase</code>
 	///     It has no appearance, controls within it are aligned using thier top and left values.
 	/// </summary>
 	public class Canvas : ItemsContainer

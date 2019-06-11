@@ -92,10 +92,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			if ( CurrentPage != page )
 			{
+				PauseRedraw ( ) ;
 				CurrentPage             = page ;
 				CurrentPage . Container = this ;
 				CurrentPage . OnNavigateTo ( ) ;
-				RequestMeasure ( ) ;
+				ResumeRedraw ( ) ;
 			}
 		}
 

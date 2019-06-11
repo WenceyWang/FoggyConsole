@@ -10,7 +10,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 	/// <summary>
 	///     A
-	///     <code>Container</code>
+	///     <code>ContainerBase</code>
 	///     which has a border.
 	/// </summary>
 	public class GroupBox : ItemsContainer

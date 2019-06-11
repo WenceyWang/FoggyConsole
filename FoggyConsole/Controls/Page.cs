@@ -39,21 +39,29 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public virtual void OnNavigateOut ( ) { }
 
-		public override void Measure ( Size availableSize )
-		{
-			Content ? . Measure ( availableSize ) ;
-			DesiredSize = Content ? . DesiredSize ?? availableSize ;
-		}
-
-		public override void Arrange ( Rectangle finalRect )
-		{
-			Content ? . Arrange ( finalRect ) ;
-			base . Arrange ( finalRect ) ;
-		}
 
 		public Control CrateControl ( XElement control )
 		{
-			Type controlType = Type . GetType ( typeof ( Page ) . Namespace + "." + control . Name ) ;
+			List <TypeInfo> controlTypes = AppDomain . CurrentDomain . GetAssemblies ( ) .
+														SelectMany (
+																	assembly
+																		=> assembly . DefinedTypes . Where (
+																											type
+																												=> type .
+																													IsSubclassOf (
+																																typeof
+																																(
+																																	Control
+																																) ) ) ) .
+														ToList ( ) ;
+
+			Type controlType = controlTypes . FirstOrDefault ( type => type . Name == control . Name ) ? . AsType ( )
+								?? controlTypes . FirstOrDefault (
+																type
+																	=> type . Name
+																		== typeof ( Page ) . Namespace
+																		+ "."
+																		+ control . Name ) ;
 
 			if ( controlType == null )
 			{

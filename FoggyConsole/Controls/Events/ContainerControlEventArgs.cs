@@ -8,7 +8,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Events
 
 	/// <summary>
 	///     Used by
-	///     <code>Container</code>
+	///     <code>ContainerBase</code>
 	///     in ControlAdded and ControlRemoved events
 	/// </summary>
 	public class ContainerControlEventArgs : EventArgs
