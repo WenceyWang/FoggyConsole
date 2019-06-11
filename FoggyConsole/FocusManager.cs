@@ -28,6 +28,7 @@ namespace DreamRecorder . FoggyConsole
 		private ILogger Logger { get ; } =
 			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <FocusManager> ( ) ;
 
+		public FocusManager Current { get ; private set ; }
 
 		/// <summary>
 		///     Creates a new FocusManager
@@ -40,7 +41,8 @@ namespace DreamRecorder . FoggyConsole
 		/// </exception>
 		public FocusManager ( Frame root )
 		{
-			Root = root ?? throw new ArgumentNullException ( nameof ( root ) ) ;
+			Current = this ;
+			Root    = root ?? throw new ArgumentNullException ( nameof ( root ) ) ;
 
 			_focusedControl = GetControlList ( ) . FirstOrDefault ( ) ;
 			if ( _focusedControl != null )
@@ -55,7 +57,7 @@ namespace DreamRecorder . FoggyConsole
 		public Control FocusedControl
 		{
 			get => _focusedControl ;
-			private set
+			set
 			{
 				if ( value != _focusedControl )
 				{

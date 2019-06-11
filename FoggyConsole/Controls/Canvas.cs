@@ -106,21 +106,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				rectangle = rectangle . Union ( new Rectangle ( this [ control ] , control . DesiredSize ) ) ;
 			}
 
-			int resultWidth = rectangle . Size . Width ;
-
-			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
-			{
-				resultWidth = Math . Max ( resultWidth , availableSize . Width ) ;
-			}
-
-			int resultHeight = rectangle . Size . Height ;
-
-			if ( HorizontalAlign == ContentHorizontalAlign . Stretch )
-			{
-				resultHeight = Math . Max ( resultHeight , availableSize . Height ) ;
-			}
-
-			DesiredSize = new Size ( resultWidth , resultHeight ) ;
+			DesiredSize = rectangle . Size ;
 		}
 
 	}

@@ -33,7 +33,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				throw new ArgumentNullException ( nameof ( page ) ) ;
 			}
 
-			Content = CrateControl ( page . Elements ( ) . Single ( ) ) ;
+			Content = CrateControl ( page ) ;
 		}
 
 		public virtual void OnNavigateTo ( ) { }
