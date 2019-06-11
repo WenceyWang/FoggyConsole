@@ -136,6 +136,7 @@ namespace DreamRecorder . FoggyConsole
 				}
 				else
 				{
+					ViewRoot . ResumeRedraw ( ) ;
 					return ;
 				}
 			}

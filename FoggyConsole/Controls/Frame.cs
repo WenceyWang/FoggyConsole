@@ -15,9 +15,19 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Frame : ContentControl
 	{
 
+		private int _redrawPausedLevel = 1 ;
+
 		public static Frame Current { get ; set ; }
 
-		public int RedrawPausedLevel { get ; private set ; } = 1 ;
+		public int RedrawPausedLevel
+		{
+			get => _redrawPausedLevel ;
+			private set
+			{
+				_redrawPausedLevel = value ;
+				Logger . LogTrace ( $"{nameof ( RedrawPausedLevel )} : {value}" ) ;
+			}
+		}
 
 		internal ILogger Logger { get ; } =
 			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <Frame> ( ) ;
