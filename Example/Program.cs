@@ -106,6 +106,18 @@ namespace Example
 							};
 			horizontalStack.Items.Add(buttonD);
 
+			Grid grid = new Grid ( ) ;
+			panel . Items . Add ( grid ) ;
+
+			Button buttonE = new Button
+							{
+								Name    = "buttonE",
+								Text    = "E",
+								KeyBind = 'E',
+								HorizontalAlign=ContentHorizontalAlign.Center
+							};
+			grid . Items . Add ( buttonE ) ;
+
             //Canvas canvas = new Canvas ( ) ;
 
             //for ( int y = 0 ; y < 30 ; y++ )
