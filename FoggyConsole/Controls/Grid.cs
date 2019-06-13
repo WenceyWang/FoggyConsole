@@ -2,7 +2,11 @@
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Collections . ObjectModel ;
+using System . Collections . Specialized ;
+using System . ComponentModel ;
 using System . Linq ;
+using System . Runtime . CompilerServices ;
+using System . Text ;
 
 using DreamRecorder . FoggyConsole . Controls . Events ;
 using DreamRecorder . FoggyConsole . Controls . Renderers ;
@@ -15,13 +19,78 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Grid : ItemsContainer
 	{
 
-		public Dictionary <Control , Point> StartAt { get ; } = new Dictionary <Control , Point> ( ) ;
+		public Rectangle this [ Control control ]
+		{
+			get => new Rectangle ( StartAt [ control ] , BlockSize [ control ] ) ;
+			set
+			{
+				StartAt [ control ]   = value . LeftTopPoint ;
+				BlockSize [ control ] = value . Size ;
+				RequestMeasure ( ) ;
+			}
+		}
 
-		public Dictionary <Control , Size> BlockSize { get ; } = new Dictionary <Control , Size> ( ) ;
+		public string RowsData
+		{
+			get
+			{
+				StringBuilder builder = new StringBuilder ( ) ;
+				foreach ( Row row in Rows )
+				{
+					builder . Append ( row . Height ) ;
+					builder . Append ( ',' ) ;
+				}
 
-		public ObservableCollection <Row> Rows { get ; } = new ObservableCollection <Row> ( ) ;
+				return builder . ToString ( ) ;
+			}
+			set
+			{
+				Rows . Clear ( ) ;
+				if ( value != null )
+				{
+					string [ ] rows = value . Split ( new [ ] { ',' } , StringSplitOptions . RemoveEmptyEntries ) ;
+					foreach ( string rowData in rows )
+					{
+						Rows . Add ( new Row { Height = Convert . ToInt32 ( rowData ) } ) ;
+					}
+				}
+			}
+		}
 
-		public ObservableCollection <Column> Columns { get ; } = new ObservableCollection <Column> ( ) ;
+		public string ColumnsData
+		{
+			get
+			{
+				StringBuilder builder = new StringBuilder ( ) ;
+				foreach ( Column column in Columns )
+				{
+					builder . Append ( column . Width ) ;
+					builder . Append ( ',' ) ;
+				}
+
+				return builder . ToString ( ) ;
+			}
+			set
+			{
+				Columns . Clear ( ) ;
+				if ( value != null )
+				{
+					string [ ] columns = value . Split ( new [ ] { ',' } , StringSplitOptions . RemoveEmptyEntries ) ;
+					foreach ( string columnData in columns )
+					{
+						Columns . Add ( new Column { Width = Convert . ToInt32 ( columnData ) } ) ;
+					}
+				}
+			}
+		}
+
+		protected Dictionary <Control , Point> StartAt { get ; } = new Dictionary <Control , Point> ( ) ;
+
+		protected Dictionary <Control , Size> BlockSize { get ; } = new Dictionary <Control , Size> ( ) ;
+
+		public ObservableCollection <Row> Rows { get ; }
+
+		public ObservableCollection <Column> Columns { get ; }
 
 		private List <Column> StaticSizeColumns
 			=> Columns . Where ( col => col . Width >= 0 && ! col . Auto ) . ToList ( ) ;
@@ -41,11 +110,55 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public Grid ( IControlRenderer renderer ) : base ( renderer ?? new GridRenderer ( ) )
 		{
-			ItemsAdded   += Grid_ItemsAdded ;
-			ItemsRemoved += Grid_ItemsRemoved ;
+			Rows                        =  new ObservableCollection <Row> ( ) ;
+			Rows . CollectionChanged    += ColumnsRows_CollectionChanged ;
+			Columns                     =  new ObservableCollection <Column> ( ) ;
+			Columns . CollectionChanged += ColumnsRows_CollectionChanged ;
+			ItemsAdded                  += Grid_ItemsAdded ;
+			ItemsRemoved                += Grid_ItemsRemoved ;
 		}
 
 		public Grid ( ) : this ( null ) { }
+
+		private void ColumnsRows_CollectionChanged ( object sender , NotifyCollectionChangedEventArgs e )
+		{
+			if ( ! ( e . OldItems is null ) )
+			{
+				List <INotifyPropertyChanged> removedItems = e . OldItems . Cast <INotifyPropertyChanged> ( ) .
+																Where (
+																		item
+																			=> ( ! ( e ? . NewItems ? . Contains (
+																												item ) )
+																				)
+																				?? true ) .
+																ToList ( ) ;
+
+				foreach ( INotifyPropertyChanged item in removedItems )
+				{
+					item . PropertyChanged -= Item_PropertyChanged ;
+				}
+			}
+
+			if ( ! ( e . NewItems is null ) )
+			{
+				List <INotifyPropertyChanged> newItems = e . NewItems . Cast <INotifyPropertyChanged> ( ) .
+															Where (
+																	item
+																		=> ( ! ( e ? . OldItems ? . Contains ( item ) )
+																			)
+																			?? true ) .
+															ToList ( ) ;
+
+				foreach ( INotifyPropertyChanged item in newItems )
+				{
+					item . PropertyChanged += Item_PropertyChanged ;
+				}
+			}
+
+			RequestMeasure ( ) ;
+		}
+
+		private void Item_PropertyChanged ( object sender , PropertyChangedEventArgs e ) => RequestMeasure ( ) ;
 
 		private void Grid_ItemsRemoved ( object sender , ContainerControlEventArgs e )
 		{
@@ -422,7 +535,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			base . Arrange ( finalRect ) ;
 		}
 
-		public class Row
+		public class Row : INotifyPropertyChanged
 		{
 
 			public int Height { get ; set ; }
@@ -448,9 +561,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 				}
 			}
 
+			public event PropertyChangedEventHandler PropertyChanged ;
+
+			[NotifyPropertyChangedInvocator]
+			protected virtual void OnPropertyChanged ( [CallerMemberName] string propertyName = null )
+			{
+				PropertyChanged ? . Invoke ( this , new PropertyChangedEventArgs ( propertyName ) ) ;
+			}
+
 		}
 
-		public class Column
+		public class Column : INotifyPropertyChanged
 		{
 
 			public int Width { get ; set ; }
@@ -475,6 +596,14 @@ namespace DreamRecorder . FoggyConsole . Controls
 						throw new InvalidOperationException ( ) ;
 					}
 				}
+			}
+
+			public event PropertyChangedEventHandler PropertyChanged ;
+
+			[NotifyPropertyChangedInvocator]
+			protected virtual void OnPropertyChanged ( [CallerMemberName] string propertyName = null )
+			{
+				PropertyChanged ? . Invoke ( this , new PropertyChangedEventArgs ( propertyName ) ) ;
 			}
 
 		}

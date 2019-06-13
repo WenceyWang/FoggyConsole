@@ -19,7 +19,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocus => false ;
 
-		public Dictionary <Control , Point> Position { get ; } = new Dictionary <Control , Point> ( ) ;
+		protected Dictionary <Control , Point> Position { get ; } = new Dictionary <Control , Point> ( ) ;
 
 		public Point this [ Control control ]
 		{
