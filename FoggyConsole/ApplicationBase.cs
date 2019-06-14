@@ -40,7 +40,6 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public static Size StandardRootBoundary { get ; } = new Size ( 80 , 24 ) ;
 
-
 		/// <summary>
 		///     Responsible for focus-changes, for example when the user presses the TAB-key
 		/// </summary>
@@ -80,7 +79,7 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public void Start ( )
 		{
-			if ( WaitForExit )
+			if ( WaitForStart )
 			{
 				Console . WriteLine ( "Press Enter to start {0}" , Name ) ;
 				Console . ReadLine ( ) ;
@@ -113,6 +112,8 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public void Stop ( )
 		{
+			Frame . Current . Enabled = false ;
+
 			if ( KeyWatcher . IsRunning )
 			{
 				KeyWatcher . KeyPressed -= KeyWatcherOnKeyPressed ;
@@ -131,6 +132,11 @@ namespace DreamRecorder . FoggyConsole
 			if ( IsDebug )
 			{
 				Logger . LogDebug ( $"Key pressed: {eventArgs . KeyInfo . Key}" ) ;
+			}
+
+			if ( ! IsRunning )
+			{
+				return ;
 			}
 
 			ViewRoot . PauseRedraw ( ) ;

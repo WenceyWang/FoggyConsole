@@ -88,6 +88,8 @@ namespace DreamRecorder . FoggyConsole
 				{
 					Write ( stringBuilder ) ;
 				}
+
+				Console . SetCursorPosition ( position . Left , position . Top ) ;
 			}
 			catch ( Exception e )
 			{
