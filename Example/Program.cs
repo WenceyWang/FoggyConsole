@@ -25,15 +25,17 @@ namespace Example
 
 		public Program ( ) => Name = "GuguguCalendar" ;
 
+        public override bool WaitForStart => true;
 
-		public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
+        public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
 
 		public override void ConfigureLogger ( ILoggingBuilder builder )
 		{
 			builder . AddFilter ( level => true ) . AddDebug ( ) ;
+			builder.AddFilter(level => level >= LogLevel.Information).AddConsole();
 		}
 
-		public override void ShowLogo ( )
+        public override void ShowLogo ( )
 		{
 			Console . WriteLine (
 								new AsciiArt (

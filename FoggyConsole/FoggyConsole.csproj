@@ -21,7 +21,7 @@
     <PackageProjectUrl>https://vsts.dreamry.org/DefaultCollection/FoggyConsole</PackageProjectUrl>
     <Copyright>Dream Recorder (c) 2019</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Version>0.1.2.18</Version>
+    <Version>0.1.2.19</Version>
     <LangVersion>latest</LangVersion>
     <PackageLicenseExpression>AGPL-3.0-or-later</PackageLicenseExpression>
     <NeutralLanguage>en</NeutralLanguage>
@@ -29,7 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.56" />
+    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.57" />
     <PackageReference Include="FIGlet.Net" Version="1.1.1" />
     <PackageReference Include="Fody" Version="5.0.6">
       <PrivateAssets>all</PrivateAssets>
@@ -37,7 +37,6 @@
     </PackageReference>
     <PackageReference Include="JetBrains.Annotations" Version="2019.1.1" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
     <PackageReference Include="PropertyChanged.Fody" Version="3.0.1" />
     <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
   </ItemGroup>

@@ -57,6 +57,8 @@ namespace DreamRecorder . FoggyConsole
 
 		public override bool HandleInput => true ;
 
+		public virtual bool WaitForStart { get ; } = false ;
+
 		public override void Start ( string [ ] args ) { Start ( ) ; }
 
 		public override void OnExit ( TExitCode code ) { Stop ( ) ; }
@@ -78,6 +80,12 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public void Start ( )
 		{
+			if ( WaitForExit )
+			{
+				Console . WriteLine ( "Press Enter to start {0}" , Name ) ;
+				Console . ReadLine ( ) ;
+			}
+
 			if ( ! IsDebug )
 			{
 				Console . CursorVisible = false ;
@@ -91,13 +99,11 @@ namespace DreamRecorder . FoggyConsole
 				Console . Title = Name ;
 			}
 
-			ViewRoot . Enabled = true ;
-			ViewRoot . ResumeRedraw ( ) ;
-
 			KeyWatcher . KeyPressed += KeyWatcherOnKeyPressed ;
 			KeyWatcher . Start ( ) ;
 
-			IsRunning = true ;
+			ViewRoot . Enabled = true ;
+			ViewRoot . ResumeRedraw ( ) ;
 		}
 
 		/// <summary>
@@ -107,13 +113,16 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public void Stop ( )
 		{
-			KeyWatcher . KeyPressed -= KeyWatcherOnKeyPressed ;
-			KeyWatcher . Stop ( ) ;
+			if ( KeyWatcher . IsRunning )
+			{
+				KeyWatcher . KeyPressed -= KeyWatcherOnKeyPressed ;
+				KeyWatcher . Stop ( ) ;
 
-			Console . ResetColor ( ) ;
-			Console . SetCursorPosition ( 0 , 0 ) ;
-			Console . Clear ( ) ;
-			Console . CursorVisible = true ;
+				Console . ResetColor ( ) ;
+				Console . SetCursorPosition ( 0 , 0 ) ;
+				Console . Clear ( ) ;
+				Console . CursorVisible = true ;
+			}
 		}
 
 

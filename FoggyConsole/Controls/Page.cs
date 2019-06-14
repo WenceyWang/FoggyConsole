@@ -124,7 +124,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 				contentControl . Content = currentControl ;
 			}
 
-
 			if ( currentControl is ItemsContainer currentItemsContainer )
 			{
 				foreach ( XElement child in control . Elements ( ) )
