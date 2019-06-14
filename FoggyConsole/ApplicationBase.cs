@@ -112,7 +112,10 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public void Stop ( )
 		{
-			Frame . Current . Enabled = false ;
+			if ( Frame . Current != null )
+			{
+				Frame . Current . Enabled = false ;
+			}
 
 			if ( KeyWatcher . IsRunning )
 			{
