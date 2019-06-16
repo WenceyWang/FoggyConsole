@@ -69,6 +69,16 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 
 			Control currentControl = ( Control ) Activator . CreateInstance ( controlType ) ;
+
+			if ( container is ItemsContainer itemsContainer )
+			{
+				itemsContainer . Items . Add ( currentControl ) ;
+			}
+			else if ( container is ContentControl contentControl )
+			{
+				contentControl . Content = currentControl ;
+			}
+
 			foreach ( XAttribute attribute in control . Attributes ( ) )
 			{
 				string propertyName = attribute . Name . LocalName ;
@@ -80,7 +90,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 						PropertyInfo property =
 							container . GetType ( ) .
 										GetProperty (
-													propertyName ,
+													"Item" ,
 													BindingFlags . Instance
 													| BindingFlags . IgnoreCase
 													| BindingFlags . NonPublic
@@ -90,7 +100,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 						if ( property != null )
 						{
 							property . SetValue (
-												currentControl ,
+												container ,
 												attribute . Value . ParseTo ( property . PropertyType ) ,
 												new object [ ] { currentControl } ) ;
 						}
@@ -113,15 +123,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 											attribute . Value . ParseTo ( property . PropertyType ) ) ;
 					}
 				}
-			}
-
-			if ( container is ItemsContainer itemsContainer )
-			{
-				itemsContainer . Items . Add ( currentControl ) ;
-			}
-			else if ( container is ContentControl contentControl )
-			{
-				contentControl . Content = currentControl ;
 			}
 
 			if ( currentControl is ItemsContainer currentItemsContainer )

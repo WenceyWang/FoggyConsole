@@ -1,8 +1,12 @@
 using System ;
 using System . Collections ;
 using System . Collections . Generic ;
+using System . ComponentModel ;
+using System . Globalization ;
 using System . Linq ;
 using System . Numerics ;
+
+using DreamRecorder . ToolBox . General ;
 
 using JetBrains . Annotations ;
 
@@ -12,8 +16,49 @@ namespace DreamRecorder . FoggyConsole
 	/// <summary>
 	///     A very basic representation of a rectangle
 	/// </summary>
+	[TypeConverter ( typeof ( RectangleTypeConverter ) )]
 	public struct Rectangle : IEquatable <Rectangle>
 	{
+
+		public class RectangleTypeConverter : TypeConverter
+		{
+
+			public override bool CanConvertFrom ( ITypeDescriptorContext context , Type sourceType )
+				=> sourceType == typeof ( string ) ;
+
+			public override bool CanConvertTo ( ITypeDescriptorContext context , Type destinationType )
+				=> destinationType == typeof ( string ) ;
+
+			public override object ConvertFrom ( ITypeDescriptorContext context , CultureInfo culture , object value )
+			{
+				if ( value is string rectangleData )
+				{
+					return ( Rectangle ) rectangleData ;
+				}
+				else
+				{
+					return new Rectangle ( ) ;
+				}
+			}
+
+			public override object ConvertTo (
+				ITypeDescriptorContext context ,
+				CultureInfo            culture ,
+				object                 value ,
+				Type                   destinationType )
+			{
+				if ( destinationType == typeof ( string ) )
+				{
+					return value . ToString ( ) ;
+				}
+				else
+				{
+					return destinationType . GetDefault ( ) ;
+				}
+			}
+
+		}
+
 
 		public int X { get ; }
 

@@ -259,12 +259,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				IReadOnlyCollection <Control> controls = GetInsideControls ( column ) ;
 
-				foreach ( Control control in controls )
-				{
-					control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
-				}
+				int resultWidth = 0 ;
 
-				int resultWidth = controls . Max ( control => control . DesiredSize . Width ) ;
+				if ( controls . Any ( ) )
+				{
+					foreach ( Control control in controls )
+					{
+						control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
+					}
+
+					resultWidth = controls . Max ( control => control . DesiredSize . Width ) ;
+				}
 
 				column . DesiredWidth = resultWidth ;
 			}
@@ -282,12 +287,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				IReadOnlyCollection <Control> controls = GetInsideControls ( column ) ;
 
-				foreach ( Control control in controls )
-				{
-					control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
-				}
+				int resultWidth = 0 ;
 
-				int resultWidth = controls . Max ( control => control . DesiredSize . Width ) ;
+				if ( controls . Any ( ) )
+				{
+					foreach ( Control control in controls )
+					{
+						control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
+					}
+
+					resultWidth = controls . Max ( control => control . DesiredSize . Width ) ;
+				}
 
 				maxMinStarWidth = Math . Max ( resultWidth , maxMinStarWidth ) ;
 			}
@@ -314,12 +324,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				IReadOnlyCollection <Control> controls = GetInsideControls ( row ) ;
 
-				foreach ( Control control in controls )
-				{
-					control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
-				}
+				int resultHeight = 0 ;
 
-				int resultHeight = controls . Max ( control => control . DesiredSize . Height ) ;
+				if ( controls . Any ( ) )
+				{
+					foreach ( Control control in controls )
+					{
+						control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
+					}
+
+					resultHeight = controls . Max ( control => control . DesiredSize . Height ) ;
+				}
 
 				row . DesiredHeight = resultHeight ;
 			}
@@ -336,12 +351,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				IReadOnlyCollection <Control> controls = GetInsideControls ( row ) ;
 
-				foreach ( Control control in controls )
-				{
-					control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
-				}
+				int resultHeight = 0 ;
 
-				int resultHeight = controls . Max ( control => control . DesiredSize . Height ) ;
+				if ( controls . Any ( ) )
+				{
+					foreach ( Control control in controls )
+					{
+						control . Measure ( new Size ( int . MaxValue , int . MaxValue ) ) ;
+					}
+
+					resultHeight = controls . Max ( control => control . DesiredSize . Height ) ;
+				}
 
 				maxMinStarHeight = Math . Max ( resultHeight , maxMinStarHeight ) ;
 			}
