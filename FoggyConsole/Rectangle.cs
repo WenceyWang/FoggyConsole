@@ -4,6 +4,8 @@ using System . Collections . Generic ;
 using System . Linq ;
 using System . Numerics ;
 
+using JetBrains . Annotations ;
+
 namespace DreamRecorder . FoggyConsole
 {
 
@@ -265,7 +267,24 @@ namespace DreamRecorder . FoggyConsole
 			=> rect . Offset ( offsetX , offsetY ) ;
 
 		public override string ToString ( )
-			=> $"{nameof ( X )}: {X}, {nameof ( Y )}: {Y}, {nameof ( Height )}: {Height}, {nameof ( Width )}: {Width}" ;
+			=> $"{nameof ( X )}: {X}, {nameof ( Y )}: {Y}, {nameof ( Width )}: {Width}, {nameof ( Height )}: {Height}" ;
+
+		public static explicit operator Rectangle ( [NotNull] string value )
+		{
+			if ( value == null )
+			{
+				throw new ArgumentNullException ( nameof ( value ) ) ;
+			}
+
+			string [ ] values = value . Split ( ',' ) ;
+
+			int x      = Convert . ToInt32 ( values [ 0 ] . Split ( ':' ) . Last ( ) ) ;
+			int y      = Convert . ToInt32 ( values [ 1 ] . Split ( ':' ) . Last ( ) ) ;
+			int width  = Convert . ToInt32 ( values [ 2 ] . Split ( ':' ) . Last ( ) ) ;
+			int height = Convert . ToInt32 ( values [ 3 ] . Split ( ':' ) . Last ( ) ) ;
+
+			return new Rectangle ( new Point ( x , y ) , new Size ( width , height ) ) ;
+		}
 
 	}
 

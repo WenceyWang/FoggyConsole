@@ -49,8 +49,16 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( value != null )
 				{
 					string [ ] rows = value . Split ( new [ ] { ',' } , StringSplitOptions . RemoveEmptyEntries ) ;
-					foreach ( string rowData in rows )
+					foreach ( string row in rows )
 					{
+						string rowData = row ;
+
+						bool auto = rowData . EndsWith ( "+" ) ;
+						if ( auto )
+						{
+							rowData = rowData . TrimEnd ( '+' ) ;
+						}
+
 						Rows . Add ( new Row { Height = Convert . ToInt32 ( rowData ) } ) ;
 					}
 				}
@@ -76,9 +84,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( value != null )
 				{
 					string [ ] columns = value . Split ( new [ ] { ',' } , StringSplitOptions . RemoveEmptyEntries ) ;
-					foreach ( string columnData in columns )
+					foreach ( string column in columns )
 					{
-						Columns . Add ( new Column { Width = Convert . ToInt32 ( columnData ) } ) ;
+						string columnData = column ;
+
+						bool auto = columnData . EndsWith ( "+" ) ;
+						if ( auto )
+						{
+							columnData = columnData . TrimEnd ( '+' ) ;
+						}
+
+						Columns . Add ( new Column { Width = Convert . ToInt32 ( columnData ) , Auto = auto } ) ;
 					}
 				}
 			}
