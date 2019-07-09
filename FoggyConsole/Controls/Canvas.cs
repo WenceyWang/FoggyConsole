@@ -9,15 +9,17 @@ using DreamRecorder . FoggyConsole . Controls . Renderers ;
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
+
+
 	/// <summary>
 	///     A very basic
 	///     <code>ContainerBase</code>
-	///     It has no appearance, controls within it are aligned using thier top and left values.
+	///     It has no appearance, controls within it are aligned using their top and left values.
 	/// </summary>
-	public class Canvas : ItemsContainer
+	public class Canvas : ItemsContainer,IItemDependencyContainer<Point>
 	{
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 		protected Dictionary <Control , Point> Position { get ; } = new Dictionary <Control , Point> ( ) ;
 

@@ -76,7 +76,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override Size AutoDesiredSize
 			=> new Size ( ActualText . Max ( str => str . Length ) , ActualText . Length ) ;
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 		/// <summary>
 		///     Creates a new

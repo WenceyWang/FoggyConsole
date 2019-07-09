@@ -92,7 +92,7 @@ namespace DreamRecorder . FoggyConsole
 										return false ;
 									}
 
-									return control . CanFocus ;
+									return control . CanFocusedOn ;
 								} ) .
 						ToList ( ) ;
 		}

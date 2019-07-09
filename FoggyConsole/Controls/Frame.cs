@@ -34,7 +34,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override Size Size { get => Window . Size ; set => Window . Size = value ; }
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 		public Page CurrentPage { get ; private set ; }
 

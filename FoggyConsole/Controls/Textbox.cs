@@ -32,7 +32,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public bool MultiLine { get ; set ; }
 
-		public override bool CanFocus => Enabled ;
+		public override bool CanFocusedOn => Enabled ;
 
 		/// <summary>
 		///     Creates a new TextBox

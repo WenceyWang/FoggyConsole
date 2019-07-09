@@ -12,7 +12,7 @@ namespace DreamRecorder . FoggyConsole
 	///     Represents a class which can handle focus changed. The standard implementation is
 	///     <code>FocusManager</code>
 	/// </summary>
-	public interface IFocusManager
+	public interface IFocusManager:IHandleKeyInput
 	{
 
 		/// <summary>

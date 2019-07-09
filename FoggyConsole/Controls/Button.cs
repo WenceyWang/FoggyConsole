@@ -61,7 +61,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		public override bool CanFocus => Enabled ;
+		public override bool CanFocusedOn => Enabled ;
 
 		/// <summary>
 		///     Creates a new

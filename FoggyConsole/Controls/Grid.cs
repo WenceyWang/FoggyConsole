@@ -122,7 +122,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		private List <Row> AutoSizeRows => Rows . Where ( row => row . Auto ) . ToList ( ) ;
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 		public Grid ( IControlRenderer renderer ) : base ( renderer ?? new GridRenderer ( ) )
 		{

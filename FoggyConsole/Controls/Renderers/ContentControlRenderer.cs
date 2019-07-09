@@ -6,16 +6,10 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
-	public class ContentControlRenderer : ControlRenderer <ContentControl>
+	public class ContentControlRenderer <T> : ControlRenderer <T> where T : ContentControl
 	{
 
 		public override void Draw ( ConsoleArea area ) { Control . Content ? . Draw ( area ) ; }
-
-	}
-
-
-	public class PageRenderer : ContentControlRenderer <Page>
-	{
 
 	}
 

@@ -6,7 +6,7 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
-	public class ItemsContainerRenderer : ControlRenderer <ItemsContainer>
+	public class ItemsContainerRenderer <T> : ControlRenderer <T> where T : ItemsContainer
 	{
 
 		public override void Draw ( ConsoleArea area )
@@ -19,18 +19,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				}
 			}
 		}
-
-	}
-
-
-	/// <summary>
-	///     Draws a
-	///     <code>Canvas</code>
-	///     , which has no own appearance.
-	///     All controls within the panel are drawn.
-	/// </summary>
-	public class CanvasRenderer : ItemsContainerRenderer <Canvas>
-	{
 
 	}
 

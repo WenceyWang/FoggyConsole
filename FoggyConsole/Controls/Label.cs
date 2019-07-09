@@ -14,7 +14,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Label : TextualBase
 	{
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 		/// <summary>
 		///     Creates a new

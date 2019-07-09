@@ -15,7 +15,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	/// <summary>
 	///     The base class for all controls
 	/// </summary>
-	public abstract class Control : INotifyPropertyChanged
+	public abstract class Control : INotifyPropertyChanged,IHandleKeyInput
 	{
 
 		private ConsoleColor ? _backgroundColor ;
@@ -41,7 +41,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </summary>
 		public string Name { get ; set ; }
 
-		public abstract bool CanFocus { get ; }
+		public abstract bool CanFocusedOn { get ; }
 
 		public ContentHorizontalAlign HorizontalAlign
 		{
@@ -364,6 +364,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 		protected virtual void OnPropertyChanged ( [CallerMemberName] string propertyName = null )
 		{
 			PropertyChanged ? . Invoke ( this , new PropertyChangedEventArgs ( propertyName ) ) ;
+		}
+
+		public void HandleKeyInput ( KeyPressedEventArgs args )
+		{
+			KeyPressed(args);
+			if (!args.Handled)
+			{
+				Container?.HandleKeyInput(args);
+			}
 		}
 
 	}

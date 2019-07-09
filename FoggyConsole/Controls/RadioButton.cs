@@ -20,7 +20,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </summary>
 		public string ComboBoxGroup { get ; set ; }
 
-		public override bool CanFocus => Enabled ;
+		public override bool CanFocusedOn => Enabled ;
 
 		/// <summary>
 		///     Creates a new RadioButton

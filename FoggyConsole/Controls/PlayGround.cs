@@ -71,7 +71,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </summary>
 		public bool AutoRedraw { get ; set ; }
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 		/// <summary>
 		///     Creates a new

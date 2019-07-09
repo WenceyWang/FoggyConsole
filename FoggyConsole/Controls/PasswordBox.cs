@@ -80,7 +80,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		public override bool CanFocus => Enabled ;
+		public override bool CanFocusedOn => Enabled ;
 
 		public PasswordBox ( ControlRenderer <PasswordBox> renderer = null ) : base (
 																					renderer

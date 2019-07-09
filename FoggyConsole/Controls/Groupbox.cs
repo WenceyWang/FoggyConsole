@@ -41,7 +41,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 
 		/// <summary>

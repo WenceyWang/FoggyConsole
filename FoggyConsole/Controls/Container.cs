@@ -9,7 +9,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Container : ContentControl
 	{
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 	}
 

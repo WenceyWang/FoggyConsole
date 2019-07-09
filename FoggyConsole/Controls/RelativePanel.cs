@@ -12,7 +12,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class RelativePanel : ItemsContainer
 	{
 
-		public override bool CanFocus => false ;
+		public override bool CanFocusedOn => false ;
 
 		public RelativePanel ( IControlRenderer renderer ) : base ( renderer ?? new RelativePanelRenderer ( ) ) { }
 
