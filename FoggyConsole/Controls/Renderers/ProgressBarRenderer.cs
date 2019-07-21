@@ -67,14 +67,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 
 			for ( int y = 0 ; y < Control . ActualHeight ; y++ )
+			for ( int x = barStart ; x < barWidth ; x++ )
 			{
-				for ( int x = barStart ; x < barWidth ; x++ )
-				{
-					area [ x + 1 , 0 ] = new ConsoleChar (
-														Control . ProgressChar ,
-														foregroundColor ,
-														backgroundColor ) ;
-				}
+				area [ x + 1 , 0 ] = new ConsoleChar ( Control . ProgressChar , foregroundColor , backgroundColor ) ;
 			}
 		}
 

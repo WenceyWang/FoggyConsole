@@ -17,7 +17,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public StackPanel ( ) : this ( null ) { }
 
-		public override void Arrange ( Rectangle finalRect )
+		public override void ArrangeOverride ( Rectangle finalRect )
 		{
 			int currentHeight = 0 ;
 			for ( int i = 0 ; i < Items . Count && currentHeight < finalRect . Height ; i++ )
@@ -88,7 +88,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				currentHeight += arrangeSize . Height ;
 			}
 
-			base . Arrange ( finalRect ) ;
+			base . ArrangeOverride ( finalRect ) ;
 		}
 
 		public override void Measure ( Size availableSize )

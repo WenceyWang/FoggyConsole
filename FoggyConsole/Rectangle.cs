@@ -13,6 +13,107 @@ using JetBrains . Annotations ;
 namespace DreamRecorder . FoggyConsole
 {
 
+	public static class RectangleExtensions
+	{
+
+		public static bool IsNotEmpty ( this Rectangle ? rect ) => rect ? . IsEmpty == false ;
+
+		public static int MinColumnDiff ( this Rectangle baseRect , Rectangle targetRect )
+		{
+			if ( targetRect . Left < baseRect . Left )
+			{
+				if ( targetRect . Right > baseRect . Right )
+				{
+					return 0 ;
+				}
+
+				if ( targetRect . Right < baseRect . Left )
+				{
+					return targetRect . Right - baseRect . Left ;
+				}
+
+				return 0 ;
+			}
+
+			if ( targetRect . Left < baseRect . Right )
+			{
+				return 0 ;
+			}
+
+			return targetRect . Left - baseRect . Right ;
+		}
+
+		public static int MaxColumnDiff ( this Rectangle baseRect , Rectangle targetRect )
+		{
+			if ( targetRect . Left < baseRect . Left )
+			{
+				if ( targetRect . Right > baseRect . Right )
+				{
+					return Math . Max (
+										baseRect . Left    - targetRect . Left ,
+										targetRect . Right - targetRect . Right ) ;
+				}
+
+				return targetRect . Left - baseRect . Left ;
+			}
+
+			if ( targetRect . Right < baseRect . Right )
+			{
+				return 0 ;
+			}
+
+			return targetRect . Right - baseRect . Right ;
+		}
+
+		public static int MinRowDiff ( this Rectangle baseRect , Rectangle targetRect )
+		{
+			if ( targetRect . Top < baseRect . Top )
+			{
+				if ( targetRect . Bottom > baseRect . Bottom )
+				{
+					return 0 ;
+				}
+
+				if ( targetRect . Bottom < baseRect . Top )
+				{
+					return targetRect . Bottom - baseRect . Top ;
+				}
+
+				return 0 ;
+			}
+
+			if ( targetRect . Top < baseRect . Bottom )
+			{
+				return 0 ;
+			}
+
+			return targetRect . Top - baseRect . Bottom ;
+		}
+
+		public static int MaxRowDiff ( this Rectangle baseRect , Rectangle targetRect )
+		{
+			if ( targetRect . Top < baseRect . Top )
+			{
+				if ( targetRect . Bottom > baseRect . Bottom )
+				{
+					return Math . Max (
+										baseRect . Top      - targetRect . Top ,
+										targetRect . Bottom - targetRect . Bottom ) ;
+				}
+
+				return targetRect . Top - baseRect . Top ;
+			}
+
+			if ( targetRect . Bottom < baseRect . Bottom )
+			{
+				return 0 ;
+			}
+
+			return targetRect . Bottom - baseRect . Bottom ;
+		}
+
+	}
+
 	/// <summary>
 	///     A very basic representation of a rectangle
 	/// </summary>
@@ -35,10 +136,8 @@ namespace DreamRecorder . FoggyConsole
 				{
 					return ( Rectangle ) rectangleData ;
 				}
-				else
-				{
-					return new Rectangle ( ) ;
-				}
+
+				return new Rectangle ( ) ;
 			}
 
 			public override object ConvertTo (
@@ -51,10 +150,8 @@ namespace DreamRecorder . FoggyConsole
 				{
 					return value . ToString ( ) ;
 				}
-				else
-				{
-					return destinationType . GetDefault ( ) ;
-				}
+
+				return destinationType . GetDefault ( ) ;
 			}
 
 		}
@@ -68,9 +165,9 @@ namespace DreamRecorder . FoggyConsole
 
 		public Point RightDownPoint => new Point ( X + Width , Y + Height ) ;
 
-		public Point Center => new Point ( X + ( Width / 2 ) , Y + ( Height / 2 ) ) ;
+		public Point Center => new Point ( X + Width / 2 , Y + Height / 2 ) ;
 
-		public Vector2 FloatCenter => new Vector2 ( X + ( Width / 2f ) , Y + ( Height / 2f ) ) ;
+		public Vector2 FloatCenter => new Vector2 ( X + Width / 2f , Y + Height / 2f ) ;
 
 		/// <summary>
 		///     This rectangles distance from the left edge in characters
@@ -79,14 +176,14 @@ namespace DreamRecorder . FoggyConsole
 
 		/// <summary>
 		/// </summary>
-		public int Right => X + Width ;
+		public int Right => X + Width - 1 ;
 
 		/// <summary>
 		///     This rectangles distance from the top edge in characters
 		/// </summary>
 		public int Top => Y ;
 
-		public int Bottom => Y + Height ;
+		public int Bottom => Y + Height - 1 ;
 
 		/// <summary>
 		///     This rectangles height in characters
@@ -112,10 +209,10 @@ namespace DreamRecorder . FoggyConsole
 				return Empty ;
 			}
 
-			int left   = Math . Max ( Left , rect . Left ) ;
-			int top    = Math . Max ( Top ,  rect . Top ) ;
-			int width  = Math . Min ( Right ,  rect . Right )  - left ;
-			int height = Math . Min ( Bottom , rect . Bottom ) - top ;
+			int left   = Math . Max ( Left ,                                                 rect . Left ) ;
+			int top    = Math . Max ( Top ,                                                  rect . Top ) ;
+			int width  = Math . Max ( Math . Min ( Right  + 1 , rect . Right  + 1 ) - left , 0 ) ;
+			int height = Math . Max ( Math . Min ( Bottom + 1 , rect . Bottom + 1 ) - top ,  0 ) ;
 
 			return new Rectangle ( left , top , width , height ) ;
 		}
@@ -130,8 +227,8 @@ namespace DreamRecorder . FoggyConsole
 
 			int left   = Math . Min ( Left , rect . Left ) ;
 			int top    = Math . Min ( Top ,  rect . Top ) ;
-			int width  = Math . Max ( Math . Max ( Right ,  rect . Right )  - left , 0 ) ;
-			int height = Math . Max ( Math . Max ( Bottom , rect . Bottom ) - top ,  0 ) ;
+			int width  = Math . Max ( Math . Max ( Right  + 1 , rect . Right  + 1 ) - left , 0 ) ;
+			int height = Math . Max ( Math . Max ( Bottom + 1 , rect . Bottom + 1 ) - top ,  0 ) ;
 
 			return new Rectangle ( left , top , width , height ) ;
 		}
@@ -313,6 +410,7 @@ namespace DreamRecorder . FoggyConsole
 
 		public override string ToString ( )
 			=> $"{nameof ( X )}: {X}, {nameof ( Y )}: {Y}, {nameof ( Width )}: {Width}, {nameof ( Height )}: {Height}" ;
+
 
 		public static explicit operator Rectangle ( [NotNull] string value )
 		{

@@ -140,14 +140,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 		{
 			if ( ! ( e . OldItems is null ) )
 			{
-				List <INotifyPropertyChanged> removedItems = e . OldItems . Cast <INotifyPropertyChanged> ( ) .
-																Where (
-																		item
-																			=> ( ! ( e ? . NewItems ? . Contains (
-																												item ) )
-																				)
-																				?? true ) .
-																ToList ( ) ;
+				List <INotifyPropertyChanged> removedItems =
+					e . OldItems . Cast <INotifyPropertyChanged> ( ) .
+						Where ( item => ! e ? . NewItems ? . Contains ( item ) ?? true ) .
+						ToList ( ) ;
 
 				foreach ( INotifyPropertyChanged item in removedItems )
 				{
@@ -157,13 +153,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			if ( ! ( e . NewItems is null ) )
 			{
-				List <INotifyPropertyChanged> newItems = e . NewItems . Cast <INotifyPropertyChanged> ( ) .
-															Where (
-																	item
-																		=> ( ! ( e ? . OldItems ? . Contains ( item ) )
-																			)
-																			?? true ) .
-															ToList ( ) ;
+				List <INotifyPropertyChanged> newItems =
+					e . NewItems . Cast <INotifyPropertyChanged> ( ) .
+						Where ( item => ! e ? . OldItems ? . Contains ( item ) ?? true ) .
+						ToList ( ) ;
 
 				foreach ( INotifyPropertyChanged item in newItems )
 				{
@@ -174,7 +167,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			RequestMeasure ( ) ;
 		}
 
-		private void Item_PropertyChanged ( object sender , PropertyChangedEventArgs e ) => RequestMeasure ( ) ;
+		private void Item_PropertyChanged ( object sender , PropertyChangedEventArgs e ) { RequestMeasure ( ) ; }
 
 		private void Grid_ItemsRemoved ( object sender , ContainerControlEventArgs e )
 		{
@@ -201,14 +194,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				return new List <Control> ( ) ;
 			}
-			else
-			{
-				return Items . Where (
-									control
-										=> StartAt [ control ] . X           == columnIndex
-											&& BlockSize [ control ] . Width == 1 ) .
-								ToList ( ) ;
-			}
+
+			return Items . Where (
+								control
+									=> StartAt [ control ] . X == columnIndex && BlockSize [ control ] . Width == 1 ) .
+							ToList ( ) ;
 		}
 
 		public IReadOnlyCollection <Control> GetInsideControls ( [NotNull] Row row )
@@ -224,14 +214,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				return new List <Control> ( ) ;
 			}
-			else
-			{
-				return Items . Where (
-									control
-										=> StartAt [ control ] . Y            == rowIndex
-											&& BlockSize [ control ] . Height == 1 ) .
-								ToList ( ) ;
-			}
+
+			return Items . Where (
+								control
+									=> StartAt [ control ] . Y == rowIndex && BlockSize [ control ] . Height == 1 ) .
+							ToList ( ) ;
 		}
 
 		public override void Measure ( Size availableSize )
@@ -411,7 +398,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			DesiredSize = new Size ( widthSum , heightSum ) ;
 		}
 
-		public override void Arrange ( Rectangle finalRect )
+		public override void ArrangeOverride ( Rectangle finalRect )
 		{
 			int measuredWidth = 0 ;
 
@@ -568,7 +555,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 													new Size ( width , height ) ) ) ;
 			}
 
-			base . Arrange ( finalRect ) ;
+			base . ArrangeOverride ( finalRect ) ;
 		}
 
 		public class Row : INotifyPropertyChanged
@@ -590,10 +577,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 					{
 						return - Height ;
 					}
-					else
-					{
-						throw new InvalidOperationException ( ) ;
-					}
+
+					throw new InvalidOperationException ( ) ;
 				}
 			}
 
@@ -627,10 +612,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 					{
 						return - Width ;
 					}
-					else
-					{
-						throw new InvalidOperationException ( ) ;
-					}
+
+					throw new InvalidOperationException ( ) ;
 				}
 			}
 

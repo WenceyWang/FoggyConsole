@@ -6,6 +6,22 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
+	public class ItemsContainerRenderer : ControlRenderer <ItemsContainer>
+	{
+
+		public override void Draw ( ConsoleArea area )
+		{
+			foreach ( Control control in Control . Items )
+			{
+				if ( control . RenderArea . IsNotEmpty ( ) )
+				{
+					control . Draw ( area . CreateSub ( control . RenderArea . Value ) ) ;
+				}
+			}
+		}
+
+	}
+
 	public class ItemsContainerRenderer <T> : ControlRenderer <T> where T : ItemsContainer
 	{
 
@@ -13,9 +29,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		{
 			foreach ( Control control in Control . Items )
 			{
-				if ( ! control . RenderArea . IsEmpty )
+				if ( control . RenderArea . IsNotEmpty ( ) )
 				{
-					control . Draw ( area . CreateSub ( control . RenderArea ) ) ;
+					control . Draw ( area . CreateSub ( control . RenderArea . Value ) ) ;
 				}
 			}
 		}

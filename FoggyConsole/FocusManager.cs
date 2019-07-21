@@ -2,7 +2,6 @@
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
-using System . Numerics ;
 
 using DreamRecorder . FoggyConsole . Controls ;
 using DreamRecorder . ToolBox . General ;
@@ -76,25 +75,10 @@ namespace DreamRecorder . FoggyConsole
 					}
 
 					Frame . Current ? . ResumeRedraw ( ) ;
+
+					Logger . LogTrace ( $"Focused: {value ? . Name ?? "null"}" ) ;
 				}
 			}
-		}
-
-		private List <Control> GetControlList ( )
-		{
-			return Root . GetAllItem ( ) .
-						Where (
-								control =>
-								{
-									if ( control is null )
-									{
-										Logger . LogWarning ( $"Control List of {Root . Name} contains null" ) ;
-										return false ;
-									}
-
-									return control . CanFocusedOn ;
-								} ) .
-						ToList ( ) ;
 		}
 
 		/// <summary>
@@ -113,36 +97,34 @@ namespace DreamRecorder . FoggyConsole
 
 			if ( args . KeyInfo . Modifiers == ConsoleModifiers . Alt )
 			{
-				Control biddenControl = controlList . FirstOrDefault (
+				Control bondedControl = controlList . FirstOrDefault (
 																	control =>
 																	{
 																		if ( control . KeyBind is null )
 																		{
 																			return false ;
 																		}
-																		else
-																		{
-																			return char . ToUpperInvariant (
-																											control .
-																												KeyBind .
-																												Value )
-																					== char . ToUpperInvariant (
-																												args .
-																													KeyInfo .
-																													KeyChar ) ;
-																		}
+
+																		return char . ToUpperInvariant (
+																										control .
+																											KeyBind .
+																											Value )
+																				== char . ToUpperInvariant (
+																											args .
+																												KeyInfo .
+																												KeyChar ) ;
 																	} ) ;
 
 
-				if ( ! ( biddenControl is null ) )
+				if ( ! ( bondedControl is null ) )
 				{
-					FocusedControl = biddenControl ;
+					FocusedControl = bondedControl ;
 				}
 			}
 			else
 			{
-				float tangentControl  = 0.2f ;
-				float yAxisCorrection = 2.3f ;
+				//float tangentControl = 0.2f;
+				//float yAxisCorrection = 2.3f;
 
 				switch ( args . KeyInfo . Key )
 				{
@@ -168,188 +150,295 @@ namespace DreamRecorder . FoggyConsole
 						break ;
 					}
 
-					case ConsoleKey . UpArrow :
+					default :
 					{
-						controlList . Remove ( FocusedControl ) ;
-						controlList . RemoveAll (
-												control
-													=> control . RenderArea . FloatCenter . Y
-														>= FocusedControl . RenderArea . FloatCenter . Y ) ;
+						Rectangle focusedArea = FocusedControl ? . RenderArea . GetValueOrDefault ( ) ?? default ;
 
-						controlList . Sort (
-											( x , y ) =>
-											{
-												Vector2 xDiffPosition =
-													x . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+						switch ( args . KeyInfo . Key )
+						{
+							case ConsoleKey . UpArrow :
+							{
+								controlList . Remove ( FocusedControl ) ;
+								controlList . RemoveAll (
+														control
+															=> control . RenderArea ? . FloatCenter . Y
+																>= FocusedControl ? . RenderArea ? . FloatCenter . Y ) ;
 
-												float xTangent = Math . Abs (
-																			( xDiffPosition . X )
-																			/ ( xDiffPosition . Y ) ) ;
+								controlList . Sort (
+													ComparisonExtensions . Select <Control , int
+																			> (
+																				control => Math . Abs (
+																										focusedArea .
+																											MinColumnDiff (
+																															control .
+																																RenderArea .
+																																GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinRowDiff (
+																																			control .
+																																				RenderArea .
+																																				GetValueOrDefault ( ) ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
+																																	control .
+																																		RenderArea .
+																																		GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
 
-												Vector2 yDiffPosition =
-													y . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 
-												float yTangent =
-													Math . Abs ( ( yDiffPosition . X ) / ( yDiffPosition . Y ) ) ;
+								if ( newFocusedControl != FocusedControl )
+								{
+									FocusedControl = newFocusedControl ;
+									args . Handled = true ;
+								}
 
-												float maxTangent = Math . Max ( xTangent , yTangent ) ;
-												if ( maxTangent < tangentControl )
-												{
-													return xDiffPosition . LengthSquared ( ) .
-																			CompareTo (
-																						yDiffPosition .
-																							LengthSquared ( ) ) ;
-												}
-												else
-												{
-													return xTangent . CompareTo ( yTangent ) ;
-												}
-											} ) ;
-						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
+								break ;
+							}
+
+							case ConsoleKey . DownArrow :
+							{
+								controlList . Remove ( FocusedControl ) ;
+								controlList . RemoveAll (
+														control
+															=> control . RenderArea ? . FloatCenter . Y
+																<= FocusedControl ? . RenderArea ? . FloatCenter . Y ) ;
+
+								controlList . Sort (
+													ComparisonExtensions . Select <Control , int
+																			> (
+																				control => Math . Abs (
+																										focusedArea .
+																											MinColumnDiff (
+																															control .
+																																RenderArea .
+																																GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinRowDiff (
+																																			control .
+																																				RenderArea .
+																																				GetValueOrDefault ( ) ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
+																																	control .
+																																		RenderArea .
+																																		GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
+
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
+
+								if ( newFocusedControl != FocusedControl )
+								{
+									FocusedControl = newFocusedControl ;
+									args . Handled = true ;
+								}
+
+								break ;
+							}
+
+							case ConsoleKey . LeftArrow :
+							{
+								controlList . Remove ( FocusedControl ) ;
+								controlList . RemoveAll (
+														control
+															=> control . RenderArea ? . FloatCenter . X
+																>= FocusedControl ? . RenderArea ? . FloatCenter . X ) ;
+
+								controlList . Sort (
+													ComparisonExtensions . Select <Control , int
+																			> (
+																				control => Math . Abs (
+																										focusedArea .
+																											MinRowDiff (
+																														control .
+																															RenderArea .
+																															GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinColumnDiff (
+																																				control .
+																																					RenderArea .
+																																					GetValueOrDefault ( ) ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
+																																	control .
+																																		RenderArea .
+																																		GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
+
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
+
+								if ( newFocusedControl != FocusedControl )
+								{
+									FocusedControl = newFocusedControl ;
+									args . Handled = true ;
+								}
+
+								break ;
+							}
+
+							case ConsoleKey . RightArrow :
+							{
+								controlList . Remove ( FocusedControl ) ;
+								controlList . RemoveAll (
+														control
+															=> control . RenderArea ? . FloatCenter . X
+																<= FocusedControl ? . RenderArea ? . FloatCenter . X ) ;
+								controlList . Sort (
+													ComparisonExtensions . Select <Control , int
+																			> (
+																				control => Math . Abs (
+																										focusedArea .
+																											MinRowDiff (
+																														control .
+																															RenderArea .
+																															GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinColumnDiff (
+																																				control .
+																																					RenderArea .
+																																					GetValueOrDefault ( ) ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
+																																	control .
+																																		RenderArea .
+																																		GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
+
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
+
+								if ( newFocusedControl != FocusedControl )
+								{
+									FocusedControl = newFocusedControl ;
+									args . Handled = true ;
+								}
+
+								break ;
+							}
+						}
+
 						break ;
 					}
 
-					case ConsoleKey . RightArrow :
-					{
-						controlList . Remove ( FocusedControl ) ;
-						controlList . RemoveAll (
-												control
-													=> control . RenderArea . FloatCenter . X
-														<= FocusedControl . RenderArea . FloatCenter . X ) ;
-						controlList . Sort (
-											( x , y ) =>
-											{
-												Vector2 xDiffPosition =
-													x . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
-
-												float xTangent = Math . Abs (
-																			( xDiffPosition . Y )
-																			/ ( xDiffPosition . X ) ) ;
-
-												Vector2 yDiffPosition =
-													y . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
-
-												float yTangent =
-													Math . Abs ( ( yDiffPosition . Y ) / ( yDiffPosition . X ) ) ;
-
-												float maxTangent = Math . Max ( xTangent , yTangent ) ;
-												if ( maxTangent < tangentControl )
-												{
-													return xDiffPosition . LengthSquared ( ) .
-																			CompareTo (
-																						yDiffPosition .
-																							LengthSquared ( ) ) ;
-												}
-												else
-												{
-													return xTangent . CompareTo ( yTangent ) ;
-												}
-											} ) ;
-
-						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
-						break ;
-					}
-
-					case ConsoleKey . DownArrow :
-					{
-						controlList . Remove ( FocusedControl ) ;
-						controlList . RemoveAll (
-												control
-													=> control . RenderArea . FloatCenter . Y
-														<= FocusedControl . RenderArea . FloatCenter . Y ) ;
-
-						controlList . Sort (
-											( x , y ) =>
-											{
-												Vector2 xDiffPosition =
-													x . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
-
-												float xTangent = Math . Abs (
-																			( xDiffPosition . X )
-																			/ ( xDiffPosition . Y ) ) ;
-
-												Vector2 yDiffPosition =
-													y . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
-
-
-												float yTangent =
-													Math . Abs ( ( yDiffPosition . X ) / ( yDiffPosition . Y ) ) ;
-
-												float maxTangent = Math . Max ( xTangent , yTangent ) ;
-												if ( maxTangent < tangentControl )
-												{
-													return xDiffPosition . LengthSquared ( ) .
-																			CompareTo (
-																						yDiffPosition .
-																							LengthSquared ( ) ) ;
-												}
-												else
-												{
-													return xTangent . CompareTo ( yTangent ) ;
-												}
-											} ) ;
-
-						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
-						break ;
-					}
-
-					case ConsoleKey . LeftArrow :
-					{
-						controlList . Remove ( FocusedControl ) ;
-						controlList . RemoveAll (
-												control
-													=> control . RenderArea . FloatCenter . X
-														>= FocusedControl . RenderArea . FloatCenter . X ) ;
-
-						controlList . Sort (
-											( x , y ) =>
-											{
-												Vector2 xDiffPosition =
-													x . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												xDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
-
-												float xTangent = Math . Abs (
-																			( xDiffPosition . Y )
-																			/ ( xDiffPosition . X ) ) ;
-
-												Vector2 yDiffPosition =
-													y . RenderArea . FloatCenter
-													- FocusedControl . RenderArea . FloatCenter ;
-												yDiffPosition *= new Vector2 ( 1f , yAxisCorrection ) ;
-
-												float yTangent =
-													Math . Abs ( ( yDiffPosition . Y ) / ( yDiffPosition . X ) ) ;
-
-												float maxTangent = Math . Max ( xTangent , yTangent ) ;
-												if ( maxTangent < tangentControl )
-												{
-													return xDiffPosition . LengthSquared ( ) .
-																			CompareTo (
-																						yDiffPosition .
-																							LengthSquared ( ) ) ;
-												}
-												else
-												{
-													return xTangent . CompareTo ( yTangent ) ;
-												}
-											} ) ;
-
-						FocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
-						break ;
-					}
 
 					//{
 					//    bool up = args.KeyInfo.Key == ConsoleKey.UpArrow;
@@ -394,6 +483,23 @@ namespace DreamRecorder . FoggyConsole
 					//}
 				}
 			}
+		}
+
+		private List <Control> GetControlList ( )
+		{
+			return Root . GetAllItem ( ) .
+						Where (
+								control =>
+								{
+									if ( control is null )
+									{
+										Logger . LogWarning ( $"Control List of {Root . Name} contains null" ) ;
+										return false ;
+									}
+
+									return control . RenderArea . IsNotEmpty ( ) && control . CanFocusedOn ;
+								} ) .
+						ToList ( ) ;
 		}
 
 	}

@@ -18,6 +18,8 @@ namespace DreamRecorder . FoggyConsole
 	internal static class KeyWatcher
 	{
 
+		public static int RefreshLimit { get ; set ; } = 60 ;
+
 		public static bool IsRunning { get ; private set ; }
 
 		public static Thread WatcherThread { get ; private set ; }
@@ -47,6 +49,8 @@ namespace DreamRecorder . FoggyConsole
 
 			Window . OldSize = Window . Size ;
 
+			DateTime lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
+
 			while ( IsRunning )
 			{
 				Size newSize = Window . Size ;
@@ -70,23 +74,28 @@ namespace DreamRecorder . FoggyConsole
 					Window . OldSize = newSize ;
 				}
 
-				if ( ! Console . KeyAvailable )
-				{
-					Thread . Yield ( ) ;
-					Thread . Sleep ( 1000 / 120 ) ;
-				}
-				else
+				if ( Console . KeyAvailable )
 				{
 					ConsoleKeyInfo keyInfo = Console . ReadKey ( true ) ;
 					KeyPressed ? . Invoke ( null , new KeyPressedEventArgs ( keyInfo ) ) ;
 				}
+
+				TimeSpan waitTime = lastUpdate - DateTime . Now ;
+				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / 60d ) ;
+
+				Thread . Yield ( ) ;
+				Thread . Sleep ( Math . Max ( Convert . ToInt32 ( waitTime . TotalMilliseconds ) , 0 ) ) ;
 			}
 		}
 
 		/// <summary>
 		///     Stops the internal watcher-thread
 		/// </summary>
-		public static void Stop ( ) { IsRunning = false ; }
+		public static void Stop ( )
+		{
+			IsRunning                =  false ;
+			Console . CancelKeyPress -= Console_CancelKeyPress ;
+		}
 
 	}
 

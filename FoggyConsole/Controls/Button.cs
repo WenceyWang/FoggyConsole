@@ -47,17 +47,13 @@ namespace DreamRecorder . FoggyConsole . Controls
 				{
 					return baseSize ;
 				}
-				else
+
+				if ( baseSize . Height == 1 && AllowSingleLine )
 				{
-					if ( baseSize . Height == 1 && AllowSingleLine )
-					{
-						return new Size ( baseSize . Width + 2 , baseSize . Height ) ;
-					}
-					else
-					{
-						return baseSize + new Size ( 2 , 2 ) ;
-					}
+					return new Size ( baseSize . Width + 2 , baseSize . Height ) ;
 				}
+
+				return baseSize + new Size ( 2 , 2 ) ;
 			}
 		}
 

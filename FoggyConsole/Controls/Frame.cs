@@ -62,13 +62,16 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override void Measure ( Size availableSize ) { CurrentPage ? . Measure ( availableSize ) ; }
 
-		public override void Arrange ( Rectangle finalRect ) { CurrentPage ? . Arrange ( new Rectangle ( Size ) ) ; }
+		public override void ArrangeOverride ( Rectangle finalRect )
+		{
+			CurrentPage ? . Arrange ( new Rectangle ( Size ) ) ;
+		}
 
 		public void RequestUpdateDisplay ( ) { RequestMeasure ( ) ; }
 
 		protected override void RequestMeasure ( )
 		{
-			if ( ( RedrawPausedLevel == 0 ) && Enabled )
+			if ( RedrawPausedLevel == 0 && Enabled )
 			{
 				RedrawPausedLevel++ ;
 
@@ -82,7 +85,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		protected override void RequestRedraw ( )
 		{
-			if ( ( RedrawPausedLevel == 0 ) && Enabled )
+			if ( RedrawPausedLevel == 0 && Enabled )
 			{
 				RedrawPausedLevel++ ;
 

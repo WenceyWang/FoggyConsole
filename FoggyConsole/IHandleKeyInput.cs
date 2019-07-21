@@ -11,7 +11,6 @@ namespace DreamRecorder . FoggyConsole
 
 		void HandleKeyInput ( KeyPressedEventArgs args ) ;
 
-
 	}
 
 }

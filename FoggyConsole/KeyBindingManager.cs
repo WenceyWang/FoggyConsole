@@ -11,42 +11,37 @@ namespace DreamRecorder . FoggyConsole
 	public class KeyBindingManager
 	{
 
-		public static KeyBindingManager Current { get; private set; }
+		public static KeyBindingManager Current { get ; private set ; }
 
-		public KeyBindingManager ( ) {
-            Current = this;
-		}
-
-		private Dictionary <ConsoleKeyInfo , IHandleKeyInput> BoundHotkeys { get ; set ; } =
+		private Dictionary <ConsoleKeyInfo , IHandleKeyInput> BoundHotkeys { get ; } =
 			new Dictionary <ConsoleKeyInfo , IHandleKeyInput> ( ) ;
 
 		[CanBeNull]
-		public IHandleKeyInput this[ConsoleKeyInfo keyInfo]
+		public IHandleKeyInput this [ ConsoleKeyInfo keyInfo ]
 		{
-			get {
-				if (BoundHotkeys.ContainsKey(keyInfo))
+			get
+			{
+				if ( BoundHotkeys . ContainsKey ( keyInfo ) )
 				{
-					return BoundHotkeys[keyInfo];
+					return BoundHotkeys [ keyInfo ] ;
 				}
-				else
-				{
-					return default;
-				}
+
+				return default ;
 			}
 			set => BoundHotkeys [ keyInfo ] = value ;
 		}
 
-		public void HandleKey (KeyPressedEventArgs args )
+		public KeyBindingManager ( ) => Current = this ;
+
+		public void HandleKey ( KeyPressedEventArgs args )
 		{
 			if ( args == null )
 			{
-                return;
-
+				return ;
 			}
 
 			this [ args . KeyInfo ] ? . HandleKeyInput ( args ) ;
 		}
-
 
 	}
 

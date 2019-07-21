@@ -8,10 +8,10 @@ using DreamRecorder . FoggyConsole . Controls ;
 namespace DreamRecorder . FoggyConsole
 {
 
-	public interface IItemDependencyContainer<T>
+	public interface IItemDependencyContainer <T>
 	{
 
-		T this[Control control] { get; set; }
+		T this [ Control control ] { get ; set ; }
 
 	}
 

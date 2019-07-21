@@ -18,20 +18,18 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				for ( int y = 0 ;
 					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
 					y++ )
+				for ( int x = 0 ; x < Control . ActualWidth ; x++ )
 				{
-					for ( int x = 0 ; x < Control . ActualWidth ; x++ )
+					if ( x + y * Control . ActualHeight < Control . Text . Length )
 					{
-						if ( x + y * Control . ActualHeight < Control . Text . Length )
-						{
-							area [ x , y ] = new ConsoleChar (
-															Control . PasswordChar ,
-															Control . ActualForegroundColor ,
-															Control . ActualBackgroundColor ) ;
-						}
-						else
-						{
-							break ;
-						}
+						area [ x , y ] = new ConsoleChar (
+														Control . PasswordChar ,
+														Control . ActualForegroundColor ,
+														Control . ActualBackgroundColor ) ;
+					}
+					else
+					{
+						break ;
 					}
 				}
 			}
@@ -42,20 +40,18 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				for ( int y = 0 ;
 					y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ;
 					y++ )
+				for ( int x = 0 ; x < Control . ActualWidth ; x++ )
 				{
-					for ( int x = 0 ; x < Control . ActualWidth ; x++ )
+					if ( x + y * Control . ActualHeight < Control . Text . Length )
 					{
-						if ( x + y * Control . ActualHeight < Control . Text . Length )
-						{
-							area [ x , y ] = new ConsoleChar (
-															Control . PasswordChar ,
-															Control . ActualForegroundColor ,
-															Control . ActualBackgroundColor ) ;
-						}
-						else
-						{
-							break ;
-						}
+						area [ x , y ] = new ConsoleChar (
+														Control . PasswordChar ,
+														Control . ActualForegroundColor ,
+														Control . ActualBackgroundColor ) ;
+					}
+					else
+					{
+						break ;
 					}
 				}
 			}

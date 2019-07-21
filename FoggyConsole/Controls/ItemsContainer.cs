@@ -30,14 +30,27 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		protected ItemsContainer ( ) : this ( null ) { }
 
+		public override void Arrange ( Rectangle ? finalRect )
+		{
+			if ( finalRect . IsNotEmpty ( ) )
+			{
+				ArrangeOverride ( finalRect . Value ) ;
+			}
+			else
+			{
+				foreach ( Control control in Items )
+				{
+					control . Arrange ( null ) ;
+				}
+			}
+		}
+
 		private void Items_CollectionChanged ( object sender , NotifyCollectionChangedEventArgs e )
 		{
 			if ( ! ( e . OldItems is null ) )
 			{
 				List <Control> removedItems = e . OldItems . Cast <Control> ( ) .
-												Where (
-														control => ( ! ( e ? . NewItems ? . Contains ( control ) ) )
-																	?? true ) .
+												Where ( control => ! e ? . NewItems ? . Contains ( control ) ?? true ) .
 												ToList ( ) ;
 
 				foreach ( Control control in removedItems )
@@ -50,9 +63,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			if ( ! ( e . NewItems is null ) )
 			{
 				List <Control> newItems = e . NewItems . Cast <Control> ( ) .
-											Where (
-													control
-														=> ( ! ( e ? . OldItems ? . Contains ( control ) ) ) ?? true ) .
+											Where ( control => ! e ? . OldItems ? . Contains ( control ) ?? true ) .
 											ToList ( ) ;
 
 				foreach ( Control control in newItems )

@@ -6,7 +6,7 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole
 {
 
-	public struct ConsoleChar
+	public struct ConsoleChar : IEquatable <ConsoleChar>
 	{
 
 		public static ConsoleColor DefaultBackgroundColor { get ; set ; } = ConsoleColor . Black ;

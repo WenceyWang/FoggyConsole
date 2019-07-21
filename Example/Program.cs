@@ -23,19 +23,19 @@ namespace Example
 
 		public override bool AutoSaveSetting => true ;
 
+		public override bool WaitForStart => true ;
+
 		public Program ( ) => Name = "GuguguCalendar" ;
 
-        public override bool WaitForStart => true;
-
-        public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
+		public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
 
 		public override void ConfigureLogger ( ILoggingBuilder builder )
 		{
 			builder . AddFilter ( level => true ) . AddDebug ( ) ;
-			builder.AddFilter(level => level >= LogLevel.Information).AddConsole();
+			builder . AddFilter ( level => level >= LogLevel . Information ) . AddConsole ( ) ;
 		}
 
-        public override void ShowLogo ( )
+		public override void ShowLogo ( )
 		{
 			Console . WriteLine (
 								new AsciiArt (
@@ -61,15 +61,15 @@ namespace Example
 			panel . Items . Add ( buttonA ) ;
 			Button buttonB = new Button
 							{
-								Name            = "buttonB",
-								Text            = "B",
-								KeyBind         = 'B',
-								HorizontalAlign = ContentHorizontalAlign.Right
-							};
-			panel.Items.Add(buttonB);
+								Name            = "buttonB" ,
+								Text            = "B" ,
+								KeyBind         = 'B' ,
+								HorizontalAlign = ContentHorizontalAlign . Right
+							} ;
+			panel . Items . Add ( buttonB ) ;
 
 
-            Button buttonExit = new Button
+			Button buttonExit = new Button
 								{
 									Name            = "buttonExit" ,
 									Text            = "Exit" ,
@@ -92,49 +92,37 @@ namespace Example
 
 			panel . Items . Add ( horizontalStack ) ;
 
-			Button buttonC = new Button
-							{
-								Name            = "buttonC",
-								Text            = "C",
-								KeyBind         = 'C',
-							};
-			horizontalStack .Items.Add(buttonC);
+			Button buttonC = new Button { Name = "buttonC" , Text = "C" , KeyBind = 'C' } ;
+			horizontalStack . Items . Add ( buttonC ) ;
 
-			Button buttonD = new Button
-							{
-								Name    = "buttonD",
-								Text    = "D",
-								KeyBind = 'D',
-							};
-			horizontalStack.Items.Add(buttonD);
+			Button buttonD = new Button { Name = "buttonD" , Text = "D" , KeyBind = 'D' } ;
+			horizontalStack . Items . Add ( buttonD ) ;
 
 			Grid grid = new Grid ( ) ;
 			panel . Items . Add ( grid ) ;
 
 			Button buttonE = new Button
 							{
-								Name    = "buttonE",
-								Text    = "E",
-								KeyBind = 'E',
-								HorizontalAlign=ContentHorizontalAlign.Center
-							};
+								Name            = "buttonE" ,
+								Text            = "E" ,
+								KeyBind         = 'E' ,
+								HorizontalAlign = ContentHorizontalAlign . Center
+							} ;
 			grid . Items . Add ( buttonE ) ;
 
-            Canvas canvas = new Canvas();
+			Canvas canvas = new Canvas ( ) ;
 
-            for (int y = 0; y < 30; y++)
-            {
-                for (int x = 0; x < 30; x++)
-                {
-                    Button button = new Button { Name = $"button{x}{y}", Text = $"{x}{y}" };
-                    canvas.Items.Add(button);
-                    canvas[button] = new Point(7 * x, y);
-                }
-            }
+			for ( int y = 0 ; y < 30 ; y++ )
+			for ( int x = 0 ; x < 30 ; x++ )
+			{
+				Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
+				canvas . Items . Add ( button ) ;
+				canvas [ button ] = new Point ( 6 * x , y ) ;
+			}
 
-            panel.Items.Add(canvas);
+			panel . Items . Add ( canvas ) ;
 
-            buttonExit . Pressed += ExitButton_Pressed ;
+			buttonExit . Pressed += ExitButton_Pressed ;
 
 			return ViewRoot ;
 		}

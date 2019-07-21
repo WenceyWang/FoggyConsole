@@ -19,7 +19,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 			Control . Content ? . Draw ( area ) ;
 
-			FogConsole . Draw ( Control . RenderPoint , area ) ;
+			FogConsole . Draw ( Control ? . RenderPoint ?? Point . Zero , area ) ;
 
 			Frame . Current . Logger . LogTrace ( "Redraw with {0} writes." , FogConsole . WriteCount ) ;
 		}

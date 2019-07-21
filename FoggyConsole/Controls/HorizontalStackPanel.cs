@@ -23,7 +23,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public HorizontalStackPanel ( ) : this ( null ) { }
 
 
-		public override void Arrange ( Rectangle finalRect )
+		public override void ArrangeOverride ( Rectangle finalRect )
 		{
 			int currentWidth = 0 ;
 			for ( int i = 0 ; i < Items . Count && currentWidth < finalRect . Width ; i++ )
@@ -66,9 +66,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 					{
 						int controlHeight = Math . Min ( finalRect . Height , control . DesiredSize . Height ) ;
 						arrangeLocation =
-							finalRect . LeftTopPoint . Offset (
-																currentWidth ,
-																( finalRect . Height - controlHeight ) ) ;
+							finalRect . LeftTopPoint . Offset ( currentWidth , finalRect . Height - controlHeight ) ;
 						arrangeSize = new Size (
 												Math . Min (
 															Math . Max ( finalRect . Width - currentWidth , 0 ) ,
@@ -96,7 +94,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				currentWidth += arrangeSize . Width ;
 			}
 
-			base . Arrange ( finalRect ) ;
+			base . ArrangeOverride ( finalRect ) ;
 		}
 
 		public override void Measure ( Size availableSize )

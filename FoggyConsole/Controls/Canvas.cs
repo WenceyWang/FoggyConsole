@@ -9,35 +9,17 @@ using DreamRecorder . FoggyConsole . Controls . Renderers ;
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
-
-
 	/// <summary>
 	///     A very basic
 	///     <code>ContainerBase</code>
 	///     It has no appearance, controls within it are aligned using their top and left values.
 	/// </summary>
-	public class Canvas : ItemsContainer,IItemDependencyContainer<Point>
+	public class Canvas : ItemsContainer , IItemDependencyContainer <Point>
 	{
 
 		public override bool CanFocusedOn => false ;
 
 		protected Dictionary <Control , Point> Position { get ; } = new Dictionary <Control , Point> ( ) ;
-
-		public Point this [ Control control ]
-		{
-			get
-			{
-				if ( Position . ContainsKey ( control ) )
-				{
-					return Position [ control ] ;
-				}
-				else
-				{
-					return default ;
-				}
-			}
-			set => Position [ control ] = value ;
-		}
 
 		/// <summary>
 		///     Creates a new
@@ -64,6 +46,20 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public Canvas ( ) : this ( null ) { }
 
+		public Point this [ Control control ]
+		{
+			get
+			{
+				if ( Position . ContainsKey ( control ) )
+				{
+					return Position [ control ] ;
+				}
+
+				return default ;
+			}
+			set => Position [ control ] = value ;
+		}
+
 
 		private void Canvas_ItemsRemoved ( object sender , ContainerControlEventArgs e )
 		{
@@ -76,7 +72,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 
-		public override void Arrange ( Rectangle finalRect )
+		public override void ArrangeOverride ( Rectangle finalRect )
 		{
 			foreach ( Control control in Items )
 			{
@@ -91,7 +87,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 				control . Arrange ( result . Intersect ( finalRect ) ) ;
 			}
 
-			base . Arrange ( finalRect ) ;
+
+			base . ArrangeOverride ( finalRect ) ;
 		}
 
 		public override void Measure ( Size availableSize )

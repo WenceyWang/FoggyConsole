@@ -44,7 +44,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 				case ContentHorizontalAlign . Center :
 				{
-					int startPosition = ( Control . RenderArea . Width - Control . Text . Length ) / 2 ;
+					int startPosition = ( Control . ActualWidth - Control . Text . Length ) / 2 ;
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
 						area [ x + startPosition , 0 ] = new ConsoleChar (

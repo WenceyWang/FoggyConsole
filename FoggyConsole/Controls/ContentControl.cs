@@ -39,10 +39,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 				{
 					return new ReadOnlyCollection <Control> ( new Control [ ] { } ) ;
 				}
-				else
-				{
-					return new ReadOnlyCollection <Control> ( new [ ] { Content } ) ;
-				}
+
+				return new ReadOnlyCollection <Control> ( new [ ] { Content } ) ;
 			}
 		}
 
@@ -54,16 +52,28 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		protected ContentControl ( ) : this ( null ) { }
 
+		public override void Arrange ( Rectangle ? finalRect )
+		{
+			if ( finalRect . IsNotEmpty ( ) )
+			{
+				ArrangeOverride ( finalRect . Value ) ;
+			}
+			else
+			{
+				Content ? . Arrange ( null ) ;
+			}
+		}
+
 		public override void Measure ( Size availableSize )
 		{
 			Content ? . Measure ( availableSize ) ;
 			DesiredSize = Content ? . DesiredSize ?? availableSize ;
 		}
 
-		public override void Arrange ( Rectangle finalRect )
+		public override void ArrangeOverride ( Rectangle finalRect )
 		{
 			Content ? . Arrange ( finalRect ) ;
-			base . Arrange ( finalRect ) ;
+			base . ArrangeOverride ( finalRect ) ;
 		}
 
 	}

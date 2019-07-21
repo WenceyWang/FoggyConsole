@@ -98,17 +98,15 @@ namespace DreamRecorder . FoggyConsole
 
 		public ConsoleArea CreateSub ( Rectangle rectangle ) => new ConsoleArea ( this , rectangle ) ;
 
-		public void Fill ( ConsoleColor color ) => Fill ( new ConsoleChar ( ' ' , backgroundColor : color ) ) ;
+		public void Fill ( ConsoleColor color ) { Fill ( new ConsoleChar ( ' ' , backgroundColor : color ) ) ; }
 
 
 		public void Fill ( ConsoleChar character )
 		{
 			for ( int y = 0 ; y < Size . Height ; y++ )
+			for ( int x = 0 ; x < Size . Width ; x++ )
 			{
-				for ( int x = 0 ; x < Size . Width ; x++ )
-				{
-					this [ x , y ] = character ;
-				}
+				this [ x , y ] = character ;
 			}
 		}
 

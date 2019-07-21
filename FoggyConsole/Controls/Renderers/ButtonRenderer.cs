@@ -51,8 +51,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 			if ( Control . ActualHeight == 1 )
 			{
-				int startPosition = ( Control . RenderArea . Width - Control . Text . Length ) ;
-				startPosition = ( startPosition + startPosition % 2 ) / 2 ;
+				int startPosition = Control . ActualWidth - Control . Text . Length ;
+				startPosition = ( startPosition           + startPosition % 2 ) / 2 ;
 				startPosition = Math . Max ( startPosition , 0 ) ;
 
 				for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
@@ -72,8 +72,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				{
 					string currentLine = lines [ y ] ;
 
-					int startPosition = ( Control . RenderArea . Width - currentLine . Length ) ;
-					startPosition = ( startPosition + startPosition % 2 ) / 2 ;
+					int startPosition = Control . ActualWidth - currentLine . Length ;
+					startPosition = ( startPosition           + startPosition % 2 ) / 2 ;
 					startPosition = Math . Max ( startPosition , 0 ) ;
 
 					for ( int x = 0 ; x < Control . ActualWidth - 2 && x < currentLine . Length ; x++ )

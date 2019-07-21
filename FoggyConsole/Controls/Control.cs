@@ -15,7 +15,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	/// <summary>
 	///     The base class for all controls
 	/// </summary>
-	public abstract class Control : INotifyPropertyChanged,IHandleKeyInput
+	public abstract class Control : INotifyPropertyChanged , IHandleKeyInput
 	{
 
 		private ConsoleColor ? _backgroundColor ;
@@ -81,10 +81,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 				{
 					return new Size ( 1 , 1 ) ;
 				}
-				else
-				{
-					return new Size ( 2 , 2 ) ;
-				}
+
+				return new Size ( 2 , 2 ) ;
 			}
 		}
 
@@ -146,11 +144,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public Size DesiredSize { get ; protected set ; }
 
-		public Rectangle RenderArea { get ; protected set ; }
+		public Rectangle ? RenderArea { get ; protected set ; }
 
-		public Point RenderPoint => RenderArea . LeftTopPoint ;
+		public Point ? RenderPoint => RenderArea ? . LeftTopPoint ;
 
-		public Size ActualSize => RenderArea . Size ;
+		public Size ActualSize => RenderArea ? . Size ?? Size . Empty ;
 
 		public int ActualWidth => ActualSize . Width ;
 
@@ -312,6 +310,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 			Renderer . Control = this ;
 		}
 
+		public void HandleKeyInput ( KeyPressedEventArgs args )
+		{
+			KeyPressed ( args ) ;
+			if ( ! args . Handled )
+			{
+				Container ? . HandleKeyInput ( args ) ;
+			}
+		}
+
 
 		public event PropertyChangedEventHandler PropertyChanged ;
 
@@ -326,6 +333,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		private void OnIsFocusedChanged ( ) { IsFocusedChanged ? . Invoke ( this , EventArgs . Empty ) ; }
 
 		public virtual void KeyPressed ( KeyPressedEventArgs args ) { }
+
 
 		public virtual void Measure ( Size availableSize )
 		{
@@ -352,7 +360,19 @@ namespace DreamRecorder . FoggyConsole . Controls
 			DesiredSize = new Size ( width , height ) ;
 		}
 
-		public virtual void Arrange ( Rectangle finalRect ) { RenderArea = finalRect ; }
+		public virtual void Arrange ( Rectangle ? finalRect )
+		{
+			if ( finalRect . IsNotEmpty ( ) )
+			{
+				ArrangeOverride ( finalRect . Value ) ;
+			}
+			else
+			{
+				RenderArea = null ;
+			}
+		}
+
+		public virtual void ArrangeOverride ( Rectangle finalRect ) { RenderArea = finalRect ; }
 
 		public void Draw ( ConsoleArea area ) { Renderer . Draw ( area ) ; }
 
@@ -364,15 +384,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 		protected virtual void OnPropertyChanged ( [CallerMemberName] string propertyName = null )
 		{
 			PropertyChanged ? . Invoke ( this , new PropertyChangedEventArgs ( propertyName ) ) ;
-		}
-
-		public void HandleKeyInput ( KeyPressedEventArgs args )
-		{
-			KeyPressed(args);
-			if (!args.Handled)
-			{
-				Container?.HandleKeyInput(args);
-			}
 		}
 
 	}

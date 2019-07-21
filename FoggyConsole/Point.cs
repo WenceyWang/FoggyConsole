@@ -19,6 +19,7 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public int Y { get ; }
 
+		public static Point Zero { get ; } = new Point ( 0 , 0 ) ;
 
 		/// <summary>
 		///     Offset - update the location by adding offsetX to X and offsetY to Y

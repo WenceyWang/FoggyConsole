@@ -83,7 +83,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				string propertyName = attribute . Name . LocalName ;
 
-				if ( propertyName == ( "Container.Item" ) )
+				if ( propertyName == "Container.Item" )
 				{
 					if ( container != null )
 					{
