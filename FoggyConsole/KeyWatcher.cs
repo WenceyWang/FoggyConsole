@@ -33,7 +33,7 @@ namespace DreamRecorder . FoggyConsole
 		{
 			if ( ! IsRunning )
 			{
-				WatcherThread            =  new Thread ( Watch ) { Name = "KeyWatcher" } ;
+				WatcherThread            =  new Thread ( Watch ) { Name = nameof(KeyWatcher) } ;
 				IsRunning                =  true ;
 				Console . CancelKeyPress += Console_CancelKeyPress ;
 				WatcherThread . Start ( ) ;

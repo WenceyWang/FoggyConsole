@@ -103,10 +103,12 @@ namespace DreamRecorder . FoggyConsole
 
 		public void Fill ( ConsoleChar character )
 		{
-			for ( int y = 0 ; y < Size . Height ; y++ )
-			for ( int x = 0 ; x < Size . Width ; x++ )
+			for (int y = 0; y < Size.Height; y++)
 			{
-				this [ x , y ] = character ;
+				for ( int x = 0 ; x < Size . Width ; x++ )
+				{
+					this [ x , y ] = character ;
+				}
 			}
 		}
 

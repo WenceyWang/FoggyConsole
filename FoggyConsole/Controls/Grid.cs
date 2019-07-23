@@ -16,7 +16,7 @@ using JetBrains . Annotations ;
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
-	public class Grid : ItemsContainer
+	public class Grid : ItemsContainer,IItemDependencyContainer<Rectangle>
 	{
 
 		public Rectangle this [ Control control ]
