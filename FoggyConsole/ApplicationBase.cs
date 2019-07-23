@@ -100,6 +100,9 @@ namespace DreamRecorder . FoggyConsole
 				Console . Title = Name ;
 			}
 
+			ConsoleChar . DefaultBackgroundColor = Console . BackgroundColor ;
+			ConsoleChar . DefaultForegroundColor = Console . ForegroundColor ;
+
 			KeyWatcher . KeyPressed += KeyWatcherOnKeyPressed ;
 			KeyWatcher . Start ( ) ;
 
