@@ -35,10 +35,10 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public Frame ViewRoot { get ; set ; }
 
-		/// <summary>
-		///     Used as the boundary for the ViewRoot if the terminal-size can't determined
-		/// </summary>
-		public static Size StandardRootBoundary { get ; } = new Size ( 80 , 24 ) ;
+		///// <summary>
+		/////     Used as the boundary for the ViewRoot if the terminal-size can't determined
+		///// </summary>
+		//public static Size StandardRootBoundary { get ; } = new Size ( 80 , 24 ) ;
 
 		/// <summary>
 		///     Responsible for focus-changes, for example when the user presses the TAB-key
@@ -59,6 +59,8 @@ namespace DreamRecorder . FoggyConsole
 		public override bool HandleInput => true ;
 
 		public virtual bool WaitForStart { get ; } = false ;
+
+		public virtual bool AutoDefaultColor => false ;
 
 		public override void Start ( string [ ] args ) { Start ( ) ; }
 
@@ -100,8 +102,11 @@ namespace DreamRecorder . FoggyConsole
 				Console . Title = Name ;
 			}
 
-			ConsoleChar . DefaultBackgroundColor = Console . BackgroundColor ;
-			ConsoleChar . DefaultForegroundColor = Console . ForegroundColor ;
+			if ( AutoDefaultColor )
+			{
+				ConsoleChar . DefaultBackgroundColor = Console . BackgroundColor ;
+				ConsoleChar . DefaultForegroundColor = Console . ForegroundColor ;
+			}
 
 			KeyWatcher . KeyPressed += KeyWatcherOnKeyPressed ;
 			KeyWatcher . Start ( ) ;

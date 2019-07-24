@@ -13,7 +13,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocusedOn => false ;
 
-		public StackPanel ( IControlRenderer renderer = null ) : base ( renderer ?? new StackPanelRenderer ( ) ) { }
+		public StackPanel ( IControlRenderer renderer = null ) : base ( renderer ?? new ItemsContainerRenderer ( ) ) { }
 
 		public StackPanel ( ) : this ( null ) { }
 

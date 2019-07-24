@@ -438,49 +438,6 @@ namespace DreamRecorder . FoggyConsole
 
 						break ;
 					}
-
-
-					//{
-					//    bool up = args.KeyInfo.Key == ConsoleKey.UpArrow;
-					//    bool down = args.KeyInfo.Key == ConsoleKey.DownArrow;
-					//    bool left = args.KeyInfo.Key == ConsoleKey.LeftArrow;
-					//    bool right = args.KeyInfo.Key == ConsoleKey.RightArrow;
-
-					//    bool upDown = up || down;
-					//    bool leftRight = left || right;
-
-
-					//    int[] controls = GetNearbyControls(FocusedControl,
-					//                                            leftRight,
-					//                                            upDown)
-					//        .OrderBy(
-					//            i => upDown ? _controls[i].Renderer.Boundary.Top : _controls[i].Renderer.Boundary.Left * -1).
-					//        ToArray();
-
-					//    if (controls.Length == 0)
-					//    {
-					//        return true;
-					//    }
-
-					//    for (int i = 0; i < controls.Length; i++)
-					//    {
-					//        if (controls[i] == _focusedIndex)
-					//        {
-					//            if ((up || right) &&
-					//                i != 0)
-					//            {
-					//                SetFocusedIndex(controls[i - 1]);
-					//            }
-					//            if ((down || left) &&
-					//                i != controls.Length - 1)
-					//            {
-					//                SetFocusedIndex(controls[i + 1]);
-					//            }
-					//            break;
-					//        }
-					//    }
-					//    break;
-					//}
 				}
 			}
 		}

@@ -16,19 +16,8 @@ using JetBrains . Annotations ;
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
-	public class Grid : ItemsContainer,IItemDependencyContainer<Rectangle>
+	public class Grid : ItemsContainer , IItemDependencyContainer <Rectangle>
 	{
-
-		public Rectangle this [ Control control ]
-		{
-			get => new Rectangle ( StartAt [ control ] , BlockSize [ control ] ) ;
-			set
-			{
-				StartAt [ control ]   = value . LeftTopPoint ;
-				BlockSize [ control ] = value . Size ;
-				RequestMeasure ( ) ;
-			}
-		}
 
 		public string RowsData
 		{
@@ -124,7 +113,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocusedOn => false ;
 
-		public Grid ( IControlRenderer renderer ) : base ( renderer ?? new GridRenderer ( ) )
+		public Grid ( IControlRenderer renderer ) : base ( renderer ?? new ItemsContainerRenderer ( ) )
 		{
 			Rows                        =  new ObservableCollection <Row> ( ) ;
 			Rows . CollectionChanged    += ColumnsRows_CollectionChanged ;
@@ -135,6 +124,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 		public Grid ( ) : this ( null ) { }
+
+		public Rectangle this [ Control control ]
+		{
+			get => new Rectangle ( StartAt [ control ] , BlockSize [ control ] ) ;
+			set
+			{
+				StartAt [ control ]   = value . LeftTopPoint ;
+				BlockSize [ control ] = value . Size ;
+				RequestMeasure ( ) ;
+			}
+		}
 
 		private void ColumnsRows_CollectionChanged ( object sender , NotifyCollectionChangedEventArgs e )
 		{

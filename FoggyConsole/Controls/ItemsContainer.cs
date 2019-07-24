@@ -34,7 +34,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		{
 			if ( finalRect . IsNotEmpty ( ) )
 			{
-				ArrangeOverride ( finalRect . Value ) ;
+				ArrangeOverride ( finalRect . GetValueOrDefault ( ) ) ;
 			}
 			else
 			{
@@ -74,23 +74,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		//public virtual void AddChild([NotNull] Control control)
-		//      {
-		//          if (control == null)
-		//	{
-		//		throw new ArgumentNullException(nameof(control));
-		//	}
-
-		//	Children.Add(control);
-		//          control.ContainerBase = this;
-		//      }
-
 		/// <summary>
 		///     Fired if a control gets added to this container
 		/// </summary>
 		/// <seealso cref="ItemsRemoved" />
 		public event EventHandler <ContainerControlEventArgs> ItemsAdded ;
-
 
 		/// <summary>
 		///     Fired if a control gets removed from this container

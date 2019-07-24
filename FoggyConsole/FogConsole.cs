@@ -91,8 +91,11 @@ namespace DreamRecorder . FoggyConsole
 
 				Console . SetCursorPosition ( position . Left , position . Top ) ;
 			}
-			catch ( Exception e )
+
+			// ReSharper disable once EmptyGeneralCatchClause
+			catch
 			{
+				//Todo: Warning
 			}
 		}
 
