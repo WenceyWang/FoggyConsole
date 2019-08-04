@@ -30,7 +30,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 		internal ILogger Logger { get ; } =
-			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <Frame> ( ) ;
+			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) .
+									CreateLogger <Frame> ( ) ;
 
 		public override Size Size { get => Window . Size ; set => Window . Size = value ; }
 
@@ -38,9 +39,14 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public Page CurrentPage { get ; private set ; }
 
-		public override Control Content { get => CurrentPage ; set => throw new InvalidOperationException ( ) ; }
+		public override Control Content
+		{
+			get => CurrentPage ;
+			set => throw new InvalidOperationException ( ) ;
+		}
 
-		public Frame ( IControlRenderer renderer = null ) : base ( renderer ?? new FrameRenderer ( ) )
+		public Frame ( IControlRenderer renderer = null ) : base (
+																renderer ?? new FrameRenderer ( ) )
 		{
 			Enabled = false ;
 			Current = this ;
@@ -60,7 +66,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		public override void Measure ( Size availableSize ) { CurrentPage ? . Measure ( availableSize ) ; }
+		public override void Measure ( Size availableSize )
+		{
+			CurrentPage ? . Measure ( availableSize ) ;
+		}
 
 		public override void ArrangeOverride ( Rectangle finalRect )
 		{

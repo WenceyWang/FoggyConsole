@@ -90,7 +90,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public PlayGround ( IControlRenderer renderer = null ) : base ( renderer ?? new PlayGroundRenderer ( ) )
+		public PlayGround ( IControlRenderer renderer = null ) : base (
+																		renderer
+																		?? new
+																			PlayGroundRenderer ( ) )
 			=> AutoRedraw = true ;
 
 		public PlayGround ( ) : this ( null ) { }

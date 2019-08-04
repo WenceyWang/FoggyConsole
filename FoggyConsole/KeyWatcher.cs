@@ -40,7 +40,10 @@ namespace DreamRecorder . FoggyConsole
 			}
 		}
 
-		private static void Console_CancelKeyPress ( object sender , ConsoleCancelEventArgs e ) { e . Cancel = true ; }
+		private static void Console_CancelKeyPress ( object sender , ConsoleCancelEventArgs e )
+		{
+			e . Cancel = true ;
+		}
 
 
 		private static void Watch ( )
@@ -49,7 +52,8 @@ namespace DreamRecorder . FoggyConsole
 
 			Window . OldSize = Window . Size ;
 
-			DateTime lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
+			DateTime lastUpdate =
+				DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
 
 			while ( IsRunning )
 			{
@@ -84,7 +88,10 @@ namespace DreamRecorder . FoggyConsole
 				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / 60d ) ;
 
 				Thread . Yield ( ) ;
-				Thread . Sleep ( Math . Max ( Convert . ToInt32 ( waitTime . TotalMilliseconds ) , 0 ) ) ;
+				Thread . Sleep (
+								Math . Max (
+											Convert . ToInt32 ( waitTime . TotalMilliseconds ) ,
+											0 ) ) ;
 			}
 		}
 

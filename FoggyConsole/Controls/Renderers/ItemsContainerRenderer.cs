@@ -15,7 +15,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			{
 				if ( control . RenderArea . IsNotEmpty ( ) )
 				{
-					control . Draw ( area . CreateSub ( control . RenderArea . GetValueOrDefault ( ) ) ) ;
+					control . Draw (
+									area . CreateSub (
+													control . RenderArea .
+															GetValueOrDefault ( ) ) ) ;
 				}
 			}
 		}
@@ -31,7 +34,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			{
 				if ( control . RenderArea . IsNotEmpty ( ) )
 				{
-					control . Draw ( area . CreateSub ( control . RenderArea . GetValueOrDefault ( ) ) ) ;
+					control . Draw (
+									area . CreateSub (
+													control . RenderArea .
+															GetValueOrDefault ( ) ) ) ;
 				}
 			}
 		}

@@ -14,7 +14,8 @@ using WenceyWang . FIGlet ;
 namespace Example
 {
 
-	public class Program : ApplicationBase <Program , ProgramExitCode , ProgramSetting , ProgramSettingCatalog>
+	public class Program
+		: ApplicationBase <Program , ProgramExitCode , ProgramSetting , ProgramSettingCatalog>
 	{
 
 		public override string License => "AGPL" ;
@@ -127,20 +128,38 @@ namespace Example
 			return ViewRoot ;
 		}
 
-		private void ExitButton_Pressed ( object sender , EventArgs e ) { Exit ( ProgramExitCode . Success ) ; }
+		private void ExitButton_Pressed ( object sender , EventArgs e )
+		{
+			Exit ( ProgramExitCode . Success ) ;
+		}
 
 	}
 
 	public class ProgramSetting : SettingBase <ProgramSetting , ProgramSettingCatalog>
 	{
 
-		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( BotToken ) , "" , true , "" )]
+		[SettingItem (
+			( int ) ProgramSettingCatalog . General ,
+			nameof ( BotToken ) ,
+			"" ,
+			true ,
+			"" )]
 		public string BotToken { get ; set ; }
 
-		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( DatabaseConnection ) , "" , true , "" )]
+		[SettingItem (
+			( int ) ProgramSettingCatalog . General ,
+			nameof ( DatabaseConnection ) ,
+			"" ,
+			true ,
+			"" )]
 		public string DatabaseConnection { get ; set ; }
 
-		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( HttpProxy ) , "" , true , null )]
+		[SettingItem (
+			( int ) ProgramSettingCatalog . General ,
+			nameof ( HttpProxy ) ,
+			"" ,
+			true ,
+			null )]
 		public string HttpProxy { get ; set ; }
 
 	}

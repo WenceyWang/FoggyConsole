@@ -23,7 +23,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 											Control . ActualForegroundColor ,
 											Control . ActualBackgroundColor ) ;
 			area [ 1 , 0 ] = new ConsoleChar (
-											Control . CheckableChar . GetStateChar ( Control . State ) ,
+											Control . CheckableChar . GetStateChar (
+																					Control .
+																						State ) ,
 											Control . ActualForegroundColor ,
 											Control . ActualBackgroundColor ) ;
 			area [ 2 , 0 ] = new ConsoleChar (

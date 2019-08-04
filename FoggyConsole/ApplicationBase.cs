@@ -23,7 +23,8 @@ namespace DreamRecorder . FoggyConsole
 	///     It also manages user input and drawing.
 	/// </summary>
 	public abstract class ApplicationBase
-		<T , TExitCode , TSetting , TSettingCategory> : ProgramBase <T , TExitCode , TSetting , TSettingCategory>
+		<T , TExitCode , TSetting , TSettingCategory>
+		: ProgramBase <T , TExitCode , TSetting , TSettingCategory>
 		where T : ApplicationBase <T , TExitCode , TSetting , TSettingCategory>
 		where TExitCode : ProgramExitCode <TExitCode> , new ( )
 		where TSetting : SettingBase <TSetting , TSettingCategory> , new ( )

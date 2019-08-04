@@ -42,7 +42,8 @@ namespace DreamRecorder . FoggyConsole
 
 				position = Rectangle . Intersect ( position , consoleArea ) ;
 
-				bool changeLine = position . Right != consoleArea . Right || position . Left != consoleArea . Left ;
+				bool changeLine = position . Right != consoleArea . Right
+								|| position . Left != consoleArea . Left ;
 
 				StringBuilder stringBuilder = new StringBuilder ( content . Length ) ;
 
@@ -71,8 +72,10 @@ namespace DreamRecorder . FoggyConsole
 						{
 							Write ( stringBuilder ) ;
 
-							Console . BackgroundColor = CurrentBackgroundColor = targetBackgroundColor ;
-							Console . ForegroundColor = CurrentForegroundColor = targetForegroundColor ;
+							Console . BackgroundColor =
+								CurrentBackgroundColor = targetBackgroundColor ;
+							Console . ForegroundColor =
+								CurrentForegroundColor = targetForegroundColor ;
 						}
 
 						stringBuilder . Append ( currentPosition . Character ) ;

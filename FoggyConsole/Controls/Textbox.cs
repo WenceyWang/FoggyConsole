@@ -50,7 +50,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) ) { }
+		public TextBox ( TextBoxRenderer renderer = null ) : base (
+																	renderer
+																	?? new TextBoxRenderer ( ) )
+		{
+		}
 
 		public TextBox ( ) : this ( null ) { }
 

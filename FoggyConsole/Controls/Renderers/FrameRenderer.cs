@@ -19,9 +19,18 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 			Control . Content ? . Draw ( area ) ;
 
+			Rectangle ? focusedArea = FocusManager . Current ? . FocusedControl ? . RenderArea ;
+
+			if ( focusedArea . IsNotEmpty ( ) )
+			{
+				area . CreateSub ( focusedArea . Value ) . InvertColor ( ) ;
+			}
+
 			FogConsole . Draw ( Control ? . RenderPoint ?? Point . Zero , area ) ;
 
-			Frame . Current . Logger . LogTrace ( "Redraw with {0} writes." , FogConsole . WriteCount ) ;
+			Frame . Current . Logger . LogTrace (
+												"Redraw with {0} writes." ,
+												FogConsole . WriteCount ) ;
 		}
 
 	}

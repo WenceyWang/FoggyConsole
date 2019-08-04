@@ -183,9 +183,11 @@ namespace DreamRecorder . FoggyConsole
 
 		public override bool Equals ( object obj ) => obj is LineStyle other && Equals ( other ) ;
 
-		public static bool operator == ( LineStyle left , LineStyle right ) => left . Equals ( right ) ;
+		public static bool operator == ( LineStyle left , LineStyle right )
+			=> left . Equals ( right ) ;
 
-		public static bool operator != ( LineStyle left , LineStyle right ) => ! left . Equals ( right ) ;
+		public static bool operator != ( LineStyle left , LineStyle right )
+			=> ! left . Equals ( right ) ;
 
 		/// <summary>
 		///     A
@@ -194,7 +196,21 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		/// <returns></returns>
 		public static LineStyle Empty
-			=> new LineStyle ( ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ) ;
+			=> new LineStyle (
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ,
+							' ' ) ;
 
 
 		/// <summary>
@@ -203,7 +219,21 @@ namespace DreamRecorder . FoggyConsole
 		///     .
 		/// </summary>
 		public static LineStyle SimpleSet
-			=> new LineStyle ( '.' , '.' , '`' , '´' , '|' , '-' , '[' , ']' , '+' , '+' , '+' , '+' , '+' , ' ' ) ;
+			=> new LineStyle (
+							'.' ,
+							'.' ,
+							'`' ,
+							'´' ,
+							'|' ,
+							'-' ,
+							'[' ,
+							']' ,
+							'+' ,
+							'+' ,
+							'+' ,
+							'+' ,
+							'+' ,
+							' ' ) ;
 
 
 		/// <summary>

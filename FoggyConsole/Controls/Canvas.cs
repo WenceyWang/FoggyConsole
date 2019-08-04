@@ -19,7 +19,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocusedOn => false ;
 
-		protected Dictionary <Control , Point> Position { get ; } = new Dictionary <Control , Point> ( ) ;
+		protected Dictionary <Control , Point> Position { get ; } =
+			new Dictionary <Control , Point> ( ) ;
 
 		/// <summary>
 		///     Creates a new
@@ -80,7 +81,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 												finalRect . LeftTopPoint . Offset (
 																					new Vector (
 																								Position
-																									[ control ] ) ) ,
+																									[
+																									control ] ) ) ,
 												control . DesiredSize ) ;
 
 
@@ -102,7 +104,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			foreach ( Control control in Items )
 			{
-				rectangle = rectangle . Union ( new Rectangle ( this [ control ] , control . DesiredSize ) ) ;
+				rectangle =
+					rectangle . Union (
+										new Rectangle (
+														this [ control ] ,
+														control . DesiredSize ) ) ;
 			}
 
 			int resultWidth = rectangle . Size . Width ;

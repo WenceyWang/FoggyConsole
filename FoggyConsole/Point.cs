@@ -26,7 +26,8 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		/// <param name="offsetX"> The offset in the x dimension </param>
 		/// <param name="offsetY"> The offset in the y dimension </param>
-		public Point Offset ( int offsetX , int offsetY ) => new Point ( X + offsetX , Y + offsetY ) ;
+		public Point Offset ( int offsetX , int offsetY )
+			=> new Point ( X + offsetX , Y + offsetY ) ;
 
 		public Point Offset ( Vector vector ) => new Point ( X + vector . X , Y + vector . Y ) ;
 
@@ -82,7 +83,8 @@ namespace DreamRecorder . FoggyConsole
 		///     Vector - A Vector equal to this Point
 		/// </returns>
 		/// <param name="point"> Point - the Point to convert to a Vector </param>
-		public static explicit operator Vector ( Point point ) => new Vector ( point . X , point . Y ) ;
+		public static explicit operator Vector ( Point point )
+			=> new Vector ( point . X , point . Y ) ;
 
 		/// <summary>
 		///     Constructor which accepts the X and Y values

@@ -40,32 +40,39 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public virtual void OnNavigateOut ( ) { }
 
-		public Control CrateControl ( XElement control , [CanBeNull] ContainerBase container = null )
+		public Control CrateControl (
+			XElement                  control ,
+			[CanBeNull] ContainerBase container = null )
 		{
 			List <TypeInfo> controlTypes = AppDomain . CurrentDomain . GetAssemblies ( ) .
 														SelectMany (
 																	assembly
-																		=> assembly . DefinedTypes . Where (
-																											type
-																												=> type .
-																													IsSubclassOf (
-																																typeof
-																																(
-																																	Control
-																																) ) ) ) .
+																		=> assembly . DefinedTypes .
+																					Where (
+																							type
+																								=> type .
+																									IsSubclassOf (
+																												typeof
+																												(
+																													Control
+																												) ) ) ) .
 														ToList ( ) ;
 
-			Type controlType = controlTypes . FirstOrDefault ( type => type . Name == control . Name ) ? . AsType ( )
-								?? controlTypes . FirstOrDefault (
-																type
-																	=> type . Name
-																		== typeof ( Page ) . Namespace
-																		+ "."
-																		+ control . Name ) ;
+			Type controlType =
+				controlTypes . FirstOrDefault ( type => type . Name == control . Name ) ? .
+								AsType ( )
+				?? controlTypes . FirstOrDefault (
+												type
+													=> type . Name
+														== typeof ( Page ) . Namespace
+														+ "."
+														+ control . Name ) ;
 
 			if ( controlType == null )
 			{
-				throw new ArgumentException ( $"Cannot find type {control . Name}" , nameof ( control ) ) ;
+				throw new ArgumentException (
+											$"Cannot find type {control . Name}" ,
+											nameof ( control ) ) ;
 			}
 
 			Control currentControl = ( Control ) Activator . CreateInstance ( controlType ) ;
@@ -101,7 +108,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 						{
 							property . SetValue (
 												container ,
-												attribute . Value . ParseTo ( property . PropertyType ) ,
+												attribute . Value . ParseTo (
+																			property .
+																				PropertyType ) ,
 												new object [ ] { currentControl } ) ;
 						}
 					}
@@ -114,13 +123,16 @@ namespace DreamRecorder . FoggyConsole . Controls
 																		| BindingFlags . IgnoreCase
 																		| BindingFlags . NonPublic
 																		| BindingFlags . Public
-																		| BindingFlags . SetProperty ) ;
+																		| BindingFlags .
+																			SetProperty ) ;
 
 					if ( property != null )
 					{
 						property . SetValue (
 											currentControl ,
-											attribute . Value . ParseTo ( property . PropertyType ) ) ;
+											attribute . Value . ParseTo (
+																		property .
+																			PropertyType ) ) ;
 					}
 				}
 			}

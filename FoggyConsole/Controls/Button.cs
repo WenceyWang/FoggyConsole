@@ -76,7 +76,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public Button ( ControlRenderer <Button> renderer = null ) : base ( renderer ?? new ButtonRenderer ( ) )
+		public Button ( ControlRenderer <Button> renderer = null ) :
+			base ( renderer ?? new ButtonRenderer ( ) )
 			=> BoarderStyle = LineStyle . CornerOnlySingleLineSet ;
 
 		public Button ( ) : this ( null ) { }

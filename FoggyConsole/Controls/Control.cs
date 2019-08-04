@@ -109,7 +109,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				if ( value < 0 )
 				{
-					throw new ArgumentException ( $"{nameof ( Width )} has to be bigger than zero." ) ;
+					throw new ArgumentException (
+												$"{nameof ( Width )} has to be bigger than zero." ) ;
 				}
 
 				if ( Width != value )
@@ -130,7 +131,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				if ( value < 0 )
 				{
-					throw new ArgumentException ( $"{nameof ( Height )} has to be bigger than zero." ) ;
+					throw new ArgumentException (
+												$"{nameof ( Height )} has to be bigger than zero." ) ;
 				}
 
 				if ( Height != value )
@@ -155,7 +157,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public int ActualHeight => ActualSize . Height ;
 
 		public ConsoleColor ActualBackgroundColor
-			=> _backgroundColor ?? Container ? . ActualBackgroundColor ?? ConsoleChar . DefaultBackgroundColor ;
+			=> _backgroundColor
+				?? Container ? . ActualBackgroundColor ?? ConsoleChar . DefaultBackgroundColor ;
 
 		/// <summary>
 		///     The background-color
@@ -174,7 +177,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 		public ConsoleColor ActualForegroundColor
-			=> _foregroundColor ?? Container ? . ActualForegroundColor ?? ConsoleChar . DefaultForegroundColor ;
+			=> _foregroundColor
+				?? Container ? . ActualForegroundColor ?? ConsoleChar . DefaultForegroundColor ;
 
 		/// <summary>
 		///     The foreground-color
@@ -199,8 +203,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				if ( _boarderStyle != value )
 				{
-					bool needRearrange =
-						_boarderStyle == null && value != null || _boarderStyle != null && value == null ;
+					bool needRearrange = _boarderStyle   == null && value != null
+										|| _boarderStyle != null && value == null ;
 
 					_boarderStyle = value ;
 					if ( needRearrange )
@@ -330,7 +334,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </summary>
 		public event EventHandler IsFocusedChanged ;
 
-		private void OnIsFocusedChanged ( ) { IsFocusedChanged ? . Invoke ( this , EventArgs . Empty ) ; }
+		private void OnIsFocusedChanged ( )
+		{
+			IsFocusedChanged ? . Invoke ( this , EventArgs . Empty ) ;
+		}
 
 		public virtual void KeyPressed ( KeyPressedEventArgs args ) { }
 

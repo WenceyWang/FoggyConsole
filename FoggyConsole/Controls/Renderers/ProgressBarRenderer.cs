@@ -32,16 +32,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			ConsoleColor foregroundColor ;
 			ConsoleColor backgroundColor ;
 
-			if ( Control . IsFocused )
-			{
-				foregroundColor = Control . ActualBackgroundColor ;
-				backgroundColor = Control . ActualForegroundColor ;
-			}
-			else
-			{
-				foregroundColor = Control . ActualForegroundColor ;
-				backgroundColor = Control . ActualBackgroundColor ;
-			}
+			foregroundColor = Control . ActualForegroundColor ;
+			backgroundColor = Control . ActualBackgroundColor ;
 
 			area . Fill ( backgroundColor ) ;
 
@@ -53,7 +45,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				barMaxWidth = Control . ActualWidth - 2 ;
 				barStart    = 1 ;
 
-				area . DrawBoarder ( Control . BoarderStyle . Value , foregroundColor , backgroundColor ) ;
+				area . DrawBoarder (
+									Control . BoarderStyle . Value ,
+									foregroundColor ,
+									backgroundColor ) ;
 			}
 			else
 			{
@@ -67,9 +62,14 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 
 			for ( int y = 0 ; y < Control . ActualHeight ; y++ )
-			for ( int x = barStart ; x < barWidth ; x++ )
 			{
-				area [ x + 1 , 0 ] = new ConsoleChar ( Control . ProgressChar , foregroundColor , backgroundColor ) ;
+				for ( int x = barStart ; x < barWidth ; x++ )
+				{
+					area [ x + 1 , 0 ] = new ConsoleChar (
+														Control . ProgressChar ,
+														foregroundColor ,
+														backgroundColor ) ;
+				}
 			}
 		}
 
