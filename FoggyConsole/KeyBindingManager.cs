@@ -11,8 +11,6 @@ namespace DreamRecorder . FoggyConsole
 	public class KeyBindingManager
 	{
 
-		public static KeyBindingManager Current { get ; private set ; }
-
 		private Dictionary <ConsoleKeyInfo , IHandleKeyInput> BoundHotkeys { get ; } =
 			new Dictionary <ConsoleKeyInfo , IHandleKeyInput> ( ) ;
 
@@ -30,8 +28,6 @@ namespace DreamRecorder . FoggyConsole
 			}
 			set => BoundHotkeys [ keyInfo ] = value ;
 		}
-
-		public KeyBindingManager ( ) => Current = this ;
 
 		public void HandleKey ( KeyPressedEventArgs args )
 		{

@@ -21,7 +21,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// </summary>
 		/// <exception cref="InvalidOperationException">Is thrown if the Control-Property isn't set.</exception>
 		/// <exception cref="InvalidOperationException">Is thrown if the CalculateBoundary-Method hasn't been called.</exception>
-		public override void Draw ( ConsoleArea area )
+		public override void Draw(ApplicationBase application, ConsoleArea area)
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 

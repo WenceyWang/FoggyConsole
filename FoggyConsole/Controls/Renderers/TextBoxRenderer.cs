@@ -15,7 +15,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws the TextBox given in the Control-Property
 		/// </summary>
-		public override void Draw ( ConsoleArea area )
+		public override void Draw(ApplicationBase application, ConsoleArea area)
 		{
 			if ( Control is null )
 			{

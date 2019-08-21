@@ -1,38 +1,33 @@
-﻿using System ;
-using System . Collections ;
-using System . Collections . Generic ;
-using System . Linq ;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-using Microsoft . Extensions . Logging ;
+using Microsoft.Extensions.Logging;
 
-namespace DreamRecorder . FoggyConsole . Controls . Renderers
+namespace DreamRecorder.FoggyConsole.Controls.Renderers
 {
 
-	public class FrameRenderer : ControlRenderer <Frame>
-	{
+    public class FrameRenderer : ControlRenderer<Frame>
+    {
 
-		public override void Draw ( ConsoleArea area )
-		{
-			FogConsole . WriteCount = 0 ;
+        public override void Draw(ApplicationBase application, ConsoleArea area)
+        {
+            area.Fill(Control.ActualBackgroundColor);
 
-			area . Fill ( Control . ActualBackgroundColor ) ;
+            Control.Content?.Draw(application, area);
 
-			Control . Content ? . Draw ( area ) ;
+            Rectangle? focusedArea = application.FocusManager?.FocusedControl?.RenderArea;
 
-			Rectangle ? focusedArea = FocusManager . Current ? . FocusedControl ? . RenderArea ;
+            if (focusedArea.IsNotEmpty())
+            {
+                area.CreateSub(focusedArea.Value).InvertColor();
+            }
 
-			if ( focusedArea . IsNotEmpty ( ) )
-			{
-				area . CreateSub ( focusedArea . Value ) . InvertColor ( ) ;
-			}
+            application.Console.Draw(Control?.RenderPoint ?? Point.Zero, area);
 
-			FogConsole . Draw ( Control ? . RenderPoint ?? Point . Zero , area ) ;
+        }
 
-			Frame . Current . Logger . LogTrace (
-												"Redraw with {0} writes." ,
-												FogConsole . WriteCount ) ;
-		}
-
-	}
+    }
 
 }

@@ -9,16 +9,15 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class ItemsContainerRenderer : ControlRenderer <ItemsContainer>
 	{
 
-		public override void Draw ( ConsoleArea area )
+		public override void Draw(ApplicationBase application, ConsoleArea area)
 		{
 			foreach ( Control control in Control . Items )
 			{
 				if ( control . RenderArea . IsNotEmpty ( ) )
 				{
-					control . Draw (
-									area . CreateSub (
-													control . RenderArea .
-															GetValueOrDefault ( ) ) ) ;
+					control . Draw (application, area . CreateSub (
+                        control . RenderArea .
+                            GetValueOrDefault ( ) )) ;
 				}
 			}
 		}
@@ -28,16 +27,15 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class ItemsContainerRenderer <T> : ControlRenderer <T> where T : ItemsContainer
 	{
 
-		public override void Draw ( ConsoleArea area )
+		public override void Draw(ApplicationBase application, ConsoleArea area)
 		{
 			foreach ( Control control in Control . Items )
 			{
 				if ( control . RenderArea . IsNotEmpty ( ) )
 				{
-					control . Draw (
-									area . CreateSub (
-													control . RenderArea .
-															GetValueOrDefault ( ) ) ) ;
+					control . Draw (application, area . CreateSub (
+                        control . RenderArea .
+                            GetValueOrDefault ( ) )) ;
 				}
 			}
 		}

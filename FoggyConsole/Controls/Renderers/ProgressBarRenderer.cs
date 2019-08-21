@@ -17,7 +17,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws the ProgressBar given in the Control-Property
 		/// </summary>
-		public override void Draw ( ConsoleArea area )
+		public override void Draw(ApplicationBase application, ConsoleArea area)
 		{
 			if ( Control is null )
 			{

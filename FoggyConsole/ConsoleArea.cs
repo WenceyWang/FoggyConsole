@@ -7,6 +7,8 @@ using JetBrains . Annotations ;
 
 namespace DreamRecorder . FoggyConsole
 {
+    
+
 
 	public class ConsoleArea
 	{

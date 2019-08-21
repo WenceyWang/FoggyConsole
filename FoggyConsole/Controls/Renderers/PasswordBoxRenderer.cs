@@ -9,7 +9,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class PasswordBoxRenderer : ControlRenderer <PasswordBox>
 	{
 
-		public override void Draw ( ConsoleArea area )
+		public override void Draw(ApplicationBase application, ConsoleArea area)
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 

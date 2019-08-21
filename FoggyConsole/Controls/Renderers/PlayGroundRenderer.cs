@@ -16,7 +16,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws all characters within the given playground
 		/// </summary>
-		public override void Draw ( ConsoleArea area )
+		public override void Draw(ApplicationBase application, ConsoleArea area)
 		{
 			for ( int y = 0 ; y < Control . Height ; y++ )
 			{

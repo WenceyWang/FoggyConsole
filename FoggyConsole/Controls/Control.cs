@@ -381,7 +381,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public virtual void ArrangeOverride ( Rectangle finalRect ) { RenderArea = finalRect ; }
 
-		public void Draw ( ConsoleArea area ) { Renderer . Draw ( area ) ; }
+		public void Draw(ApplicationBase application, ConsoleArea area) { Renderer . Draw (application, area ) ; }
 
 		protected virtual void RequestMeasure ( ) { Container ? . RequestMeasure ( ) ; }
 

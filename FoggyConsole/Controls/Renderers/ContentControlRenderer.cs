@@ -9,14 +9,14 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class ContentControlRenderer : ControlRenderer <ContentControl>
 	{
 
-		public override void Draw ( ConsoleArea area ) { Control . Content ? . Draw ( area ) ; }
+		public override void Draw(ApplicationBase application, ConsoleArea area) { Control . Content ? . Draw (application, area) ; }
 
 	}
 
 	public class ContentControlRenderer <T> : ControlRenderer <T> where T : ContentControl
 	{
 
-		public override void Draw ( ConsoleArea area ) { Control . Content ? . Draw ( area ) ; }
+		public override void Draw(ApplicationBase application, ConsoleArea area) { Control . Content ? . Draw (application, area) ; }
 
 	}
 
