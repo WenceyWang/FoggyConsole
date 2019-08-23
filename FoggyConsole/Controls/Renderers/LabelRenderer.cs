@@ -21,7 +21,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// </summary>
 		/// <exception cref="InvalidOperationException">Is thrown if the Control-Property isn't set.</exception>
 		/// <exception cref="InvalidOperationException">Is thrown if the CalculateBoundary-Method hasn't been called.</exception>
-		public override void Draw(ApplicationBase application, ConsoleArea area)
+		public override void Draw ( Application application , ConsoleArea area )
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 
@@ -31,9 +31,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				case ContentHorizontalAlign . Stretch :
 				case ContentHorizontalAlign . Left :
 				{
-					for ( int x = 0 ;
-						x < Control . ActualWidth && x < Control . Text . Length ;
-						x++ )
+					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
 						area [ x , 0 ] = new ConsoleChar (
 														Control . Text [ x ] ,
@@ -47,16 +45,12 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				case ContentHorizontalAlign . Center :
 				{
 					int startPosition = ( Control . ActualWidth - Control . Text . Length ) / 2 ;
-					for ( int x = 0 ;
-						x < Control . ActualWidth && x < Control . Text . Length ;
-						x++ )
+					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
 						area [ x + startPosition , 0 ] = new ConsoleChar (
 																		Control . Text [ x ] ,
-																		Control .
-																			ActualForegroundColor ,
-																		Control .
-																			ActualBackgroundColor ) ;
+																		Control . ActualForegroundColor ,
+																		Control . ActualBackgroundColor ) ;
 					}
 
 					break ;
@@ -64,9 +58,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 				case ContentHorizontalAlign . Right :
 				{
-					for ( int x = 0 ;
-						x < Control . ActualWidth && x < Control . Text . Length ;
-						x++ )
+					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
 						area [ Control . ActualWidth - Control . Text . Length + x , 0 ] =
 							new ConsoleChar (

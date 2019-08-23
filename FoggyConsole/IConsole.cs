@@ -1,22 +1,28 @@
-﻿using System;
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
 
-namespace DreamRecorder.FoggyConsole
+namespace DreamRecorder . FoggyConsole
 {
-    public interface IConsole:IApplicationItem
-    {
-        void Start();
 
-        void Stop();
+	public interface IConsole : IApplicationItem
+	{
 
-        void Draw(Point position, ConsoleArea area);
+		Size Size { get ; set ; }
 
-        Size Size { get; set; }
+		void Start ( ) ;
 
-        event EventHandler<ConsoleSizeChangedEvnetArgs> SizeChanged;
+		void Stop ( ) ;
 
-        void Bell();
+		void Draw ( Point position , ConsoleArea area ) ;
 
-        event EventHandler<KeyPressedEventArgs> KeyPressed;
-    }
+		event EventHandler <ConsoleSizeChangedEvnetArgs> SizeChanged ;
+
+		void Bell ( ) ;
+
+		event EventHandler <KeyPressedEventArgs> KeyPressed ;
+
+	}
 
 }

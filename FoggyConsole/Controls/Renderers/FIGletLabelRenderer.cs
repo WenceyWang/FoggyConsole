@@ -11,15 +11,13 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class FIGletLabelRenderer : ControlRenderer <FIGletLabel>
 	{
 
-		public override void Draw(ApplicationBase application, ConsoleArea area)
+		public override void Draw ( Application application , ConsoleArea area )
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 
 			for ( int y = 0 ; y < area . Size . Height && y < Control . AsciiArt . Height ; y++ )
 			{
-				for ( int x = 0 ;
-					x < area . Size . Width && x < Control . ActualText [ y ] . Length ;
-					x++ )
+				for ( int x = 0 ; x < area . Size . Width && x < Control . ActualText [ y ] . Length ; x++ )
 				{
 					area [ x , y ] = new ConsoleChar (
 													Control . ActualText [ y ] [ x ] ,

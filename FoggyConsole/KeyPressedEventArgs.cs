@@ -29,4 +29,5 @@ namespace DreamRecorder . FoggyConsole
 		public KeyPressedEventArgs ( ConsoleKeyInfo keyInfo ) => KeyInfo = keyInfo ;
 
 	}
+
 }

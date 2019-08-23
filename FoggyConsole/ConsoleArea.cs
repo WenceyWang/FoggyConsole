@@ -7,8 +7,6 @@ using JetBrains . Annotations ;
 
 namespace DreamRecorder . FoggyConsole
 {
-    
-
 
 	public class ConsoleArea
 	{
@@ -85,10 +83,7 @@ namespace DreamRecorder . FoggyConsole
 
 		public ConsoleArea ( Size size , ConsoleColor color ) : this (
 																	size ,
-																	new ConsoleChar (
-																					' ' ,
-																					backgroundColor
-																					: color ) )
+																	new ConsoleChar ( ' ' , backgroundColor : color ) )
 		{
 		}
 
@@ -101,13 +96,9 @@ namespace DreamRecorder . FoggyConsole
 
 		public ConsoleArea ( Size size ) : this ( size , ' ' ) { }
 
-		public ConsoleArea CreateSub ( Rectangle rectangle )
-			=> new ConsoleArea ( this , rectangle ) ;
+		public ConsoleArea CreateSub ( Rectangle rectangle ) => new ConsoleArea ( this , rectangle ) ;
 
-		public void Fill ( ConsoleColor color )
-		{
-			Fill ( new ConsoleChar ( ' ' , backgroundColor : color ) ) ;
-		}
+		public void Fill ( ConsoleColor color ) { Fill ( new ConsoleChar ( ' ' , backgroundColor : color ) ) ; }
 
 		public void Fill ( ConsoleChar character )
 		{

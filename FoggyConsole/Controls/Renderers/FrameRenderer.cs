@@ -1,33 +1,30 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
 
-using Microsoft.Extensions.Logging;
-
-namespace DreamRecorder.FoggyConsole.Controls.Renderers
+namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
-    public class FrameRenderer : ControlRenderer<Frame>
-    {
+	public class RootFrameRenderer : ControlRenderer <RootFrame>
+	{
 
-        public override void Draw(ApplicationBase application, ConsoleArea area)
-        {
-            area.Fill(Control.ActualBackgroundColor);
+		public override void Draw ( Application application , ConsoleArea area )
+		{
+			area . Fill ( Control . ActualBackgroundColor ) ;
 
-            Control.Content?.Draw(application, area);
+			Control . Content ? . Draw ( application , area ) ;
 
-            Rectangle? focusedArea = application.FocusManager?.FocusedControl?.RenderArea;
+			Rectangle ? focusedArea = application . FocusManager ? . FocusedControl ? . RenderArea ;
 
-            if (focusedArea.IsNotEmpty())
-            {
-                area.CreateSub(focusedArea.Value).InvertColor();
-            }
+			if ( focusedArea . IsNotEmpty ( ) )
+			{
+				area . CreateSub ( focusedArea . Value ) . InvertColor ( ) ;
+			}
 
-            application.Console.Draw(Control?.RenderPoint ?? Point.Zero, area);
+			application . Console . Draw ( Control ? . RenderPoint ?? Point . Zero , area ) ;
+		}
 
-        }
-
-    }
+	}
 
 }

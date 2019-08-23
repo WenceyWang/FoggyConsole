@@ -14,7 +14,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class CheckboxRenderer : ControlRenderer <CheckBox>
 	{
 
-		public override void Draw(ApplicationBase application, ConsoleArea area)
+		public override void Draw ( Application application , ConsoleArea area )
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 
@@ -23,9 +23,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 											Control . ActualForegroundColor ,
 											Control . ActualBackgroundColor ) ;
 			area [ 1 , 0 ] = new ConsoleChar (
-											Control . CheckableChar . GetStateChar (
-																					Control .
-																						State ) ,
+											Control . CheckableChar . GetStateChar ( Control . State ) ,
 											Control . ActualForegroundColor ,
 											Control . ActualBackgroundColor ) ;
 			area [ 2 , 0 ] = new ConsoleChar (
@@ -54,12 +52,14 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				}
 
 				for ( int y = 1 ; y < Control . ActualWidth ; y++ )
-				for ( int x = 0 ; x < Control . ActualWidth ; x++ )
 				{
-					area [ x , 0 ] = new ConsoleChar (
-													Control . Text [ x ] ,
-													Control . ActualForegroundColor ,
-													Control . ActualBackgroundColor ) ;
+					for ( int x = 0 ; x < Control . ActualWidth ; x++ )
+					{
+						area [ x , 0 ] = new ConsoleChar (
+														Control . Text [ x ] ,
+														Control . ActualForegroundColor ,
+														Control . ActualBackgroundColor ) ;
+					}
 				}
 			}
 		}

@@ -33,8 +33,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public Label ( IControlRenderer renderer = null ) : base (
-																renderer ?? new LabelRenderer ( ) )
+		public Label ( IControlRenderer renderer = null ) : base ( renderer ?? new LabelRenderer ( ) )
 			=> BoarderStyle = null ;
 
 		public Label ( ) : this ( null ) { }

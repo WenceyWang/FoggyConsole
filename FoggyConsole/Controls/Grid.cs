@@ -37,9 +37,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				Rows . Clear ( ) ;
 				if ( value != null )
 				{
-					string [ ] rows = value . Split (
-													new [ ] { ',' } ,
-													StringSplitOptions . RemoveEmptyEntries ) ;
+					string [ ] rows = value . Split ( new [ ] { ',' } , StringSplitOptions . RemoveEmptyEntries ) ;
 					foreach ( string row in rows )
 					{
 						string rowData = row ;
@@ -74,9 +72,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				Columns . Clear ( ) ;
 				if ( value != null )
 				{
-					string [ ] columns = value . Split (
-														new [ ] { ',' } ,
-														StringSplitOptions . RemoveEmptyEntries ) ;
+					string [ ] columns = value . Split ( new [ ] { ',' } , StringSplitOptions . RemoveEmptyEntries ) ;
 					foreach ( string column in columns )
 					{
 						string columnData = column ;
@@ -87,21 +83,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 							columnData = columnData . TrimEnd ( '+' ) ;
 						}
 
-						Columns . Add (
-										new Column
-										{
-											Width = Convert . ToInt32 ( columnData ) , Auto = auto
-										} ) ;
+						Columns . Add ( new Column { Width = Convert . ToInt32 ( columnData ) , Auto = auto } ) ;
 					}
 				}
 			}
 		}
 
-		protected Dictionary <Control , Point> StartAt { get ; } =
-			new Dictionary <Control , Point> ( ) ;
+		protected Dictionary <Control , Point> StartAt { get ; } = new Dictionary <Control , Point> ( ) ;
 
-		protected Dictionary <Control , Size> BlockSize { get ; } =
-			new Dictionary <Control , Size> ( ) ;
+		protected Dictionary <Control , Size> BlockSize { get ; } = new Dictionary <Control , Size> ( ) ;
 
 		public ObservableCollection <Row> Rows { get ; }
 
@@ -113,21 +103,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 		private List <Column> StarSizeColumns
 			=> Columns . Where ( col => col . Width < 0 && ! col . Auto ) . ToList ( ) ;
 
-		private List <Column> AutoSizeColumns
-			=> Columns . Where ( col => col . Auto ) . ToList ( ) ;
+		private List <Column> AutoSizeColumns => Columns . Where ( col => col . Auto ) . ToList ( ) ;
 
-		private List <Row> StaticSizeRows
-			=> Rows . Where ( row => row . Height >= 0 && ! row . Auto ) . ToList ( ) ;
+		private List <Row> StaticSizeRows => Rows . Where ( row => row . Height >= 0 && ! row . Auto ) . ToList ( ) ;
 
-		private List <Row> StarSizeRows
-			=> Rows . Where ( row => row . Height < 0 && ! row . Auto ) . ToList ( ) ;
+		private List <Row> StarSizeRows => Rows . Where ( row => row . Height < 0 && ! row . Auto ) . ToList ( ) ;
 
 		private List <Row> AutoSizeRows => Rows . Where ( row => row . Auto ) . ToList ( ) ;
 
 		public override bool CanFocusedOn => false ;
 
-		public Grid ( IControlRenderer renderer ) : base (
-														renderer ?? new ItemsContainerRenderer ( ) )
+		public Grid ( IControlRenderer renderer ) : base ( renderer ?? new ItemsContainerRenderer ( ) )
 		{
 			Rows                        =  new ObservableCollection <Row> ( ) ;
 			Rows . CollectionChanged    += ColumnsRows_CollectionChanged ;
@@ -150,9 +136,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		private void ColumnsRows_CollectionChanged (
-			object                           sender ,
-			NotifyCollectionChangedEventArgs e )
+		private void ColumnsRows_CollectionChanged ( object sender , NotifyCollectionChangedEventArgs e )
 		{
 			if ( ! ( e . OldItems is null ) )
 			{
@@ -183,10 +167,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			RequestMeasure ( ) ;
 		}
 
-		private void Item_PropertyChanged ( object sender , PropertyChangedEventArgs e )
-		{
-			RequestMeasure ( ) ;
-		}
+		private void Item_PropertyChanged ( object sender , PropertyChangedEventArgs e ) { RequestMeasure ( ) ; }
 
 		private void Grid_ItemsRemoved ( object sender , ContainerControlEventArgs e )
 		{
@@ -216,8 +197,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			return Items . Where (
 								control
-									=> StartAt [ control ] . X           == columnIndex
-										&& BlockSize [ control ] . Width == 1 ) .
+									=> StartAt [ control ] . X == columnIndex && BlockSize [ control ] . Width == 1 ) .
 							ToList ( ) ;
 		}
 
@@ -237,8 +217,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			return Items . Where (
 								control
-									=> StartAt [ control ] . Y            == rowIndex
-										&& BlockSize [ control ] . Height == 1 ) .
+									=> StartAt [ control ] . Y == rowIndex && BlockSize [ control ] . Height == 1 ) .
 							ToList ( ) ;
 		}
 
@@ -351,8 +330,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			int minStarHeight = starSizeRows . Min ( row => row . Star ) ;
 
-			List <Row> minStarHeightRow =
-				starSizeRows . Where ( row => row . Star == minStarHeight ) . ToList ( ) ;
+			List <Row> minStarHeightRow = starSizeRows . Where ( row => row . Star == minStarHeight ) . ToList ( ) ;
 
 			int maxMinStarHeight = 0 ;
 
@@ -389,17 +367,13 @@ namespace DreamRecorder . FoggyConsole . Controls
 				Point startAt   = StartAt [ control ] ;
 				Size  blockSize = BlockSize [ control ] ;
 				int   width     = 0 ;
-				for ( int i = startAt . X ;
-					i < Columns . Count && i < startAt . X + blockSize . Width ;
-					i++ )
+				for ( int i = startAt . X ; i < Columns . Count && i < startAt . X + blockSize . Width ; i++ )
 				{
 					width += Columns [ i ] . DesiredWidth ;
 				}
 
 				int height = 0 ;
-				for ( int i = startAt . Y ;
-					i < Rows . Count && i < startAt . Y + blockSize . Height ;
-					i++ )
+				for ( int i = startAt . Y ; i < Rows . Count && i < startAt . Y + blockSize . Height ; i++ )
 				{
 					height += Rows [ i ] . DesiredHeight ;
 				}
@@ -454,8 +428,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			foreach ( Column column in starSizeColumns )
 			{
-				column . ActualWidth =
-					( int ) ( remainedWidth / ( double ) starWidthSum * column . Star ) ;
+				column . ActualWidth = ( int ) ( remainedWidth / ( double ) starWidthSum * column . Star ) ;
 			}
 
 			int measuredHeight = 0 ;
@@ -486,8 +459,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			foreach ( Row row in starSizeRows )
 			{
-				row . ActualHeight =
-					( int ) ( remainedHeight / ( double ) starHeightSum * row . Star ) ;
+				row . ActualHeight = ( int ) ( remainedHeight / ( double ) starHeightSum * row . Star ) ;
 			}
 
 			foreach ( Control control in Items )
@@ -502,9 +474,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				}
 
 				int width = 0 ;
-				for ( int i = startAt . X ;
-					i < Columns . Count && i < startAt . X + blockSize . Width ;
-					i++ )
+				for ( int i = startAt . X ; i < Columns . Count && i < startAt . X + blockSize . Width ; i++ )
 				{
 					width += Columns [ i ] . ActualWidth ;
 				}
@@ -516,9 +486,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				}
 
 				int height = 0 ;
-				for ( int i = startAt . Y ;
-					i < Rows . Count && i < startAt . Y + blockSize . Height ;
-					i++ )
+				for ( int i = startAt . Y ; i < Rows . Count && i < startAt . Y + blockSize . Height ; i++ )
 				{
 					height += Rows [ i ] . ActualHeight ;
 				}
@@ -583,9 +551,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				control . Arrange (
 									new Rectangle (
-													finalRect . LeftTopPoint . Offset (
-																						left ,
-																						top ) ,
+													finalRect . LeftTopPoint . Offset ( left , top ) ,
 													new Size ( width , height ) ) ) ;
 			}
 
@@ -619,12 +585,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 			public event PropertyChangedEventHandler PropertyChanged ;
 
 			[NotifyPropertyChangedInvocator]
-			protected virtual void OnPropertyChanged (
-				[CallerMemberName] string propertyName = null )
+			protected virtual void OnPropertyChanged ( [CallerMemberName] string propertyName = null )
 			{
-				PropertyChanged ? . Invoke (
-											this ,
-											new PropertyChangedEventArgs ( propertyName ) ) ;
+				PropertyChanged ? . Invoke ( this , new PropertyChangedEventArgs ( propertyName ) ) ;
 			}
 
 		}
@@ -657,12 +620,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 			public event PropertyChangedEventHandler PropertyChanged ;
 
 			[NotifyPropertyChangedInvocator]
-			protected virtual void OnPropertyChanged (
-				[CallerMemberName] string propertyName = null )
+			protected virtual void OnPropertyChanged ( [CallerMemberName] string propertyName = null )
 			{
-				PropertyChanged ? . Invoke (
-											this ,
-											new PropertyChangedEventArgs ( propertyName ) ) ;
+				PropertyChanged ? . Invoke ( this , new PropertyChangedEventArgs ( propertyName ) ) ;
 			}
 
 		}

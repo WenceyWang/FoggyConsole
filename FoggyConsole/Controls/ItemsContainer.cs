@@ -20,9 +20,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public ObservableCollection <Control> Items { get ; }
 
 		protected ItemsContainer ( IControlRenderer renderer = null ) : base (
-																			renderer
-																			?? new
-																				ItemsContainerRenderer ( ) )
+																			renderer ?? new ItemsContainerRenderer ( ) )
 		{
 			Items                     =  new ObservableCollection <Control> ( ) ;
 			Items . CollectionChanged += Items_CollectionChanged ;
@@ -52,11 +50,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			if ( ! ( e . OldItems is null ) )
 			{
 				List <Control> removedItems = e . OldItems . Cast <Control> ( ) .
-												Where (
-														control
-															=> ! e ? . NewItems ? . Contains (
-																							control )
-																?? true ) .
+												Where ( control => ! e ? . NewItems ? . Contains ( control ) ?? true ) .
 												ToList ( ) ;
 
 				foreach ( Control control in removedItems )
@@ -69,10 +63,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			if ( ! ( e . NewItems is null ) )
 			{
 				List <Control> newItems = e . NewItems . Cast <Control> ( ) .
-											Where (
-													control
-														=> ! e ? . OldItems ? . Contains ( control )
-															?? true ) .
+											Where ( control => ! e ? . OldItems ? . Contains ( control ) ?? true ) .
 											ToList ( ) ;
 
 				foreach ( Control control in newItems )

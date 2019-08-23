@@ -26,15 +26,10 @@ namespace DreamRecorder . FoggyConsole
 			public override bool CanConvertFrom ( ITypeDescriptorContext context , Type sourceType )
 				=> sourceType == typeof ( string ) ;
 
-			public override bool CanConvertTo (
-				ITypeDescriptorContext context ,
-				Type                   destinationType )
+			public override bool CanConvertTo ( ITypeDescriptorContext context , Type destinationType )
 				=> destinationType == typeof ( string ) ;
 
-			public override object ConvertFrom (
-				ITypeDescriptorContext context ,
-				CultureInfo            culture ,
-				object                 value )
+			public override object ConvertFrom ( ITypeDescriptorContext context , CultureInfo culture , object value )
 			{
 				if ( value is string rectangleData )
 				{
@@ -103,10 +98,7 @@ namespace DreamRecorder . FoggyConsole
 				return false ;
 			}
 
-			return rect . Left       <= Right
-					&& rect . Right  >= Left
-					&& rect . Top    <= Bottom
-					&& rect . Bottom >= Top ;
+			return rect . Left <= Right && rect . Right >= Left && rect . Top <= Bottom && rect . Bottom >= Top ;
 		}
 
 		public Rectangle Intersect ( Rectangle rect )
@@ -116,12 +108,8 @@ namespace DreamRecorder . FoggyConsole
 				return Empty ;
 			}
 
-			int left = Math . Max (
-									Left ,
-									rect . Left ) ;
-			int top = Math . Max (
-									Top ,
-									rect . Top ) ;
+			int left   = Math . Max ( Left ,                                                 rect . Left ) ;
+			int top    = Math . Max ( Top ,                                                  rect . Top ) ;
 			int width  = Math . Max ( Math . Min ( Right  + 1 , rect . Right  + 1 ) - left , 0 ) ;
 			int height = Math . Max ( Math . Min ( Bottom + 1 , rect . Bottom + 1 ) - top ,  0 ) ;
 
@@ -172,10 +160,7 @@ namespace DreamRecorder . FoggyConsole
 
 
 		public bool Equals ( Rectangle other )
-			=> X          == other . X
-				&& Y      == other . Y
-				&& Height == other . Height
-				&& Width  == other . Width ;
+			=> X == other . X && Y == other . Y && Height == other . Height && Width == other . Width ;
 
 		public override bool Equals ( object obj )
 		{
@@ -199,11 +184,9 @@ namespace DreamRecorder . FoggyConsole
 			}
 		}
 
-		public static bool operator == ( Rectangle left , Rectangle right )
-			=> left . Equals ( right ) ;
+		public static bool operator == ( Rectangle left , Rectangle right ) => left . Equals ( right ) ;
 
-		public static bool operator != ( Rectangle left , Rectangle right )
-			=> ! left . Equals ( right ) ;
+		public static bool operator != ( Rectangle left , Rectangle right ) => ! left . Equals ( right ) ;
 
 		/// <summary>
 		///     Creates a new rectangle
@@ -297,11 +280,9 @@ namespace DreamRecorder . FoggyConsole
 		public static Rectangle Empty => new Rectangle ( 0 , 0 , 0 , 0 ) ;
 
 
-		public static Rectangle Intersect ( Rectangle rect1 , Rectangle rect2 )
-			=> rect1 . Intersect ( rect2 ) ;
+		public static Rectangle Intersect ( Rectangle rect1 , Rectangle rect2 ) => rect1 . Intersect ( rect2 ) ;
 
-		public static Rectangle Union ( Rectangle rect1 , Rectangle rect2 )
-			=> rect1 . Union ( rect2 ) ;
+		public static Rectangle Union ( Rectangle rect1 , Rectangle rect2 ) => rect1 . Union ( rect2 ) ;
 
 		public bool Contain ( Rectangle subRectangle )
 			=> subRectangle . Top        >= Top

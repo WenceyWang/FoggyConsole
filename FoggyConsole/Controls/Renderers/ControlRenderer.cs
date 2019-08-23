@@ -51,7 +51,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws the Control stored in the Control-Property
 		/// </summary>
-		public abstract void Draw(ApplicationBase application, ConsoleArea area) ;
+		public abstract void Draw ( Application application , ConsoleArea area ) ;
 
 	}
 

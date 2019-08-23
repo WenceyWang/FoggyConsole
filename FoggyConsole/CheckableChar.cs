@@ -53,9 +53,7 @@ namespace DreamRecorder . FoggyConsole
 		}
 
 		public bool Equals ( CheckableChar other )
-			=> Checked           == other . Checked
-				&& Unchecked     == other . Unchecked
-				&& Indeterminate == other . Indeterminate ;
+			=> Checked == other . Checked && Unchecked == other . Unchecked && Indeterminate == other . Indeterminate ;
 
 		public override bool Equals ( object obj )
 		{
@@ -78,11 +76,9 @@ namespace DreamRecorder . FoggyConsole
 			}
 		}
 
-		public static bool operator == ( CheckableChar left , CheckableChar right )
-			=> left . Equals ( right ) ;
+		public static bool operator == ( CheckableChar left , CheckableChar right ) => left . Equals ( right ) ;
 
-		public static bool operator != ( CheckableChar left , CheckableChar right )
-			=> ! left . Equals ( right ) ;
+		public static bool operator != ( CheckableChar left , CheckableChar right ) => ! left . Equals ( right ) ;
 
 	}
 

@@ -15,10 +15,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public HorizontalStackPanel ( IControlRenderer renderer = null ) : base (
 																				renderer
-																				?? new
-																					ItemsContainerRenderer
-																					<HorizontalStackPanel
-																					> ( ) )
+																				?? new ItemsContainerRenderer <
+																					HorizontalStackPanel> ( ) )
 		{
 		}
 
@@ -43,60 +41,37 @@ namespace DreamRecorder . FoggyConsole . Controls
 						arrangeLocation = finalRect . LeftTopPoint . Offset ( currentWidth , 0 ) ;
 						arrangeSize = new Size (
 												Math . Min (
-															Math . Max (
-																		finalRect . Width
-																		- currentWidth ,
-																		0 ) ,
+															Math . Max ( finalRect . Width - currentWidth , 0 ) ,
 															control . DesiredSize . Width ) ,
-												Math . Min (
-															finalRect . Height ,
-															control . DesiredSize . Height ) ) ;
+												Math . Min ( finalRect . Height , control . DesiredSize . Height ) ) ;
 						break ;
 					}
 
 					case ContentVerticalAlign . Center :
 					{
-						int controlHeight = Math . Min (
-														finalRect . Height ,
-														control . DesiredSize . Height ) ;
+						int controlHeight = Math . Min ( finalRect . Height , control . DesiredSize . Height ) ;
 						arrangeLocation = finalRect . LeftTopPoint . Offset (
 																			currentWidth ,
-																			( finalRect . Height
-																			- controlHeight )
+																			( finalRect . Height - controlHeight )
 																			/ 2 ) ;
 						arrangeSize = new Size (
 												Math . Min (
-															Math . Max (
-																		finalRect . Width
-																		- currentWidth ,
-																		0 ) ,
+															Math . Max ( finalRect . Width - currentWidth , 0 ) ,
 															control . DesiredSize . Width ) ,
-												Math . Min (
-															finalRect . Height ,
-															control . DesiredSize . Height ) ) ;
+												Math . Min ( finalRect . Height , control . DesiredSize . Height ) ) ;
 						break ;
 					}
 
 					case ContentVerticalAlign . Bottom :
 					{
-						int controlHeight = Math . Min (
-														finalRect . Height ,
-														control . DesiredSize . Height ) ;
+						int controlHeight = Math . Min ( finalRect . Height , control . DesiredSize . Height ) ;
 						arrangeLocation =
-							finalRect . LeftTopPoint . Offset (
-																currentWidth ,
-																finalRect . Height
-																- controlHeight ) ;
+							finalRect . LeftTopPoint . Offset ( currentWidth , finalRect . Height - controlHeight ) ;
 						arrangeSize = new Size (
 												Math . Min (
-															Math . Max (
-																		finalRect . Width
-																		- currentWidth ,
-																		0 ) ,
+															Math . Max ( finalRect . Width - currentWidth , 0 ) ,
 															control . DesiredSize . Width ) ,
-												Math . Min (
-															finalRect . Height ,
-															control . DesiredSize . Height ) ) ;
+												Math . Min ( finalRect . Height , control . DesiredSize . Height ) ) ;
 						break ;
 					}
 
@@ -106,10 +81,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 						arrangeLocation = finalRect . LeftTopPoint . Offset ( currentWidth , 0 ) ;
 						arrangeSize = new Size (
 												Math . Min (
-															Math . Max (
-																		finalRect . Width
-																		- currentWidth ,
-																		0 ) ,
+															Math . Max ( finalRect . Width - currentWidth , 0 ) ,
 															control . DesiredSize . Width ) ,
 												finalRect . Height ) ;
 

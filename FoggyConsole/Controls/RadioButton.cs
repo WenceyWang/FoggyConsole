@@ -38,10 +38,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public RadioButton ( IControlRenderer renderer = null ) : base (
-																		renderer
-																		?? new
-																			RadioButtonRenderer ( ) )
+		public RadioButton ( IControlRenderer renderer = null ) : base ( renderer ?? new RadioButtonRenderer ( ) )
 		{
 			State           =  CheckState . Unchecked ;
 			CheckedChanging += OnCheckedChanging ;
@@ -50,16 +47,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public RadioButton ( ) : this ( null ) { }
 
 
-		private void OnCheckedChanging (
-			object                   sender ,
-			CheckedChangingEventArgs checkedChangingEventArgs )
+		private void OnCheckedChanging ( object sender , CheckedChangingEventArgs checkedChangingEventArgs )
 		{
 			IEnumerable <RadioButton> radioButtons =
 				( Page . Container as ItemsContainer ) ? . Items ? . OfType <RadioButton> ( ) ? .
-															Where (
-																	cb
-																		=> cb . ComboBoxGroup
-																			== ComboBoxGroup ) ;
+															Where ( cb => cb . ComboBoxGroup == ComboBoxGroup ) ;
 			if ( radioButtons != null )
 			{
 				foreach ( RadioButton radioButton in radioButtons )

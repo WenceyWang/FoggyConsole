@@ -1,7 +1,16 @@
-﻿namespace DreamRecorder.FoggyConsole
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
+
+namespace DreamRecorder . FoggyConsole
 {
-    public interface IApplicationItem
-    {
-        ApplicationBase Application { get; set; }
-    }
+
+	public interface IApplicationItem
+	{
+
+		Application Application { get ; set ; }
+
+	}
+
 }

@@ -17,7 +17,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws the ProgressBar given in the Control-Property
 		/// </summary>
-		public override void Draw(ApplicationBase application, ConsoleArea area)
+		public override void Draw ( Application application , ConsoleArea area )
 		{
 			if ( Control is null )
 			{
@@ -45,10 +45,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				barMaxWidth = Control . ActualWidth - 2 ;
 				barStart    = 1 ;
 
-				area . DrawBoarder (
-									Control . BoarderStyle . Value ,
-									foregroundColor ,
-									backgroundColor ) ;
+				area . DrawBoarder ( Control . BoarderStyle . Value , foregroundColor , backgroundColor ) ;
 			}
 			else
 			{

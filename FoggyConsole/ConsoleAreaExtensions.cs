@@ -41,32 +41,23 @@ namespace DreamRecorder . FoggyConsole
 												backgroundColor ) ;
 
 				area [ area . Size . Width - 1 , 0 ] = new ConsoleChar (
-																		boarderStyle .
-																			SingleLineRightEdge ,
+																		boarderStyle . SingleLineRightEdge ,
 																		foregroundColor ,
 																		backgroundColor ) ;
 			}
 			else
 			{
-				area [ 0 , 0 ] = new ConsoleChar (
-												boarderStyle . TopLeftCorner ,
-												foregroundColor ,
-												backgroundColor ) ;
+				area [ 0 , 0 ] = new ConsoleChar ( boarderStyle . TopLeftCorner , foregroundColor , backgroundColor ) ;
 				area [ area . Size . Width - 1 , 0 ] = new ConsoleChar (
-																		boarderStyle .
-																			TopRightCorner ,
+																		boarderStyle . TopRightCorner ,
 																		foregroundColor ,
 																		backgroundColor ) ;
 				area [ 0 , area . Size . Height - 1 ] = new ConsoleChar (
-																		boarderStyle .
-																			BottomLeftCorner ,
+																		boarderStyle . BottomLeftCorner ,
 																		foregroundColor ,
 																		backgroundColor ) ;
 				area [ area . Size . Width - 1 , area . Size . Height - 1 ] =
-					new ConsoleChar (
-									boarderStyle . BottomRightCorner ,
-									foregroundColor ,
-									backgroundColor ) ;
+					new ConsoleChar ( boarderStyle . BottomRightCorner , foregroundColor , backgroundColor ) ;
 
 				for ( int x = 1 ; x < area . Size . Width - 1 ; x++ )
 				{
@@ -75,8 +66,7 @@ namespace DreamRecorder . FoggyConsole
 													foregroundColor ,
 													backgroundColor ) ;
 					area [ x , area . Size . Height - 1 ] = new ConsoleChar (
-																			boarderStyle .
-																				HorizontalEdge ,
+																			boarderStyle . HorizontalEdge ,
 																			foregroundColor ,
 																			backgroundColor ) ;
 				}
@@ -88,8 +78,7 @@ namespace DreamRecorder . FoggyConsole
 													foregroundColor ,
 													backgroundColor ) ;
 					area [ area . Size . Width - 1 , y ] = new ConsoleChar (
-																			boarderStyle .
-																				VerticalEdge ,
+																			boarderStyle . VerticalEdge ,
 																			foregroundColor ,
 																			backgroundColor ) ;
 				}

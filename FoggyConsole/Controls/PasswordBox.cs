@@ -84,8 +84,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public PasswordBox ( ControlRenderer <PasswordBox> renderer = null ) : base (
 																					renderer
-																					?? new
-																						PasswordBoxRenderer ( ) )
+																					?? new PasswordBoxRenderer ( ) )
 		{
 		}
 

@@ -61,11 +61,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public GroupBox ( GroupBoxRenderer renderer = null ) : base (
-																	renderer
-																	?? new GroupBoxRenderer ( ) )
-		{
-		}
+		public GroupBox ( GroupBoxRenderer renderer = null ) : base ( renderer ?? new GroupBoxRenderer ( ) ) { }
 
 		public GroupBox ( ) : this ( null ) { }
 

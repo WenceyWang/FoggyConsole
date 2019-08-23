@@ -12,7 +12,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class RadioButtonRenderer : ControlRenderer <RadioButton>
 	{
 
-		public override void Draw(ApplicationBase application, ConsoleArea area)
+		public override void Draw ( Application application , ConsoleArea area )
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 
@@ -21,9 +21,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 											Control . ActualForegroundColor ,
 											Control . ActualBackgroundColor ) ;
 			area [ 1 , 0 ] = new ConsoleChar (
-											Control . CheckableChar . GetStateChar (
-																					Control .
-																						State ) ,
+											Control . CheckableChar . GetStateChar ( Control . State ) ,
 											Control . ActualForegroundColor ,
 											Control . ActualBackgroundColor ) ;
 			area [ 2 , 0 ] = new ConsoleChar (

@@ -82,8 +82,7 @@ namespace DreamRecorder . FoggyConsole
 		/// <summary>
 		///     Operator -Vector (unary negation)
 		/// </summary>
-		public static Vector operator - ( Vector vector )
-			=> new Vector ( - vector . X , - vector . Y ) ;
+		public static Vector operator - ( Vector vector ) => new Vector ( - vector . X , - vector . Y ) ;
 
 		/// <summary>
 		///     Negates the values of X and Y on this Vector
@@ -153,8 +152,7 @@ namespace DreamRecorder . FoggyConsole
 		/// <summary>
 		///     Operator Vector / double
 		/// </summary>
-		public static Vector operator / ( Vector vector , double scalar )
-			=> vector * ( 1.0 / scalar ) ;
+		public static Vector operator / ( Vector vector , double scalar ) => vector * ( 1.0 / scalar ) ;
 
 		/// <summary>
 		///     Multiply: Vector / double
@@ -207,8 +205,7 @@ namespace DreamRecorder . FoggyConsole
 		///     Point - A Point equal to this Vector
 		/// </returns>
 		/// <param name="vector"> Vector - the Vector to convert to a Point </param>
-		public static explicit operator Point ( Vector vector )
-			=> new Point ( vector . X , vector . Y ) ;
+		public static explicit operator Point ( Vector vector ) => new Point ( vector . X , vector . Y ) ;
 
 	}
 

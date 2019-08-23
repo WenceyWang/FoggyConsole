@@ -6,6 +6,8 @@ using System . Linq ;
 using DreamRecorder . FoggyConsole . Controls ;
 using DreamRecorder . ToolBox . General ;
 
+using JetBrains . Annotations ;
+
 using Microsoft . Extensions . DependencyInjection ;
 using Microsoft . Extensions . Logging ;
 
@@ -22,60 +24,43 @@ namespace DreamRecorder . FoggyConsole
 
 		private Control _focusedControl ;
 
-		private Frame Root { get ; }
+		private RootFrame Root => Application . ViewRoot ;
 
 		private ILogger Logger { get ; } =
-			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) .
-									CreateLogger <FocusManager> ( ) ;
+			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <FocusManager> ( ) ;
 
-		/// <summary>
-		///     Creates a new FocusManager
-		/// </summary>
-		/// <param name="root">The control which represents</param>
-		/// <exception cref="ArgumentException">
-		///     Is thrown if
-		///     <paramref name="root" />
-		///     has an container
-		/// </exception>
-		public FocusManager ( Frame root )
-		{
-			Root    = root ?? throw new ArgumentNullException ( nameof ( root ) ) ;
-
-			_focusedControl = GetControlList ( ) . FirstOrDefault ( ) ;
-			if ( _focusedControl != null )
-			{
-				_focusedControl . IsFocused = true ;
-			}
-		}
 
 		/// <summary>
 		///     The currently focused control
 		/// </summary>
+		[CanBeNull]
 		public Control FocusedControl
 		{
 			get => _focusedControl ;
 			set
 			{
-				if ( value != _focusedControl )
+				if ( value == _focusedControl )
 				{
-					Application.ViewRoot? . PauseRedraw ( ) ;
-
-					if ( _focusedControl != null )
-					{
-						_focusedControl . IsFocused = false ;
-					}
-
-					_focusedControl = value ;
-
-					if ( _focusedControl != null )
-					{
-						_focusedControl . IsFocused = true ;
-					}
-
-                    Application.ViewRoot? . ResumeRedraw ( ) ;
-
-					Logger . LogTrace ( $"Focused: {value ? . Name ?? "null"}" ) ;
+					return ;
 				}
+
+				Application . ViewRoot ? . PauseRedraw ( ) ;
+
+				if ( _focusedControl != null )
+				{
+					_focusedControl . IsFocused = false ;
+				}
+
+				_focusedControl = value ;
+
+				if ( _focusedControl != null )
+				{
+					_focusedControl . IsFocused = true ;
+				}
+
+				Application . ViewRoot ? . ResumeRedraw ( ) ;
+
+				Logger . LogTrace ( $"Focused: {value ? . Name ?? "null"}" ) ;
 			}
 		}
 
@@ -98,24 +83,19 @@ namespace DreamRecorder . FoggyConsole
 				Control bondedControl = controlList . FirstOrDefault (
 																	control =>
 																	{
-																		if (
-																			control . KeyBind is
-																				null )
+																		if ( control . KeyBind is null )
 																		{
 																			return false ;
 																		}
 
-																		return
-																			char .
-																				ToUpperInvariant (
-																								control .
-																									KeyBind .
-																									Value )
-																			== char .
-																				ToUpperInvariant (
-																								args .
-																									KeyInfo .
-																									KeyChar ) ;
+																		return char . ToUpperInvariant (
+																										control .
+																											KeyBind .
+																											Value )
+																				== char . ToUpperInvariant (
+																											args .
+																												KeyInfo .
+																												KeyChar ) ;
 																	} ) ;
 
 
@@ -137,10 +117,7 @@ namespace DreamRecorder . FoggyConsole
 						{
 							args . Handled = true ;
 							FocusedControl =
-								controlList [ ( Math . Max (
-															controlList .
-																IndexOf ( FocusedControl ) ,
-															0 )
+								controlList [ ( Math . Max ( controlList . IndexOf ( FocusedControl ) , 0 )
 												+ controlList . Count
 												- 1 )
 											% controlList . Count ] ;
@@ -149,11 +126,7 @@ namespace DreamRecorder . FoggyConsole
 						{
 							args . Handled = true ;
 							FocusedControl =
-								controlList [ ( Math . Max (
-															controlList .
-																IndexOf ( FocusedControl ) ,
-															0 )
-												+ 1 )
+								controlList [ ( Math . Max ( controlList . IndexOf ( FocusedControl ) , 0 ) + 1 )
 											% controlList . Count ] ;
 						}
 
@@ -162,8 +135,7 @@ namespace DreamRecorder . FoggyConsole
 
 					default :
 					{
-						Rectangle focusedArea =
-							FocusedControl ? . RenderArea . GetValueOrDefault ( ) ?? default ;
+						Rectangle focusedArea = FocusedControl ? . RenderArea . GetValueOrDefault ( ) ?? default ;
 
 						switch ( args . KeyInfo . Key )
 						{
@@ -172,11 +144,8 @@ namespace DreamRecorder . FoggyConsole
 								controlList . Remove ( FocusedControl ) ;
 								controlList . RemoveAll (
 														control
-															=> control . RenderArea ? .
-																		FloatCenter . Y
-																>= FocusedControl ? . RenderArea ? .
-																					FloatCenter .
-																					Y ) ;
+															=> control . RenderArea ? . FloatCenter . Y
+																>= FocusedControl ? . RenderArea ? . FloatCenter . Y ) ;
 
 								controlList . Sort (
 													ComparisonExtensions . Select <Control , int
@@ -190,57 +159,47 @@ namespace DreamRecorder . FoggyConsole
 																															GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> Math .
-																											Abs (
-																												focusedArea .
-																													MinRowDiff (
-																																control .
-																																	RenderArea .
-																																	GetValueOrDefault ( ) ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinRowDiff (
+																																			control .
+																																				RenderArea .
+																																				GetValueOrDefault ( ) ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxColumnDiff (
-																															control .
-																																RenderArea .
-																																GetValueOrDefault ( ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxRowDiff (
-																														control .
-																															RenderArea .
-																															GetValueOrDefault ( ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
+																																	control .
+																																		RenderArea .
+																																		GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, float
-																						> (
-																							control
-																								=> ( focusedArea .
-																										FloatCenter
-																									- control .
-																									RenderArea .
-																									GetValueOrDefault ( ) .
-																									FloatCenter
-																									) .
-																								LengthSquared ( ) ) ) ) ;
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
 
-								Control newFocusedControl =
-									controlList . FirstOrDefault ( ) ?? FocusedControl ;
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 
 								if ( newFocusedControl != FocusedControl )
 								{
@@ -256,11 +215,8 @@ namespace DreamRecorder . FoggyConsole
 								controlList . Remove ( FocusedControl ) ;
 								controlList . RemoveAll (
 														control
-															=> control . RenderArea ? .
-																		FloatCenter . Y
-																<= FocusedControl ? . RenderArea ? .
-																					FloatCenter .
-																					Y ) ;
+															=> control . RenderArea ? . FloatCenter . Y
+																<= FocusedControl ? . RenderArea ? . FloatCenter . Y ) ;
 
 								controlList . Sort (
 													ComparisonExtensions . Select <Control , int
@@ -274,57 +230,47 @@ namespace DreamRecorder . FoggyConsole
 																															GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> Math .
-																											Abs (
-																												focusedArea .
-																													MinRowDiff (
-																																control .
-																																	RenderArea .
-																																	GetValueOrDefault ( ) ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinRowDiff (
+																																			control .
+																																				RenderArea .
+																																				GetValueOrDefault ( ) ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxColumnDiff (
-																															control .
-																																RenderArea .
-																																GetValueOrDefault ( ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxRowDiff (
-																														control .
-																															RenderArea .
-																															GetValueOrDefault ( ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
+																																	control .
+																																		RenderArea .
+																																		GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, float
-																						> (
-																							control
-																								=> ( focusedArea .
-																										FloatCenter
-																									- control .
-																									RenderArea .
-																									GetValueOrDefault ( ) .
-																									FloatCenter
-																									) .
-																								LengthSquared ( ) ) ) ) ;
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
 
-								Control newFocusedControl =
-									controlList . FirstOrDefault ( ) ?? FocusedControl ;
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 
 								if ( newFocusedControl != FocusedControl )
 								{
@@ -340,11 +286,8 @@ namespace DreamRecorder . FoggyConsole
 								controlList . Remove ( FocusedControl ) ;
 								controlList . RemoveAll (
 														control
-															=> control . RenderArea ? .
-																		FloatCenter . X
-																>= FocusedControl ? . RenderArea ? .
-																					FloatCenter .
-																					X ) ;
+															=> control . RenderArea ? . FloatCenter . X
+																>= FocusedControl ? . RenderArea ? . FloatCenter . X ) ;
 
 								controlList . Sort (
 													ComparisonExtensions . Select <Control , int
@@ -358,57 +301,47 @@ namespace DreamRecorder . FoggyConsole
 																														GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> Math .
-																											Abs (
-																												focusedArea .
-																													MinColumnDiff (
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinColumnDiff (
+																																				control .
+																																					RenderArea .
+																																					GetValueOrDefault ( ) ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
 																																	control .
 																																		RenderArea .
-																																		GetValueOrDefault ( ) ) ) ) ) .
+																																		GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxRowDiff (
-																														control .
-																															RenderArea .
-																															GetValueOrDefault ( ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxColumnDiff (
-																															control .
-																																RenderArea .
-																																GetValueOrDefault ( ) ) ) ) .
-																			Union (
-																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, float
-																						> (
-																							control
-																								=> ( focusedArea .
-																										FloatCenter
-																									- control .
-																									RenderArea .
-																									GetValueOrDefault ( ) .
-																									FloatCenter
-																									) .
-																								LengthSquared ( ) ) ) ) ;
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
 
-								Control newFocusedControl =
-									controlList . FirstOrDefault ( ) ?? FocusedControl ;
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 
 								if ( newFocusedControl != FocusedControl )
 								{
@@ -424,11 +357,8 @@ namespace DreamRecorder . FoggyConsole
 								controlList . Remove ( FocusedControl ) ;
 								controlList . RemoveAll (
 														control
-															=> control . RenderArea ? .
-																		FloatCenter . X
-																<= FocusedControl ? . RenderArea ? .
-																					FloatCenter .
-																					X ) ;
+															=> control . RenderArea ? . FloatCenter . X
+																<= FocusedControl ? . RenderArea ? . FloatCenter . X ) ;
 								controlList . Sort (
 													ComparisonExtensions . Select <Control , int
 																			> (
@@ -441,57 +371,47 @@ namespace DreamRecorder . FoggyConsole
 																														GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> Math .
-																											Abs (
-																												focusedArea .
-																													MinColumnDiff (
+																						Select <Control , int> (
+																												control
+																													=> Math .
+																														Abs (
+																															focusedArea .
+																																MinColumnDiff (
+																																				control .
+																																					RenderArea .
+																																					GetValueOrDefault ( ) ) ) ) ) .
+																			Union (
+																					ComparisonExtensions .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxRowDiff (
 																																	control .
 																																		RenderArea .
-																																		GetValueOrDefault ( ) ) ) ) ) .
+																																		GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxRowDiff (
-																														control .
-																															RenderArea .
-																															GetValueOrDefault ( ) ) ) ) .
+																						Select <Control , int> (
+																												control
+																													=> focusedArea .
+																														MaxColumnDiff (
+																																		control .
+																																			RenderArea .
+																																			GetValueOrDefault ( ) ) ) ) .
 																			Union (
 																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, int> (
-																									control
-																										=> focusedArea .
-																											MaxColumnDiff (
-																															control .
-																																RenderArea .
-																																GetValueOrDefault ( ) ) ) ) .
-																			Union (
-																					ComparisonExtensions .
-																						Select <
-																							Control
-																							, float
-																						> (
-																							control
-																								=> ( focusedArea .
-																										FloatCenter
-																									- control .
-																									RenderArea .
-																									GetValueOrDefault ( ) .
-																									FloatCenter
-																									) .
-																								LengthSquared ( ) ) ) ) ;
+																						Select <Control , float> (
+																												control
+																													=> ( focusedArea .
+																															FloatCenter
+																														- control .
+																														RenderArea .
+																														GetValueOrDefault ( ) .
+																														FloatCenter
+																														) .
+																													LengthSquared ( ) ) ) ) ;
 
-								Control newFocusedControl =
-									controlList . FirstOrDefault ( ) ?? FocusedControl ;
+								Control newFocusedControl = controlList . FirstOrDefault ( ) ?? FocusedControl ;
 
 								if ( newFocusedControl != FocusedControl )
 								{
@@ -509,6 +429,8 @@ namespace DreamRecorder . FoggyConsole
 			}
 		}
 
+		public Application Application { get ; set ; }
+
 		private List <Control> GetControlList ( )
 		{
 			return Root . GetAllItem ( ) .
@@ -517,18 +439,15 @@ namespace DreamRecorder . FoggyConsole
 								{
 									if ( control is null )
 									{
-										Logger . LogWarning (
-															$"Control List of {Root . Name} contains null" ) ;
+										Logger . LogWarning ( $"Control List of {Root . Name} contains null" ) ;
 										return false ;
 									}
 
-									return control . RenderArea . IsNotEmpty ( )
-											&& control . CanFocusedOn ;
+									return control . RenderArea . IsNotEmpty ( ) && control . CanFocusedOn ;
 								} ) .
 						ToList ( ) ;
 		}
 
-        public ApplicationBase Application { get; set; }
-    }
+	}
 
 }

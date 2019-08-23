@@ -33,8 +33,7 @@ namespace DreamRecorder . FoggyConsole
 
 		public static bool operator != ( Size size1 , Size size2 ) => ! ( size1 == size2 ) ;
 
-		public static explicit operator Point ( Size size )
-			=> new Point ( size . Width , size . Height ) ;
+		public static explicit operator Point ( Size size ) => new Point ( size . Width , size . Height ) ;
 
 		public bool IsEmpty => Width == 0 || Height == 0 ;
 

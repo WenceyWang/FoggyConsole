@@ -24,8 +24,7 @@ namespace DreamRecorder . FoggyConsole
 				&& ForegroundColor == other . ForegroundColor
 				&& BackgroundColor == other . BackgroundColor ;
 
-		public static implicit operator ConsoleChar ( char character )
-			=> new ConsoleChar ( character ) ;
+		public static implicit operator ConsoleChar ( char character ) => new ConsoleChar ( character ) ;
 
 		public override bool Equals ( object obj )
 		{
@@ -48,11 +47,9 @@ namespace DreamRecorder . FoggyConsole
 			}
 		}
 
-		public static bool operator == ( ConsoleChar left , ConsoleChar right )
-			=> left . Equals ( right ) ;
+		public static bool operator == ( ConsoleChar left , ConsoleChar right ) => left . Equals ( right ) ;
 
-		public static bool operator != ( ConsoleChar left , ConsoleChar right )
-			=> ! left . Equals ( right ) ;
+		public static bool operator != ( ConsoleChar left , ConsoleChar right ) => ! left . Equals ( right ) ;
 
 		public override string ToString ( ) => new string ( Character , 1 ) ;
 

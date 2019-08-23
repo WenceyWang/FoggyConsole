@@ -32,9 +32,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public CheckBox ( CheckboxRenderer renderer = null ) : base (
-																	renderer
-																	?? new CheckboxRenderer ( ) )
+		public CheckBox ( CheckboxRenderer renderer = null ) : base ( renderer ?? new CheckboxRenderer ( ) )
 			=> State = CheckState . Indeterminate ;
 
 		public CheckBox ( ) : this ( null ) { }

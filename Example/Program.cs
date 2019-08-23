@@ -14,21 +14,31 @@ using WenceyWang . FIGlet ;
 namespace Example
 {
 
-	public class Program
-		: ApplicationBase <Program , ProgramExitCode , ProgramSetting , ProgramSettingCatalog>
+	public class Program : ProgramBase <Program , ProgramExitCode , ProgramSetting , ProgramSettingCatalog>
 	{
 
 		public override string License => "AGPL" ;
+
+		public override bool CanExit { get ; }
+
+		public override bool HandleInput => true ;
 
 		public override bool LoadSetting => true ;
 
 		public override bool AutoSaveSetting => true ;
 
-		public override bool WaitForStart => true ;
+		public override bool WaitForExit => true ;
 
-		public Program ( ) => Name = "GuguguCalendar" ;
+		public Application Application { get ; set ; }
 
 		public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
+
+		public override void Start ( string [ ] args )
+		{
+			Application = new Application ( LocalConsole . Current , PrepareViewRoot ) ;
+
+			Application . Start ( ) ;
+		}
 
 		public override void ConfigureLogger ( ILoggingBuilder builder )
 		{
@@ -46,17 +56,15 @@ namespace Example
 
 		public override void ShowCopyright ( ) { Console . WriteLine ( "Copyright" ) ; }
 
+		public override void OnExit ( ProgramExitCode code ) { }
 
-		public override void Start ( string [ ] args ) { base . Start ( args ) ; }
-
-
-		public override Frame PrepareViewRoot ( )
+		public Frame PrepareViewRoot ( )
 		{
-			ViewRoot = new Frame ( ) ;
-			StackPanel panel = new StackPanel ( ) ;
-			Page       page  = new Page ( ) ;
+			Frame      viewRoot = new Frame ( ) ;
+			StackPanel panel    = new StackPanel ( ) ;
+			Page       page     = new Page ( ) ;
 			page . Content = panel ;
-			ViewRoot . NavigateTo ( page ) ;
+			viewRoot . NavigateTo ( page ) ;
 
 			Button buttonA = new Button { Name = "buttonA" , Text = "A" , KeyBind = 'A' } ;
 			panel . Items . Add ( buttonA ) ;
@@ -114,52 +122,36 @@ namespace Example
 			Canvas canvas = new Canvas ( ) ;
 
 			for ( int y = 0 ; y < 30 ; y++ )
-			for ( int x = 0 ; x < 30 ; x++ )
 			{
-				Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
-				canvas . Items . Add ( button ) ;
-				canvas [ button ] = new Point ( 6 * x , y ) ;
+				for ( int x = 0 ; x < 30 ; x++ )
+				{
+					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
+					canvas . Items . Add ( button ) ;
+					canvas [ button ] = new Point ( 6 * x , y ) ;
+				}
 			}
 
 			panel . Items . Add ( canvas ) ;
 
 			buttonExit . Pressed += ExitButton_Pressed ;
 
-			return ViewRoot ;
+			return viewRoot ;
 		}
 
-		private void ExitButton_Pressed ( object sender , EventArgs e )
-		{
-			Exit ( ProgramExitCode . Success ) ;
-		}
+		private void ExitButton_Pressed ( object sender , EventArgs e ) { Application . Stop ( ) ; }
 
 	}
 
 	public class ProgramSetting : SettingBase <ProgramSetting , ProgramSettingCatalog>
 	{
 
-		[SettingItem (
-			( int ) ProgramSettingCatalog . General ,
-			nameof ( BotToken ) ,
-			"" ,
-			true ,
-			"" )]
+		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( BotToken ) , "" , true , "" )]
 		public string BotToken { get ; set ; }
 
-		[SettingItem (
-			( int ) ProgramSettingCatalog . General ,
-			nameof ( DatabaseConnection ) ,
-			"" ,
-			true ,
-			"" )]
+		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( DatabaseConnection ) , "" , true , "" )]
 		public string DatabaseConnection { get ; set ; }
 
-		[SettingItem (
-			( int ) ProgramSettingCatalog . General ,
-			nameof ( HttpProxy ) ,
-			"" ,
-			true ,
-			null )]
+		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( HttpProxy ) , "" , true , null )]
 		public string HttpProxy { get ; set ; }
 
 	}

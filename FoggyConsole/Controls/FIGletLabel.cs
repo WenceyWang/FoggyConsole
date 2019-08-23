@@ -95,8 +95,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public FIGletLabel ( IControlRenderer renderer = null ) :
-			base ( renderer ?? new FIGletLabelRenderer ( ) )
+		public FIGletLabel ( IControlRenderer renderer = null ) : base ( renderer ?? new FIGletLabelRenderer ( ) )
 			=> TextChanged += FIGletLabel_TextChanged ;
 
 		public FIGletLabel ( ) : this ( null ) { }
