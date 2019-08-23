@@ -56,7 +56,7 @@ namespace Example
 
 		public override void ShowCopyright ( ) { Console . WriteLine ( "Copyright" ) ; }
 
-		public override void OnExit ( ProgramExitCode code ) { }
+		public override void OnExit ( ProgramExitCode code ) { Application . Stop ( ) ; }
 
 		public Frame PrepareViewRoot ( )
 		{

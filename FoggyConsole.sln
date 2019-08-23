@@ -35,13 +35,18 @@ Global
 		SolutionGuid = {0F8162B4-CB44-4921-8B72-13DF8237B221}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 1
+		SccNumberOfProjects = 4
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://vsts.dreamry.org/defaultcollection
 		SccProjectUniqueName0 = FoggyConsole\\FoggyConsole.csproj
 		SccProjectName0 = FoggyConsole
-		SccAuxPath0 = https://vsts.dreamry.org/defaultcollection
 		SccLocalPath0 = FoggyConsole
-		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = FoggyConsole.Test\\FoggyConsole.Test.csproj
+		SccProjectName1 = FoggyConsole.Test
+		SccLocalPath1 = FoggyConsole.Test
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = Example\\Example.csproj
+		SccProjectName3 = Example
+		SccLocalPath3 = Example
 	EndGlobalSection
 EndGlobal

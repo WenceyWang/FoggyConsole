@@ -38,9 +38,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocusedOn => false ;
 
+		public override RootFrame ViewRoot => this ;
+
 		public RootFrame ( IControlRenderer renderer = null ) : base ( renderer ?? new RootFrameRenderer ( ) )
 			=> Enabled = false ;
-
 
 		public Application Application { get ; set ; }
 
