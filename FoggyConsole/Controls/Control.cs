@@ -247,7 +247,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public ContainerBase Container { get ; set ; }
 
 		[CanBeNull]
-		public virtual RootFrame ViewRoot => Container ?. ViewRoot ;
+		public virtual RootFrame ViewRoot => Container ? . ViewRoot ;
 
 		/// <summary>
 		///     An instance of a subclass of
