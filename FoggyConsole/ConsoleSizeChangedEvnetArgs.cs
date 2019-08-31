@@ -13,6 +13,15 @@ namespace DreamRecorder . FoggyConsole
 
 		public Size OldSize { get ; set ; }
 
+
+		public ConsoleSizeChangedEvnetArgs ( Size newSize , Size oldSize )
+		{
+			NewSize = newSize ;
+			OldSize = oldSize ;
+		}
+
+		public ConsoleSizeChangedEvnetArgs ( ) {  }
+
 	}
 
 }

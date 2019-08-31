@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FoggyConsole.Test", "FoggyC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Example", "Example\Example.csproj", "{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleProvider", "ConsoleProvider", "{370A42E7-EB30-40A4-B53C-A1098AC36CC5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LocalConsole", "ConsoleProvider\LocalConsole\LocalConsole.csproj", "{4B9ED39E-4F2B-482C-8C33-1E230438B92A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XtermConsole", "ConsoleProvider\XtermConsole\XtermConsole.csproj", "{AE2373EE-44D3-4EFC-AF5A-8C93757DC7DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,26 +33,46 @@ Global
 		{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AF5268E-5524-4F40-A8B2-E6AF25F30C08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B9ED39E-4F2B-482C-8C33-1E230438B92A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B9ED39E-4F2B-482C-8C33-1E230438B92A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B9ED39E-4F2B-482C-8C33-1E230438B92A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B9ED39E-4F2B-482C-8C33-1E230438B92A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AE2373EE-44D3-4EFC-AF5A-8C93757DC7DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE2373EE-44D3-4EFC-AF5A-8C93757DC7DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE2373EE-44D3-4EFC-AF5A-8C93757DC7DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2373EE-44D3-4EFC-AF5A-8C93757DC7DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4B9ED39E-4F2B-482C-8C33-1E230438B92A} = {370A42E7-EB30-40A4-B53C-A1098AC36CC5}
+		{AE2373EE-44D3-4EFC-AF5A-8C93757DC7DD} = {370A42E7-EB30-40A4-B53C-A1098AC36CC5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0F8162B4-CB44-4921-8B72-13DF8237B221}
 	EndGlobalSection
 	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 4
+		SccNumberOfProjects = 6
 		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
 		SccTeamFoundationServer = https://vsts.dreamry.org/defaultcollection
-		SccProjectUniqueName0 = FoggyConsole\\FoggyConsole.csproj
-		SccProjectName0 = FoggyConsole
-		SccLocalPath0 = FoggyConsole
-		SccProjectUniqueName1 = FoggyConsole.Test\\FoggyConsole.Test.csproj
-		SccProjectName1 = FoggyConsole.Test
-		SccLocalPath1 = FoggyConsole.Test
-		SccLocalPath2 = .
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = FoggyConsole\\FoggyConsole.csproj
+		SccProjectName1 = FoggyConsole
+		SccLocalPath1 = FoggyConsole
+		SccProjectUniqueName2 = FoggyConsole.Test\\FoggyConsole.Test.csproj
+		SccProjectName2 = FoggyConsole.Test
+		SccLocalPath2 = FoggyConsole.Test
 		SccProjectUniqueName3 = Example\\Example.csproj
 		SccProjectName3 = Example
 		SccLocalPath3 = Example
+		SccProjectUniqueName4 = ConsoleProvider\\LocalConsole\\LocalConsole.csproj
+		SccProjectTopLevelParentUniqueName4 = FoggyConsole.sln
+		SccProjectName4 = ConsoleProvider/LocalConsole
+		SccLocalPath4 = ConsoleProvider\\LocalConsole
+		SccProjectUniqueName5 = ConsoleProvider\\XtermConsole\\XtermConsole.csproj
+		SccProjectTopLevelParentUniqueName5 = FoggyConsole.sln
+		SccProjectName5 = ConsoleProvider/XtermConsole
+		SccLocalPath5 = ConsoleProvider\\XtermConsole
 	EndGlobalSection
 EndGlobal

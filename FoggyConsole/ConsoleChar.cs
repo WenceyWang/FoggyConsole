@@ -9,9 +9,9 @@ namespace DreamRecorder . FoggyConsole
 	public struct ConsoleChar : IEquatable <ConsoleChar>
 	{
 
-		public static ConsoleColor DefaultBackgroundColor { get ; set ; } = ConsoleColor . Black ;
+		public static ConsoleColor DefaultBackgroundColor { get ; } = ConsoleColor . Black ;
 
-		public static ConsoleColor DefaultForegroundColor { get ; set ; } = ConsoleColor . Gray ;
+		public static ConsoleColor DefaultForegroundColor { get ; } = ConsoleColor . Gray ;
 
 		public readonly char Character ;
 

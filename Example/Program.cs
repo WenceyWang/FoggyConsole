@@ -2,9 +2,14 @@
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
+using System . Net ;
+using System.Net.Sockets;
+using System.IO.Ports;
 
 using DreamRecorder . FoggyConsole ;
 using DreamRecorder . FoggyConsole . Controls ;
+using DreamRecorder . FoggyConsole . LocalConsole ;
+using DreamRecorder . FoggyConsole . XtermConsole ;
 using DreamRecorder . ToolBox . CommandLine ;
 
 using Microsoft . Extensions . Logging ;
@@ -35,7 +40,19 @@ namespace Example
 
 		public override void Start ( string [ ] args )
 		{
-			Application = new Application ( LocalConsole . Current , PrepareViewRoot ) ;
+			SerialPort port = new SerialPort ( "COM7" ) ;
+
+			port . Open ( ) ;
+
+            //TcpListener listener = new TcpListener(IPAddress.Any, 5678);
+
+            //listener.Start();
+
+            //TcpClient connection = listener.AcceptTcpClient();
+
+            XtermConsole console = new XtermConsole(port.BaseStream);
+
+            Application = new Application (console , PrepareViewRoot ) ;
 
 			Application . Start ( ) ;
 		}
@@ -84,7 +101,9 @@ namespace Example
 									Text            = "Exit" ,
 									KeyBind         = 'E' ,
 									BoarderStyle    = LineStyle . SingleLinesSet ,
-									AllowSingleLine = false
+									AllowSingleLine = false,
+									ForegroundColor=ConsoleColor.Red
+
 								} ;
 			panel . Items . Add ( buttonExit ) ;
 
@@ -119,19 +138,19 @@ namespace Example
 							} ;
 			grid . Items . Add ( buttonE ) ;
 
-			Canvas canvas = new Canvas ( ) ;
+			//Canvas canvas = new Canvas ( ) ;
 
-			for ( int y = 0 ; y < 30 ; y++ )
-			{
-				for ( int x = 0 ; x < 30 ; x++ )
-				{
-					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
-					canvas . Items . Add ( button ) ;
-					canvas [ button ] = new Point ( 6 * x , y ) ;
-				}
-			}
+			//for ( int y = 0 ; y < 30 ; y++ )
+			//{
+			//	for ( int x = 0 ; x < 30 ; x++ )
+			//	{
+			//		Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
+			//		canvas . Items . Add ( button ) ;
+			//		canvas [ button ] = new Point ( 6 * x , y ) ;
+			//	}
+			//}
 
-			panel . Items . Add ( canvas ) ;
+			//panel . Items . Add ( canvas ) ;
 
 			buttonExit . Pressed += ExitButton_Pressed ;
 

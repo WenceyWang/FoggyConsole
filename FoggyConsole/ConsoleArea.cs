@@ -58,7 +58,7 @@ namespace DreamRecorder . FoggyConsole
 			}
 		}
 
-		internal ConsoleChar [ , ] Content { get ; }
+		public ConsoleChar [ , ] Content { get ; }
 
 		private ConsoleArea ( [NotNull] ConsoleArea area , Rectangle subRectangle )
 		{

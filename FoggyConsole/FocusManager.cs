@@ -206,6 +206,10 @@ namespace DreamRecorder . FoggyConsole
 									FocusedControl = newFocusedControl ;
 									args . Handled = true ;
 								}
+								else
+								{
+									Application . Console . Bell ( ) ;
+								}
 
 								break ;
 							}
@@ -277,6 +281,11 @@ namespace DreamRecorder . FoggyConsole
 									FocusedControl = newFocusedControl ;
 									args . Handled = true ;
 								}
+								else
+								{
+									Application . Console . Bell ( ) ;
+								}
+
 
 								break ;
 							}
@@ -348,6 +357,11 @@ namespace DreamRecorder . FoggyConsole
 									FocusedControl = newFocusedControl ;
 									args . Handled = true ;
 								}
+								else
+								{
+									Application . Console . Bell ( ) ;
+								}
+
 
 								break ;
 							}
@@ -418,6 +432,11 @@ namespace DreamRecorder . FoggyConsole
 									FocusedControl = newFocusedControl ;
 									args . Handled = true ;
 								}
+								else
+								{
+									Application . Console . Bell ( ) ;
+								}
+
 
 								break ;
 							}

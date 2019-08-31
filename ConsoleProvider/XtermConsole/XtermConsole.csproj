@@ -9,9 +9,9 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>DreamRecorder.FoggyConsole</AssemblyName>
-    <RootNamespace>DreamRecorder.FoggyConsole</RootNamespace>
-    <PackageId>FoggyConsole</PackageId>
+    <AssemblyName>DreamRecorder.FoggyConsole.XtermConsole</AssemblyName>
+    <RootNamespace>DreamRecorder.FoggyConsole.XtermConsole</RootNamespace>
+    <PackageId>FoggyConsole.XtermConsole</PackageId>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <Authors>Wencey Wang</Authors>
     <Company>Dream Recorder</Company>
@@ -29,17 +29,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DreamRecorder.ToolBox" Version="1.1.4.67" />
-    <PackageReference Include="FIGlet.Net" Version="1.1.1" />
-    <PackageReference Include="Fody" Version="6.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
-    <PackageReference Include="PropertyChanged.Fody" Version="3.1.3" />
-    <PackageReference Include="PropertyChanging.Fody" Version="1.30.0" />
-    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
+    <ProjectReference Include="..\..\FoggyConsole\FoggyConsole.csproj" />
   </ItemGroup>
 
 </Project>

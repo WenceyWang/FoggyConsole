@@ -5,7 +5,7 @@ using System . Linq ;
 using System . Text ;
 using System . Threading ;
 
-namespace DreamRecorder . FoggyConsole
+namespace DreamRecorder . FoggyConsole . LocalConsole
 {
 
 	public class LocalConsole : IConsole
@@ -22,7 +22,6 @@ namespace DreamRecorder . FoggyConsole
 		public bool IsRunning { get ; private set ; }
 
 		public Thread WatcherThread { get ; private set ; }
-
 
 		private ConsoleColor CurrentForegroundColor { get ; set ; }
 
@@ -62,8 +61,8 @@ namespace DreamRecorder . FoggyConsole
 
 				if ( Application . AutoDefaultColor )
 				{
-					ConsoleChar . DefaultBackgroundColor = Console . BackgroundColor ;
-					ConsoleChar . DefaultForegroundColor = Console . ForegroundColor ;
+					Application . DefaultBackgroundColor = Console . BackgroundColor ;
+					Application . DefaultForegroundColor = Console . ForegroundColor ;
 				}
 
 				WatcherThread = new Thread ( Watch ) { Name = nameof ( WatcherThread ) } ;
@@ -144,7 +143,7 @@ namespace DreamRecorder . FoggyConsole
 				}
 
 				TimeSpan waitTime = lastUpdate - DateTime . Now ;
-				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / 60d ) ;
+				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit) ;
 
 				Thread . Yield ( ) ;
 				Thread . Sleep ( Math . Max ( Convert . ToInt32 ( waitTime . TotalMilliseconds ) , 0 ) ) ;

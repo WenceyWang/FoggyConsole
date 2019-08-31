@@ -56,6 +56,10 @@ namespace DreamRecorder . FoggyConsole
 
 		public Func <Control> PrepareViewRoot { get ; set ; }
 
+		public ConsoleColor? DefaultBackgroundColor { get ; set ; }
+
+		public ConsoleColor? DefaultForegroundColor { get ; set ; }
+
 		public Application ( [NotNull] IConsole console , [NotNull] Func <Control> prepareViewRoot )
 		{
 			PropertyChanged += ApplicationBase_PropertyChanged ;
