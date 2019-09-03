@@ -34,9 +34,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
 						area [ x , 0 ] = new ConsoleChar (
-														Control . Text [ x ] ,
-														Control . ActualForegroundColor ,
-														Control . ActualBackgroundColor ) ;
+														  Control . Text [ x ] ,
+														  Control . ActualForegroundColor ,
+														  Control . ActualBackgroundColor ) ;
 					}
 
 					break ;
@@ -48,9 +48,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					for ( int x = 0 ; x < Control . ActualWidth && x < Control . Text . Length ; x++ )
 					{
 						area [ x + startPosition , 0 ] = new ConsoleChar (
-																		Control . Text [ x ] ,
-																		Control . ActualForegroundColor ,
-																		Control . ActualBackgroundColor ) ;
+																		  Control . Text [ x ] ,
+																		  Control . ActualForegroundColor ,
+																		  Control . ActualBackgroundColor ) ;
 					}
 
 					break ;
@@ -62,9 +62,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					{
 						area [ Control . ActualWidth - Control . Text . Length + x , 0 ] =
 							new ConsoleChar (
-											Control . Text [ x ] ,
-											Control . ActualForegroundColor ,
-											Control . ActualBackgroundColor ) ;
+											 Control . Text [ x ] ,
+											 Control . ActualForegroundColor ,
+											 Control . ActualBackgroundColor ) ;
 					}
 
 					break ;

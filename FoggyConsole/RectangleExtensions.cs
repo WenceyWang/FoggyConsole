@@ -43,8 +43,8 @@ namespace DreamRecorder . FoggyConsole
 				if ( targetRect . Right > baseRect . Right )
 				{
 					return Math . Max (
-										baseRect . Left    - targetRect . Left ,
-										targetRect . Right - targetRect . Right ) ;
+									   baseRect . Left    - targetRect . Left ,
+									   targetRect . Right - targetRect . Right ) ;
 				}
 
 				return targetRect . Left - baseRect . Left ;
@@ -90,8 +90,8 @@ namespace DreamRecorder . FoggyConsole
 				if ( targetRect . Bottom > baseRect . Bottom )
 				{
 					return Math . Max (
-										baseRect . Top      - targetRect . Top ,
-										targetRect . Bottom - targetRect . Bottom ) ;
+									   baseRect . Top      - targetRect . Top ,
+									   targetRect . Bottom - targetRect . Bottom ) ;
 				}
 
 				return targetRect . Top - baseRect . Top ;

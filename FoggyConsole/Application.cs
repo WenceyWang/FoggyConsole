@@ -56,9 +56,9 @@ namespace DreamRecorder . FoggyConsole
 
 		public Func <Control> PrepareViewRoot { get ; set ; }
 
-		public ConsoleColor? DefaultBackgroundColor { get ; set ; }
+		public ConsoleColor ? DefaultBackgroundColor { get ; set ; }
 
-		public ConsoleColor? DefaultForegroundColor { get ; set ; }
+		public ConsoleColor ? DefaultForegroundColor { get ; set ; }
 
 		public Application ( [NotNull] IConsole console , [NotNull] Func <Control> prepareViewRoot )
 		{
@@ -96,12 +96,16 @@ namespace DreamRecorder . FoggyConsole
 		{
 			ViewRoot . Content = PrepareViewRoot ? . Invoke ( ) ;
 
-			Console . KeyPressed += KeyWatcherOnKeyPressed ;
+			Console . KeyPressed  += KeyWatcherOnKeyPressed ;
+			Console . SizeChanged += Console_SizeChanged ;
 			Console . Start ( ) ;
 
 			ViewRoot . Enabled = true ;
 			ViewRoot . ResumeRedraw ( ) ;
 		}
+
+		private void Console_SizeChanged ( object sender , ConsoleSizeChangedEvnetArgs e )
+			=> ViewRoot . RequestUpdateDisplay ( ) ;
 
 		public event EventHandler Stopped ;
 

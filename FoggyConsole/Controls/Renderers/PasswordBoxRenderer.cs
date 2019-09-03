@@ -20,9 +20,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 					if ( x + y * Control . ActualHeight < Control . Text . Length )
 					{
 						area [ x , y ] = new ConsoleChar (
-														Control . PasswordChar ,
-														Control . ActualForegroundColor ,
-														Control . ActualBackgroundColor ) ;
+														  Control . PasswordChar ,
+														  Control . ActualForegroundColor ,
+														  Control . ActualBackgroundColor ) ;
 					}
 					else
 					{

@@ -196,9 +196,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 
 			return Items . Where (
-								control
-									=> StartAt [ control ] . X == columnIndex && BlockSize [ control ] . Width == 1 ) .
-							ToList ( ) ;
+								  control
+									  => StartAt [ control ] . X          == columnIndex
+										 && BlockSize [ control ] . Width == 1 ) .
+						   ToList ( ) ;
 		}
 
 		public IReadOnlyCollection <Control> GetInsideControls ( [NotNull] Row row )
@@ -216,9 +217,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 
 			return Items . Where (
-								control
-									=> StartAt [ control ] . Y == rowIndex && BlockSize [ control ] . Height == 1 ) .
-							ToList ( ) ;
+								  control
+									  => StartAt [ control ] . Y == rowIndex && BlockSize [ control ] . Height == 1 ) .
+						   ToList ( ) ;
 		}
 
 		public override void Measure ( Size availableSize )
@@ -550,9 +551,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 				}
 
 				control . Arrange (
-									new Rectangle (
-													finalRect . LeftTopPoint . Offset ( left , top ) ,
-													new Size ( width , height ) ) ) ;
+								   new Rectangle (
+												  finalRect . LeftTopPoint . Offset ( left , top ) ,
+												  new Size ( width , height ) ) ) ;
 			}
 
 			base . ArrangeOverride ( finalRect ) ;

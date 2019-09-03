@@ -17,13 +17,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		private int _redrawPausedLevel = 1 ;
 
+		public bool UpdateDisplayRequested ;
+
 		public int RedrawPausedLevel
 		{
 			get => _redrawPausedLevel ;
 			private set
 			{
-				_redrawPausedLevel = value ;
-				Logger . LogTrace ( $"{nameof ( RedrawPausedLevel )} : {value}" ) ;
+				_redrawPausedLevel = Math . Max ( value , 0 ) ;
+				Logger . LogTrace ( $"{nameof ( RedrawPausedLevel )} : {_redrawPausedLevel}" ) ;
 			}
 		}
 
@@ -49,12 +51,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public void ResumeRedraw ( )
 		{
-			RedrawPausedLevel = Math . Max ( RedrawPausedLevel - 1 , 0 ) ;
-
-			if ( RedrawPausedLevel == 0 )
-			{
-				RequestUpdateDisplay ( ) ;
-			}
+			RedrawPausedLevel-- ;
+			RequestUpdateDisplay ( ) ;
 		}
 
 		protected override void RequestMeasure ( )
@@ -67,7 +65,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 				Arrange ( new Rectangle ( Size ) ) ;
 				Draw ( ) ;
 
-				RedrawPausedLevel = Math . Max ( RedrawPausedLevel - 1 , 0 ) ;
+				RedrawPausedLevel-- ;
+
+				if ( UpdateDisplayRequested )
+				{
+					UpdateDisplayRequested = false ;
+					RequestUpdateDisplay ( ) ;
+				}
+			}
+			else
+			{
+				UpdateDisplayRequested = true ;
 			}
 		}
 
@@ -79,7 +87,16 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				Draw ( ) ;
 
-				RedrawPausedLevel = Math . Max ( RedrawPausedLevel - 1 , 0 ) ;
+				RedrawPausedLevel-- ;
+				if ( UpdateDisplayRequested )
+				{
+					UpdateDisplayRequested = false ;
+					RequestUpdateDisplay ( ) ;
+				}
+			}
+			else
+			{
+				UpdateDisplayRequested = true ;
 			}
 		}
 

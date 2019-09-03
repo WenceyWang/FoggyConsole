@@ -50,8 +50,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			get
 			{
 				string [ ] lines = Text . Split (
-												Environment . NewLine . ToCharArray ( ) ,
-												StringSplitOptions . None ) ;
+												 Environment . NewLine . ToCharArray ( ) ,
+												 StringSplitOptions . None ) ;
 				return new Size ( lines . Max ( str => str . Length ) , lines . Length ) ;
 			}
 		}

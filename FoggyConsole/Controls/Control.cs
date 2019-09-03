@@ -155,7 +155,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public int ActualHeight => ActualSize . Height ;
 
 		public ConsoleColor ActualBackgroundColor
-			=> _backgroundColor ?? Container ? . ActualBackgroundColor?? ViewRoot?.Application?.DefaultBackgroundColor ?? ConsoleChar . DefaultBackgroundColor ;
+			=> _backgroundColor
+			   ?? Container ? . ActualBackgroundColor
+			   ?? ViewRoot ? . Application ? . DefaultBackgroundColor ?? ConsoleChar . DefaultBackgroundColor ;
 
 		/// <summary>
 		///     The background-color
@@ -174,7 +176,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 		public ConsoleColor ActualForegroundColor
-			=> _foregroundColor ?? Container ? . ActualForegroundColor?? ViewRoot?.Application?. DefaultForegroundColor ?? ConsoleChar . DefaultForegroundColor ;
+			=> _foregroundColor
+			   ?? Container ? . ActualForegroundColor
+			   ?? ViewRoot ? . Application ? . DefaultForegroundColor ?? ConsoleChar . DefaultForegroundColor ;
 
 		/// <summary>
 		///     The foreground-color
@@ -199,8 +203,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				if ( _boarderStyle != value )
 				{
-					bool needRearrange = _boarderStyle   == null && value != null
-										|| _boarderStyle != null && value == null ;
+					bool needRearrange = _boarderStyle    == null && value != null
+										 || _boarderStyle != null && value == null ;
 
 					_boarderStyle = value ;
 					if ( needRearrange )
@@ -263,12 +267,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 			get => _renderer ;
 			set
 			{
-				if ( value ? . Control != null
-					&& value . Control != this )
+				if ( value ? . Control  != null
+					 && value . Control != this )
 				{
 					throw new ArgumentException (
-												$"{nameof ( Renderer )} already has an other {nameof ( Control )} assigned." ,
-												nameof ( value ) ) ;
+												 $"{nameof ( Renderer )} already has an other {nameof ( Control )} assigned." ,
+												 nameof ( value ) ) ;
 				}
 
 				_renderer = value ;

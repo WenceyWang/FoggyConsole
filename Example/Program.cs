@@ -3,12 +3,10 @@ using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 using System . Net ;
-using System.Net.Sockets;
-using System.IO.Ports;
+using System . Net . Sockets ;
 
 using DreamRecorder . FoggyConsole ;
 using DreamRecorder . FoggyConsole . Controls ;
-using DreamRecorder . FoggyConsole . LocalConsole ;
 using DreamRecorder . FoggyConsole . XtermConsole ;
 using DreamRecorder . ToolBox . CommandLine ;
 
@@ -40,19 +38,19 @@ namespace Example
 
 		public override void Start ( string [ ] args )
 		{
-			SerialPort port = new SerialPort ( "COM7" ) ;
+			//    SerialPort port = new SerialPort("COM7");
 
-			port . Open ( ) ;
+			//    port.Open();
 
-            //TcpListener listener = new TcpListener(IPAddress.Any, 5678);
+			TcpListener listener = new TcpListener ( IPAddress . Any , 5678 ) ;
 
-            //listener.Start();
+			listener . Start ( ) ;
 
-            //TcpClient connection = listener.AcceptTcpClient();
+			TcpClient connection = listener . AcceptTcpClient ( ) ;
 
-            XtermConsole console = new XtermConsole(port.BaseStream);
+			XtermConsole console = new XtermConsole ( connection . GetStream ( ) ) ;
 
-            Application = new Application (console , PrepareViewRoot ) ;
+			Application = new Application ( console , PrepareViewRoot ) ;
 
 			Application . Start ( ) ;
 		}
@@ -66,9 +64,9 @@ namespace Example
 		public override void ShowLogo ( )
 		{
 			Console . WriteLine (
-								new AsciiArt (
-											"Foggy Console Example" ,
-											width : CharacterWidth . Smush ) . ToString ( ) ) ;
+								 new AsciiArt (
+											   "Foggy Console Example" ,
+											   width : CharacterWidth . Smush ) . ToString ( ) ) ;
 		}
 
 		public override void ShowCopyright ( ) { Console . WriteLine ( "Copyright" ) ; }
@@ -86,12 +84,12 @@ namespace Example
 			Button buttonA = new Button { Name = "buttonA" , Text = "A" , KeyBind = 'A' } ;
 			panel . Items . Add ( buttonA ) ;
 			Button buttonB = new Button
-							{
-								Name            = "buttonB" ,
-								Text            = "B" ,
-								KeyBind         = 'B' ,
-								HorizontalAlign = ContentHorizontalAlign . Right
-							} ;
+							 {
+								 Name            = "buttonB" ,
+								 Text            = "B" ,
+								 KeyBind         = 'B' ,
+								 HorizontalAlign = ContentHorizontalAlign . Right
+							 } ;
 			panel . Items . Add ( buttonB ) ;
 
 
@@ -101,9 +99,8 @@ namespace Example
 									Text            = "Exit" ,
 									KeyBind         = 'E' ,
 									BoarderStyle    = LineStyle . SingleLinesSet ,
-									AllowSingleLine = false,
-									ForegroundColor=ConsoleColor.Red
-
+									AllowSingleLine = false ,
+									ForegroundColor = ConsoleColor . Red
 								} ;
 			panel . Items . Add ( buttonExit ) ;
 
@@ -130,12 +127,12 @@ namespace Example
 			panel . Items . Add ( grid ) ;
 
 			Button buttonE = new Button
-							{
-								Name            = "buttonE" ,
-								Text            = "E" ,
-								KeyBind         = 'E' ,
-								HorizontalAlign = ContentHorizontalAlign . Center
-							} ;
+							 {
+								 Name            = "buttonE" ,
+								 Text            = "E" ,
+								 KeyBind         = 'E' ,
+								 HorizontalAlign = ContentHorizontalAlign . Center
+							 } ;
 			grid . Items . Add ( buttonE ) ;
 
 			//Canvas canvas = new Canvas ( ) ;

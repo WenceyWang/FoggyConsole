@@ -20,9 +20,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				for ( int x = 0 ; x < area . Size . Width && x < Control . ActualText [ y ] . Length ; x++ )
 				{
 					area [ x , y ] = new ConsoleChar (
-													Control . ActualText [ y ] [ x ] ,
-													Control . ActualForegroundColor ,
-													Control . ActualBackgroundColor ) ;
+													  Control . ActualText [ y ] [ x ] ,
+													  Control . ActualForegroundColor ,
+													  Control . ActualBackgroundColor ) ;
 				}
 			}
 		}

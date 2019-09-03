@@ -87,8 +87,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			get => _value ;
 			set
 			{
-				if ( value   < MinValue
-					|| value > MaxValue )
+				if ( value    < MinValue
+					 || value > MaxValue )
 				{
 					throw new ArgumentOutOfRangeException ( nameof ( value ) ) ;
 				}

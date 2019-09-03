@@ -30,7 +30,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				if ( value . Contains ( Environment . NewLine ) )
 				{
 					throw new ArgumentException (
-												$"{nameof ( Header )} can't contain line feeds or carriage returns." ) ;
+												 $"{nameof ( Header )} can't contain line feeds or carriage returns." ) ;
 				}
 
 				if ( _header != value )

@@ -117,8 +117,6 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 													NewSize = newSize , OldSize = LastRenderedSize
 												} ) ;
 
-						Application . ViewRoot . ResumeRedraw ( ) ;
-
 						isPaused = false ;
 					}
 				}
@@ -127,8 +125,6 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 					if ( ! isPaused )
 					{
 						LastRenderedSize = PreviousSize ;
-
-						Application . ViewRoot . PauseRedraw ( ) ;
 
 						isPaused = true ;
 					}
@@ -143,7 +139,7 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 				}
 
 				TimeSpan waitTime = lastUpdate - DateTime . Now ;
-				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit) ;
+				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
 
 				Thread . Yield ( ) ;
 				Thread . Sleep ( Math . Max ( Convert . ToInt32 ( waitTime . TotalMilliseconds ) , 0 ) ) ;
@@ -185,8 +181,8 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 						ConsoleColor targetForegroundColor = currentPosition . ForegroundColor ;
 
 						if ( CurrentBackgroundColor != targetBackgroundColor
-							|| CurrentForegroundColor != targetForegroundColor
-							&& ! char . IsWhiteSpace ( currentPosition . Character ) )
+							 || CurrentForegroundColor != targetForegroundColor
+							 && ! char . IsWhiteSpace ( currentPosition . Character ) )
 						{
 							Write ( stringBuilder ) ;
 

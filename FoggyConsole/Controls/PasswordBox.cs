@@ -83,8 +83,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override bool CanFocusedOn => Enabled ;
 
 		public PasswordBox ( ControlRenderer <PasswordBox> renderer = null ) : base (
-																					renderer
-																					?? new PasswordBoxRenderer ( ) )
+																					 renderer
+																					 ?? new PasswordBoxRenderer ( ) )
 		{
 		}
 
@@ -141,8 +141,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 				case ConsoleKey . Backspace :
 				{
 					args . Handled = true ;
-					if ( Text . Length    != 0
-						&& CursorPosition > 0 )
+					if ( Text . Length     != 0
+						 && CursorPosition > 0 )
 					{
 						Text . RemoveAt ( CursorPosition - 1 ) ;
 						CursorPosition-- ;
@@ -154,8 +154,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 				case ConsoleKey . Delete :
 				{
 					args . Handled = true ;
-					if ( Text . Length    != 0
-						&& CursorPosition < Text . Length )
+					if ( Text . Length     != 0
+						 && CursorPosition < Text . Length )
 					{
 						Text . RemoveAt ( CursorPosition + 1 ) ;
 					}

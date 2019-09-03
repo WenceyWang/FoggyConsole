@@ -11,58 +11,58 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 
 		public const char Esc = '\u001B' ;
 
-		public static readonly char [ ] Csi = {Esc, '[' } ;
+		public static readonly char [ ] Csi = { Esc , '[' } ;
 
 		public static readonly char [ ] Bel = { '\u0007' } ;
 
-		public static readonly char [ ] Ss2 = { Esc, 'N' } ;
+		public static readonly char [ ] Ss2 = { Esc , 'N' } ;
 
-		public static readonly char [ ] Ss3 = { Esc, 'O' } ;
+		public static readonly char [ ] Ss3 = { Esc , 'O' } ;
 
-		public static readonly char [ ] St = { Esc, '\\' } ;
+		public static readonly char [ ] St = { Esc , '\\' } ;
 
-		public static readonly char [ ] Osc = { Esc, ']' } ;
+		public static readonly char [ ] Osc = { Esc , ']' } ;
 
 
 		public static byte [ ] CmdNewline = { 10 } ;
 
-		public static byte [ ] CmdEsc = {(byte) Esc } ;
+		public static byte [ ] CmdEsc = { ( byte ) Esc } ;
 
 		public static byte [ ] CmdDel = { 0x7f } ;
 
-		public static byte [ ] CmdDelKey = { (byte)Esc , ( byte ) '[' , ( byte ) '3' , ( byte ) '~' } ;
+		public static byte [ ] CmdDelKey = { ( byte ) Esc , ( byte ) '[' , ( byte ) '3' , ( byte ) '~' } ;
 
-		public static byte [ ] MoveUpApp = { (byte)Esc , ( byte ) 'O' , ( byte ) 'A' } ;
+		public static byte [ ] MoveUpApp = { ( byte ) Esc , ( byte ) 'O' , ( byte ) 'A' } ;
 
-		public static byte [ ] MoveUpNormal = { (byte)Esc , ( byte ) '[' , ( byte ) 'A' } ;
+		public static byte [ ] MoveUpNormal = { ( byte ) Esc , ( byte ) '[' , ( byte ) 'A' } ;
 
-		public static byte [ ] MoveDownApp = { (byte)Esc , ( byte ) 'O' , ( byte ) 'B' } ;
+		public static byte [ ] MoveDownApp = { ( byte ) Esc , ( byte ) 'O' , ( byte ) 'B' } ;
 
-		public static byte [ ] MoveDownNormal = { (byte)Esc , ( byte ) '[' , ( byte ) 'B' } ;
+		public static byte [ ] MoveDownNormal = { ( byte ) Esc , ( byte ) '[' , ( byte ) 'B' } ;
 
-		public static byte [ ] MoveLeftApp = { (byte)Esc , ( byte ) 'O' , ( byte ) 'D' } ;
+		public static byte [ ] MoveLeftApp = { ( byte ) Esc , ( byte ) 'O' , ( byte ) 'D' } ;
 
-		public static byte [ ] MoveLeftNormal = { (byte)Esc , ( byte ) '[' , ( byte ) 'D' } ;
+		public static byte [ ] MoveLeftNormal = { ( byte ) Esc , ( byte ) '[' , ( byte ) 'D' } ;
 
-		public static byte [ ] MoveRightApp = { (byte)Esc , ( byte ) 'O' , ( byte ) 'C' } ;
+		public static byte [ ] MoveRightApp = { ( byte ) Esc , ( byte ) 'O' , ( byte ) 'C' } ;
 
-		public static byte [ ] MoveRightNormal = { (byte)Esc , ( byte ) '[' , ( byte ) 'C' } ;
+		public static byte [ ] MoveRightNormal = { ( byte ) Esc , ( byte ) '[' , ( byte ) 'C' } ;
 
-		public static byte [ ] MoveHomeApp = { (byte)Esc , ( byte ) 'O' , ( byte ) 'H' } ;
+		public static byte [ ] MoveHomeApp = { ( byte ) Esc , ( byte ) 'O' , ( byte ) 'H' } ;
 
-		public static byte [ ] MoveHomeNormal = { (byte)Esc , ( byte ) '[' , ( byte ) 'H' } ;
+		public static byte [ ] MoveHomeNormal = { ( byte ) Esc , ( byte ) '[' , ( byte ) 'H' } ;
 
-		public static byte [ ] MoveEndApp = { (byte)Esc , ( byte ) 'O' , ( byte ) 'F' } ;
+		public static byte [ ] MoveEndApp = { ( byte ) Esc , ( byte ) 'O' , ( byte ) 'F' } ;
 
-		public static byte [ ] MoveEndNormal = { (byte)Esc , ( byte ) '[' , ( byte ) 'F' } ;
+		public static byte [ ] MoveEndNormal = { ( byte ) Esc , ( byte ) '[' , ( byte ) 'F' } ;
 
 		public static byte [ ] CmdTab = { 9 } ;
 
-		public static byte [ ] CmdBackTab = { (byte)Esc , ( byte ) '[' , ( byte ) 'Z' } ;
+		public static byte [ ] CmdBackTab = { ( byte ) Esc , ( byte ) '[' , ( byte ) 'Z' } ;
 
-		public static byte [ ] CmdPageUp = { (byte)Esc , ( byte ) '[' , ( byte ) '5' , ( byte ) '~' } ;
+		public static byte [ ] CmdPageUp = { ( byte ) Esc , ( byte ) '[' , ( byte ) '5' , ( byte ) '~' } ;
 
-		public static byte [ ] CmdPageDown = { (byte)Esc , ( byte ) '[' , ( byte ) '6' , ( byte ) '~' } ;
+		public static byte [ ] CmdPageDown = { ( byte ) Esc , ( byte ) '[' , ( byte ) '6' , ( byte ) '~' } ;
 
 		public static byte [ ] [ ] CmdF =
 		{

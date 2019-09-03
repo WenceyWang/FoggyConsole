@@ -14,9 +14,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override bool CanFocusedOn => false ;
 
 		public HorizontalStackPanel ( IControlRenderer renderer = null ) : base (
-																				renderer
-																				?? new ItemsContainerRenderer <
-																					HorizontalStackPanel> ( ) )
+																				 renderer
+																				 ?? new ItemsContainerRenderer <
+																					 HorizontalStackPanel> ( ) )
 		{
 		}
 
@@ -51,9 +51,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 					{
 						int controlHeight = Math . Min ( finalRect . Height , control . DesiredSize . Height ) ;
 						arrangeLocation = finalRect . LeftTopPoint . Offset (
-																			currentWidth ,
-																			( finalRect . Height - controlHeight )
-																			/ 2 ) ;
+																			 currentWidth ,
+																			 ( finalRect . Height - controlHeight )
+																			 / 2 ) ;
 						arrangeSize = new Size (
 												Math . Min (
 															Math . Max ( finalRect . Width - currentWidth , 0 ) ,

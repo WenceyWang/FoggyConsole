@@ -51,13 +51,13 @@ namespace DreamRecorder . FoggyConsole . Controls
 		{
 			IEnumerable <RadioButton> radioButtons =
 				( Page . Container as ItemsContainer ) ? . Items ? . OfType <RadioButton> ( ) ? .
-															Where ( cb => cb . ComboBoxGroup == ComboBoxGroup ) ;
+														   Where ( cb => cb . ComboBoxGroup == ComboBoxGroup ) ;
 			if ( radioButtons != null )
 			{
 				foreach ( RadioButton radioButton in radioButtons )
 				{
-					if ( radioButton           != this
-						&& radioButton . State != CheckState . Unchecked )
+					if ( radioButton            != this
+						 && radioButton . State != CheckState . Unchecked )
 					{
 						radioButton . State = CheckState . Unchecked ;
 					}

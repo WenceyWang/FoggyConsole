@@ -20,7 +20,7 @@ namespace DreamRecorder . FoggyConsole
 			OldSize = oldSize ;
 		}
 
-		public ConsoleSizeChangedEvnetArgs ( ) {  }
+		public ConsoleSizeChangedEvnetArgs ( ) { }
 
 	}
 

@@ -19,14 +19,14 @@ namespace DreamRecorder . FoggyConsole
 		{
 			get
 			{
-				if ( x   < 0
-					|| x >= Size . Width )
+				if ( x    < 0
+					 || x >= Size . Width )
 				{
 					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
 				}
 
-				if ( y   < 0
-					|| y >= Size . Height )
+				if ( y    < 0
+					 || y >= Size . Height )
 				{
 					throw new ArgumentOutOfRangeException ( nameof ( y ) ) ;
 				}
@@ -35,8 +35,8 @@ namespace DreamRecorder . FoggyConsole
 			}
 			set
 			{
-				if ( x   < 0
-					|| x >= Size . Width )
+				if ( x    < 0
+					 || x >= Size . Width )
 				{
 #if DEBUG
 					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
@@ -45,8 +45,8 @@ namespace DreamRecorder . FoggyConsole
 					return ;
 				}
 
-				if ( y   < 0
-					|| y >= Size . Height )
+				if ( y    < 0
+					 || y >= Size . Height )
 				{
 #if DEBUG
 					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
@@ -71,7 +71,7 @@ namespace DreamRecorder . FoggyConsole
 			{
 #if DEBUG
 				throw new ArgumentException (
-											$"{nameof ( subRectangle )} should be contain in {nameof ( area )}.{nameof ( area . Position )}" ) ;
+											 $"{nameof ( subRectangle )} should be contain in {nameof ( area )}.{nameof ( area . Position )}" ) ;
 #endif
 				subRectangle = area . Position . Intersect ( subRectangle ) ;
 			}
@@ -82,8 +82,10 @@ namespace DreamRecorder . FoggyConsole
 		}
 
 		public ConsoleArea ( Size size , ConsoleColor color ) : this (
-																	size ,
-																	new ConsoleChar ( ' ' , backgroundColor : color ) )
+																	  size ,
+																	  new ConsoleChar (
+																					   ' ' ,
+																					   backgroundColor : color ) )
 		{
 		}
 

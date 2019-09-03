@@ -26,12 +26,12 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			get => _control ;
 			set
 			{
-				if ( value . Renderer   != null
-					&& value . Renderer != this )
+				if ( value . Renderer    != null
+					 && value . Renderer != this )
 				{
 					throw new ArgumentException (
-												$"{nameof ( Control )} already has a Renderer assigned" ,
-												nameof ( value ) ) ;
+												 $"{nameof ( Control )} already has a Renderer assigned" ,
+												 nameof ( value ) ) ;
 				}
 
 				_control = value ;
@@ -43,8 +43,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			get => Control ;
 			set
 				=> Control = value as T
-							?? throw new ArgumentException (
-															$"{nameof ( Control )} has to be of {typeof ( T ) . Name}" )
+							 ?? throw new ArgumentException (
+															 $"{nameof ( Control )} has to be of {typeof ( T ) . Name}" )
 			;
 		}
 

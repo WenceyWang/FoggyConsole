@@ -43,22 +43,22 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public Control CrateControl ( XElement control , [CanBeNull] ContainerBase container = null )
 		{
 			List <TypeInfo> controlTypes = AppDomain . CurrentDomain . GetAssemblies ( ) .
-														SelectMany (
-																	assembly
-																		=> assembly . DefinedTypes . Where (
-																											type
-																												=> type .
-																													IsSubclassOf (
-																																typeof
-																																(
-																																	Control
-																																) ) ) ) .
-														ToList ( ) ;
+													   SelectMany (
+																   assembly
+																	   => assembly . DefinedTypes . Where (
+																										   type
+																											   => type .
+																												   IsSubclassOf (
+																																 typeof
+																																 (
+																																	 Control
+																																 ) ) ) ) .
+													   ToList ( ) ;
 
 			Type controlType = controlTypes . FirstOrDefault ( type => type . Name == control . Name ) ? . AsType ( )
-								?? controlTypes . FirstOrDefault (
-																type
-																	=> type . Name
+							   ?? controlTypes . FirstOrDefault (
+																 type
+																	 => type . Name
 																		== typeof ( Page ) . Namespace
 																		+ "."
 																		+ control . Name ) ;
@@ -90,37 +90,37 @@ namespace DreamRecorder . FoggyConsole . Controls
 						PropertyInfo property =
 							container . GetType ( ) .
 										GetProperty (
-													"Item" ,
-													BindingFlags . Instance
-													| BindingFlags . IgnoreCase
-													| BindingFlags . NonPublic
-													| BindingFlags . Public
-													| BindingFlags . SetProperty ) ;
+													 "Item" ,
+													 BindingFlags . Instance
+													 | BindingFlags . IgnoreCase
+													 | BindingFlags . NonPublic
+													 | BindingFlags . Public
+													 | BindingFlags . SetProperty ) ;
 
 						if ( property != null )
 						{
 							property . SetValue (
-												container ,
-												attribute . Value . ParseTo ( property . PropertyType ) ,
-												new object [ ] { currentControl } ) ;
+												 container ,
+												 attribute . Value . ParseTo ( property . PropertyType ) ,
+												 new object [ ] { currentControl } ) ;
 						}
 					}
 				}
 				else
 				{
 					PropertyInfo property = controlType . GetProperty (
-																		propertyName ,
-																		BindingFlags . Instance
-																		| BindingFlags . IgnoreCase
-																		| BindingFlags . NonPublic
-																		| BindingFlags . Public
-																		| BindingFlags . SetProperty ) ;
+																	   propertyName ,
+																	   BindingFlags . Instance
+																	   | BindingFlags . IgnoreCase
+																	   | BindingFlags . NonPublic
+																	   | BindingFlags . Public
+																	   | BindingFlags . SetProperty ) ;
 
 					if ( property != null )
 					{
 						property . SetValue (
-											currentControl ,
-											attribute . Value . ParseTo ( property . PropertyType ) ) ;
+											 currentControl ,
+											 attribute . Value . ParseTo ( property . PropertyType ) ) ;
 					}
 				}
 			}

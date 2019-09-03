@@ -45,8 +45,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 					{
 						int controlWidth = Math . Min ( finalRect . Width , control . DesiredSize . Width ) ;
 						arrangeLocation = finalRect . LeftTopPoint . Offset (
-																			( finalRect . Width - controlWidth ) / 2 ,
-																			currentHeight ) ;
+																			 ( finalRect . Width - controlWidth ) / 2 ,
+																			 currentHeight ) ;
 						arrangeSize = new Size (
 												controlWidth ,
 												Math . Min (
@@ -59,8 +59,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 					{
 						int controlWidth = Math . Min ( finalRect . Width , control . DesiredSize . Width ) ;
 						arrangeLocation = finalRect . LeftTopPoint . Offset (
-																			finalRect . Width - controlWidth ,
-																			currentHeight ) ;
+																			 finalRect . Width - controlWidth ,
+																			 currentHeight ) ;
 						arrangeSize = new Size (
 												controlWidth ,
 												Math . Min (

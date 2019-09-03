@@ -285,10 +285,10 @@ namespace DreamRecorder . FoggyConsole
 		public static Rectangle Union ( Rectangle rect1 , Rectangle rect2 ) => rect1 . Union ( rect2 ) ;
 
 		public bool Contain ( Rectangle subRectangle )
-			=> subRectangle . Top        >= Top
-				&& subRectangle . Bottom <= Bottom
-				&& subRectangle . Left   >= Left
-				&& subRectangle . Right  <= Right ;
+			=> subRectangle . Top       >= Top
+			   && subRectangle . Bottom <= Bottom
+			   && subRectangle . Left   >= Left
+			   && subRectangle . Right  <= Right ;
 
 		public static bool Contain ( Rectangle rectangle , Rectangle subRectangle )
 			=> rectangle . Contain ( subRectangle ) ;

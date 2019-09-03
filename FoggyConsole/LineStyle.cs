@@ -166,20 +166,20 @@ namespace DreamRecorder . FoggyConsole
 		}
 
 		public bool Equals ( LineStyle other )
-			=> TopLeftCorner                == other . TopLeftCorner
-				&& TopRightCorner           == other . TopRightCorner
-				&& BottomLeftCorner         == other . BottomLeftCorner
-				&& BottomRightCorner        == other . BottomRightCorner
-				&& VerticalEdge             == other . VerticalEdge
-				&& HorizontalEdge           == other . HorizontalEdge
-				&& ConnectionHorizontalUp   == other . ConnectionHorizontalUp
-				&& ConnectionHorizontalDown == other . ConnectionHorizontalDown
-				&& ConnectionVerticalRight  == other . ConnectionVerticalRight
-				&& ConnectionVerticalLeft   == other . ConnectionVerticalLeft
-				&& ConnectionCross          == other . ConnectionCross
-				&& SingleLineLeftEdge       == other . SingleLineLeftEdge
-				&& SingleLineRightEdge      == other . SingleLineRightEdge
-				&& EmptyChar                == other . EmptyChar ;
+			=> TopLeftCorner               == other . TopLeftCorner
+			   && TopRightCorner           == other . TopRightCorner
+			   && BottomLeftCorner         == other . BottomLeftCorner
+			   && BottomRightCorner        == other . BottomRightCorner
+			   && VerticalEdge             == other . VerticalEdge
+			   && HorizontalEdge           == other . HorizontalEdge
+			   && ConnectionHorizontalUp   == other . ConnectionHorizontalUp
+			   && ConnectionHorizontalDown == other . ConnectionHorizontalDown
+			   && ConnectionVerticalRight  == other . ConnectionVerticalRight
+			   && ConnectionVerticalLeft   == other . ConnectionVerticalLeft
+			   && ConnectionCross          == other . ConnectionCross
+			   && SingleLineLeftEdge       == other . SingleLineLeftEdge
+			   && SingleLineRightEdge      == other . SingleLineRightEdge
+			   && EmptyChar                == other . EmptyChar ;
 
 		public override bool Equals ( object obj ) => obj is LineStyle other && Equals ( other ) ;
 
@@ -213,20 +213,20 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public static LineStyle CornerOnlySingleLineSet
 			=> new LineStyle (
-							'\u250C' , // ┌
-							'\u2510' , // ┐
-							'\u2514' , // └
-							'\u2518' , // ┘
-							' ' ,
-							' ' ,
-							'[' ,
-							']' ,
-							'\u2534' , // ┴
-							'\u252C' , // ┬
-							'\u251C' , // ├
-							'\u2524' , // ┤
-							'\u253C' , // ┼
-							' ' ) ;
+							  '\u250C' , // ┌
+							  '\u2510' , // ┐
+							  '\u2514' , // └
+							  '\u2518' , // ┘
+							  ' ' ,
+							  ' ' ,
+							  '[' ,
+							  ']' ,
+							  '\u2534' , // ┴
+							  '\u252C' , // ┬
+							  '\u251C' , // ├
+							  '\u2524' , // ┤
+							  '\u253C' , // ┼
+							  ' ' ) ;
 
 		/// <summary>
 		///     A
@@ -236,20 +236,20 @@ namespace DreamRecorder . FoggyConsole
 		/// <returns></returns>
 		public static LineStyle SingleLinesSet
 			=> new LineStyle (
-							'\u250C' , // ┌
-							'\u2510' , // ┐
-							'\u2514' , // └
-							'\u2518' , // ┘
-							'\u2502' , // │
-							'\u2500' , // ─
-							'[' ,
-							']' ,
-							'\u2534' , // ┴
-							'\u252C' , // ┬
-							'\u251C' , // ├
-							'\u2524' , // ┤
-							'\u253C' , // ┼
-							' ' ) ;
+							  '\u250C' , // ┌
+							  '\u2510' , // ┐
+							  '\u2514' , // └
+							  '\u2518' , // ┘
+							  '\u2502' , // │
+							  '\u2500' , // ─
+							  '[' ,
+							  ']' ,
+							  '\u2534' , // ┴
+							  '\u252C' , // ┬
+							  '\u251C' , // ├
+							  '\u2524' , // ┤
+							  '\u253C' , // ┼
+							  ' ' ) ;
 
 		/// <summary>
 		///     A
@@ -258,20 +258,20 @@ namespace DreamRecorder . FoggyConsole
 		/// </summary>
 		public static LineStyle DoubleLinesSet
 			=> new LineStyle (
-							'\u2554' , // ╔
-							'\u2557' , // ╗
-							'\u255A' , // ╚
-							'\u255D' , // ╝
-							'\u2551' , // ║
-							'\u2550' , // ═
-							'⟦' ,
-							'⟧' ,
-							'\u2569' , // ╩
-							'\u2566' , // ╦
-							'\u2560' , // ╠
-							'\u2563' , // ╣
-							'\u256C' , // ╬
-							' ' ) ;
+							  '\u2554' , // ╔
+							  '\u2557' , // ╗
+							  '\u255A' , // ╚
+							  '\u255D' , // ╝
+							  '\u2551' , // ║
+							  '\u2550' , // ═
+							  '⟦' ,
+							  '⟧' ,
+							  '\u2569' , // ╩
+							  '\u2566' , // ╦
+							  '\u2560' , // ╠
+							  '\u2563' , // ╣
+							  '\u256C' , // ╬
+							  ' ' ) ;
 
 	}
 

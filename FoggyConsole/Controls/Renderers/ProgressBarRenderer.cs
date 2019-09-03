@@ -54,8 +54,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			}
 
 			int barWidth = barMaxWidth
-							* ( ( Control . Value      - Control . MinValue )
-								/ ( Control . MaxValue - Control . MinValue ) ) ;
+						   * ( ( Control . Value      - Control . MinValue )
+							   / ( Control . MaxValue - Control . MinValue ) ) ;
 
 
 			for ( int y = 0 ; y < Control . ActualHeight ; y++ )
@@ -63,9 +63,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				for ( int x = barStart ; x < barWidth ; x++ )
 				{
 					area [ x + 1 , 0 ] = new ConsoleChar (
-														Control . ProgressChar ,
-														foregroundColor ,
-														backgroundColor ) ;
+														  Control . ProgressChar ,
+														  foregroundColor ,
+														  backgroundColor ) ;
 				}
 			}
 		}

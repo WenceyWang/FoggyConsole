@@ -9,11 +9,10 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 	public static class ConsoleColorEscapeExtensions
 	{
 
-		public static string ForegroundColorToCode(this ConsoleColor color)
+		public static string ForegroundColorToCode ( this ConsoleColor color )
 		{
-			switch (color)
+			switch ( color )
 			{
-
 				/*
                 LIGHT
 				Ps = 9 0  -> Set foreground color to Black.
@@ -26,24 +25,24 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 				Ps = 9 7  -> Set foreground color to White.
 				 */
 
-				case ConsoleColor.Black:
-					return "30";
-				case ConsoleColor.Blue:
-					return "94";
-				case ConsoleColor.Cyan:
-					return "96";
-				case ConsoleColor.Gray:
-					return "37";
-				case ConsoleColor.Green:
-					return "92";
-				case ConsoleColor.Magenta:
-					return "95";
-				case ConsoleColor.Red:
-					return "91";
-				case ConsoleColor.White:
-					return "97";
-				case ConsoleColor.Yellow:
-					return "93";
+				case ConsoleColor . Black :
+					return "30" ;
+				case ConsoleColor . Blue :
+					return "94" ;
+				case ConsoleColor . Cyan :
+					return "96" ;
+				case ConsoleColor . Gray :
+					return "37" ;
+				case ConsoleColor . Green :
+					return "92" ;
+				case ConsoleColor . Magenta :
+					return "95" ;
+				case ConsoleColor . Red :
+					return "91" ;
+				case ConsoleColor . White :
+					return "97" ;
+				case ConsoleColor . Yellow :
+					return "93" ;
 
 
 				/*
@@ -58,30 +57,29 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 				 * Ps = 3 7  -> Set foreground color to White.
 				 */
 
-				case ConsoleColor.DarkBlue:
+				case ConsoleColor . DarkBlue :
 					return "34" ;
-				case ConsoleColor.DarkCyan:
+				case ConsoleColor . DarkCyan :
 					return "36" ;
-				case ConsoleColor.DarkGray:
+				case ConsoleColor . DarkGray :
 					return "90" ;
-				case ConsoleColor.DarkGreen:
+				case ConsoleColor . DarkGreen :
 					return "32" ;
-				case ConsoleColor.DarkMagenta:
-					return "35";
-				case ConsoleColor.DarkRed:
-					return "31";
-				case ConsoleColor.DarkYellow:
-					return "33";
-				default:
-					throw new ArgumentOutOfRangeException(nameof(color), color, null);
+				case ConsoleColor . DarkMagenta :
+					return "35" ;
+				case ConsoleColor . DarkRed :
+					return "31" ;
+				case ConsoleColor . DarkYellow :
+					return "33" ;
+				default :
+					throw new ArgumentOutOfRangeException ( nameof ( color ) , color , null ) ;
 			}
 		}
 
-		public static string BackgroundColorToCode(this ConsoleColor color)
+		public static string BackgroundColorToCode ( this ConsoleColor color )
 		{
-			switch (color)
+			switch ( color )
 			{
-
 				/*
                 LIGHT
 				Ps = 1 0 0  -> Set foreground color to Black.
@@ -94,24 +92,24 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 				Ps = 1 0 7  -> Set foreground color to White.
 				 */
 
-				case ConsoleColor.Black:
-					return "40";
-				case ConsoleColor.Blue:
-					return "104";
-				case ConsoleColor.Cyan:
-					return "106";
-				case ConsoleColor.Gray:
-					return "47";
-				case ConsoleColor.Green:
-					return "102";
-				case ConsoleColor.Magenta:
-					return "105";
-				case ConsoleColor.Red:
-					return "101";
-				case ConsoleColor.White:
-					return "107";
-				case ConsoleColor.Yellow:
-					return "103";
+				case ConsoleColor . Black :
+					return "40" ;
+				case ConsoleColor . Blue :
+					return "104" ;
+				case ConsoleColor . Cyan :
+					return "106" ;
+				case ConsoleColor . Gray :
+					return "47" ;
+				case ConsoleColor . Green :
+					return "102" ;
+				case ConsoleColor . Magenta :
+					return "105" ;
+				case ConsoleColor . Red :
+					return "101" ;
+				case ConsoleColor . White :
+					return "107" ;
+				case ConsoleColor . Yellow :
+					return "103" ;
 
 
 				/*
@@ -126,24 +124,25 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 				 * Ps = 4 7  -> Set foreground color to White.
 				 */
 
-				case ConsoleColor.DarkBlue:
-					return "44";
-				case ConsoleColor.DarkCyan:
-					return "46";
-				case ConsoleColor.DarkGray:
-					return "100";
-				case ConsoleColor.DarkGreen:
-					return "42";
-				case ConsoleColor.DarkMagenta:
-					return "45";
-				case ConsoleColor.DarkRed:
-					return "41";
-				case ConsoleColor.DarkYellow:
-					return "43";
-				default:
-					throw new ArgumentOutOfRangeException(nameof(color), color, null);
+				case ConsoleColor . DarkBlue :
+					return "44" ;
+				case ConsoleColor . DarkCyan :
+					return "46" ;
+				case ConsoleColor . DarkGray :
+					return "100" ;
+				case ConsoleColor . DarkGreen :
+					return "42" ;
+				case ConsoleColor . DarkMagenta :
+					return "45" ;
+				case ConsoleColor . DarkRed :
+					return "41" ;
+				case ConsoleColor . DarkYellow :
+					return "43" ;
+				default :
+					throw new ArgumentOutOfRangeException ( nameof ( color ) , color , null ) ;
 			}
 		}
+
 	}
 
 }
