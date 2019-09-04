@@ -373,7 +373,7 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
             }
         }
 
-        public ConsoleKeyInfo? ConvertToConsoleKey(char c)
+        public static ConsoleKeyInfo? ConvertToConsoleKey(char c)
         {
             if (Enum.TryParse(
                                   c.ToString(CultureInfo.InvariantCulture),
@@ -382,12 +382,20 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
             {
                 return new ConsoleKeyInfo(c, consoleKey, false, false, false);
             }
-            else if (c == ' ')
+            else
             {
-                return new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false);
+                switch (c)
+                {
+                    case ' ':
+                        return new ConsoleKeyInfo(' ', ConsoleKey.Spacebar, false, false, false);
+                    case '\u0009':
+                        return new ConsoleKeyInfo('\u0009', ConsoleKey.Tab, false, false, false);
+                    default:
+                        return null;
+                }
+              
             }
 
-            return null;
         }
 
         public void Draw(Rectangle position, ConsoleChar[,] content)
