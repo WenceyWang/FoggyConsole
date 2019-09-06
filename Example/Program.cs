@@ -38,9 +38,9 @@ namespace Example
 
 		public override void Start ( string [ ] args )
 		{
-			//    SerialPort port = new SerialPort("COM7");
+			//SerialPort port = new SerialPort("COM7");
 
-			//    port.Open();
+			//port.Open();
 
 			TcpListener listener = new TcpListener ( IPAddress . Any , 5678 ) ;
 
@@ -135,21 +135,21 @@ namespace Example
 							 } ;
 			grid . Items . Add ( buttonE ) ;
 
-            Canvas canvas = new Canvas();
+			Canvas canvas = new Canvas ( ) ;
 
-            for (int y = 0; y < 30; y++)
-            {
-                for (int x = 0; x < 30; x++)
-                {
-                    Button button = new Button { Name = $"button{x}{y}", Text = $"{x}{y}" };
-                    canvas.Items.Add(button);
-                    canvas[button] = new Point(6 * x, y);
-                }
-            }
+			for ( int y = 0 ; y < 30 ; y++ )
+			{
+				for ( int x = 0 ; x < 30 ; x++ )
+				{
+					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
+					canvas . Items . Add ( button ) ;
+					canvas [ button ] = new Point ( 6 * x , y ) ;
+				}
+			}
 
-            panel.Items.Add(canvas);
+			panel . Items . Add ( canvas ) ;
 
-            buttonExit . Pressed += ExitButton_Pressed ;
+			buttonExit . Pressed += ExitButton_Pressed ;
 
 			return viewRoot ;
 		}
