@@ -117,12 +117,10 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
                 {
                     lock (Writer)
                     {
-                        {
-                            //CSI Pm m  Character Attributes (SGR).
-                            Writer.Write(Csi);
-                            Writer.Write($"[{value.BackgroundColorToCode()}m");
-                            Writer.Flush();
-                        }
+                        //CSI Pm m  Character Attributes (SGR).
+                        Writer.Write(Csi);
+                        Writer.Write($"[{value.BackgroundColorToCode()}m");
+                        Writer.Flush();
                     }
 
                     _backgroundColor = value;
@@ -139,12 +137,10 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
                 {
                     lock (Writer)
                     {
-                        {
-                            //CSI Pm m  Character Attributes (SGR).
-                            Writer.Write(Csi);
-                            Writer.Write($"{value.ForegroundColorToCode()}m");
-                            Writer.Flush();
-                        }
+                        //CSI Pm m  Character Attributes (SGR).
+                        Writer.Write(Csi);
+                        Writer.Write($"{value.ForegroundColorToCode()}m");
+                        Writer.Flush();
                     }
 
                     _foregroundColor = value;
@@ -181,12 +177,10 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
                 {
                     lock (Writer)
                     {
-                        {
                             //CSI Ps = 8; height; width t
                             Writer.Write(Csi);
                             Writer.Write($"8;{value.Height};{value.Width}t");
                             Writer.Flush();
-                        }
                     }
 
                     _internalSize = value;
@@ -257,7 +251,6 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
         {
             lock (Writer)
             {
-                {
                     //CSI Ps J Erase in Display(ED), VT100.
                     //	Ps = 0->Erase Below(default).
                     //	Ps = 1->Erase Above.
@@ -267,7 +260,6 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
                     Writer.Write(Csi);
                     Writer.Write("3J");
                     Writer.Flush();
-                }
             }
         }
 
@@ -275,7 +267,6 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
         {
             lock (Writer)
             {
-                {
                     //CSI Ps J Erase in Display(ED), VT100.
                     //	Ps = 0->Erase Below(default).
                     //	Ps = 1->Erase Above.
@@ -285,7 +276,6 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
                     Writer.Write(Csi);
                     Writer.Write("3J");
                     Writer.Flush();
-                }
             }
         }
 
@@ -495,12 +485,8 @@ namespace DreamRecorder.FoggyConsole.XtermConsole
             {
                 lock (Writer)
                 {
-                    using (StreamWriter writer =
-                        new StreamWriter(Stream, Encoding.UTF8, stringBuilder.Length, true))
-                    {
-                        writer.Write(stringBuilder.ToString());
-                        writer.Flush();
-                    }
+                    Writer.Write(stringBuilder.ToString());
+                    Writer.Flush();
                 }
 
                 stringBuilder.Clear();
