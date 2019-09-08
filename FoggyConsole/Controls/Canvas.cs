@@ -98,7 +98,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				control . Measure ( availableSize ) ;
 			}
 
-			Rectangle rectangle = Rectangle.Empty ;
+			Rectangle rectangle = Rectangle . Empty ;
 
 			foreach ( Control control in Items )
 			{

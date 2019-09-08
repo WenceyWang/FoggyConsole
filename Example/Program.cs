@@ -1,121 +1,96 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
+using System . Net ;
+using System . Net . Sockets ;
 
-using DreamRecorder.FoggyConsole;
-using DreamRecorder.FoggyConsole.Controls;
-using DreamRecorder.FoggyConsole.XtermConsole;
-using DreamRecorder.ToolBox.CommandLine;
-using Microsoft.Extensions.Logging;
+using DreamRecorder . FoggyConsole . Controls ;
+using DreamRecorder . FoggyConsole . Example . Pages ;
+using DreamRecorder . ToolBox . CommandLine ;
+using DreamRecorder . ToolBox . General ;
 
-using WenceyWang.FIGlet;
-using DreamRecorder.ToolBox.General;
-using DreamRecorder.FoggyConsole.Example.Pages;
+using Microsoft . Extensions . Logging ;
 
-namespace DreamRecorder.FoggyConsole.Example
+using WenceyWang . FIGlet ;
+
+namespace DreamRecorder . FoggyConsole . Example
 {
 
-    public class Program : ProgramBase<Program, ProgramExitCode, ProgramSetting, ProgramSettingCatalog>
-    {
-        private const string Name = "Foggy Console Example";
+	public class Program : ProgramBase <Program , ProgramExitCode , ProgramSetting , ProgramSettingCatalog>
+	{
 
-        public override string License => typeof(Program).GetResourceFile(@"License.AGPL.txt");
+		public override string License => typeof ( Program ) . GetResourceFile ( @"License.AGPL.txt" ) ;
 
-        public override bool CanExit => true;
+		public override bool CanExit => true ;
 
-        public override bool HandleInput => true;
+		public override bool HandleInput => true ;
 
-        public override bool LoadSetting => true;
+		public override bool LoadSetting => true ;
 
-        public override bool AutoSaveSetting => true;
+		public override bool AutoSaveSetting => true ;
 
-        public override bool CheckLicense => false;
+		public override bool CheckLicense => false ;
 
-        public override bool WaitForExit => true;
+		public override bool WaitForExit => true ;
 
-        public Application Application { get; set; }
+		public Application Application { get ; set ; }
 
-        public static void Main(string[] args) { new Program().RunMain(args); }
+		private const string Name = "Foggy Console Example" ;
 
-        public override void Start(string[] args)
-        {
-            //SerialPort port = new SerialPort("COM7");
+		public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
 
-            //port.Open();
+		public override void Start ( string [ ] args )
+		{
+			//SerialPort port = new SerialPort("COM7");
 
-            TcpListener listener = new TcpListener(IPAddress.Any, Setting.PortNumber);
+			//port.Open();
 
-            listener.Start();
+			TcpListener listener = new TcpListener ( IPAddress . Any , Setting . PortNumber ) ;
 
-            TcpClient connection = listener.AcceptTcpClient();
+			listener . Start ( ) ;
 
-            XtermConsole.XtermConsole console = new XtermConsole.XtermConsole(connection.GetStream());
+			TcpClient connection = listener . AcceptTcpClient ( ) ;
 
-            Application = new Application(console, PrepareViewRoot) { Name = Name ,IsDebug=IsDebug};
+			XtermConsole . XtermConsole console = new XtermConsole . XtermConsole ( connection . GetStream ( ) ) ;
 
-            Application.Start();
-        }
+			Application = new Application ( console , PrepareViewRoot ) { Name = Name , IsDebug = IsDebug } ;
 
-        public override void ShowCopyright()
-        {
+			Application . Start ( ) ;
+		}
 
-            Console.WriteLine(
-                                $"{Name} Copyright (C) 2019 - {DateTime.Now.Year} Wencey Wang.");
-            Console.WriteLine(@"This program comes with ABSOLUTELY NO WARRANTY.");
-            Console.WriteLine(
-                                @"This is free software, and you are welcome to redistribute it under certain conditions; read License.txt for details.");
-        }
+		public override void ShowCopyright ( )
+		{
+			Console . WriteLine ( $"{Name} Copyright (C) 2019 - {DateTime . Now . Year} Wencey Wang." ) ;
+			Console . WriteLine ( @"This program comes with ABSOLUTELY NO WARRANTY." ) ;
+			Console . WriteLine (
+								 @"This is free software, and you are welcome to redistribute it under certain conditions; read License.txt for details." ) ;
+		}
 
-        public override void ConfigureLogger(ILoggingBuilder builder)
-        {
-            builder.AddFilter(level => true).AddDebug();
-            builder.AddFilter(level => level >= LogLevel.Information).AddConsole();
-        }
+		public override void ConfigureLogger ( ILoggingBuilder builder )
+		{
+			builder . AddFilter ( level => true ) . AddDebug ( ) ;
+			builder . AddFilter ( level => level >= LogLevel . Information ) . AddConsole ( ) ;
+		}
 
-        public override void ShowLogo()
-        {
-            Console.WriteLine(
-                                 new AsciiArt(
-                                               Name,
-                                               width: CharacterWidth.Smush).ToString());
-        }
+		public override void ShowLogo ( )
+		{
+			Console . WriteLine ( new AsciiArt ( Name , width : CharacterWidth . Smush ) . ToString ( ) ) ;
+		}
 
-        public override void OnExit(ProgramExitCode code) { Application.Stop(); }
+		public override void OnExit ( ProgramExitCode code ) { Application . Stop ( ) ; }
 
-        public Frame PrepareViewRoot()
-        {
-            Frame viewRoot = new Frame();
-            Page page = new ControlDisplayPage();
-            viewRoot.NavigateTo(page);
+		public Frame PrepareViewRoot ( )
+		{
+			Frame viewRoot = new Frame ( ) ;
+			Page  page     = new ControlDisplayPage ( ) ;
+			viewRoot . NavigateTo ( page ) ;
 
-            return viewRoot;
-        }
+			return viewRoot ;
+		}
 
-        private void ExitButton_Pressed(object sender, EventArgs e) { Application.Stop(); }
+		private void ExitButton_Pressed ( object sender , EventArgs e ) { Application . Stop ( ) ; }
 
-    }
-
-    public class ProgramSetting : SettingBase<ProgramSetting, ProgramSettingCatalog>
-    {
-
-        [SettingItem((int)ProgramSettingCatalog.General, nameof(PortNumber), "Tcp port to listen to.", true, 22)]
-        public int PortNumber { get; set; }
-
-    }
-
-    public enum ProgramSettingCatalog
-    {
-
-        General = 0,
-
-    }
-
-    public class ProgramExitCode : ProgramExitCode<ProgramExitCode>
-    {
-
-    }
+	}
 
 }

@@ -12,18 +12,10 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>DreamRecorder.FoggyConsole.Example</AssemblyName>
     <RootNamespace>DreamRecorder.FoggyConsole.Example</RootNamespace>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\ControlDisplayPage.xml" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <EmbeddedResource Include="License\AGPL.txt" />
     <EmbeddedResource Include="Pages\ControlDisplayPage.xml" />
   </ItemGroup>
 

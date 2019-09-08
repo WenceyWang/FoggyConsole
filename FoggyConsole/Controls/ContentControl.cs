@@ -68,7 +68,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override void Measure ( Size availableSize )
 		{
 			Content ? . Measure ( availableSize ) ;
-			DesiredSize = Content ? . DesiredSize ?? Size.Empty ;
+			DesiredSize = Content ? . DesiredSize ?? Size . Empty ;
 		}
 
 		public override void ArrangeOverride ( Rectangle finalRect )
