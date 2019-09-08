@@ -1,187 +1,121 @@
-﻿using System ;
-using System . Collections ;
-using System . Collections . Generic ;
-using System . Linq ;
-using System . Net ;
-using System . Net . Sockets ;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
 
-using DreamRecorder . FoggyConsole ;
-using DreamRecorder . FoggyConsole . Controls ;
-using DreamRecorder . FoggyConsole . XtermConsole ;
-using DreamRecorder . ToolBox . CommandLine ;
+using DreamRecorder.FoggyConsole;
+using DreamRecorder.FoggyConsole.Controls;
+using DreamRecorder.FoggyConsole.XtermConsole;
+using DreamRecorder.ToolBox.CommandLine;
+using Microsoft.Extensions.Logging;
 
-using Microsoft . Extensions . Logging ;
+using WenceyWang.FIGlet;
+using DreamRecorder.ToolBox.General;
+using DreamRecorder.FoggyConsole.Example.Pages;
 
-using WenceyWang . FIGlet ;
-
-namespace Example
+namespace DreamRecorder.FoggyConsole.Example
 {
 
-	public class Program : ProgramBase <Program , ProgramExitCode , ProgramSetting , ProgramSettingCatalog>
-	{
+    public class Program : ProgramBase<Program, ProgramExitCode, ProgramSetting, ProgramSettingCatalog>
+    {
+        private const string Name = "Foggy Console Example";
 
-		public override string License => "AGPL" ;
+        public override string License => typeof(Program).GetResourceFile(@"License.AGPL.txt");
 
-		public override bool CanExit { get ; }
+        public override bool CanExit => true;
 
-		public override bool HandleInput => true ;
+        public override bool HandleInput => true;
 
-		public override bool LoadSetting => true ;
+        public override bool LoadSetting => true;
 
-		public override bool AutoSaveSetting => true ;
+        public override bool AutoSaveSetting => true;
 
-		public override bool WaitForExit => true ;
+        public override bool CheckLicense => false;
 
-		public Application Application { get ; set ; }
+        public override bool WaitForExit => true;
 
-		public static void Main ( string [ ] args ) { new Program ( ) . RunMain ( args ) ; }
+        public Application Application { get; set; }
 
-		public override void Start ( string [ ] args )
-		{
-			//SerialPort port = new SerialPort("COM7");
+        public static void Main(string[] args) { new Program().RunMain(args); }
 
-			//port.Open();
+        public override void Start(string[] args)
+        {
+            //SerialPort port = new SerialPort("COM7");
 
-			TcpListener listener = new TcpListener ( IPAddress . Any , 5678 ) ;
+            //port.Open();
 
-			listener . Start ( ) ;
+            TcpListener listener = new TcpListener(IPAddress.Any, Setting.PortNumber);
 
-			TcpClient connection = listener . AcceptTcpClient ( ) ;
+            listener.Start();
 
-			XtermConsole console = new XtermConsole ( connection . GetStream ( ) ) ;
+            TcpClient connection = listener.AcceptTcpClient();
 
-			Application = new Application ( console , PrepareViewRoot ) ;
+            XtermConsole.XtermConsole console = new XtermConsole.XtermConsole(connection.GetStream());
 
-			Application . Start ( ) ;
-		}
+            Application = new Application(console, PrepareViewRoot) { Name = Name ,IsDebug=IsDebug};
 
-		public override void ConfigureLogger ( ILoggingBuilder builder )
-		{
-			builder . AddFilter ( level => true ) . AddDebug ( ) ;
-			builder . AddFilter ( level => level >= LogLevel . Information ) . AddConsole ( ) ;
-		}
+            Application.Start();
+        }
 
-		public override void ShowLogo ( )
-		{
-			Console . WriteLine (
-								 new AsciiArt (
-											   "Foggy Console Example" ,
-											   width : CharacterWidth . Smush ) . ToString ( ) ) ;
-		}
+        public override void ShowCopyright()
+        {
 
-		public override void ShowCopyright ( ) { Console . WriteLine ( "Copyright" ) ; }
+            Console.WriteLine(
+                                $"{Name} Copyright (C) 2019 - {DateTime.Now.Year} Wencey Wang.");
+            Console.WriteLine(@"This program comes with ABSOLUTELY NO WARRANTY.");
+            Console.WriteLine(
+                                @"This is free software, and you are welcome to redistribute it under certain conditions; read License.txt for details.");
+        }
 
-		public override void OnExit ( ProgramExitCode code ) { Application . Stop ( ) ; }
+        public override void ConfigureLogger(ILoggingBuilder builder)
+        {
+            builder.AddFilter(level => true).AddDebug();
+            builder.AddFilter(level => level >= LogLevel.Information).AddConsole();
+        }
 
-		public Frame PrepareViewRoot ( )
-		{
-			Frame      viewRoot = new Frame ( ) ;
-			StackPanel panel    = new StackPanel ( ) ;
-			Page       page     = new Page ( ) ;
-			page . Content = panel ;
-			viewRoot . NavigateTo ( page ) ;
+        public override void ShowLogo()
+        {
+            Console.WriteLine(
+                                 new AsciiArt(
+                                               Name,
+                                               width: CharacterWidth.Smush).ToString());
+        }
 
-			Button buttonA = new Button { Name = "buttonA" , Text = "A" , KeyBind = 'A' } ;
-			panel . Items . Add ( buttonA ) ;
-			Button buttonB = new Button
-							 {
-								 Name            = "buttonB" ,
-								 Text            = "B" ,
-								 KeyBind         = 'B' ,
-								 HorizontalAlign = ContentHorizontalAlign . Right
-							 } ;
-			panel . Items . Add ( buttonB ) ;
+        public override void OnExit(ProgramExitCode code) { Application.Stop(); }
 
+        public Frame PrepareViewRoot()
+        {
+            Frame viewRoot = new Frame();
+            Page page = new ControlDisplayPage();
+            viewRoot.NavigateTo(page);
 
-			Button buttonExit = new Button
-								{
-									Name            = "buttonExit" ,
-									Text            = "Exit" ,
-									KeyBind         = 'E' ,
-									BoarderStyle    = LineStyle . SingleLinesSet ,
-									AllowSingleLine = false ,
-									ForegroundColor = ConsoleColor . Red
-								} ;
-			panel . Items . Add ( buttonExit ) ;
+            return viewRoot;
+        }
 
-			FIGletLabel label = new FIGletLabel
-								{
-									Text            = 24 . ToString ( ) ,
-									CharacterWidth  = CharacterWidth . Smush ,
-									HorizontalAlign = ContentHorizontalAlign . Center
-								} ;
+        private void ExitButton_Pressed(object sender, EventArgs e) { Application.Stop(); }
 
-			panel . Items . Add ( label ) ;
+    }
 
-			HorizontalStackPanel horizontalStack = new HorizontalStackPanel ( ) ;
+    public class ProgramSetting : SettingBase<ProgramSetting, ProgramSettingCatalog>
+    {
 
-			panel . Items . Add ( horizontalStack ) ;
+        [SettingItem((int)ProgramSettingCatalog.General, nameof(PortNumber), "Tcp port to listen to.", true, 22)]
+        public int PortNumber { get; set; }
 
-			Button buttonC = new Button { Name = "buttonC" , Text = "C" , KeyBind = 'C' } ;
-			horizontalStack . Items . Add ( buttonC ) ;
+    }
 
-			Button buttonD = new Button { Name = "buttonD" , Text = "D" , KeyBind = 'D' } ;
-			horizontalStack . Items . Add ( buttonD ) ;
+    public enum ProgramSettingCatalog
+    {
 
-			Grid grid = new Grid ( ) ;
-			panel . Items . Add ( grid ) ;
+        General = 0,
 
-			Button buttonE = new Button
-							 {
-								 Name            = "buttonE" ,
-								 Text            = "E" ,
-								 KeyBind         = 'E' ,
-								 HorizontalAlign = ContentHorizontalAlign . Center
-							 } ;
-			grid . Items . Add ( buttonE ) ;
+    }
 
-			Canvas canvas = new Canvas ( ) ;
+    public class ProgramExitCode : ProgramExitCode<ProgramExitCode>
+    {
 
-			for ( int y = 0 ; y < 30 ; y++ )
-			{
-				for ( int x = 0 ; x < 30 ; x++ )
-				{
-					Button button = new Button { Name = $"button{x}{y}" , Text = $"{x}{y}" } ;
-					canvas . Items . Add ( button ) ;
-					canvas [ button ] = new Point ( 6 * x , y ) ;
-				}
-			}
-
-			panel . Items . Add ( canvas ) ;
-
-			buttonExit . Pressed += ExitButton_Pressed ;
-
-			return viewRoot ;
-		}
-
-		private void ExitButton_Pressed ( object sender , EventArgs e ) { Application . Stop ( ) ; }
-
-	}
-
-	public class ProgramSetting : SettingBase <ProgramSetting , ProgramSettingCatalog>
-	{
-
-		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( BotToken ) , "" , true , "" )]
-		public string BotToken { get ; set ; }
-
-		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( DatabaseConnection ) , "" , true , "" )]
-		public string DatabaseConnection { get ; set ; }
-
-		[SettingItem ( ( int ) ProgramSettingCatalog . General , nameof ( HttpProxy ) , "" , true , null )]
-		public string HttpProxy { get ; set ; }
-
-	}
-
-	public enum ProgramSettingCatalog
-	{
-
-		General = 0
-
-	}
-
-	public class ProgramExitCode : ProgramExitCode <ProgramExitCode>
-	{
-
-	}
+    }
 
 }
