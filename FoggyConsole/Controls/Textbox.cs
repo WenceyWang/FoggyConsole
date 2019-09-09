@@ -1,134 +1,139 @@
-﻿using System ;
-using System . Collections ;
-using System . Collections . Generic ;
-using System . Linq ;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-using DreamRecorder . FoggyConsole . Controls . Renderers ;
+using DreamRecorder.FoggyConsole.Controls.Renderers;
 
-namespace DreamRecorder . FoggyConsole . Controls
+namespace DreamRecorder.FoggyConsole.Controls
 {
 
-	/// <summary>
-	///     A control which provides single line editing and text input
-	/// </summary>
-	public class TextBox : TextualBase
-	{
+    /// <summary>
+    ///     A control which provides single line editing and text input
+    /// </summary>
+    public class TextBox : TextualBase
+    {
 
-		private int _cursorPosition ;
-
-
-		/// <summary>
-		///     The position of the cursor within the TextBox
-		/// </summary>
-		public int CursorPosition
-		{
-			get => _cursorPosition ;
-			private set
-			{
-				_cursorPosition = value ;
-				RequestRedraw ( ) ;
-			}
-		}
-
-		public bool MultiLine { get ; set ; }
-
-		public override bool CanFocusedOn => Enabled ;
-
-		/// <summary>
-		///     Creates a new TextBox
-		/// </summary>
-		/// <param name="renderer">
-		///     The
-		///     <code>ControlRenderer</code>
-		///     to use. If null a new instance of
-		///     <code>TextBoxRenderer</code>
-		///     will be used.
-		/// </param>
-		/// <exception cref="ArgumentException">
-		///     Thrown if the
-		///     <code>ControlRenderer</code>
-		///     which should be set already has an other
-		///     Control assigned
-		/// </exception>
-		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) ) { }
-
-		public TextBox ( ) : this ( null ) { }
+        private int _cursorPosition;
 
 
-		/// <summary>
-		/// </summary>
-		public event EventHandler EnterPressed ;
+        /// <summary>
+        ///     The position of the cursor within the TextBox
+        /// </summary>
+        public int CursorPosition
+        {
+            get => _cursorPosition;
+            private set
+            {
+                _cursorPosition = value;
+                RequestRedraw();
+            }
+        }
 
-		public override void KeyPressed ( KeyPressedEventArgs args )
-		{
-			if ( ! Enabled )
-			{
-				return ;
-			}
+        public bool MultiLine { get; set; }
 
-			switch ( args . KeyInfo . Key )
-			{
-				case ConsoleKey . Tab :
-				case ConsoleKey . Escape :
-				{
-					break ;
-				}
+        public override bool CanFocusedOn => Enabled;
 
-				case ConsoleKey . Enter :
-				{
-					args . Handled = true ;
-					EnterPressed ? . Invoke ( this , EventArgs . Empty ) ;
-					break ;
-				}
+        /// <summary>
+        ///     Creates a new TextBox
+        /// </summary>
+        /// <param name="renderer">
+        ///     The
+        ///     <code>ControlRenderer</code>
+        ///     to use. If null a new instance of
+        ///     <code>TextBoxRenderer</code>
+        ///     will be used.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if the
+        ///     <code>ControlRenderer</code>
+        ///     which should be set already has an other
+        ///     Control assigned
+        /// </exception>
+        public TextBox(TextBoxRenderer renderer = null) : base(renderer ?? new TextBoxRenderer()) { }
 
-				case ConsoleKey . RightArrow :
-				{
-					args . Handled = true ;
-					if ( CursorPosition < Text . Length )
-					{
-						CursorPosition++ ;
-					}
+        public TextBox() : this(null) { }
 
-					break ;
-				}
 
-				case ConsoleKey . LeftArrow :
-				{
-					args . Handled = true ;
-					if ( CursorPosition > 0 )
-					{
-						CursorPosition-- ;
-					}
+        /// <summary>
+        /// </summary>
+        public event EventHandler EnterPressed;
 
-					break ;
-				}
+        public override void KeyPressed(KeyPressedEventArgs args)
+        {
+            if (!Enabled)
+            {
+                return;
+            }
 
-				case ConsoleKey . Backspace :
-				{
-					args . Handled = true ;
-					if ( Text . Length != 0 )
-					{
-						if ( CursorPosition > 0 )
-						{
-							Text = Text . Remove ( CursorPosition - 1 ) ;
-							CursorPosition-- ;
-						}
-					}
+            switch (args.KeyInfo.Key)
+            {
+                case ConsoleKey.Tab:
+                case ConsoleKey.Escape:
+                    {
+                        break;
+                    }
 
-					break ;
-				}
+                case ConsoleKey.Enter:
+                    {
+                        args.Handled = true;
+                        EnterPressed?.Invoke(this, EventArgs.Empty);
+                        if (MultiLine)
+                        {
+                            Text = Text.Insert(CursorPosition, Environment.NewLine);
+                            CursorPosition+=Environment.NewLine.Length;
+                        }
+                        break;
+                    }
 
-				default :
-				{
-					args . Handled = true ;
-					char newChar = args . KeyInfo . KeyChar ;
-					Text = Text . Insert ( CursorPosition , new string ( newChar , 1 ) ) ;
-					CursorPosition++ ;
-					break ;
-				}
-			}
-		}
+                case ConsoleKey.RightArrow:
+                    {
+                        args.Handled = true;
+                        if (CursorPosition < Text.Length)
+                        {
+                            CursorPosition++;
+                        }
 
-	}
+                        break;
+                    }
+
+                case ConsoleKey.LeftArrow:
+                    {
+                        args.Handled = true;
+                        if (CursorPosition > 0)
+                        {
+                            CursorPosition--;
+                        }
+
+                        break;
+                    }
+
+                case ConsoleKey.Backspace:
+                    {
+                        args.Handled = true;
+                        if (Text.Length != 0)
+                        {
+                            if (CursorPosition > 0)
+                            {
+                                Text = Text.Remove(CursorPosition - 1);
+                                CursorPosition--;
+                            }
+                        }
+
+                        break;
+                    }
+
+                default:
+                    {
+                        args.Handled = true;
+                        char newChar = args.KeyInfo.KeyChar;
+                        Text = Text.Insert(CursorPosition, new string(newChar, 1));
+                        CursorPosition++;
+                        break;
+                    }
+            }
+        }
+
+    }
 
 }

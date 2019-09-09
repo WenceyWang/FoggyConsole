@@ -16,7 +16,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		[CanBeNull] private Control _content ;
 
-
 		[CanBeNull]
 		public virtual Control Content
 		{
@@ -74,8 +73,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override void ArrangeOverride ( Rectangle finalRect )
 		{
 			Content ? . Arrange ( finalRect ) ;
-			base . ArrangeOverride ( finalRect ) ;
-		}
+            RenderArea = finalRect;
+        }
 
 	}
 

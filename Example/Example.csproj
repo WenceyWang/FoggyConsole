@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <EmbeddedResource Include="License\AGPL.txt" />
+    <EmbeddedResource Include="Pages\NewsPage.xml" />
     <EmbeddedResource Include="Pages\ControlDisplayPage.xml" />
   </ItemGroup>
 

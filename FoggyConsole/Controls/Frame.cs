@@ -24,6 +24,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			if ( CurrentPage != page )
 			{
+                if (CurrentPage is Page previousPage)
+                {
+                    previousPage.Container = null;
+                    previousPage.OnNavigateOut();
+                }
+
 				CurrentPage             = page ;
 				CurrentPage . Container = this ;
 				CurrentPage . OnNavigateTo ( ) ;

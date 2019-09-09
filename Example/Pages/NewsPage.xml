@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<StackPanel  >
+  <FIGletLabel Text="News" HorizontalAlign="Center" />
+  <TextBox Height="5"></TextBox>
+</StackPanel>

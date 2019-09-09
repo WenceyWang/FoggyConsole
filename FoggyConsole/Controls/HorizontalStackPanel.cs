@@ -93,9 +93,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				currentWidth += arrangeSize . Width ;
 			}
-
-			base . ArrangeOverride ( finalRect ) ;
-		}
+            RenderArea = finalRect;
+        }
 
 		public override void Measure ( Size availableSize )
 		{
