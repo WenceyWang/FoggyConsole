@@ -556,8 +556,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 												  new Size ( width , height ) ) ) ;
 			}
 
-            RenderArea = finalRect;
-        }
+			RenderArea = finalRect ;
+		}
 
 		public class Row : INotifyPropertyChanged
 		{

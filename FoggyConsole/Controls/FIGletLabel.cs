@@ -14,7 +14,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class FIGletLabel : TextualBase
 	{
 
-        private AsciiArt _asciiArt ;
+		private AsciiArt _asciiArt ;
 
 		private CharacterWidth _characterWidth ;
 

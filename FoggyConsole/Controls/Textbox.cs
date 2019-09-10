@@ -1,139 +1,224 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Collections . ObjectModel ;
+using System . Linq ;
 
-using DreamRecorder.FoggyConsole.Controls.Renderers;
+using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
-namespace DreamRecorder.FoggyConsole.Controls
+namespace DreamRecorder . FoggyConsole . Controls
 {
 
-    /// <summary>
-    ///     A control which provides single line editing and text input
-    /// </summary>
-    public class TextBox : TextualBase
-    {
+	/// <summary>
+	///     A control which provides single line editing and text input
+	/// </summary>
+	public class TextBox : TextualBase
+	{
 
-        private Point _cursorPosition;
+		private Point _cursorPosition ;
 
+		/// <summary>
+		///     The position of the cursor within the TextBox
+		/// </summary>
+		public Point CursorPosition
+		{
+			get => _cursorPosition ;
+			set
+			{
+				if ( _cursorPosition != value )
+				{
+					_cursorPosition = ValidateCursor ( value ) ;
+					RequestRedraw ( ) ;
+				}
+			}
+		}
 
-        /// <summary>
-        ///     The position of the cursor within the TextBox
-        /// </summary>
-        public Point CursorPosition
-        {
-            get => _cursorPosition;
-            set
-            {
-                if (_cursorPosition!=value)
-                {
-                    _cursorPosition = value;
-                    RequestRedraw();
-                }
-            }
-        }
+		public int CursorIndex
+			=> Lines . Take ( CursorPosition . Y ) . Sum ( line => line . Length + Environment . NewLine . Length )
+			   + CursorPosition . X ;
 
-        public bool MultiLine { get; set; }
+		public ReadOnlyCollection <string> Lines { get ; private set ; }
 
-        public override bool CanFocusedOn => Enabled;
+		public bool MultiLine { get ; set ; }
 
-        /// <summary>
-        ///     Creates a new TextBox
-        /// </summary>
-        /// <param name="renderer">
-        ///     The
-        ///     <code>ControlRenderer</code>
-        ///     to use. If null a new instance of
-        ///     <code>TextBoxRenderer</code>
-        ///     will be used.
-        /// </param>
-        /// <exception cref="ArgumentException">
-        ///     Thrown if the
-        ///     <code>ControlRenderer</code>
-        ///     which should be set already has an other
-        ///     Control assigned
-        /// </exception>
-        public TextBox(TextBoxRenderer renderer = null) : base(renderer ?? new TextBoxRenderer()) { }
+		public override bool CanFocusedOn => Enabled ;
 
-        public TextBox() : this(null) { }
+		/// <summary>
+		///     Creates a new TextBox
+		/// </summary>
+		/// <param name="renderer">
+		///     The
+		///     <code>ControlRenderer</code>
+		///     to use. If null a new instance of
+		///     <code>TextBoxRenderer</code>
+		///     will be used.
+		/// </param>
+		/// <exception cref="ArgumentException">
+		///     Thrown if the
+		///     <code>ControlRenderer</code>
+		///     which should be set already has an other
+		///     Control assigned
+		/// </exception>
+		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) )
+		{
+			UpdateLines ( ) ;
+			TextChanged += TextBox_TextChanged ;
+		}
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public event EventHandler EnterPressed;
+		public TextBox ( ) : this ( null ) { }
 
-        public override void KeyPressed(KeyPressedEventArgs args)
-        {
-            if (!Enabled)
-            {
-                return;
-            }
+		private Point ValidateCursor ( Point position )
+		{
+			ReadOnlyCollection <string> lines = Lines ;
+			int                         y     = Math . Min ( Math . Max ( position . Y , 0 ) , lines . Count - 1 ) ;
+			int                         x     = Math . Min ( Math . Max ( position . X , 0 ) , lines [ y ] . Length ) ;
 
-            switch (args.KeyInfo.Key)
-            {
-                case ConsoleKey.Tab:
-                case ConsoleKey.Escape:
-                    {
-                        break;
-                    }
+			return new Point ( x , y ) ;
+		}
 
-                case ConsoleKey.Enter:
-                    {
-                        args.Handled = true;
-                        EnterPressed?.Invoke(this, EventArgs.Empty);
-                        if (MultiLine)
-                        {
-                            Text = Text.Insert(CursorPosition, Environment.NewLine);
-                            CursorPosition += Environment.NewLine.Length;
-                        }
-                        break;
-                    }
+		private void TextBox_TextChanged ( object sender , EventArgs e )
+		{
+			UpdateLines ( ) ;
+			CursorPosition = ValidateCursor ( CursorPosition ) ;
+		}
 
-                case ConsoleKey.RightArrow:
-                    {
-                        args.Handled = true;
-                        if (CursorPosition < Text.Length)
-                        {
-                            CursorPosition++;
-                        }
+		private void UpdateLines ( )
+		{
+			Lines = new ReadOnlyCollection <string> (
+													 Text . Split (
+																   new [ ] { Environment . NewLine } ,
+																   StringSplitOptions . None ) ) ;
+		}
 
-                        break;
-                    }
+		/// <summary>
+		/// </summary>
+		public event EventHandler <KeyPressedEventArgs> EnterPressed ;
 
-                case ConsoleKey.LeftArrow:
-                    {
-                        args.Handled = true;
-                        if (CursorPosition > 0)
-                        {
-                            CursorPosition--;
-                        }
+		public override void KeyPressed ( KeyPressedEventArgs args )
+		{
+			if ( ! Enabled )
+			{
+				return ;
+			}
 
-                        break;
-                    }
+			switch ( args . KeyInfo . Key )
+			{
+				case ConsoleKey . Tab :
+				case ConsoleKey . Escape :
+				{
+					break ;
+				}
 
-                case ConsoleKey.Backspace:
-                    {
-                        args.Handled = true;
-                        if (Text.Length != 0 && CursorPosition > 0)
-                        {
-                            Text = Text.Remove(CursorPosition - 1,1);
-                            CursorPosition--;
-                        }
+				case ConsoleKey . Enter :
+				{
+					EnterPressed ? . Invoke ( this , args ) ;
+					if ( ! args . Handled && MultiLine )
+					{
+						args . Handled = true ;
+						Text           = Text . Insert ( CursorIndex , Environment . NewLine ) ;
+						CursorPosition = new Point ( 0 , CursorPosition . Y + 1 ) ;
+					}
 
-                        break;
-                    }
+					break ;
+				}
 
-                default:
-                    {
-                        args.Handled = true;
-                        char newChar = args.KeyInfo.KeyChar;
-                        Text = Text.Insert(CursorPosition, new string(newChar, 1));
-                        CursorPosition++;
-                        break;
-                    }
-            }
-        }
+				case ConsoleKey . RightArrow :
+				{
+					args . Handled = true ;
 
-    }
+					CursorPosition = new Point ( CursorPosition . X + 1 , CursorPosition . Y ) ;
+
+					break ;
+				}
+
+				case ConsoleKey . LeftArrow :
+				{
+					args . Handled = true ;
+
+					CursorPosition = new Point ( CursorPosition . X - 1 , CursorPosition . Y ) ;
+
+					break ;
+				}
+
+				case ConsoleKey . Backspace :
+				{
+					args . Handled = true ;
+					if ( CursorPosition . X > 0 )
+					{
+						CursorPosition = new Point ( CursorPosition . X - 1 , CursorPosition . Y ) ;
+						Text           = Text . Remove ( CursorIndex , 1 ) ;
+					}
+					else
+					{
+						if ( MultiLine )
+						{
+							if ( CursorPosition . Y > 0 )
+							{
+								int prevCursorIndex = CursorIndex ;
+								CursorPosition = new Point (
+															Lines [ CursorPosition . Y - 1 ] . Length ,
+															CursorPosition . Y - 1 ) ;
+								Text = Text . Remove (
+													  prevCursorIndex - Environment . NewLine . Length ,
+													  Environment . NewLine . Length ) ;
+							}
+						}
+					}
+
+					break ;
+				}
+
+				case ConsoleKey . UpArrow :
+				{
+					if ( MultiLine )
+					{
+						args . Handled = true ;
+						if ( CursorPosition . Y > 0 )
+						{
+							CursorPosition = new Point (
+														Math . Min (
+																	Lines [ CursorPosition . Y - 1 ] . Length ,
+																	CursorPosition . X ) ,
+														CursorPosition . Y - 1 ) ;
+						}
+					}
+
+					break ;
+				}
+
+				case ConsoleKey . DownArrow :
+				{
+					if ( MultiLine )
+					{
+						args . Handled = true ;
+						if ( CursorPosition . Y < Lines . Count - 1 )
+						{
+							CursorPosition = new Point (
+														Math . Min (
+																	Lines [ CursorPosition . Y + 1 ] . Length ,
+																	CursorPosition . X ) ,
+														CursorPosition . Y + 1 ) ;
+						}
+					}
+
+					break ;
+				}
+
+				default :
+				{
+					args . Handled = true ;
+					char newChar = args . KeyInfo . KeyChar ;
+					if ( ! char . IsControl ( newChar ) )
+					{
+						Text           = Text . Insert ( CursorIndex , new string ( newChar , 1 ) ) ;
+						CursorPosition = new Point ( CursorPosition . X + 1 , CursorPosition . Y ) ;
+					}
+
+					break ;
+				}
+			}
+		}
+
+	}
 
 }

@@ -73,8 +73,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public override void ArrangeOverride ( Rectangle finalRect )
 		{
 			Content ? . Arrange ( finalRect ) ;
-            RenderArea = finalRect;
-        }
+			RenderArea = finalRect ;
+		}
 
 	}
 

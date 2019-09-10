@@ -1,67 +1,62 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
+﻿using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
+using System . Xml . Linq ;
 
-using DreamRecorder.FoggyConsole.Controls;
-using DreamRecorder.ToolBox.General;
+using DreamRecorder . FoggyConsole . Controls ;
+using DreamRecorder . ToolBox . General ;
 
-namespace DreamRecorder.FoggyConsole.Example.Pages
+namespace DreamRecorder . FoggyConsole . Example . Pages
 {
 
-    [System.AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public sealed class ControlDisplayAttribute : Attribute
-    {
+	[AttributeUsage ( AttributeTargets . Class , Inherited = false )]
+	public sealed class ControlDisplayAttribute : Attribute
+	{
 
-    }
+	}
 
-    public sealed class NewsPage : Page
-    {
+	public sealed class NewsPage : Page
+	{
 
-        public NewsPage() : base(
-                                              XDocument.Parse(
-                                                                 typeof(ControlDisplayPage).GetResourceFile(
-                                                                                                                  $"{nameof(NewsPage)}.xml")).
-                                                          Root)
-        {
-            
-        } 
+		public NewsPage ( ) : base (
+									XDocument . Parse (
+													   typeof ( ControlDisplayPage ) . GetResourceFile (
+																										$"{nameof ( NewsPage )}.xml" ) ) .
+												Root )
+		{
+		}
 
-        public override void OnNavigateTo()
-        {
-           
-        }
+		public override void OnNavigateTo ( ) { }
 
-    }
+	}
 
-    public sealed class ControlDisplayPage : Page
-    {
+	public sealed class ControlDisplayPage : Page
+	{
 
-        public Frame PageFrame { get; }
+		public Frame PageFrame { get ; }
 
-        public StackPanel PageList { get; }
+		public StackPanel PageList { get ; }
 
-        public ControlDisplayPage() : base(
-                                              XDocument.Parse(
-                                                                 typeof(ControlDisplayPage).GetResourceFile(
-                                                                                                                  $"{nameof(ControlDisplayPage)}.xml")).
-                                                          Root)
-        {
-            PageFrame = Find<Frame>(nameof(PageFrame));
-            PageList = Find<StackPanel>(nameof(PageList));
+		public List <Page> Pages { get ; set ; }
 
-            Pages = new List<Page>() { new NewsPage() };
-        }
+		public ControlDisplayPage ( ) : base (
+											  XDocument . Parse (
+																 typeof ( ControlDisplayPage ) . GetResourceFile (
+																												  $"{nameof ( ControlDisplayPage )}.xml" ) ) .
+														  Root )
+		{
+			PageFrame = Find <Frame> ( nameof ( PageFrame ) ) ;
+			PageList  = Find <StackPanel> ( nameof ( PageList ) ) ;
 
-        public  List<Page> Pages { get; set; }
+			Pages = new List <Page> { new NewsPage ( ) } ;
+		}
 
-        public override void OnNavigateTo()
-        {
-            PageFrame.NavigateTo(Pages.First((page)=>page is NewsPage));
+		public override void OnNavigateTo ( )
+		{
+			PageFrame . NavigateTo ( Pages . First ( page => page is NewsPage ) ) ;
+		}
 
-        }
-
-    }
+	}
 
 }

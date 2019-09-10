@@ -1,13 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Grid ColumnsData="20+,5,-1" >
-  
+
   <StackPanel Name="PageList" Container.Item="0,0,1,1" >
-    
+
     <Button Name="NewsButton" Text="What's New" KeyBind="T" />
-  
+
   </StackPanel>
-  
+
   <Frame Name="PageFrame" Container.Item="2,0,1,1" >
 
   </Frame>

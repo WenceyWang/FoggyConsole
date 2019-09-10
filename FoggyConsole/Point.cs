@@ -6,8 +6,24 @@ using System . Linq ;
 namespace DreamRecorder . FoggyConsole
 {
 
-	public struct Point
+	public struct Point : IEquatable <Point>
 	{
+
+		public bool Equals ( Point other ) => X == other . X && Y == other . Y ;
+
+		public override bool Equals ( object obj ) => obj is Point other && Equals ( other ) ;
+
+		public override int GetHashCode ( )
+		{
+			unchecked
+			{
+				return ( X * 397 ) ^ Y ;
+			}
+		}
+
+		public static bool operator == ( Point left , Point right ) => left . Equals ( right ) ;
+
+		public static bool operator != ( Point left , Point right ) => ! left . Equals ( right ) ;
 
 		/// <summary>
 		///     X - double.  Default value is 0.

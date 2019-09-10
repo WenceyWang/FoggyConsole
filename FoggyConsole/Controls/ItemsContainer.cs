@@ -14,9 +14,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class ItemsContainer : ContainerBase
 	{
 
-        public override bool CanFocusedOn => false;
+		public override bool CanFocusedOn => false ;
 
-        public override IReadOnlyCollection <Control> Children { get ; }
+		public override IReadOnlyCollection <Control> Children { get ; }
 
 		public ObservableCollection <Control> Items { get ; }
 
@@ -32,15 +32,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		protected ItemsContainer ( ) : this ( null ) { }
 
-        public override void Measure(Size availableSize)
-        {
-            foreach (Control control in Items)
-            {
-                control.Measure(availableSize);
-            }
-        }
+		public override void Measure ( Size availableSize )
+		{
+			foreach ( Control control in Items )
+			{
+				control . Measure ( availableSize ) ;
+			}
+		}
 
-        public override void Arrange ( Rectangle ? finalRect )
+		public override void Arrange ( Rectangle ? finalRect )
 		{
 			if ( finalRect . IsNotEmpty ( ) )
 			{
@@ -55,17 +55,17 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-        public override void ArrangeOverride(Rectangle finalRect)
-        {
-            foreach (Control control in Items)
-            {
-                control.Arrange(finalRect);
-            }
+		public override void ArrangeOverride ( Rectangle finalRect )
+		{
+			foreach ( Control control in Items )
+			{
+				control . Arrange ( finalRect ) ;
+			}
 
-            RenderArea = finalRect;
-        }
+			RenderArea = finalRect ;
+		}
 
-        private void Items_CollectionChanged ( object sender , NotifyCollectionChangedEventArgs e )
+		private void Items_CollectionChanged ( object sender , NotifyCollectionChangedEventArgs e )
 		{
 			if ( ! ( e . OldItems is null ) )
 			{

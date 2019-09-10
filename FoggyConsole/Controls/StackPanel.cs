@@ -87,8 +87,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				currentHeight += arrangeSize . Height ;
 			}
-            RenderArea = finalRect;
-        }
+
+			RenderArea = finalRect ;
+		}
 
 		public override void Measure ( Size availableSize )
 		{

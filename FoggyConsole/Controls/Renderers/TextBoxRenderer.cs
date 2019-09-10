@@ -1,66 +1,73 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
+using System ;
+using System . Collections ;
+using System . Collections . Generic ;
+using System . Linq ;
 
-namespace DreamRecorder.FoggyConsole.Controls.Renderers
+namespace DreamRecorder . FoggyConsole . Controls . Renderers
 {
 
-    /// <summary>
-    ///     Draws a TextBox
-    /// </summary>
-    public class TextBoxRenderer : ControlRenderer<TextBox>
-    {
+	/// <summary>
+	///     Draws a TextBox
+	/// </summary>
+	public class TextBoxRenderer : ControlRenderer <TextBox>
+	{
 
-        /// <summary>
-        ///     Draws the TextBox given in the Control-Property
-        /// </summary>
-        public override void Draw(Application application, ConsoleArea area)
-        {
-            if (Control is null)
-            {
-                return;
-            }
+		/// <summary>
+		///     Draws the TextBox given in the Control-Property
+		/// </summary>
+		public override void Draw ( Application application , ConsoleArea area )
+		{
+			if ( Control is null )
+			{
+				return ;
+			}
 
-            if (Control.ActualSize.IsEmpty)
-            {
-                return;
-            }
+			if ( Control . ActualSize . IsEmpty )
+			{
+				return ;
+			}
 
-            ConsoleColor foregroundColor;
-            ConsoleColor backgroundColor;
+			ConsoleColor foregroundColor = Control . ActualForegroundColor ;
+			ConsoleColor backgroundColor = Control . ActualBackgroundColor ;
 
-            foregroundColor = Control.ActualForegroundColor;
-            backgroundColor = Control.ActualBackgroundColor;
+			area . Fill ( backgroundColor ) ;
 
-            area.Fill(backgroundColor);
+			int y = 0 ;
 
-            for (int y = 0;
-                  y < Control.ActualHeight && y * Control.ActualHeight < Control.Text.Length;
-                  y++)
-            {
-                for (int x = 0; x < Control.ActualWidth; x++)
-                {
-                    if (x + y * Control.ActualWidth < Control.Text.Length)
-                    {
-                        area[x, y] = new ConsoleChar(
-                                                          Control.Text[x + y*Control.ActualWidth],
-                                                          foregroundColor,
-                                                          backgroundColor);
-                    }
-                    else
-                    {
-                        break;
-                    }
-                }
-            }
+			for ( int lineIndex = 0 ; lineIndex < Control . Lines . Count ; lineIndex++ )
+			{
+				string line       = Control . Lines [ lineIndex ] ;
+				string renderLine = $"{line} " ;
+				int    x          = 0 ;
+				for ( int position = 0 ; position < renderLine . Length && y < Control . ActualHeight ; position++ )
+				{
+					char t = renderLine [ position ] ;
+					area [ x , y ] = new ConsoleChar ( t , foregroundColor , backgroundColor ) ;
 
-            if (Control.BoarderStyle != null)
-            {
-                area.DrawBoarder(Control.BoarderStyle.Value, foregroundColor, backgroundColor);
-            }
-        }
+					if ( Control . CursorPosition . X    == position
+						 && Control . CursorPosition . Y == lineIndex )
+					{
+						area [ x , y ] = area [ x , y ] . InvertColor ( ) ;
+					}
 
-    }
+					x++ ;
+
+					if ( x >= Control . ActualWidth )
+					{
+						x %= Control . ActualWidth ;
+						y++ ;
+					}
+				}
+
+				y++ ;
+			}
+
+			if ( Control . BoarderStyle != null )
+			{
+				area . DrawBoarder ( Control . BoarderStyle . Value , foregroundColor , backgroundColor ) ;
+			}
+		}
+
+	}
 
 }
