@@ -14,19 +14,22 @@ namespace DreamRecorder.FoggyConsole.Controls
     public class TextBox : TextualBase
     {
 
-        private int _cursorPosition;
+        private Point _cursorPosition;
 
 
         /// <summary>
         ///     The position of the cursor within the TextBox
         /// </summary>
-        public int CursorPosition
+        public Point CursorPosition
         {
             get => _cursorPosition;
-            private set
+            set
             {
-                _cursorPosition = value;
-                RequestRedraw();
+                if (_cursorPosition!=value)
+                {
+                    _cursorPosition = value;
+                    RequestRedraw();
+                }
             }
         }
 
@@ -54,8 +57,8 @@ namespace DreamRecorder.FoggyConsole.Controls
 
         public TextBox() : this(null) { }
 
-
         /// <summary>
+        /// 
         /// </summary>
         public event EventHandler EnterPressed;
 
@@ -81,7 +84,7 @@ namespace DreamRecorder.FoggyConsole.Controls
                         if (MultiLine)
                         {
                             Text = Text.Insert(CursorPosition, Environment.NewLine);
-                            CursorPosition+=Environment.NewLine.Length;
+                            CursorPosition += Environment.NewLine.Length;
                         }
                         break;
                     }
@@ -111,13 +114,10 @@ namespace DreamRecorder.FoggyConsole.Controls
                 case ConsoleKey.Backspace:
                     {
                         args.Handled = true;
-                        if (Text.Length != 0)
+                        if (Text.Length != 0 && CursorPosition > 0)
                         {
-                            if (CursorPosition > 0)
-                            {
-                                Text = Text.Remove(CursorPosition - 1);
-                                CursorPosition--;
-                            }
+                            Text = Text.Remove(CursorPosition - 1,1);
+                            CursorPosition--;
                         }
 
                         break;

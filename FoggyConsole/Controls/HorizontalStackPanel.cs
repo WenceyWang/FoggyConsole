@@ -93,6 +93,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 				currentWidth += arrangeSize . Width ;
 			}
+
             RenderArea = finalRect;
         }
 
