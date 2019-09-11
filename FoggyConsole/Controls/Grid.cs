@@ -142,7 +142,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				List <INotifyPropertyChanged> removedItems =
 					e . OldItems . Cast <INotifyPropertyChanged> ( ) .
-						Where ( item => ! e ? . NewItems ? . Contains ( item ) ?? true ) .
+						Where ( item => ! e . NewItems ? . Contains ( item ) ?? true ) .
 						ToList ( ) ;
 
 				foreach ( INotifyPropertyChanged item in removedItems )
@@ -155,7 +155,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				List <INotifyPropertyChanged> newItems =
 					e . NewItems . Cast <INotifyPropertyChanged> ( ) .
-						Where ( item => ! e ? . OldItems ? . Contains ( item ) ?? true ) .
+						Where ( item => ! e . OldItems ? . Contains ( item ) ?? true ) .
 						ToList ( ) ;
 
 				foreach ( INotifyPropertyChanged item in newItems )

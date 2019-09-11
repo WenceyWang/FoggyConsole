@@ -20,7 +20,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		private char _progressChar = '|' ;
 
-       // private char 
+		// private char 
 
 		private int _value ;
 

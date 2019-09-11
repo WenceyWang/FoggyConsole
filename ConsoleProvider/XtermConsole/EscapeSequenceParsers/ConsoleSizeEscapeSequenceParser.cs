@@ -15,16 +15,16 @@ namespace DreamRecorder . FoggyConsole . XtermConsole . EscapeSequenceParsers
 		public readonly Regex TryEscape =
 			new Regex ( @"^\u001b(?:\[|$)(?:8|$)(?:;|$)(?:(\d+)|$)(?:;|$)(?:(\d+)|$)(?:t|$)" ) ;
 
-		public ParseResult TryParse(List<char> content, XtermConsole console)
-        {
-            string contentString;
+		public ParseResult TryParse ( List <char> content , XtermConsole console )
+		{
+			string contentString ;
 
-            lock (content)
-            {
-                contentString = new string(content.ToArray());
-            }
+			lock ( content )
+			{
+				contentString = new string ( content . ToArray ( ) ) ;
+			}
 
-            Match tryMatch = TryEscape . Match ( contentString ) ;
+			Match tryMatch = TryEscape . Match ( contentString ) ;
 
 			if ( tryMatch . Success )
 			{
@@ -32,17 +32,17 @@ namespace DreamRecorder . FoggyConsole . XtermConsole . EscapeSequenceParsers
 
 				if ( fullMatch . Success )
 				{
-                    lock (content)
-                    {
-                        content.RemoveRange(0, fullMatch.Value.Length);
-                    }
+					lock ( content )
+					{
+						content . RemoveRange ( 0 , fullMatch . Value . Length ) ;
+					}
 
-                    int height = Convert.ToInt32(fullMatch.Groups[1].Value);
-                    int width = Convert.ToInt32(fullMatch.Groups[2].Value);
+					int height = Convert . ToInt32 ( fullMatch . Groups [ 1 ] . Value ) ;
+					int width  = Convert . ToInt32 ( fullMatch . Groups [ 2 ] . Value ) ;
 
-                    console.InternalSize = new Size(width, height);
+					console . InternalSize = new Size ( width , height ) ;
 
-                    return ParseResult . Finished ;
+					return ParseResult . Finished ;
 				}
 				else
 				{
@@ -55,7 +55,6 @@ namespace DreamRecorder . FoggyConsole . XtermConsole . EscapeSequenceParsers
 			}
 		}
 
-	
 	}
 
 }

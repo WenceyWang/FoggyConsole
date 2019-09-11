@@ -25,7 +25,6 @@ namespace DreamRecorder . FoggyConsole . Example . Pages
 																										$"{nameof ( NewsPage )}.xml" ) ) .
 												Root )
 		{
-
 		}
 
 		public override void OnNavigateTo ( ) { }

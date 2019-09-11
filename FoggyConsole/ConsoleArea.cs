@@ -108,7 +108,7 @@ namespace DreamRecorder . FoggyConsole
 			{
 				for ( int x = 0 ; x < Size . Width ; x++ )
 				{
-                    Content[Position.X + x, Position.Y + y] = character ;
+					Content [ Position . X + x , Position . Y + y ] = character ;
 				}
 			}
 		}

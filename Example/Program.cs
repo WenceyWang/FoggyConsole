@@ -2,8 +2,9 @@
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
-using System.Net;
-using System.Net.Sockets;
+using System . Net ;
+using System . Net . Sockets ;
+
 using DreamRecorder . FoggyConsole . Controls ;
 using DreamRecorder . FoggyConsole . Example . Pages ;
 using DreamRecorder . ToolBox . CommandLine ;
@@ -41,23 +42,19 @@ namespace DreamRecorder . FoggyConsole . Example
 
 		public override void Start ( string [ ] args )
 		{
-            ////SerialPort port = new SerialPort("COM7");
+			////SerialPort port = new SerialPort("COM7");
 
-            ////port.Open();
+			////port.Open();
 
-            TcpListener listener = new TcpListener(IPAddress.Any, Setting.PortNumber);
+			TcpListener listener = new TcpListener ( IPAddress . Any , Setting . PortNumber ) ;
 
-            listener.Start();
+			listener . Start ( ) ;
 
-            TcpClient connection = listener.AcceptTcpClient();
+			TcpClient connection = listener . AcceptTcpClient ( ) ;
 
-            XtermConsole.XtermConsole console = new XtermConsole.XtermConsole(connection.GetStream());
+			XtermConsole . XtermConsole console = new XtermConsole . XtermConsole ( connection . GetStream ( ) ) ;
 
-            Application =
-				new Application ( console , PrepareViewRoot )
-				{
-					Name = Name , IsDebug = IsDebug
-				} ;
+			Application = new Application ( console , PrepareViewRoot ) { Name = Name , IsDebug = IsDebug } ;
 
 			Application . Start ( ) ;
 		}
