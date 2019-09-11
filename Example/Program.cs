@@ -46,15 +46,15 @@ namespace DreamRecorder . FoggyConsole . Example
 
 			////port.Open();
 
-			TcpListener listener = new TcpListener ( IPAddress . Any , Setting . PortNumber ) ;
+			//TcpListener listener = new TcpListener ( IPAddress . Any , Setting . PortNumber ) ;
 
-			listener . Start ( ) ;
+			//listener . Start ( ) ;
 
-			TcpClient connection = listener . AcceptTcpClient ( ) ;
+			//TcpClient connection = listener . AcceptTcpClient ( ) ;
 
-			XtermConsole . XtermConsole console = new XtermConsole . XtermConsole ( connection . GetStream ( ) ) ;
+			//XtermConsole . XtermConsole console = new XtermConsole . XtermConsole ( connection . GetStream ( ) ) ;
 
-			Application = new Application ( console , PrepareViewRoot ) { Name = Name , IsDebug = IsDebug } ;
+			Application = new Application ( LocalConsole.LocalConsole.Current , PrepareViewRoot ) { Name = Name , IsDebug = IsDebug } ;
 
 			Application . Start ( ) ;
 		}

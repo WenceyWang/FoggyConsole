@@ -13,7 +13,7 @@ namespace DreamRecorder . FoggyConsole . XtermConsole . EscapeSequenceParsers
 
 		public static readonly char [ ] Csi = { Esc , '[' } ;
 
-		public static readonly char [ ] Bel = { '\u0007' } ;
+		public static readonly char [ ] Bel = { '\b' } ;
 
 		public static readonly char [ ] Ss2 = { Esc , 'N' } ;
 

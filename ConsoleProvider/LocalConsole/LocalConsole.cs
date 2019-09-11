@@ -32,7 +32,7 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 
 		private ConcurrentQueue <ConsoleKeyInfo> InputQueue { get ; set ; }
 
-		public void Bell ( ) { Console . Beep ( ) ; }
+		public void Bell ( ) { Console.Write('\a'); }
 
 		public event EventHandler <ConsoleSizeChangedEvnetArgs> SizeChanged ;
 
