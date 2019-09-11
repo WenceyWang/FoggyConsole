@@ -9,9 +9,7 @@ namespace DreamRecorder . FoggyConsole . XtermConsole . EscapeSequenceParsers
 	public interface IInputEscapeSequenceParser
 	{
 
-		ParseResult TryParse ( List <char> content ) ;
-
-		void Apply ( List <char> content , XtermConsole console ) ;
+		ParseResult TryParse (List<char> content, XtermConsole console) ;
 
 	}
 

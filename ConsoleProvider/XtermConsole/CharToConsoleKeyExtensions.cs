@@ -27,6 +27,8 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 						return new ConsoleKeyInfo ( c , ConsoleKey . Spacebar , false , false , false ) ;
 					case '\u0009' :
 						return new ConsoleKeyInfo ( c , ConsoleKey . Tab , false , false , false ) ;
+                    case '\u007f':
+                        return new ConsoleKeyInfo(c, ConsoleKey.Backspace, false, false, false);
 					case ';' :
 						return new ConsoleKeyInfo ( c , ConsoleKey . Oem1 , false , false , false ) ;
 					case ':' :

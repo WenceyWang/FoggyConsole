@@ -20,6 +20,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		private char _progressChar = '|' ;
 
+       // private char 
+
 		private int _value ;
 
 		public int SmallChange { get ; set ; }
