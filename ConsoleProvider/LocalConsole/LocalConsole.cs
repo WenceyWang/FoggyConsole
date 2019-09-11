@@ -1,258 +1,257 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
+﻿using System ;
+using System . Collections ;
+using System . Collections . Concurrent ;
+using System . Collections . Generic ;
+using System . Linq ;
+using System . Text ;
+using System . Threading ;
 
-namespace DreamRecorder.FoggyConsole.LocalConsole
+namespace DreamRecorder . FoggyConsole . LocalConsole
 {
 
-    public class LocalConsole : IConsole
-    {
+	public class LocalConsole : IConsole
+	{
 
-        public static LocalConsole Current { get; } = new LocalConsole();
+		public static LocalConsole Current { get ; } = new LocalConsole ( ) ;
 
-        public Size LastRenderedSize { get; set; }
+		public Size LastRenderedSize { get ; set ; }
 
-        public Size PreviousSize { get; set; }
+		public Size PreviousSize { get ; set ; }
 
-        public int RefreshLimit { get; set; } = 60;
+		public int RefreshLimit { get ; set ; } = 60 ;
 
-        public bool IsRunning { get; private set; }
+		public bool IsRunning { get ; private set ; }
 
-        public Thread WatcherThread { get; private set; }
+		public Thread WatcherThread { get ; private set ; }
 
-        public Thread ProcessThread { get; private set; }
+		public Thread ProcessThread { get ; private set ; }
 
-        private ConsoleColor CurrentForegroundColor { get; set; }
+		private ConsoleColor CurrentForegroundColor { get ; set ; }
 
-        private ConsoleColor CurrentBackgroundColor { get; set; }
+		private ConsoleColor CurrentBackgroundColor { get ; set ; }
 
-        public void Bell() { Console.Beep(); }
+		private ConcurrentQueue <ConsoleKeyInfo> InputQueue { get ; set ; }
 
-        public event EventHandler<ConsoleSizeChangedEvnetArgs> SizeChanged;
+		public void Bell ( ) { Console . Beep ( ) ; }
 
-        public Size Size
-        {
-            get => new Size(Console.WindowWidth, Console.WindowHeight);
-            set => Console.SetWindowSize(value.Width, value.Height);
-        }
+		public event EventHandler <ConsoleSizeChangedEvnetArgs> SizeChanged ;
 
-        /// <summary>
-        ///     Is fired when a user presses an key
-        /// </summary>
-        public event EventHandler<KeyPressedEventArgs> KeyPressed;
+		public Size Size
+		{
+			get => new Size ( Console . WindowWidth , Console . WindowHeight ) ;
+			set => Console . SetWindowSize ( value . Width , value . Height ) ;
+		}
 
-        public void Start()
-        {
-            if (!IsRunning)
-            {
-                if (!Application.IsDebug)
-                {
-                    Console.CursorVisible = false;
-                }
+		/// <summary>
+		///     Is fired when a user presses an key
+		/// </summary>
+		public event EventHandler <KeyPressedEventArgs> KeyPressed ;
 
-                Console.OutputEncoding = Encoding.UTF8;
-                Console.InputEncoding = Encoding.UTF8;
+		public void Start ( )
+		{
+			if ( ! IsRunning )
+			{
+				if ( ! Application . IsDebug )
+				{
+					Console . CursorVisible = false ;
+				}
 
-                if (Application.Name != null)
-                {
-                    Console.Title = Application.Name;
-                }
+				Console . OutputEncoding = Encoding . UTF8 ;
+				Console . InputEncoding  = Encoding . UTF8 ;
 
-                if (Application.AutoDefaultColor)
-                {
-                    Application.DefaultBackgroundColor = Console.BackgroundColor;
-                    Application.DefaultForegroundColor = Console.ForegroundColor;
-                }
+				if ( Application . Name != null )
+				{
+					Console . Title = Application . Name ;
+				}
 
-                InputQueue = new ConcurrentQueue<ConsoleKeyInfo>();
+				if ( Application . AutoDefaultColor )
+				{
+					Application . DefaultBackgroundColor = Console . BackgroundColor ;
+					Application . DefaultForegroundColor = Console . ForegroundColor ;
+				}
 
-                WatcherThread = new Thread(Watch) { Name = nameof(WatcherThread) };
-                ProcessThread = new Thread(Process) { Name = nameof(ProcessThread) };
+				InputQueue = new ConcurrentQueue <ConsoleKeyInfo> ( ) ;
 
-                IsRunning = true;
-                WatcherThread.Start();
-                ProcessThread.Start();
-            }
-        }
+				WatcherThread = new Thread ( Watch ) { Name   = nameof ( WatcherThread ) } ;
+				ProcessThread = new Thread ( Process ) { Name = nameof ( ProcessThread ) } ;
 
-        /// <summary>
-        ///     Stops the internal watcher-thread
-        /// </summary>
-        public void Stop()
-        {
-            IsRunning = false;
-            Console.CancelKeyPress -= Console_CancelKeyPress;
+				IsRunning = true ;
+				WatcherThread . Start ( ) ;
+				ProcessThread . Start ( ) ;
+			}
+		}
 
-            Console.ResetColor();
-            Console.SetCursorPosition(0, 0);
-            Console.Clear();
-            Console.CursorVisible = true;
-        }
+		/// <summary>
+		///     Stops the internal watcher-thread
+		/// </summary>
+		public void Stop ( )
+		{
+			IsRunning                =  false ;
+			Console . CancelKeyPress -= Console_CancelKeyPress ;
 
-        public void Draw(Point position, ConsoleArea area)
-        {
-            Draw(new Rectangle(position, area.Size), area.Content);
-        }
+			Console . ResetColor ( ) ;
+			Console . SetCursorPosition ( 0 , 0 ) ;
+			Console . Clear ( ) ;
+			Console . CursorVisible = true ;
+		}
 
-        public Application Application { get; set; }
+		public void Draw ( Point position , ConsoleArea area )
+		{
+			Draw ( new Rectangle ( position , area . Size ) , area . Content ) ;
+		}
 
-        private void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e) { e.Cancel = true; }
+		public Application Application { get ; set ; }
 
-        private void Process()
-        {
-            DateTime lastUpdate = DateTime.Now + TimeSpan.FromMilliseconds(1000d / RefreshLimit);
+		private void Console_CancelKeyPress ( object sender , ConsoleCancelEventArgs e ) { e . Cancel = true ; }
 
-            while (IsRunning)
-            {
-                while (InputQueue.TryDequeue(out var keyInfo))
-                {
-                    KeyPressed?.Invoke(null, new KeyPressedEventArgs(keyInfo));
-                }
+		private void Process ( )
+		{
+			DateTime lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
 
-                TimeSpan waitTime = lastUpdate - DateTime.Now;
-                lastUpdate = DateTime.Now + TimeSpan.FromMilliseconds(1000d / RefreshLimit);
+			while ( IsRunning )
+			{
+				while ( InputQueue . TryDequeue ( out ConsoleKeyInfo keyInfo ) )
+				{
+					KeyPressed ? . Invoke ( null , new KeyPressedEventArgs ( keyInfo ) ) ;
+				}
 
-                Thread.Yield();
-                Thread.Sleep(Math.Max(Convert.ToInt32(waitTime.TotalMilliseconds), 0));
-            }
-        }
+				TimeSpan waitTime = lastUpdate - DateTime . Now ;
+				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
 
-        private void Watch()
-        {
-            bool isPaused = false;
+				Thread . Yield ( ) ;
+				Thread . Sleep ( Math . Max ( Convert . ToInt32 ( waitTime . TotalMilliseconds ) , 0 ) ) ;
+			}
+		}
 
-            PreviousSize = Size;
+		private void Watch ( )
+		{
+			bool isPaused = false ;
 
-            DateTime lastUpdate = DateTime.Now + TimeSpan.FromMilliseconds(1000d / RefreshLimit);
+			PreviousSize = Size ;
 
-            while (IsRunning)
-            {
-                Size newSize = Size;
+			DateTime lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
 
-                if (newSize == PreviousSize)
-                {
-                    if (isPaused)
-                    {
-                        SizeChanged?.Invoke(
-                                                this,
-                                                new ConsoleSizeChangedEvnetArgs
-                                                {
-                                                    NewSize = newSize,
-                                                    OldSize = LastRenderedSize
-                                                });
+			while ( IsRunning )
+			{
+				Size newSize = Size ;
 
-                        isPaused = false;
-                    }
-                }
-                else
-                {
-                    if (!isPaused)
-                    {
-                        LastRenderedSize = PreviousSize;
+				if ( newSize == PreviousSize )
+				{
+					if ( isPaused )
+					{
+						SizeChanged ? . Invoke (
+												this ,
+												new ConsoleSizeChangedEvnetArgs
+												{
+													NewSize = newSize , OldSize = LastRenderedSize
+												} ) ;
 
-                        isPaused = true;
-                    }
+						isPaused = false ;
+					}
+				}
+				else
+				{
+					if ( ! isPaused )
+					{
+						LastRenderedSize = PreviousSize ;
 
-                    PreviousSize = newSize;
-                }
+						isPaused = true ;
+					}
 
-                while (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                    InputQueue.Enqueue(keyInfo);
-                }
+					PreviousSize = newSize ;
+				}
 
-                TimeSpan waitTime = lastUpdate - DateTime.Now;
-                lastUpdate = DateTime.Now + TimeSpan.FromMilliseconds(1000d / RefreshLimit);
+				while ( Console . KeyAvailable )
+				{
+					ConsoleKeyInfo keyInfo = Console . ReadKey ( true ) ;
+					InputQueue . Enqueue ( keyInfo ) ;
+				}
 
-                Thread.Yield();
-                Thread.Sleep(Math.Max(Convert.ToInt32(waitTime.TotalMilliseconds), 0));
-            }
-        }
+				TimeSpan waitTime = lastUpdate - DateTime . Now ;
+				lastUpdate = DateTime . Now + TimeSpan . FromMilliseconds ( 1000d / RefreshLimit ) ;
 
-        ConcurrentQueue<ConsoleKeyInfo> InputQueue { get; set; }
+				Thread . Yield ( ) ;
+				Thread . Sleep ( Math . Max ( Convert . ToInt32 ( waitTime . TotalMilliseconds ) , 0 ) ) ;
+			}
+		}
 
-        public void Draw(Rectangle position, ConsoleChar[,] content)
-        {
-            try
-            {
-                CurrentBackgroundColor = Console.BackgroundColor;
-                CurrentForegroundColor = Console.ForegroundColor;
+		public void Draw ( Rectangle position , ConsoleChar [ , ] content )
+		{
+			try
+			{
+				CurrentBackgroundColor = Console . BackgroundColor ;
+				CurrentForegroundColor = Console . ForegroundColor ;
 
-                Rectangle consoleArea = new Rectangle(new Point(), Size);
+				Rectangle consoleArea = new Rectangle ( new Point ( ) , Size ) ;
 
-                position = Rectangle.Intersect(position, consoleArea);
+				position = Rectangle . Intersect ( position , consoleArea ) ;
 
-                bool changeLine = position.Right != consoleArea.Right || position.Left != consoleArea.Left;
+				bool changeLine = position . Right != consoleArea . Right || position . Left != consoleArea . Left ;
 
-                StringBuilder stringBuilder = new StringBuilder(content.Length);
+				StringBuilder stringBuilder = new StringBuilder ( content . Length ) ;
 
-                if (!changeLine)
-                {
-                    Console.SetCursorPosition(position.Left, position.Top);
-                }
+				if ( ! changeLine )
+				{
+					Console . SetCursorPosition ( position . Left , position . Top ) ;
+				}
 
-                for (int y = 0; y < position.Height; y++)
-                {
-                    if (changeLine)
-                    {
-                        Console.SetCursorPosition(position.Left, position.Top + y);
-                    }
+				for ( int y = 0 ; y < position . Height ; y++ )
+				{
+					if ( changeLine )
+					{
+						Console . SetCursorPosition ( position . Left , position . Top + y ) ;
+					}
 
-                    for (int x = Math.Max(-position.X, 0); x < position.Width; x++)
-                    {
-                        ConsoleChar currentPosition = content[x, y];
+					for ( int x = Math . Max ( - position . X , 0 ) ; x < position . Width ; x++ )
+					{
+						ConsoleChar currentPosition = content [ x , y ] ;
 
-                        ConsoleColor targetBackgroundColor = currentPosition.BackgroundColor;
-                        ConsoleColor targetForegroundColor = currentPosition.ForegroundColor;
+						ConsoleColor targetBackgroundColor = currentPosition . BackgroundColor ;
+						ConsoleColor targetForegroundColor = currentPosition . ForegroundColor ;
 
-                        if (CurrentBackgroundColor != targetBackgroundColor
-                             || CurrentForegroundColor != targetForegroundColor
-                             && !char.IsWhiteSpace(currentPosition.Character))
-                        {
-                            Write(stringBuilder);
+						if ( CurrentBackgroundColor != targetBackgroundColor
+							 || CurrentForegroundColor != targetForegroundColor
+							 && ! char . IsWhiteSpace ( currentPosition . Character ) )
+						{
+							Write ( stringBuilder ) ;
 
-                            Console.BackgroundColor = CurrentBackgroundColor = targetBackgroundColor;
-                            Console.ForegroundColor = CurrentForegroundColor = targetForegroundColor;
-                        }
+							Console . BackgroundColor = CurrentBackgroundColor = targetBackgroundColor ;
+							Console . ForegroundColor = CurrentForegroundColor = targetForegroundColor ;
+						}
 
-                        stringBuilder.Append(currentPosition.Character);
-                    }
+						stringBuilder . Append ( currentPosition . Character ) ;
+					}
 
-                    if (changeLine)
-                    {
-                        Write(stringBuilder);
-                    }
-                }
+					if ( changeLine )
+					{
+						Write ( stringBuilder ) ;
+					}
+				}
 
-                if (!changeLine)
-                {
-                    Write(stringBuilder);
-                }
+				if ( ! changeLine )
+				{
+					Write ( stringBuilder ) ;
+				}
 
-                Console.SetCursorPosition(position.Left, position.Top);
-            }
+				Console . SetCursorPosition ( position . Left , position . Top ) ;
+			}
 
-            // ReSharper disable once EmptyGeneralCatchClause
-            catch
-            {
-                //Todo: Warning
-            }
-        }
+			// ReSharper disable once EmptyGeneralCatchClause
+			catch
+			{
+				//Todo: Warning
+			}
+		}
 
-        private void Write(StringBuilder stringBuilder)
-        {
-            if (stringBuilder.Length > 0)
-            {
-                Console.Write(stringBuilder.ToString());
-                stringBuilder.Clear();
-            }
-        }
+		private void Write ( StringBuilder stringBuilder )
+		{
+			if ( stringBuilder . Length > 0 )
+			{
+				Console . Write ( stringBuilder . ToString ( ) ) ;
+				stringBuilder . Clear ( ) ;
+			}
+		}
 
-    }
+	}
 
 }
