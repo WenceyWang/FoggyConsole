@@ -25,9 +25,26 @@ namespace DreamRecorder . FoggyConsole . Example . Pages
 																										$"{nameof ( NewsPage )}.xml" ) ) .
 												Root )
 		{
-		}
+            Text = Find<TextBox>(nameof(Text));
+            Bar = Find<ProgressBar>(nameof(Bar));
 
-		public override void OnNavigateTo ( ) { }
+            Text.TextChanged += Text_TextChanged;
+
+        }
+
+        private void Text_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(Text.Text,out int value))
+            {
+                Bar.Value = value;
+
+            }
+        }
+
+        public TextBox Text { get; private set; }
+        public ProgressBar Bar { get; private set; }
+
+        public override void OnNavigateTo ( ) { }
 
 	}
 

@@ -29,7 +29,6 @@ namespace DreamRecorder . FoggyConsole
 		private ILogger Logger { get ; } =
 			StaticServiceProvider . Provider . GetService <ILoggerFactory> ( ) . CreateLogger <FocusManager> ( ) ;
 
-
 		/// <summary>
 		///     The currently focused control
 		/// </summary>
@@ -106,9 +105,6 @@ namespace DreamRecorder . FoggyConsole
 			}
 			else
 			{
-				//float tangentControl = 0.2f;
-				//float yAxisCorrection = 2.3f;
-
 				switch ( args . KeyInfo . Key )
 				{
 					case ConsoleKey . Tab :
@@ -458,7 +454,7 @@ namespace DreamRecorder . FoggyConsole
 								 {
 									 if ( control is null )
 									 {
-										 Logger . LogWarning ( $"Control List of {Root . Name} contains null" ) ;
+										 Logger . LogWarning ( $"Control List of {Root . Name} contains null." ) ;
 										 return false ;
 									 }
 

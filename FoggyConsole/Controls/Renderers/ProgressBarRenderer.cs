@@ -29,13 +29,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				return ;
 			}
 
-			ConsoleColor foregroundColor ;
-			ConsoleColor backgroundColor ;
+            ConsoleColor foregroundColor = Control.ActualForegroundColor;
+            ConsoleColor backgroundColor = Control.ActualBackgroundColor;
 
-			foregroundColor = Control . ActualForegroundColor ;
-			backgroundColor = Control . ActualBackgroundColor ;
-
-			area . Fill ( backgroundColor ) ;
+            area . Fill ( backgroundColor ) ;
 
 			int barStart ;
 			int barMaxWidth ;
@@ -53,19 +50,20 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				barStart    = 0 ;
 			}
 
-			int barWidth = barMaxWidth
-						   * ( ( Control . Value      - Control . MinValue )
-							   / ( Control . MaxValue - Control . MinValue ) ) ;
+            double valuePerCharacter = (Control.MaxValue - Control.MinValue) / (double)barMaxWidth;
 
+            double CurrentValue = Control.Value/valuePerCharacter;
 
 			for ( int y = 0 ; y < Control . ActualHeight ; y++ )
 			{
-				for ( int x = barStart ; x < barWidth ; x++ )
+				for ( int x = barStart ; x < barMaxWidth ; x++ )
 				{
-					area [ x + 1 , 0 ] = new ConsoleChar (
-														  Control . ProgressChar ,
+					area [ x , 0 ] = new ConsoleChar (
+														  Control.CharProvider.GetChar(CurrentValue),
 														  foregroundColor ,
 														  backgroundColor ) ;
+
+                    CurrentValue--;
 				}
 			}
 		}
