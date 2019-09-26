@@ -247,12 +247,56 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 			CursorVisible = true ;
 		}
 
-		public void Draw ( Point position , ConsoleArea area )
-		{
-			Draw ( new Rectangle ( position , area . Size ) , area . Content ) ;
-		}
-
 		public Application Application { get ; set ; }
+
+		public void Draw ( ConsoleArea area )
+		{
+			try
+			{
+				Rectangle position = area . Position ;
+
+				Rectangle consoleArea = new Rectangle ( new Point ( ) , Size ) ;
+
+				position = Rectangle . Intersect ( position , consoleArea ) ;
+
+				StringBuilder stringBuilder = new StringBuilder ( position . Area ) ;
+
+				for ( int y = 0 ; y <= position . Height ; y++ )
+				{
+					SetCursorPosition ( position . Left , position . Top + y ) ;
+
+					for ( int x = 0 ; x <= position . Width ; x++ )
+					{
+						ConsoleChar currentPosition = area [ x , y ] ;
+
+						ConsoleColor targetBackgroundColor = currentPosition . BackgroundColor ;
+						ConsoleColor targetForegroundColor = currentPosition . ForegroundColor ;
+
+						if ( BackgroundColor != targetBackgroundColor
+							 || ForegroundColor != targetForegroundColor
+							 && ! char . IsWhiteSpace ( currentPosition . Character ) )
+						{
+							Write ( stringBuilder ) ;
+
+							BackgroundColor = targetBackgroundColor ;
+							ForegroundColor = targetForegroundColor ;
+						}
+
+						stringBuilder . Append ( currentPosition . Character ) ;
+					}
+
+					Write ( stringBuilder ) ;
+				}
+
+				SetCursorPosition ( position . Left , position . Top ) ;
+			}
+
+			// ReSharper disable once EmptyGeneralCatchClause
+			catch
+			{
+				//Todo: Warning
+			}
+		}
 
 		public void InvokeKeyPressed ( ConsoleKeyInfo keyInfo )
 			=> KeyPressed ? . Invoke ( this , new KeyPressedEventArgs ( keyInfo ) ) ;
@@ -412,53 +456,6 @@ namespace DreamRecorder . FoggyConsole . XtermConsole
 				{
 					Buffer . Add ( ( char ) currentChar ) ;
 				}
-			}
-		}
-
-		public void Draw ( Rectangle position , ConsoleChar [ , ] content )
-		{
-			try
-			{
-				Rectangle consoleArea = new Rectangle ( new Point ( ) , Size ) ;
-
-				position = Rectangle . Intersect ( position , consoleArea ) ;
-
-				StringBuilder stringBuilder = new StringBuilder ( content . Length ) ;
-
-				for ( int y = 0 ; y < position . Height ; y++ )
-				{
-					SetCursorPosition ( position . Left , position . Top + y ) ;
-
-					for ( int x = Math . Max ( - position . X , 0 ) ; x < position . Width ; x++ )
-					{
-						ConsoleChar currentPosition = content [ x , y ] ;
-
-						ConsoleColor targetBackgroundColor = currentPosition . BackgroundColor ;
-						ConsoleColor targetForegroundColor = currentPosition . ForegroundColor ;
-
-						if ( BackgroundColor != targetBackgroundColor
-							 || ForegroundColor != targetForegroundColor
-							 && ! char . IsWhiteSpace ( currentPosition . Character ) )
-						{
-							Write ( stringBuilder ) ;
-
-							BackgroundColor = targetBackgroundColor ;
-							ForegroundColor = targetForegroundColor ;
-						}
-
-						stringBuilder . Append ( currentPosition . Character ) ;
-					}
-
-					Write ( stringBuilder ) ;
-				}
-
-				SetCursorPosition ( position . Left , position . Top ) ;
-			}
-
-			// ReSharper disable once EmptyGeneralCatchClause
-			catch
-			{
-				//Todo: Warning
 			}
 		}
 

@@ -50,7 +50,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		private void OnCheckedChanging ( object sender , CheckedChangingEventArgs checkedChangingEventArgs )
 		{
 			IEnumerable <RadioButton> radioButtons =
-				( Page . Container as ItemsContainer ) ? . Items ? . OfType <RadioButton> ( ) ? .
+				( Page . Container as ItemsContainer ) ? . Items ? . OfType <RadioButton> ( ) .
 														   Where ( cb => cb . ComboBoxGroup == ComboBoxGroup ) ;
 			if ( radioButtons != null )
 			{

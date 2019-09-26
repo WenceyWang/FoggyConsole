@@ -178,7 +178,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		private void Grid_ItemsAdded ( object sender , ContainerControlEventArgs e )
 		{
 			StartAt [ e . Control ]   = new Point ( 0 , 0 ) ;
-			BlockSize [ e . Control ] = new Size ( 1 , 1 ) ;
+			BlockSize [ e . Control ] = Size . One ;
 		}
 
 		public IReadOnlyCollection <Control> GetInsideControls ( [NotNull] Column column )

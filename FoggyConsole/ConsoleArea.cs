@@ -22,13 +22,13 @@ namespace DreamRecorder . FoggyConsole
 				if ( x    < 0
 					 || x >= Size . Width )
 				{
-					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
+					return default ;
 				}
 
 				if ( y    < 0
 					 || y >= Size . Height )
 				{
-					throw new ArgumentOutOfRangeException ( nameof ( y ) ) ;
+					return default ;
 				}
 
 				return Content [ Position . X + x , Position . Y + y ] ;
@@ -38,19 +38,12 @@ namespace DreamRecorder . FoggyConsole
 				if ( x    < 0
 					 || x >= Size . Width )
 				{
-#if DEBUG
-					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
-#endif
-
 					return ;
 				}
 
 				if ( y    < 0
 					 || y >= Size . Height )
 				{
-#if DEBUG
-					throw new ArgumentOutOfRangeException ( nameof ( x ) ) ;
-#endif
 					return ;
 				}
 
@@ -69,10 +62,6 @@ namespace DreamRecorder . FoggyConsole
 
 			if ( ! area . Position . Contain ( subRectangle ) )
 			{
-#if DEBUG
-				throw new ArgumentException (
-											 $"{nameof ( subRectangle )} should be contain in {nameof ( area )}.{nameof ( area . Position )}" ) ;
-#endif
 				subRectangle = area . Position . Intersect ( subRectangle ) ;
 			}
 

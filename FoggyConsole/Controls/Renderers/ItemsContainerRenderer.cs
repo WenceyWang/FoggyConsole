@@ -9,7 +9,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class ItemsContainerRenderer : ControlRenderer <ItemsContainer>
 	{
 
-		public override void Draw ( Application application , ConsoleArea area )
+		public override void DrawOverride ( Application application , ConsoleArea area )
 		{
 			foreach ( Control control in Control . Items )
 			{
@@ -25,7 +25,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class ItemsContainerRenderer <T> : ControlRenderer <T> where T : ItemsContainer
 	{
 
-		public override void Draw ( Application application , ConsoleArea area )
+		public override void DrawOverride( Application application , ConsoleArea area )
 		{
 			foreach ( Control control in Control . Items )
 			{

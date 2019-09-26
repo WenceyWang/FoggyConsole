@@ -11,7 +11,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class FIGletLabelRenderer : ControlRenderer <FIGletLabel>
 	{
 
-		public override void Draw ( Application application , ConsoleArea area )
+		public override void DrawOverride ( Application application , ConsoleArea area )
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 

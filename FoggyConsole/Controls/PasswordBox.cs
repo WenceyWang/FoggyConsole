@@ -94,7 +94,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </summary>
 		public event EventHandler EnterPressed ;
 
-		public override void KeyPressed ( KeyPressedEventArgs args )
+		public override void OnKeyPressed ( KeyPressedEventArgs args )
 		{
 			if ( ! Enabled )
 			{

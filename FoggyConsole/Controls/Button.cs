@@ -22,41 +22,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public class Button : TextualBase
 	{
 
-		private bool _allowSingleLine = true ;
-
-		public bool AllowSingleLine
-		{
-			get => _allowSingleLine ;
-			set
-			{
-				if ( _allowSingleLine != value )
-				{
-					_allowSingleLine = value ;
-					RequestMeasure ( ) ;
-				}
-			}
-		}
-
-		public override Size AutoDesiredSize
-		{
-			get
-			{
-				Size baseSize = base . AutoDesiredSize ;
-
-				if ( BoarderStyle is null )
-				{
-					return baseSize ;
-				}
-
-				if ( baseSize . Height == 1 && AllowSingleLine )
-				{
-					return new Size ( baseSize . Width + 2 , baseSize . Height ) ;
-				}
-
-				return baseSize + new Size ( 2 , 2 ) ;
-			}
-		}
-
 		public override bool CanFocusedOn => Enabled ;
 
 		/// <summary>
@@ -87,7 +52,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		/// </summary>
 		public event EventHandler Pressed ;
 
-		public override void KeyPressed ( KeyPressedEventArgs args )
+		public override void OnKeyPressed ( KeyPressedEventArgs args )
 		{
 			if ( args . KeyInfo . Key == ConsoleKey . Spacebar )
 			{

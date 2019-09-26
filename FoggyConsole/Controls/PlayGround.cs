@@ -25,7 +25,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public ConsoleArea Buffer
 		{
 			get => _buffer ;
-			set
+			protected set
 			{
 				if ( _buffer != value )
 				{
@@ -66,6 +66,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
+		public override Size AutoDesiredSize => Buffer . Size ;
+
 		/// <summary>
 		///     True if a redraw should be triggered on every change
 		/// </summary>
@@ -94,6 +96,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 			=> AutoRedraw = true ;
 
 		public PlayGround ( ) : this ( null ) { }
+
+		public void Redraw ( ) { RequestRedraw ( ) ; }
 
 	}
 

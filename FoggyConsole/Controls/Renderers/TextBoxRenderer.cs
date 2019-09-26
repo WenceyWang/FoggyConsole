@@ -15,18 +15,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// <summary>
 		///     Draws the TextBox given in the Control-Property
 		/// </summary>
-		public override void Draw ( Application application , ConsoleArea area )
+		public override void DrawOverride ( Application application , ConsoleArea area )
 		{
-			if ( Control is null )
-			{
-				return ;
-			}
-
-			if ( Control . ActualSize . IsEmpty )
-			{
-				return ;
-			}
-
+			
 			ConsoleColor foregroundColor = Control . ActualForegroundColor ;
 			ConsoleColor backgroundColor = Control . ActualBackgroundColor ;
 
@@ -39,7 +30,8 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				string line       = Control . Lines [ lineIndex ] ;
 				string renderLine = $"{line} " ;
 				int    x          = 0 ;
-				for ( int position = 0 ; position < renderLine . Length && y < Control . ActualHeight ; position++ )
+
+				for ( int position = 0 ; position < renderLine . Length && y < Control . ContentHeight ; position++ )
 				{
 					char t = renderLine [ position ] ;
 					area [ x , y ] = new ConsoleChar ( t , foregroundColor , backgroundColor ) ;

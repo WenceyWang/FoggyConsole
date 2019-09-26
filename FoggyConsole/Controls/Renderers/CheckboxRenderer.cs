@@ -14,7 +14,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class CheckboxRenderer : ControlRenderer <CheckBox>
 	{
 
-		public override void Draw ( Application application , ConsoleArea area )
+		public override void DrawOverride ( Application application , ConsoleArea area )
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 

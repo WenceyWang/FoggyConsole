@@ -64,10 +64,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		public override void Measure ( Size availableSize )
+		public override Size MeasureOverride ( Size availableSize )
 		{
 			Content ? . Measure ( availableSize ) ;
-			DesiredSize = Content ? . DesiredSize ?? Size . Empty ;
+			return Content ? . DesiredSize ?? Size . Empty ;
 		}
 
 		public override void ArrangeOverride ( Rectangle finalRect )

@@ -66,6 +66,8 @@ namespace DreamRecorder . FoggyConsole
 
 		public Point Center => new Point ( X + Width / 2 , Y + Height / 2 ) ;
 
+		public int Area => X * Y ;
+
 		public Vector2 FloatCenter => new Vector2 ( X + Width / 2f , Y + Height / 2f ) ;
 
 		/// <summary>
@@ -275,7 +277,7 @@ namespace DreamRecorder . FoggyConsole
 		public int Width { get ; }
 
 		/// <summary>
-		///     Empty - a static property which provides an EmptyChar rectangle.
+		///     EmptySet - a static property which provides an EmptyChar rectangle.
 		/// </summary>
 		public static Rectangle Empty => new Rectangle ( 0 , 0 , 0 , 0 ) ;
 

@@ -15,7 +15,7 @@ namespace DreamRecorder . FoggyConsole
 
 		void Stop ( ) ;
 
-		void Draw ( Point position , ConsoleArea area ) ;
+		void Draw ( ConsoleArea area ) ;
 
 		event EventHandler <ConsoleSizeChangedEvnetArgs> SizeChanged ;
 

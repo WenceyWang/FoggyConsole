@@ -32,7 +32,7 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 
 		private ConcurrentQueue <ConsoleKeyInfo> InputQueue { get ; set ; }
 
-		public void Bell ( ) { Console.Write('\a'); }
+		public void Bell ( ) { Console . Write ( '\a' ) ; }
 
 		public event EventHandler <ConsoleSizeChangedEvnetArgs> SizeChanged ;
 
@@ -95,9 +95,74 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 			Console . CursorVisible = true ;
 		}
 
-		public void Draw ( Point position , ConsoleArea area )
+		public void Draw ( ConsoleArea area )
 		{
-			Draw ( new Rectangle ( position , area . Size ) , area . Content ) ;
+			try
+			{
+				Rectangle position = area . Position ;
+
+				CurrentBackgroundColor = Console . BackgroundColor ;
+				CurrentForegroundColor = Console . ForegroundColor ;
+
+				Rectangle consoleArea = new Rectangle ( new Point ( ) , Size ) ;
+
+				position = Rectangle . Intersect ( position , consoleArea ) ;
+
+				bool changeLine = position . Right != consoleArea . Right || position . Left != consoleArea . Left ;
+
+				StringBuilder stringBuilder = new StringBuilder ( position . Area ) ;
+
+				if ( ! changeLine )
+				{
+					Console . SetCursorPosition ( position . Left , position . Top ) ;
+				}
+
+				for ( int y = 0 ; y < position . Height ; y++ )
+				{
+					if ( changeLine )
+					{
+						Console . SetCursorPosition ( position . Left , position . Top + y ) ;
+					}
+
+					for ( int x = 0 ; x < position . Width ; x++ )
+					{
+						ConsoleChar currentPosition = area [ x , y ] ;
+
+						ConsoleColor targetBackgroundColor = currentPosition . BackgroundColor ;
+						ConsoleColor targetForegroundColor = currentPosition . ForegroundColor ;
+
+						if ( CurrentBackgroundColor != targetBackgroundColor
+							 || CurrentForegroundColor != targetForegroundColor
+							 && ! char . IsWhiteSpace ( currentPosition . Character ) )
+						{
+							Write ( stringBuilder ) ;
+
+							Console . BackgroundColor = CurrentBackgroundColor = targetBackgroundColor ;
+							Console . ForegroundColor = CurrentForegroundColor = targetForegroundColor ;
+						}
+
+						stringBuilder . Append ( currentPosition . Character ) ;
+					}
+
+					if ( changeLine )
+					{
+						Write ( stringBuilder ) ;
+					}
+				}
+
+				if ( ! changeLine )
+				{
+					Write ( stringBuilder ) ;
+				}
+
+				Console . SetCursorPosition ( position . Left , position . Top ) ;
+			}
+
+			// ReSharper disable once EmptyGeneralCatchClause
+			catch
+			{
+				//Todo: Warning
+			}
 		}
 
 		public Application Application { get ; set ; }
@@ -172,74 +237,6 @@ namespace DreamRecorder . FoggyConsole . LocalConsole
 
 				Thread . Yield ( ) ;
 				Thread . Sleep ( Math . Max ( Convert . ToInt32 ( waitTime . TotalMilliseconds ) , 0 ) ) ;
-			}
-		}
-
-		public void Draw ( Rectangle position , ConsoleChar [ , ] content )
-		{
-			try
-			{
-				CurrentBackgroundColor = Console . BackgroundColor ;
-				CurrentForegroundColor = Console . ForegroundColor ;
-
-				Rectangle consoleArea = new Rectangle ( new Point ( ) , Size ) ;
-
-				position = Rectangle . Intersect ( position , consoleArea ) ;
-
-				bool changeLine = position . Right != consoleArea . Right || position . Left != consoleArea . Left ;
-
-				StringBuilder stringBuilder = new StringBuilder ( content . Length ) ;
-
-				if ( ! changeLine )
-				{
-					Console . SetCursorPosition ( position . Left , position . Top ) ;
-				}
-
-				for ( int y = 0 ; y < position . Height ; y++ )
-				{
-					if ( changeLine )
-					{
-						Console . SetCursorPosition ( position . Left , position . Top + y ) ;
-					}
-
-					for ( int x = Math . Max ( - position . X , 0 ) ; x < position . Width ; x++ )
-					{
-						ConsoleChar currentPosition = content [ x , y ] ;
-
-						ConsoleColor targetBackgroundColor = currentPosition . BackgroundColor ;
-						ConsoleColor targetForegroundColor = currentPosition . ForegroundColor ;
-
-						if ( CurrentBackgroundColor != targetBackgroundColor
-							 || CurrentForegroundColor != targetForegroundColor
-							 && ! char . IsWhiteSpace ( currentPosition . Character ) )
-						{
-							Write ( stringBuilder ) ;
-
-							Console . BackgroundColor = CurrentBackgroundColor = targetBackgroundColor ;
-							Console . ForegroundColor = CurrentForegroundColor = targetForegroundColor ;
-						}
-
-						stringBuilder . Append ( currentPosition . Character ) ;
-					}
-
-					if ( changeLine )
-					{
-						Write ( stringBuilder ) ;
-					}
-				}
-
-				if ( ! changeLine )
-				{
-					Write ( stringBuilder ) ;
-				}
-
-				Console . SetCursorPosition ( position . Left , position . Top ) ;
-			}
-
-			// ReSharper disable once EmptyGeneralCatchClause
-			catch
-			{
-				//Todo: Warning
 			}
 		}
 

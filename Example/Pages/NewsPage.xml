@@ -3,5 +3,6 @@
 <StackPanel>
   <FIGletLabel Text="News" HorizontalAlign="Center" />
   <TextBox Name="Text" Height="5" MultiLine="true" ></TextBox>
-  <ProgressBar Name="Bar" Value="34"></ProgressBar>
+  <ProgressBar Name="Bar" MaxValue="10000" Value="3400" BoarderStyle="SingleLine" ></ProgressBar>
+
 </StackPanel>

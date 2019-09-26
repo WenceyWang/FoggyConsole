@@ -100,10 +100,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public FIGletLabel ( ) : this ( null ) { }
 
-		public override void Measure ( Size availableSize )
+		public override Size MeasureOverride ( Size availableSize )
 		{
 			UpdateText ( ) ;
-			base . Measure ( availableSize ) ;
+			return base . MeasureOverride ( availableSize ) ;
 		}
 
 		private void UpdateText ( ) { AsciiArt = new AsciiArt ( Text , Font , _characterWidth ) ; }

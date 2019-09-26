@@ -2,6 +2,7 @@
 using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
+using System . Threading ;
 using System . Xml . Linq ;
 
 using DreamRecorder . FoggyConsole . Controls ;
@@ -19,32 +20,32 @@ namespace DreamRecorder . FoggyConsole . Example . Pages
 	public sealed class NewsPage : Page
 	{
 
+		private Timer timer ;
+
+		public TextBox Text { get ; private set ; }
+
+		public ProgressBar Bar { get ; private set ; }
+
 		public NewsPage ( ) : base (
 									XDocument . Parse (
 													   typeof ( ControlDisplayPage ) . GetResourceFile (
 																										$"{nameof ( NewsPage )}.xml" ) ) .
 												Root )
 		{
-            Text = Find<TextBox>(nameof(Text));
-            Bar = Find<ProgressBar>(nameof(Bar));
+			Text = Find <TextBox> ( nameof ( Text ) ) ;
+			Bar  = Find <ProgressBar> ( nameof ( Bar ) ) ;
+		}
 
-            Text.TextChanged += Text_TextChanged;
-
-        }
-
-        private void Text_TextChanged(object sender, EventArgs e)
-        {
-            if (int.TryParse(Text.Text,out int value))
-            {
-                Bar.Value = value;
-
-            }
-        }
-
-        public TextBox Text { get; private set; }
-        public ProgressBar Bar { get; private set; }
-
-        public override void OnNavigateTo ( ) { }
+		public override void OnNavigateTo ( )
+		{
+			timer = new Timer (
+							   s
+								   => Bar . Value = ( ( Bar . Value + 1 ) % ( Bar . MaxValue - Bar . MinValue ) )
+													+ Bar . MinValue ,
+							   null ,
+							   0 ,
+							   1 ) ;
+		}
 
 	}
 

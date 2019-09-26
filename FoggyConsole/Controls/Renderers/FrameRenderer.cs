@@ -9,7 +9,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 	public class RootFrameRenderer : ControlRenderer <RootFrame>
 	{
 
-		public override void Draw ( Application application , ConsoleArea area )
+		public override void DrawOverride ( Application application , ConsoleArea area )
 		{
 			area . Fill ( Control . ActualBackgroundColor ) ;
 
@@ -22,7 +22,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				area . CreateSub ( focusedArea . Value ) . InvertColor ( ) ;
 			}
 
-			application . Console . Draw ( Control ? . RenderPoint ?? Point . Zero , area ) ;
+			application . Console . Draw ( area ) ;
 		}
 
 	}

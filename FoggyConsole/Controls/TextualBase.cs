@@ -1,6 +1,7 @@
 ﻿using System ;
 using System . Collections ;
 using System . Collections . Generic ;
+using System . Collections . ObjectModel ;
 using System . Linq ;
 
 using DreamRecorder . FoggyConsole . Controls . Renderers ;
@@ -22,6 +23,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 	{
 
 		private string _text = string . Empty ;
+
+		public ReadOnlyCollection <string> Lines { get ; private set ; }
 
 		/// <summary>
 		///     Gets or sets the text which is drawn onto this Control.
@@ -45,18 +48,20 @@ namespace DreamRecorder . FoggyConsole . Controls
 			}
 		}
 
-		public override Size AutoDesiredSize
+		public override Size AutoDesiredSize => new Size ( Lines . Max ( str => str . Length ) , Lines . Count ) ;
+
+		protected TextualBase ( IControlRenderer renderer ) : base ( renderer )
+			=> TextChanged += TextualBase_TextChanged ;
+
+		public void UpdateLines ( )
 		{
-			get
-			{
-				string [ ] lines = Text . Split (
-												 Environment . NewLine . ToCharArray ( ) ,
-												 StringSplitOptions . None ) ;
-				return new Size ( lines . Max ( str => str . Length ) , lines . Length ) ;
-			}
+			Lines = new ReadOnlyCollection <string> (
+													 Text . Split (
+																   new [ ] { Environment . NewLine } ,
+																   StringSplitOptions . None ) ) ;
 		}
 
-		protected TextualBase ( IControlRenderer renderer ) : base ( renderer ) { }
+		private void TextualBase_TextChanged ( object sender , EventArgs e ) => UpdateLines ( ) ;
 
 		public event EventHandler TextChanged ;
 

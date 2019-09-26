@@ -18,6 +18,8 @@ namespace DreamRecorder . FoggyConsole . Controls
 	public abstract class Control : INotifyPropertyChanged , IHandleKeyInput
 	{
 
+		private bool _allowSingleLine = true ;
+
 		private ConsoleColor ? _backgroundColor ;
 
 		private LineStyle ? _boarderStyle ;
@@ -79,10 +81,10 @@ namespace DreamRecorder . FoggyConsole . Controls
 			{
 				if ( BoarderStyle == null )
 				{
-					return new Size ( 1 , 1 ) ;
+					return Size . One ;
 				}
 
-				return new Size ( 2 , 2 ) ;
+				return Size . Empty ;
 			}
 		}
 
@@ -153,6 +155,39 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public int ActualWidth => ActualSize . Width ;
 
 		public int ActualHeight => ActualSize . Height ;
+
+		public Rectangle ? ContentArea
+		{
+			get
+			{
+				if ( BoarderStyle != null
+					 && RenderArea is Rectangle renderArea )
+				{
+					if ( ActualHeight == 1 )
+					{
+						return new Rectangle (
+											  renderArea . LeftTopPoint   + new Vector ( 1 ,   0 ) ,
+											  renderArea . RightDownPoint + new Vector ( - 1 , 0 ) ) ;
+					}
+					else
+					{
+						return new Rectangle (
+											  renderArea . LeftTopPoint   + new Vector ( 1 ,   1 ) ,
+											  renderArea . RightDownPoint + new Vector ( - 1 , - 1 ) ) ;
+					}
+				}
+				else
+				{
+					return RenderArea ;
+				}
+			}
+		}
+
+		public Size ContentSize => ContentArea ? . Size ?? Size . Empty ;
+
+		public int ContentHeight => ContentSize . Height ;
+
+		public int ContentWidth => ContentSize . Width ;
 
 		public ConsoleColor ActualBackgroundColor
 			=> _backgroundColor
@@ -297,6 +332,19 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public virtual char ? KeyBind { get ; set ; } = null ;
 
+		public bool AllowSingleLine
+		{
+			get => _allowSingleLine ;
+			set
+			{
+				if ( _allowSingleLine != value )
+				{
+					_allowSingleLine = value ;
+					RequestMeasure ( ) ;
+				}
+			}
+		}
+
 		/// <summary>
 		///     Creates a new
 		///     <code>Control</code>
@@ -319,7 +367,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public void HandleKeyInput ( KeyPressedEventArgs args )
 		{
-			KeyPressed ( args ) ;
+			OnKeyPressed ( args ) ;
 			if ( ! args . Handled )
 			{
 				Container ? . HandleKeyInput ( args ) ;
@@ -339,10 +387,30 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		private void OnIsFocusedChanged ( ) { IsFocusedChanged ? . Invoke ( this , EventArgs . Empty ) ; }
 
-		public virtual void KeyPressed ( KeyPressedEventArgs args ) { }
-
+		public virtual void OnKeyPressed ( KeyPressedEventArgs args ) { }
 
 		public virtual void Measure ( Size availableSize )
+		{
+			Size sizeWithoutBoarder = MeasureOverride ( availableSize ) ;
+
+			int width  = sizeWithoutBoarder . Width ;
+			int height = sizeWithoutBoarder . Height ;
+
+			if ( BoarderStyle != null )
+			{
+				if ( height != 1
+					 || ! AllowSingleLine )
+				{
+					height += 2 ;
+				}
+
+				width += 2 ;
+			}
+
+			DesiredSize = new Size ( width , height ) ;
+		}
+
+		public virtual Size MeasureOverride ( Size availableSize )
 		{
 			int width ;
 			if ( AutoWidth )
@@ -364,8 +432,9 @@ namespace DreamRecorder . FoggyConsole . Controls
 				height = Size . Height ;
 			}
 
-			DesiredSize = new Size ( width , height ) ;
+			return new Size ( width , height ) ;
 		}
+
 
 		public virtual void Arrange ( Rectangle ? finalRect )
 		{

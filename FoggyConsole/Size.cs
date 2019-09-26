@@ -12,6 +12,8 @@ namespace DreamRecorder . FoggyConsole
 
 		public static readonly Size Empty = new Size ( ) ;
 
+		public static readonly Size One = new Size ( 1 , 1 ) ;
+
 		public Size ( Point point )
 		{
 			Width  = point . X ;

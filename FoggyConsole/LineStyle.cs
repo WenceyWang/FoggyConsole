@@ -1,16 +1,105 @@
 ﻿using System ;
 using System . Collections ;
 using System . Collections . Generic ;
+using System . ComponentModel ;
+using System . Globalization ;
 using System . Linq ;
+using System . Reflection ;
+
+using DreamRecorder . ToolBox . General ;
+
+using JetBrains . Annotations ;
 
 namespace DreamRecorder . FoggyConsole
 {
 
+	[AttributeUsage ( AttributeTargets . Property )]
+	public sealed class LineStyleAttribute : Attribute
+	{
+
+	}
+
 	/// <summary>
 	///     A set of characters which can be used to draw a box or complex lines
 	/// </summary>
+	[TypeConverter ( typeof ( LineStyleTypeConverter ) )]
 	public struct LineStyle : IEquatable <LineStyle>
 	{
+
+		public override string ToString ( )
+			=> $"{TopLeftCorner}{TopRightCorner}{BottomLeftCorner}{BottomRightCorner}{VerticalEdge}{HorizontalEdge}{ConnectionHorizontalUp}{ConnectionHorizontalDown}{ConnectionVerticalRight}{ConnectionVerticalLeft}{ConnectionCross}{EmptyChar}{SingleLineLeftEdge}{SingleLineRightEdge}" ;
+
+		public static implicit operator LineStyle ( [NotNull] string data )
+		{
+			if ( data == null )
+			{
+				throw new ArgumentNullException ( nameof ( data ) ) ;
+			}
+
+			PropertyInfo result =
+				typeof ( LineStyle ) . GetProperty ( $"{data}Set" , BindingFlags . Static | BindingFlags . Public ) ;
+
+			if ( result != null )
+			{
+				return ( LineStyle ) result . GetValue ( null ) ;
+			}
+
+			if ( data . Length < 14 )
+			{
+				return default ;
+			}
+
+			return new LineStyle (
+								  data [ 0 ] ,
+								  data [ 1 ] ,
+								  data [ 2 ] ,
+								  data [ 3 ] ,
+								  data [ 4 ] ,
+								  data [ 5 ] ,
+								  data [ 6 ] ,
+								  data [ 7 ] ,
+								  data [ 8 ] ,
+								  data [ 9 ] ,
+								  data [ 10 ] ,
+								  data [ 11 ] ,
+								  data [ 12 ] ,
+								  data [ 13 ] ) ;
+		}
+
+		public class LineStyleTypeConverter : TypeConverter
+		{
+
+			public override bool CanConvertFrom ( ITypeDescriptorContext context , Type sourceType )
+				=> sourceType == typeof ( string ) ;
+
+			public override bool CanConvertTo ( ITypeDescriptorContext context , Type destinationType )
+				=> destinationType == typeof ( string ) ;
+
+			public override object ConvertFrom ( ITypeDescriptorContext context , CultureInfo culture , object value )
+			{
+				if ( value is string lineStyleData )
+				{
+					return ( LineStyle ) lineStyleData ;
+				}
+
+				return EmptySet ;
+			}
+
+			public override object ConvertTo (
+				ITypeDescriptorContext context ,
+				CultureInfo            culture ,
+				object                 value ,
+				Type                   destinationType )
+			{
+				if ( destinationType == typeof ( string ) )
+				{
+					return value . ToString ( ) ;
+				}
+
+				return destinationType . GetDefault ( ) ;
+			}
+
+		}
 
 		/// <summary>
 		///     A character representing the top left corner of an rectangle
@@ -193,7 +282,8 @@ namespace DreamRecorder . FoggyConsole
 		///     which uses single-lined box-drawing-characters
 		/// </summary>
 		/// <returns></returns>
-		public static LineStyle Empty
+		[LineStyle]
+		public static LineStyle EmptySet
 			=> new LineStyle ( ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' , ' ' ) ;
 
 
@@ -202,6 +292,7 @@ namespace DreamRecorder . FoggyConsole
 		///     <code>LineStyle</code>
 		///     .
 		/// </summary>
+		[LineStyle]
 		public static LineStyle SimpleSet
 			=> new LineStyle ( '.' , '.' , '`' , '´' , '|' , '-' , '[' , ']' , '+' , '+' , '+' , '+' , '+' , ' ' ) ;
 
@@ -211,6 +302,7 @@ namespace DreamRecorder . FoggyConsole
 		///     <code>LineStyle</code>
 		///     .
 		/// </summary>
+		[LineStyle]
 		public static LineStyle CornerOnlySingleLineSet
 			=> new LineStyle (
 							  '\u250C' , // ┌
@@ -234,7 +326,8 @@ namespace DreamRecorder . FoggyConsole
 		///     which uses single-lined box-drawing-characters
 		/// </summary>
 		/// <returns></returns>
-		public static LineStyle SingleLinesSet
+		[LineStyle]
+		public static LineStyle SingleLineSet
 			=> new LineStyle (
 							  '\u250C' , // ┌
 							  '\u2510' , // ┐
@@ -256,6 +349,7 @@ namespace DreamRecorder . FoggyConsole
 		///     <code>LineStyle</code>
 		///     which uses double-lined box-drawing-characters
 		/// </summary>
+		[LineStyle]
 		public static LineStyle DoubleLinesSet
 			=> new LineStyle (
 							  '\u2554' , // ╔

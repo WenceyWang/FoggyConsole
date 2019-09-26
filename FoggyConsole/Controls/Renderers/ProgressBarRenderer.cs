@@ -1,73 +1,61 @@
-﻿using System ;
-using System . Collections ;
-using System . Collections . Generic ;
-using System . Linq ;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace DreamRecorder . FoggyConsole . Controls . Renderers
+namespace DreamRecorder.FoggyConsole.Controls.Renderers
 {
 
-	/// <summary>
-	///     Draws a
-	///     <code>ProgressBar</code>
-	///     -control
-	/// </summary>
-	public class ProgressBarRenderer : ControlRenderer <ProgressBar>
-	{
+    /// <summary>
+    ///     Draws a
+    ///     <code>ProgressBar</code>
+    ///     -control
+    /// </summary>
+    public class ProgressBarRenderer : ControlRenderer<ProgressBar>
+    {
 
-		/// <summary>
-		///     Draws the ProgressBar given in the Control-Property
-		/// </summary>
-		public override void Draw ( Application application , ConsoleArea area )
-		{
-			if ( Control is null )
-			{
-				return ;
-			}
+        /// <summary>
+        ///     Draws the ProgressBar given in the Control-Property
+        /// </summary>
+        public override void DrawOverride(Application application, ConsoleArea area)
+        {
+            if (Control is null)
+            {
+                return;
+            }
 
-			if ( Control . ActualSize . IsEmpty )
-			{
-				return ;
-			}
+            if (Control.ActualSize.IsEmpty)
+            {
+                return;
+            }
 
             ConsoleColor foregroundColor = Control.ActualForegroundColor;
             ConsoleColor backgroundColor = Control.ActualBackgroundColor;
 
-            area . Fill ( backgroundColor ) ;
 
-			int barStart ;
-			int barMaxWidth ;
-
-			if ( Control . BoarderStyle != null )
-			{
-				barMaxWidth = Control . ActualWidth - 2 ;
-				barStart    = 1 ;
-
-				area . DrawBoarder ( Control . BoarderStyle . Value , foregroundColor , backgroundColor ) ;
-			}
-			else
-			{
-				barMaxWidth = Control . ActualWidth ;
-				barStart    = 0 ;
-			}
+			int barMaxWidth = Control.ActualWidth ;
+            int barXStart = 0 ;
+            int barHeight = Control.ActualHeight ;
+            int barYStart = 0 ;
 
             double valuePerCharacter = (Control.MaxValue - Control.MinValue) / (double)barMaxWidth;
 
-            double CurrentValue = Control.Value/valuePerCharacter;
+            for (int y = barYStart; y < barHeight; y++)
+            {
+                double currentValue = Control.Value / valuePerCharacter;
 
-			for ( int y = 0 ; y < Control . ActualHeight ; y++ )
-			{
-				for ( int x = barStart ; x < barMaxWidth ; x++ )
-				{
-					area [ x , 0 ] = new ConsoleChar (
-														  Control.CharProvider.GetChar(CurrentValue),
-														  foregroundColor ,
-														  backgroundColor ) ;
+                for (int x = barXStart; x < barMaxWidth; x++)
+                {
+                    area[x, y] = new ConsoleChar(
+                                                      Control.CharProvider.GetChar(currentValue),
+                                                      foregroundColor,
+                                                      backgroundColor);
 
-                    CurrentValue--;
-				}
-			}
-		}
+                    currentValue--;
+                }
+            }
+        }
 
-	}
+    }
 
 }

@@ -6,6 +6,8 @@ using System . Linq ;
 using DreamRecorder . FoggyConsole . Controls . Events ;
 using DreamRecorder . FoggyConsole . Controls . Renderers ;
 
+using JetBrains . Annotations ;
+
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
@@ -14,6 +16,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	///     <code>ContainerBase</code>
 	///     It has no appearance, controls within it are aligned using their top and left values.
 	/// </summary>
+	[PublicAPI]
 	public class Canvas : ItemsContainer , IItemDependencyContainer <Point>
 	{
 
@@ -90,7 +93,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			RenderArea = finalRect ;
 		}
 
-		public override void Measure ( Size availableSize )
+		public override Size MeasureOverride ( Size availableSize )
 		{
 			foreach ( Control control in Items )
 			{
@@ -118,7 +121,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				resultHeight = Math . Max ( resultHeight , Height ) ;
 			}
 
-			DesiredSize = new Size ( resultWidth , resultHeight ) ;
+			return new Size ( resultWidth , resultHeight ) ;
 		}
 
 	}

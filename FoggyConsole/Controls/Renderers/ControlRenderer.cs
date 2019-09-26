@@ -48,10 +48,28 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 			;
 		}
 
+		public virtual void Draw ( Application application , ConsoleArea area )
+		{
+			area.Fill(Control.ActualBackgroundColor);
+
+            if ( Control . BoarderStyle is LineStyle boarderStyle )
+			{
+				area . DrawBoarder (
+									boarderStyle ,
+									Control . ActualForegroundColor ,
+									Control . ActualBackgroundColor ) ;
+			}
+
+			if ( Control . ContentArea . IsNotEmpty ( ) )
+			{
+				DrawOverride ( application , area . CreateSub ( Control . ContentArea . Value ) ) ;
+			}
+		}
+
 		/// <summary>
 		///     Draws the Control stored in the Control-Property
 		/// </summary>
-		public abstract void Draw ( Application application , ConsoleArea area ) ;
+		public abstract void DrawOverride ( Application application , ConsoleArea area ) ;
 
 	}
 

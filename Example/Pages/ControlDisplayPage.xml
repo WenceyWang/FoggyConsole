@@ -5,6 +5,7 @@
   <StackPanel Name="PageList" Container.Item="0,0,1,1" >
 
     <Button Name="NewsButton" Text="What's New" KeyBind="T" />
+    <Button Name="RingButton" Text="Ring" KeyBind="R" />
 
   </StackPanel>
 
