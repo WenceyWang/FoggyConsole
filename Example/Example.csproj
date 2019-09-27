@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
     <AssemblyName>DreamRecorder.FoggyConsole.Example</AssemblyName>
     <RootNamespace>DreamRecorder.FoggyConsole.Example</RootNamespace>
   </PropertyGroup>
@@ -21,10 +21,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.68" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
-    <PackageReference Include="System.IO.Ports" Version="4.6.0" />
+    <PackageReference Include="DreamRecorder.ToolBox.CommandLine" Version="1.1.4.67" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.2.0" />
+    <PackageReference Include="System.IO.Ports" Version="4.5.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -222,7 +222,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 						   ToList ( ) ;
 		}
 
-		public override void Measure ( Size availableSize )
+		public override Size MeasureOverride ( Size availableSize )
 		{
 			if ( ! Rows . Any ( ) )
 			{
@@ -396,7 +396,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				heightSum = Math . Max ( Height , heightSum ) ;
 			}
 
-			DesiredSize = new Size ( widthSum , heightSum ) ;
+			return new Size ( widthSum , heightSum ) ;
 		}
 
 		public override void ArrangeOverride ( Rectangle finalRect )

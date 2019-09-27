@@ -32,15 +32,38 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		protected ItemsContainer ( ) : this ( null ) { }
 
-		public override void Measure ( Size availableSize )
-		{
-			foreach ( Control control in Items )
-			{
-				control . Measure ( availableSize ) ;
-			}
-		}
+        public override Size MeasureOverride(Size availableSize)
+        {
+            foreach (Control control in Items)
+            {
+                control.Measure(availableSize);
+            }
 
-		public override void Arrange ( Rectangle ? finalRect )
+            Rectangle rectangle = Rectangle.Empty;
+
+            foreach (Control control in Items)
+            {
+                rectangle = rectangle.Union(new Rectangle( control.DesiredSize));
+            }
+
+            int resultWidth = rectangle.Size.Width;
+
+            if (!AutoWidth)
+            {
+                resultWidth = Math.Max(resultWidth, Width);
+            }
+
+            int resultHeight = rectangle.Size.Height;
+
+            if (!AutoHeight)
+            {
+                resultHeight = Math.Max(resultHeight, Height);
+            }
+
+            return new Size(resultWidth, resultHeight);
+        }
+
+        public override void Arrange ( Rectangle ? finalRect )
 		{
 			if ( finalRect . IsNotEmpty ( ) )
 			{

@@ -1,5 +1,4 @@
-﻿using System ;
-using System . Collections ;
+﻿using System . Collections ;
 using System . Collections . Generic ;
 using System . Linq ;
 using System . Threading ;
@@ -10,17 +9,9 @@ using DreamRecorder . ToolBox . General ;
 
 namespace DreamRecorder . FoggyConsole . Example . Pages
 {
-
-	[AttributeUsage ( AttributeTargets . Class , Inherited = false )]
-	public sealed class ControlDisplayAttribute : Attribute
+    public sealed class NewsPage : Page
 	{
 
-	}
-
-	public sealed class NewsPage : Page
-	{
-
-		private Timer timer ;
 
 		public TextBox Text { get ; private set ; }
 
@@ -38,13 +29,7 @@ namespace DreamRecorder . FoggyConsole . Example . Pages
 
 		public override void OnNavigateTo ( )
 		{
-			timer = new Timer (
-							   s
-								   => Bar . Value = ( ( Bar . Value + 1 ) % ( Bar . MaxValue - Bar . MinValue ) )
-													+ Bar . MinValue ,
-							   null ,
-							   0 ,
-							   1 ) ;
+			
 		}
 
 	}

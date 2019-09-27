@@ -93,37 +93,37 @@ namespace DreamRecorder . FoggyConsole . Controls
 			RenderArea = finalRect ;
 		}
 
-		public override Size MeasureOverride ( Size availableSize )
-		{
-			foreach ( Control control in Items )
-			{
-				control . Measure ( availableSize ) ;
-			}
+        public override Size MeasureOverride(Size availableSize)
+        {
+            foreach (Control control in Items)
+            {
+                control.Measure(availableSize);
+            }
 
-			Rectangle rectangle = Rectangle . Empty ;
+            Rectangle rectangle = Rectangle.Empty;
 
-			foreach ( Control control in Items )
-			{
-				rectangle = rectangle . Union ( new Rectangle ( this [ control ] , control . DesiredSize ) ) ;
-			}
+            foreach (Control control in Items)
+            {
+                rectangle = rectangle.Union(new Rectangle(this[control], control.DesiredSize));
+            }
 
-			int resultWidth = rectangle . Size . Width ;
+            int resultWidth = rectangle.Size.Width;
 
-			if ( ! AutoWidth )
-			{
-				resultWidth = Math . Max ( resultWidth , Width ) ;
-			}
+            if (!AutoWidth)
+            {
+                resultWidth = Math.Max(resultWidth, Width);
+            }
 
-			int resultHeight = rectangle . Size . Height ;
+            int resultHeight = rectangle.Size.Height;
 
-			if ( ! AutoHeight )
-			{
-				resultHeight = Math . Max ( resultHeight , Height ) ;
-			}
+            if (!AutoHeight)
+            {
+                resultHeight = Math.Max(resultHeight, Height);
+            }
 
-			return new Size ( resultWidth , resultHeight ) ;
-		}
+            return new Size(resultWidth, resultHeight);
+        }
 
-	}
+    }
 
 }

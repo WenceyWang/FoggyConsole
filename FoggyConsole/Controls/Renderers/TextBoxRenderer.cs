@@ -54,10 +54,7 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 				y++ ;
 			}
 
-			if ( Control . BoarderStyle != null )
-			{
-				area . DrawBoarder ( Control . BoarderStyle . Value , foregroundColor , backgroundColor ) ;
-			}
+		
 		}
 
 	}

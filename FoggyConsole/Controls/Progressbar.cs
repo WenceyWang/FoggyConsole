@@ -8,26 +8,26 @@ using DreamRecorder . FoggyConsole . Controls . Renderers ;
 namespace DreamRecorder . FoggyConsole . Controls
 {
 
-	public class ProgressCharProvider : IProgressCharProvider
-	{
-
-		public static char [ ] Characters { get ; } = { ' ' , '▏' , '▎' , '▍' , '▌' , '▋' , '▊' , '▉' , '█' } ;
-
-		public char GetChar ( double value )
-		{
-			value = Math . Max ( Math . Min ( value , 1 ) , 0 ) ;
-			return Characters [ ( int ) Math . Round ( value * 7 ) ] ;
-		}
-
-	}
 
 	/// <summary>
 	///     A Control which is able to display the progress of an ongoing task
 	/// </summary>
 	public class ProgressBar : Control
 	{
+        public class ProgressCharProvider : IProgressCharProvider
+        {
 
-		private int _maxValue = 100 ;
+            public static char[] Characters { get; } = { ' ', '▏', '▎', '▍', '▌', '▋', '▊', '▉', '█' };
+
+            public char GetChar(double value)
+            {
+                value = Math.Max(Math.Min(value, 1), 0);
+                return Characters[(int)Math.Round(value * 7)];
+            }
+
+        }
+
+        private int _maxValue = 100 ;
 
 		private int _minValue ;
 

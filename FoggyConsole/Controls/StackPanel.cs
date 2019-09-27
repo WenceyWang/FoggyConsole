@@ -91,7 +91,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			RenderArea = finalRect ;
 		}
 
-		public override void Measure ( Size availableSize )
+		public override Size MeasureOverride ( Size availableSize )
 		{
 			int heightSum = 0 ;
 			int maxWidth  = 0 ;
@@ -113,7 +113,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 				heightSum = Math . Max ( Height , heightSum ) ;
 			}
 
-			DesiredSize = new Size ( maxWidth , heightSum ) ;
+			return new Size ( maxWidth , heightSum ) ;
 		}
 
 	}
