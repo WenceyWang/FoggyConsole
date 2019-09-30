@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>DreamRecorder.FoggyConsole.XtermConsole</AssemblyName>
     <RootNamespace>DreamRecorder.FoggyConsole.XtermConsole</RootNamespace>
     <PackageId>FoggyConsole.XtermConsole</PackageId>

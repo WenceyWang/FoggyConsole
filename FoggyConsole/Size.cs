@@ -26,6 +26,7 @@ namespace DreamRecorder . FoggyConsole
 			Height = height ;
 		}
 
+        public int Area => Width * Height;
 		public static Size operator + ( Size size1 , Size size2 ) => Add ( size1 , size2 ) ;
 
 		public static Size operator - ( Size size1 , Size size2 ) => Subtract ( size1 , size2 ) ;

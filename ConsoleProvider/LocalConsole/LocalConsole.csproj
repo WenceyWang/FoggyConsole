@@ -1,6 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" >
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup Label="Globals" >
+  <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>DreamRecorder.FoggyConsole.LocalConsole</AssemblyName>
     <RootNamespace>DreamRecorder.FoggyConsole.LocalConsole</RootNamespace>
     <PackageId>FoggyConsole.LocalConsole</PackageId>
