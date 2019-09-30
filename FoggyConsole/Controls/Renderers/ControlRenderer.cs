@@ -50,9 +50,9 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 		public virtual void Draw ( Application application , ConsoleArea area )
 		{
-			area.Fill(Control.ActualBackgroundColor);
+			area . Fill ( Control . ActualBackgroundColor ) ;
 
-            if ( Control . BoarderStyle is LineStyle boarderStyle )
+			if ( Control . BoarderStyle is LineStyle boarderStyle )
 			{
 				area . DrawBoarder (
 									boarderStyle ,

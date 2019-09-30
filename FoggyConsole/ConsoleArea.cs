@@ -15,7 +15,7 @@ namespace DreamRecorder . FoggyConsole
 
 		public Rectangle Position { get ; }
 
-        public Size ContentSize { get; }
+		public Size ContentSize { get ; }
 
 		public ConsoleChar this [ int x , int y ]
 		{
@@ -33,7 +33,7 @@ namespace DreamRecorder . FoggyConsole
 					return default ;
 				}
 
-				return Content.Span[ Position . X + x +(( Position . Y + y )*ContentSize.Width)] ;
+				return Content . Span [ Position . X + x + ( ( Position . Y + y ) * ContentSize . Width ) ] ;
 			}
 			set
 			{
@@ -49,11 +49,11 @@ namespace DreamRecorder . FoggyConsole
 					return ;
 				}
 
-				Content.Span [Position.X + x + ((Position.Y + y) * ContentSize.Width)] = value ;
+				Content . Span [ Position . X + x + ( ( Position . Y + y ) * ContentSize . Width ) ] = value ;
 			}
 		}
 
-		public Memory<ConsoleChar> Content { get ; }
+		public Memory <ConsoleChar> Content { get ; }
 
 		private ConsoleArea ( [NotNull] ConsoleArea area , Rectangle subRectangle )
 		{
@@ -68,9 +68,9 @@ namespace DreamRecorder . FoggyConsole
 			}
 
 
-			Content  = area . Content ;
-            ContentSize = area.ContentSize;
-			Position = subRectangle ;
+			Content     = area . Content ;
+			ContentSize = area . ContentSize ;
+			Position    = subRectangle ;
 		}
 
 		public ConsoleArea ( Size size , ConsoleColor color ) : this (
@@ -82,12 +82,12 @@ namespace DreamRecorder . FoggyConsole
 		}
 
 		public ConsoleArea ( Size size , ConsoleChar character )
-        {
-            ContentSize = size;
-			Position = new Rectangle ( size ) ;
-			Content  = new Memory<ConsoleChar>(new ConsoleChar[Size.Area]);
-            Content.Span.Fill(character);
-        }
+		{
+			ContentSize = size ;
+			Position    = new Rectangle ( size ) ;
+			Content     = new Memory <ConsoleChar> ( new ConsoleChar[ Size . Area ] ) ;
+			Content . Span . Fill ( character ) ;
+		}
 
 		public ConsoleArea ( Size size ) : this ( size , ' ' ) { }
 
@@ -97,23 +97,25 @@ namespace DreamRecorder . FoggyConsole
 
 		public void Fill ( ConsoleChar character )
 		{
+			Rectangle contentArea = new Rectangle ( new Point ( ) , Size ) ;
 
-            Rectangle contentArea = new Rectangle(new Point(), Size);
+			bool changeLine = Position . Right != contentArea . Right || Position . Left != contentArea . Left ;
 
-            bool changeLine = Position.Right != contentArea.Right || Position.Left != contentArea.Left;
-
-            if (changeLine)
-            {
-                for (int y = contentArea.Top; y <= contentArea.Bottom; y++)
-                {
-                    Content.Span.Slice(Position.X  + ((Position.Y + y) * ContentSize.Width), Position.Width).Fill(character);
-                }
-            }
-            else
-            {
-                Content.Span.Slice(Position.X + ((Position.Y) * ContentSize.Width), Position.Area).Fill(character);
-            }
-
+			if ( changeLine )
+			{
+				for ( int y = contentArea . Top ; y <= contentArea . Bottom ; y++ )
+				{
+					Content . Span . Slice (
+											Position . X + ( ( Position . Y + y ) * ContentSize . Width ) ,
+											Position . Width ) .
+							  Fill ( character ) ;
+				}
+			}
+			else
+			{
+				Content . Span . Slice ( Position . X + ( ( Position . Y ) * ContentSize . Width ) , Position . Area ) .
+						  Fill ( character ) ;
+			}
 		}
 
 	}

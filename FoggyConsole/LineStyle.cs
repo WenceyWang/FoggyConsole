@@ -79,7 +79,7 @@ namespace DreamRecorder . FoggyConsole
 			{
 				if ( value is null )
 				{
-                    return null;
+					return null ;
 				}
 
 				if ( value is string lineStyleData )

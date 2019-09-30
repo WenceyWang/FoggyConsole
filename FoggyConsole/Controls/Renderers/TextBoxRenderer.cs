@@ -17,7 +17,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 		/// </summary>
 		public override void DrawOverride ( Application application , ConsoleArea area )
 		{
-			
 			ConsoleColor foregroundColor = Control . ActualForegroundColor ;
 			ConsoleColor backgroundColor = Control . ActualBackgroundColor ;
 
@@ -53,8 +52,6 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 				y++ ;
 			}
-
-		
 		}
 
 	}

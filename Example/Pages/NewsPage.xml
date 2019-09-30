@@ -2,7 +2,7 @@
 
 <StackPanel>
   <FIGletLabel Text="News" HorizontalAlign="Center" />
-  <TextBox Name="Text" MultiLine="true" BoarderStyle="SingleLine" AllowSingleLine="false"></TextBox>
+  <TextBox Name="Text" MultiLine="true" BoarderStyle="SingleLine" AllowSingleLine="false" ></TextBox>
   <ProgressBar Name="Bar" MaxValue="10000" Value="3400" BoarderStyle="null" ></ProgressBar>
 
 </StackPanel>
