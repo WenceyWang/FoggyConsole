@@ -38,7 +38,6 @@ namespace DreamRecorder . FoggyConsole . Controls
 			=> Lines . Take ( CursorPosition . Y ) . Sum ( line => line . Length + Environment . NewLine . Length )
 			   + CursorPosition . X ;
 
-
 		public bool MultiLine { get ; set ; }
 
 		public override bool CanFocusedOn => Enabled ;
@@ -59,7 +58,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		///     which should be set already has an other
 		///     Control assigned
 		/// </exception>
-		public TextBox ( TextBoxRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) )
+		public TextBox ( IControlRenderer renderer = null ) : base ( renderer ?? new TextBoxRenderer ( ) )
 		{
 			UpdateLines ( ) ;
 			TextChanged += TextBox_TextChanged ;
@@ -82,6 +81,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 		}
 
 		/// <summary>
+        ///
 		/// </summary>
 		public event EventHandler <KeyPressedEventArgs> EnterPressed ;
 

@@ -390,13 +390,27 @@ namespace DreamRecorder . FoggyConsole . Controls
 		public virtual void OnKeyPressed ( KeyPressedEventArgs args ) { }
 
 		public virtual void Measure ( Size availableSize )
-		{
-			Size sizeWithoutBoarder = MeasureOverride ( availableSize ) ;
+		{			
+            int width  = availableSize. Width ;
+			int height = availableSize. Height ;
 
-			int width  = sizeWithoutBoarder . Width ;
-			int height = sizeWithoutBoarder . Height ;
+            if (BoarderStyle != null)
+            {
+                if (height != 1
+                    || !AllowSingleLine)
+                {
+                    height -= 2;
+                }
 
-			if ( BoarderStyle != null )
+                width -= 2;
+            }
+
+            Size sizeWithoutBoarder = MeasureOverride ( new Size(width,height)) ;
+
+            width = sizeWithoutBoarder.Width;
+            height = sizeWithoutBoarder.Height;
+
+            if ( BoarderStyle != null )
 			{
 				if ( height != 1
 					 || ! AllowSingleLine )
@@ -412,10 +426,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public virtual Size MeasureOverride ( Size availableSize )
 		{
-			int width ;
+            Size autoDesiredSize = AutoDesiredSize;
+
+            int width ;
 			if ( AutoWidth )
 			{
-				width = AutoDesiredSize . Width ;
+				width = autoDesiredSize . Width ;
 			}
 			else
 			{
@@ -425,7 +441,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 			int height ;
 			if ( AutoHeight )
 			{
-				height = AutoDesiredSize . Height ;
+				height = autoDesiredSize . Height ;
 			}
 			else
 			{

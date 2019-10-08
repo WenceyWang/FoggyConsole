@@ -11,13 +11,17 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 		public override void DrawOverride ( Application application , ConsoleArea area )
 		{
-			area . Fill ( Control . ActualBackgroundColor ) ;
 
-			for ( int y = 0 ; y < Control . ActualHeight && y * Control . ActualHeight < Control . Text . Length ; y++ )
+            if (string.IsNullOrEmpty( Control.Text))
+            {
+                
+            }
+
+			for ( int y = 0 ; y < Control . ContentHeight && y * Control . ContentHeight < Control . Text . Length ; y++ )
 			{
-				for ( int x = 0 ; x < Control . ActualWidth ; x++ )
+				for ( int x = 0 ; x < Control . ContentWidth ; x++ )
 				{
-					if ( x + y * Control . ActualHeight < Control . Text . Length )
+					if ( x + y * Control . ContentHeight < Control . Text . Length )
 					{
 						area [ x , y ] = new ConsoleChar (
 														  Control . PasswordChar ,

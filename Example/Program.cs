@@ -42,19 +42,19 @@ namespace DreamRecorder . FoggyConsole . Example
 
 		public override void Start ( string [ ] args )
 		{
-			////SerialPort port = new SerialPort("COM7");
+			//SerialPort port = new SerialPort("COM7");
 
-			//////port.Open();
+			//port.Open();
 
-			TcpListener listener = new TcpListener ( IPAddress . Any , Setting . PortNumber ) ;
+			//TcpListener listener = new TcpListener ( IPAddress . Any , Setting . PortNumber ) ;
 
-			listener . Start ( ) ;
+			//listener . Start ( ) ;
 
-			TcpClient connection = listener . AcceptTcpClient ( ) ;
+			//TcpClient connection = listener . AcceptTcpClient ( ) ;
 
-			XtermConsole . XtermConsole console = new XtermConsole . XtermConsole ( connection . GetStream ( ) ) ;
+			//XtermConsole . XtermConsole console = new XtermConsole . XtermConsole ( connection . GetStream ( ) ) ;
 
-			Application = new Application ( console , PrepareViewRoot ) { Name = Name , IsDebug = IsDebug } ;
+			Application = new Application ( LocalConsole.LocalConsole.Current , PrepareViewRoot ) { Name = Name , IsDebug = IsDebug } ;
 
 			Application . Start ( ) ;
 		}
@@ -63,8 +63,7 @@ namespace DreamRecorder . FoggyConsole . Example
 		{
 			Console . WriteLine ( $"{Name} Copyright (C) 2019 - {DateTime . Now . Year} Wencey Wang." ) ;
 			Console . WriteLine ( @"This program comes with ABSOLUTELY NO WARRANTY." ) ;
-			Console . WriteLine (
-								 @"This is free software, and you are welcome to redistribute it under certain conditions; read License.txt for details." ) ;
+			Console . WriteLine ( @"This is free software, and you are welcome to redistribute it under certain conditions; read License.txt for details." ) ;
 		}
 
 		public override void ConfigureLogger ( ILoggingBuilder builder )

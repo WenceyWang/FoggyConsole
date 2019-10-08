@@ -234,16 +234,21 @@ namespace DreamRecorder . FoggyConsole . Controls
 				Columns . Add ( new Column { Width = - 1 } ) ;
 			}
 
-			#region Measure Columns
+            #region Measure Columns
 
-			List <Column> staticSizeColumns = StaticSizeColumns ;
+            List<Column> staticSizeColumns = StaticSizeColumns;
+
+            int staticWidth = 0;
 
 			foreach ( Column column in staticSizeColumns )
 			{
 				column . DesiredWidth = column . Width ;
+                staticWidth += column.DesiredWidth;
 			}
 
-			foreach ( Column column in AutoSizeColumns )
+            int autoWidth = 0;
+
+            foreach ( Column column in AutoSizeColumns )
 			{
 				IReadOnlyCollection <Control> controls = GetInsideControls ( column ) ;
 
@@ -260,11 +265,14 @@ namespace DreamRecorder . FoggyConsole . Controls
 				}
 
 				column . DesiredWidth = resultWidth ;
+                autoWidth += column.DesiredWidth;
 			}
 
 			List <Column> starSizeColumns = StarSizeColumns ;
 
-			int minStarWidth = starSizeColumns . Min ( col => col . Star ) ;
+            int starWidthSum = starSizeColumns.Sum((col) => col.Star);
+
+            int minStarWidth = starSizeColumns . Min ( col => col . Star ) ;
 
 			List <Column> minStarWidthColumn =
 				starSizeColumns . Where ( col => col . Star == minStarWidth ) . ToList ( ) ;
@@ -290,11 +298,12 @@ namespace DreamRecorder . FoggyConsole . Controls
 				maxMinStarWidth = Math . Max ( resultWidth , maxMinStarWidth ) ;
 			}
 
-			double starWidth = maxMinStarWidth / ( double ) minStarWidth ;
+
+			double singleStarWidth =Math.Min( maxMinStarWidth / ( double ) minStarWidth,(availableSize.Width-staticWidth-autoWidth)/(double) starWidthSum) ;
 
 			foreach ( Column column in starSizeColumns )
 			{
-				column . DesiredWidth = ( int ) ( starWidth * column . Star ) ;
+				column . DesiredWidth = ( int ) ( singleStarWidth * column . Star ) ;
 			}
 
 			#endregion
@@ -303,10 +312,15 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 			List <Row> staticSizeRows = StaticSizeRows ;
 
+            int staticHeight = 0;
+
 			foreach ( Row row in staticSizeRows )
 			{
 				row . DesiredHeight = row . Height ;
-			}
+                staticHeight += row.DesiredHeight;
+            }
+
+            int autoHeight = 0;
 
 			foreach ( Row row in AutoSizeRows )
 			{
@@ -325,11 +339,14 @@ namespace DreamRecorder . FoggyConsole . Controls
 				}
 
 				row . DesiredHeight = resultHeight ;
+                autoHeight += row.DesiredHeight;
 			}
 
 			List <Row> starSizeRows = StarSizeRows ;
 
-			int minStarHeight = starSizeRows . Min ( row => row . Star ) ;
+            int starHeightSum = starSizeRows.Sum((col) => col.Star);
+
+            int minStarHeight = starSizeRows . Min ( row => row . Star ) ;
 
 			List <Row> minStarHeightRow = starSizeRows . Where ( row => row . Star == minStarHeight ) . ToList ( ) ;
 
@@ -354,11 +371,11 @@ namespace DreamRecorder . FoggyConsole . Controls
 				maxMinStarHeight = Math . Max ( resultHeight , maxMinStarHeight ) ;
 			}
 
-			double starHeight = maxMinStarHeight / ( double ) minStarHeight ;
+            double singleStarHeight = Math.Min(maxMinStarHeight / (double)minStarHeight, (availableSize.Height - staticHeight - autoHeight) / (double)starHeightSum);
 
-			foreach ( Row row in starSizeRows )
+            foreach ( Row row in starSizeRows )
 			{
-				row . DesiredHeight = ( int ) ( starHeight * row . Star ) ;
+				row . DesiredHeight = ( int ) ( singleStarHeight * row . Star ) ;
 			}
 
 			#endregion

@@ -13,7 +13,7 @@ namespace DreamRecorder . FoggyConsole . Controls
 	///     <code>ContainerBase</code>
 	///     which has a border.
 	/// </summary>
-	public class GroupBox : ItemsContainer
+	public class GroupBox : StackPanel
 	{
 
 		private string _header = string . Empty ;
@@ -43,25 +43,27 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override bool CanFocusedOn => false ;
 
+        public override void ArrangeOverride(Rectangle finalRect) => base.ArrangeOverride(finalRect);
 
-		/// <summary>
-		///     Creates a new
-		///     <code>GroupBox</code>
-		/// </summary>
-		/// <param name="renderer">
-		///     The
-		///     <code>ControlRenderer</code>
-		///     to use. If null a new instance of
-		///     <code>GroupBoxRenderer</code>
-		///     will be used.
-		/// </param>
-		/// <exception cref="ArgumentException">
-		///     Thrown if the
-		///     <code>ControlRenderer</code>
-		///     which should be set already has an other
-		///     Control assigned
-		/// </exception>
-		public GroupBox ( GroupBoxRenderer renderer = null ) : base ( renderer ?? new GroupBoxRenderer ( ) ) { }
+
+        /// <summary>
+        ///     Creates a new
+        ///     <code>GroupBox</code>
+        /// </summary>
+        /// <param name="renderer">
+        ///     The
+        ///     <code>ControlRenderer</code>
+        ///     to use. If null a new instance of
+        ///     <code>GroupBoxRenderer</code>
+        ///     will be used.
+        /// </param>
+        /// <exception cref="ArgumentException">
+        ///     Thrown if the
+        ///     <code>ControlRenderer</code>
+        ///     which should be set already has an other
+        ///     Control assigned
+        /// </exception>
+        public GroupBox ( IControlRenderer renderer = null ) : base ( renderer ?? new GroupBoxRenderer ( ) ) { }
 
 		public GroupBox ( ) : this ( null ) { }
 

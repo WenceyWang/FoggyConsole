@@ -43,10 +43,10 @@ namespace DreamRecorder . FoggyConsole . Controls . Renderers
 
 					x++ ;
 
-					if ( x >= Control . ActualWidth )
+					if ( x >= Control . ContentWidth )
 					{
-						x %= Control . ActualWidth ;
-						y++ ;
+						x %= Control .ContentWidth;
+                        y++ ;
 					}
 				}
 

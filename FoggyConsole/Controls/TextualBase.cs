@@ -50,7 +50,43 @@ namespace DreamRecorder . FoggyConsole . Controls
 
 		public override Size AutoDesiredSize => new Size ( Lines . Max ( str => str . Length ) , Lines . Count ) ;
 
-		protected TextualBase ( IControlRenderer renderer ) : base ( renderer )
+        public override Size MeasureOverride(Size availableSize)
+        {
+            Size autoDesiredSize = AutoDesiredSize;
+
+            if (availableSize.Width>=autoDesiredSize.Width)
+            {
+                return base.MeasureOverride(availableSize);
+            }
+            else
+            {
+                int requireHeight = Lines.Sum((line) => (line.Length / availableSize.Width) + 1);
+
+                int width;
+                if (AutoWidth)
+                {
+                    width = autoDesiredSize.Width;
+                }
+                else
+                {
+                    width = Size.Width;
+                }
+
+                int height;
+                if (AutoHeight)
+                {
+                    height = Math.Max(requireHeight,autoDesiredSize.Height);
+                }
+                else
+                {
+                    height = Size.Height;
+                }
+
+                return new Size(width, height);
+            }
+        }
+
+        protected TextualBase ( IControlRenderer renderer ) : base ( renderer )
 			=> TextChanged += TextualBase_TextChanged ;
 
 		public void UpdateLines ( )
